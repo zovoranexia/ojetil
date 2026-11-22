@@ -10,14 +10,14 @@ import type { ContentStatus } from "@prisma/client";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
 import { applyFieldErrors, FormFeedback, type Feedback } from "@/components/admin/form-feedback";
 import { TranslationTabs } from "@/components/admin/translation-tabs";
-import { Field, fieldAria } from "@/components/forms/field";
+import { Field, fieldAria, selectClassName } from "@/components/forms/field";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { ActionResult } from "@/lib/actions";
 import { slugify } from "@/lib/slug";
 import { deleteDocument, publishDocument, unpublishDocument } from "@/modules/documents/admin-actions";
-import { DOCUMENT_TRANSLATION_FIELDS, documentDownloadPath, documentFormSchema, formatFileSize, type DocumentFormValues } from "@/modules/documents/schema";
+import { DOCUMENT_CATEGORIES, DOCUMENT_TRANSLATION_FIELDS, documentDownloadPath, documentFormSchema, formatFileSize, type DocumentFormValues } from "@/modules/documents/schema";
 
 interface Existing {
   id: string;
@@ -45,6 +45,7 @@ export function DocumentEditor({
   const tv = useTranslations("admin.documents.validation");
   const tc = useTranslations("admin.common");
   const tStatus = useTranslations("admin.status.content");
+  const tCat = useTranslations("admin.documents.categories");
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [file, setFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | undefined>();
@@ -181,6 +182,15 @@ export function DocumentEditor({
                   <span className="sr-only">{t("generateSlugSr")}</span>
                 </button>
               </div>
+            </Field>
+            <Field id="category" label={t("categoryLabel")} hint={t("categoryHint")}>
+              <select className={selectClassName} {...fieldAria("category", { hint: true })} {...register("category")}>
+                {DOCUMENT_CATEGORIES.map((c) => (
+                  <option key={c} value={c}>
+                    {tCat(c)}
+                  </option>
+                ))}
+              </select>
             </Field>
             {!readOnly ? (
               <Button type="submit" className="w-full" aria-busy={isSubmitting}>

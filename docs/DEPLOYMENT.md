@@ -218,7 +218,8 @@ dan jangan pernah mengubah kuncinya sembarangan.
 ```bash
 DB_PASS='isi-password-database-dari-langkah-4'
 sudo -u ojetil tee /srv/ojetil/shared/.env > /dev/null <<EOF
-# URL publik situs (tanpa garis miring di akhir)
+# URL publik situs (tanpa garis miring di akhir). Dipakai juga untuk sitemap.xml,
+# robots.txt dan data terstruktur Google — wajib domain asli, bukan localhost.
 APP_URL="https://ojetil.tl"
 
 DATABASE_URL="postgresql://ojetil:${DB_PASS}@localhost:5432/ojetil?schema=public"

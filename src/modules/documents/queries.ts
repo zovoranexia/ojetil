@@ -1,5 +1,5 @@
 import "server-only";
-import type { ContentStatus, Prisma } from "@prisma/client";
+import type { ContentStatus, DocumentCategory, Locale, Prisma } from "@prisma/client";
 import type { AppLocale } from "@/config/locales";
 import { db } from "@/lib/db";
 import { fromTranslationRows } from "@/modules/content/admin-schema";
@@ -36,6 +36,7 @@ export async function listDocumentsAdmin(params: { q?: string; status?: ContentS
       status: true,
       fileName: true,
       fileSize: true,
+      category: true,
       updatedAt: true,
       createdBy: { select: { name: true } },
       translations: { select: { locale: true, title: true } },
@@ -60,7 +61,7 @@ export async function getDocumentForEdit(id: string) {
     include: { translations: true, newsArticles: { select: { id: true, slug: true }, take: 10 } },
   });
   if (!d) return null;
-  const values: DocumentFormValues = { slug: d.slug, translations: fromTranslationRows(d.translations, DOCUMENT_TRANSLATION_FIELDS) };
+  const values: DocumentFormValues = { slug: d.slug, category: d.category, translations: fromTranslationRows(d.translations, DOCUMENT_TRANSLATION_FIELDS) };
   return {
     id: d.id,
     status: d.status,
@@ -85,6 +86,69 @@ export async function publishedDocumentOptions(): Promise<Array<{ id: string; ti
 }
 
 /* ── Public ──────────────────────────────────────────────────────────────── */
+
+export interface PublicDocument {
+  slug: string;
+  category: DocumentCategory;
+  title: string;
+  description: string | null;
+  fileSize: number;
+  publishedAt: Date;
+  servedLocale: Locale;
+}
+
+const PUBLIC_PAGE_SIZE = 20;
+
+/** Year bounds in Díli time (UTC+9, no DST): 00:00 on 1 January. */
+const diliYearStart = (year: number) => new Date(Date.UTC(year, 0, 1, -9));
+
+/** Public document library (/dokumentu): published only, newest first. */
+export async function listPublishedDocuments(params: { locale: AppLocale; query?: string; category?: DocumentCategory; year?: number; page: number }) {
+  const where: Prisma.DocumentWhereInput = {
+    status: "PUBLISHED",
+    publishedAt: params.year ? { gte: diliYearStart(params.year), lt: diliYearStart(params.year + 1) } : { not: null },
+    ...(params.category ? { category: params.category } : {}),
+    ...(params.query
+      ? {
+          translations: {
+            some: { OR: [{ title: { contains: params.query, mode: "insensitive" } }, { description: { contains: params.query, mode: "insensitive" } }] },
+          },
+        }
+      : {}),
+  };
+  const total = await db.document.count({ where });
+  const pageCount = Math.max(Math.ceil(total / PUBLIC_PAGE_SIZE), 1);
+  const page = Math.min(params.page, pageCount);
+  const rows = await db.document.findMany({
+    where,
+    orderBy: [{ publishedAt: "desc" }, { id: "desc" }],
+    skip: (page - 1) * PUBLIC_PAGE_SIZE,
+    take: PUBLIC_PAGE_SIZE,
+    select: {
+      slug: true,
+      category: true,
+      fileSize: true,
+      publishedAt: true,
+      translations: { where: { locale: { in: translationLocales(params.locale) } }, select: { locale: true, title: true, description: true } },
+    },
+  });
+  const items: PublicDocument[] = [];
+  for (const r of rows) {
+    const tr = pickTranslation(r.translations, params.locale);
+    if (!tr || !r.publishedAt) continue;
+    items.push({ slug: r.slug, category: r.category, fileSize: r.fileSize, publishedAt: r.publishedAt, title: tr.title, description: tr.description, servedLocale: tr.locale });
+  }
+  return { items, total, page, pageCount };
+}
+
+/** Years (Díli time) that have at least one published document, newest first — for the year filter. */
+export async function publishedDocumentYears(): Promise<number[]> {
+  const rows = await db.$queryRaw<Array<{ year: number }>>`
+    SELECT DISTINCT EXTRACT(YEAR FROM ("publishedAt" AT TIME ZONE 'Asia/Dili'))::int AS year
+    FROM documents WHERE status = 'PUBLISHED' AND "publishedAt" IS NOT NULL
+    ORDER BY year DESC`;
+  return rows.map((r) => r.year);
+}
 
 export async function getPublishedDocumentFile(slug: string) {
   return db.document.findFirst({ where: { slug, status: "PUBLISHED" }, select: { fileKey: true, sha256: true, fileSize: true, updatedAt: true } });

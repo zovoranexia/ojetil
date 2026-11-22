@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import { access, mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
-import type { ContentStatus, PrismaClient } from "@prisma/client";
+import type { ContentStatus, DocumentCategory, PrismaClient } from "@prisma/client";
 import { type L10n, log, translationRows } from "./helpers";
 
 /**
@@ -12,6 +12,7 @@ import { type L10n, log, translationRows } from "./helpers";
 type Doc = {
   slug: string;
   status: ContentStatus;
+  category: DocumentCategory;
   fileName: string;
   pdfLines: string[];
   content: L10n<{ title: string; description: string | null }>;
@@ -21,6 +22,7 @@ export const DOCUMENTS: Doc[] = [
   {
     slug: "estatutu-ojetil",
     status: "PUBLISHED",
+    category: "STATUTE",
     fileName: "Estatutu-OJETIL.pdf",
     pdfLines: ["OJETIL - Estatutu (ezemplu demo)", "", "Kapitulu I - Naran, sede no objetivu", "Artigu 1. Organizacao da Juventude e dos Estudantes de Timor-Leste.", "", "Dokumentu ida ne'e ezemplu ba dezenvolvimentu de'it."],
     content: {
@@ -33,6 +35,7 @@ export const DOCUMENTS: Doc[] = [
   {
     slug: "guia-rejistu-membru-2026",
     status: "PUBLISHED",
+    category: "OTHER",
     fileName: "Guia-rejistu-membru.pdf",
     pdfLines: ["Guia rejistu membru no veteranu 2026 (demo)", "", "1. Prepara Bilhete de Identidade.", "2. Prenche formulariu online iha pasu tolu.", "3. Rai kodigu rejistu atu tuir status."],
     content: {
@@ -45,6 +48,7 @@ export const DOCUMENTS: Doc[] = [
   {
     slug: "relatoriu-atividade-2025",
     status: "DRAFT",
+    category: "REPORT",
     fileName: "Relatoriu-atividade-2025.pdf",
     pdfLines: ["Relatoriu atividade 2025 (rascunho demo)"],
     content: {
@@ -106,7 +110,7 @@ export async function seedDocuments(db: PrismaClient, createdById: string): Prom
       ? null
       : { fileKey: await writePdf(pdf), fileName: d.fileName, fileSize: pdf.length, sha256: createHash("sha256").update(pdf).digest("hex") };
     const translations = translationRows(d.content);
-    const data = { status: d.status, publishedAt: d.status === "PUBLISHED" ? new Date("2026-11-01T00:00:00Z") : null };
+    const data = { status: d.status, category: d.category, publishedAt: d.status === "PUBLISHED" ? new Date("2026-11-01T00:00:00Z") : null };
     const saved = existing
       ? await db.document.update({ where: { id: existing.id }, data: { ...data, ...(file ?? {}), translations: { deleteMany: {}, create: translations } }, select: { id: true } })
       : await db.document.create({

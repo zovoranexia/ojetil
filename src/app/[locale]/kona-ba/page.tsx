@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Clock, ExternalLink, Mail, MapPin, Phone } from "lucide-react";
+import { Clock, ExternalLink, Mail, MapPin, MessageSquare, Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
 import { RichContent } from "@/components/content/rich-content";
@@ -8,7 +8,9 @@ import { ContentImage } from "@/components/public/content-image";
 import { PageHeader, SectionHeading } from "@/components/public/page-header";
 import { Badge } from "@/components/ui/badge";
 import { municipalityLabel } from "@/config/municipalities";
+import { CONTACT_PATH } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
+import { Link } from "@/i18n/navigation";
 import { localizedAlternates } from "@/lib/seo";
 import { getLeadership, getProfileSections, type LeaderView } from "@/modules/content/queries";
 
@@ -210,6 +212,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 <span className="text-lg tabular-nums">{contact.phone}</span>
               </span>
             </a>
+            <Link
+              href={CONTACT_PATH}
+              className="flex items-center gap-4 rounded-card border border-ink bg-ink p-6 text-paper hover:bg-ink/90"
+            >
+              <MessageSquare aria-hidden="true" className="size-5 shrink-0 text-gold-accent" />
+              <span>
+                <span className="block text-sm font-medium text-paper/70">{t("contact.form")}</span>
+                <span className="text-lg font-semibold">{t("contact.formCta")}</span>
+              </span>
+            </Link>
           </div>
         </div>
       </section>

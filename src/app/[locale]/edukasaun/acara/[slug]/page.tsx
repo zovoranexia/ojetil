@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
 import { RichContent } from "@/components/content/rich-content";
+import { JsonLd, organizationLd } from "@/components/seo/json-ld";
 import { CapacityMeter } from "@/components/public/capacity-meter";
 import { ContentImage } from "@/components/public/content-image";
 import { Badge } from "@/components/ui/badge";
@@ -11,7 +12,7 @@ import { municipalityLabel } from "@/config/municipalities";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import { formatDate, formatDateTimeRange, formatTime, isoDate } from "@/lib/format";
-import { localizedAlternates } from "@/lib/seo";
+import { absoluteUrl, localizedAlternates } from "@/lib/seo";
 import { getPublicEvent } from "@/modules/events/queries";
 import { EventRegistrationForm } from "./registration-form";
 
@@ -33,9 +34,32 @@ export default async function EventDetailPage({ params }: { params: Params }) {
   const [t, tr, event] = await Promise.all([getTranslations("events"), getTranslations("eventRegistration"), getPublicEvent(slug, locale)]);
   if (!event) notFound();
   const { availability } = event;
+  const pageUrl = absoluteUrl(`${locale === "tet" ? "" : `/${locale}`}/edukasaun/acara/${event.slug}`);
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@type": "Event",
+          name: event.title,
+          description: event.summary,
+          url: pageUrl,
+          startDate: event.startAt.toISOString(),
+          endDate: event.endAt.toISOString(),
+          eventStatus: availability.state === "cancelled" ? "https://schema.org/EventCancelled" : "https://schema.org/EventScheduled",
+          eventAttendanceMode: event.isOnline ? "https://schema.org/OnlineEventAttendanceMode" : "https://schema.org/OfflineEventAttendanceMode",
+          location: event.isOnline
+            ? { "@type": "VirtualLocation", url: pageUrl }
+            : {
+                "@type": "Place",
+                name: event.location,
+                address: { "@type": "PostalAddress", addressLocality: event.municipality ? municipalityLabel(event.municipality) : event.location, addressCountry: "TL" },
+              },
+          ...(event.coverImageUrl ? { image: [absoluteUrl(event.coverImageUrl)] } : {}),
+          isAccessibleForFree: true,
+          organizer: organizationLd(),
+        }}
+      />
       <header className="border-b border-border-subtle">
         <div className="mx-auto max-w-6xl px-4 pb-10 pt-8 md:px-8 md:pt-12">
           <Link href="/edukasaun/acara" className="inline-flex min-h-tap items-center gap-1.5 text-sm font-semibold text-ink-secondary hover:text-ojetil-red">

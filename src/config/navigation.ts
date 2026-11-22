@@ -5,10 +5,12 @@ export const PRIMARY_NAV = [
   { href: "/istoria", key: "history" },
   { href: "/notisia", key: "news" },
   { href: "/edukasaun/acara", key: "events" },
+  { href: "/dokumentu", key: "documents" },
 ] as const;
 
 export const REGISTER_PATH = "/komunidade/registrasi";
 export const CHECK_STATUS_PATH = "/komunidade/cek-status";
+export const CONTACT_PATH = "/kontaktu";
 
 export type NavKey = (typeof PRIMARY_NAV)[number]["key"];
 

@@ -35,7 +35,7 @@ export default async function DocumentEditPage({ params, searchParams }: { param
       />
       {!canWrite ? <ReadOnlyNotice>{t("readOnly")}</ReadOnlyNotice> : null}
       <DocumentEditor
-        initial={doc?.values ?? { slug: "", translations: emptyTranslations(DOCUMENT_TRANSLATION_FIELDS) }}
+        initial={doc?.values ?? { slug: "", category: "OTHER", translations: emptyTranslations(DOCUMENT_TRANSLATION_FIELDS) }}
         existing={doc ? { id: doc.id, status: doc.status, fileName: doc.fileName, fileSize: doc.fileSize, articleCount: doc.articles.length } : null}
         readOnly={!canWrite}
         canPublish={satisfies(user.role, "content:publish")}

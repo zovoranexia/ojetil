@@ -41,7 +41,8 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "language": "Language",
-    "homeLink": "OJETIL — home page"
+    "homeLink": "OJETIL — home page",
+    "documents": "Documents"
   },
   "lowData": {
     "label": "Low-Data Mode",
@@ -58,7 +59,8 @@
     "headquarters": "Headquarters",
     "rights": "© {year} OJETIL. All rights reserved.",
     "staff": "Staff sign-in",
-    "timezone": "All times are Timor-Leste time ({zone})."
+    "timezone": "All times are Timor-Leste time ({zone}).",
+    "sendMessage": "Send a message"
   },
   "home": {
     "metaTitle": "Home",
@@ -118,7 +120,9 @@
       "email": "Email",
       "phone": "Phone",
       "map": "Open in map",
-      "hours": "Monday to Friday, 08:30–17:00"
+      "hours": "Monday to Friday, 08:30–17:00",
+      "form": "Contact form",
+      "formCta": "Message the Secretariat"
     }
   },
   "history": {
@@ -437,7 +441,8 @@
       "leadership": "Leadership",
       "profilePages": "Profile pages",
       "users": "Users & roles",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "inbox": "Inbox"
     },
     "topbar": {
       "scope": "Access",
@@ -683,7 +688,7 @@
       "metaTitle": "Audit log",
       "title": "Audit log",
       "description": "Append-only record of sign-ins, personal-data access, verification decisions, exports, publishing and account changes. Entries cannot be edited or deleted.",
-      "roleRestricted": "Your role ({role}) sees verification entries only.",
+      "roleRestricted": "Your role ({role}) sees verification and inbox entries only.",
       "filters": {
         "category": "Category",
         "allCategories": "All categories",
@@ -700,7 +705,8 @@
         "CONTENT": "Content",
         "EVENTS": "Events",
         "USERS": "Users",
-        "SYSTEM": "System"
+        "SYSTEM": "System",
+        "INBOX": "Inbox"
       },
       "table": {
         "caption": "Audit log entries",
@@ -743,7 +749,9 @@
         "USER_PASSWORD_CHANGED": "Changed own password",
         "SEED_EXECUTED": "Database seeded",
         "MEDIA_UPDATED": "Edited media",
-        "MEDIA_DELETED": "Deleted media"
+        "MEDIA_DELETED": "Deleted media",
+        "MESSAGE_STATUS_CHANGED": "Message status changed",
+        "MESSAGE_DELETED": "Message deleted"
       }
     },
     "designSystem": {
@@ -1105,7 +1113,9 @@
         "publicLink": "Public download link",
         "deleteTitle": "Delete this document?",
         "deleteAttached": "{count, plural, one {It is attached to # article; it will lose the attachment.} other {It is attached to # articles; they will lose the attachment.}} This cannot be undone and is recorded in the audit log.",
-        "deleteUnattached": "The PDF file is removed permanently. This cannot be undone and is recorded in the audit log."
+        "deleteUnattached": "The PDF file is removed permanently. This cannot be undone and is recorded in the audit log.",
+        "categoryLabel": "Category",
+        "categoryHint": "Group in the public library /dokumentu."
       },
       "fields": {
         "title": "Title",
@@ -1121,6 +1131,13 @@
         "crossOrigin": "Cross-origin request rejected.",
         "unreadable": "Upload could not be read. Is the file too large?",
         "malformed": "Malformed request."
+      },
+      "categories": {
+        "STATUTE": "Statutes & regulations",
+        "REPORT": "Reports",
+        "PRESS_RELEASE": "Press releases",
+        "LETTER": "Official letters",
+        "OTHER": "Other"
       }
     },
     "events": {
@@ -1480,6 +1497,110 @@
         "remove": "Remove",
         "hint": "JPEG, PNG or WebP up to {mb} MB. Resized and compressed automatically; hidden in Low-Data Mode."
       }
+    },
+    "inbox": {
+      "metaTitle": "Inbox",
+      "metaTitleOne": "Message",
+      "title": "Messages from the public",
+      "description": "Messages sent through the website contact form. Opening a message marks it as \"Read\".",
+      "statusLabel": "Status",
+      "open": "Active",
+      "search": "Search messages",
+      "searchPlaceholder": "Name, email or text…",
+      "filter": "Search",
+      "empty": "No messages.",
+      "allMessages": "All messages",
+      "receivedAt": "Received {date}",
+      "language": "Language: {language}",
+      "reply": "Reply by email",
+      "archive": "Archive",
+      "unarchive": "Move back to inbox",
+      "markUnread": "Mark as unread",
+      "deleteTitle": "Delete this message?",
+      "deleteDescription": "The message and the sender's details are removed permanently. Use for spam or data-erasure requests.",
+      "notFound": "Message not found.",
+      "topics": {
+        "GENERAL": "General question",
+        "MEMBERSHIP": "Membership & registration",
+        "MEDIA": "Press & media",
+        "PARTNERSHIP": "Partnerships & cooperation",
+        "OTHER": "Something else"
+      },
+      "status": {
+        "NEW": "New",
+        "READ": "Read",
+        "ARCHIVED": "Archived"
+      }
+    }
+  },
+  "documents": {
+    "metaTitle": "Documents",
+    "eyebrow": "Library",
+    "title": "Official documents",
+    "lead": "OJETIL's statutes, reports, press releases and official letters — all free to download.",
+    "searchLabel": "Search documents",
+    "searchPlaceholder": "Search by title…",
+    "searchButton": "Search",
+    "yearLabel": "Year",
+    "allYears": "All years",
+    "categoryLabel": "Category",
+    "allCategories": "All",
+    "results": "{count, plural, =0 {No documents} one {# document} other {# documents}}",
+    "removeFilter": "Remove filter: {label}",
+    "clear": "Clear",
+    "empty": "No documents match your search.",
+    "download": "Download",
+    "availableIn": "Available in {language}",
+    "categories": {
+      "STATUTE": "Statutes & regulations",
+      "REPORT": "Reports",
+      "PRESS_RELEASE": "Press releases",
+      "LETTER": "Official letters",
+      "OTHER": "Other"
+    }
+  },
+  "contact": {
+    "metaTitle": "Contact",
+    "eyebrow": "Contact",
+    "title": "Send us a message",
+    "lead": "A question, a proposal, or want to work together? Write to the OJETIL Secretariat — we reply within 3 working days.",
+    "direct": "Direct contact",
+    "privacy": "Your details are used only to reply to your message. We never share them.",
+    "form": {
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "optional": "optional",
+      "topic": "Topic",
+      "message": "Message",
+      "messageHint": "{count} / {max} characters",
+      "consent": "I agree that OJETIL may use my name and contact details to reply to this message.",
+      "send": "Send message",
+      "sending": "Sending…",
+      "sentTitle": "Thank you! Your message has arrived.",
+      "sentBody": "The Secretariat will reply by email within 3 working days.",
+      "sendAnother": "Send another message",
+      "topics": {
+        "GENERAL": "General question",
+        "MEMBERSHIP": "Membership & registration",
+        "MEDIA": "Press & media",
+        "PARTNERSHIP": "Partnerships & cooperation",
+        "OTHER": "Something else"
+      }
+    },
+    "errors": {
+      "nameMin": "Enter your name (at least 2 characters).",
+      "nameMax": "Name is too long (120 characters max).",
+      "email": "Enter a valid email, e.g. name@email.com.",
+      "phone": "Invalid phone number (e.g. +670 7700 0000).",
+      "topic": "Choose a topic.",
+      "messageMin": "Message is too short (at least 10 characters).",
+      "messageMax": "Message is too long (4000 characters max).",
+      "consent": "Please agree so we can reply.",
+      "generic": "Could not send. Please try again.",
+      "rateLimited": "Too many messages. Please try again in an hour.",
+      "form": "Please fix the highlighted fields.",
+      "network": "Connection problem. Check your internet and try again."
     }
   }
 }

@@ -37,7 +37,7 @@ export async function saveDocument(params: { id?: string; input: Input; file: Fi
         if (stored) replacedKey = previous.fileKey;
         const doc = await tx.document.update({
           where: { id },
-          data: { slug: input.slug, ...(stored ?? {}), translations: { deleteMany: {}, create: translations } },
+          data: { slug: input.slug, category: input.category, ...(stored ?? {}), translations: { deleteMany: {}, create: translations } },
           select: { id: true, status: true },
         });
         await recordAudit(
@@ -45,14 +45,14 @@ export async function saveDocument(params: { id?: string; input: Input; file: Fi
             action: "CONTENT_UPDATED",
             actor: user,
             target: { type: "Document", id },
-            metadata: { slug: input.slug, title: translations[0]!.title, fileReplaced: Boolean(stored), locales: filledLocales(input.translations, DOCUMENT_TRANSLATION_FIELDS) },
+            metadata: { slug: input.slug, category: input.category, title: translations[0]!.title, fileReplaced: Boolean(stored), locales: filledLocales(input.translations, DOCUMENT_TRANSLATION_FIELDS) },
           },
           tx,
         );
         return doc;
       }
       const doc = await tx.document.create({
-        data: { slug: input.slug, ...stored!, createdById: user.id, translations: { create: translations } },
+        data: { slug: input.slug, category: input.category, ...stored!, createdById: user.id, translations: { create: translations } },
         select: { id: true, status: true },
       });
       await recordAudit(

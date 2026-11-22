@@ -11,6 +11,7 @@ export const ADMIN_NAV = [
   { href: "/admin/dokumen", label: "documents", icon: "documents", requires: "content:read" },
   { href: "/admin/media", label: "media", icon: "media", requires: "content:read" },
   { href: "/admin/acara", label: "events", icon: "events", requires: "events:read" },
+  { href: "/admin/pesan", label: "inbox", icon: "inbox", requires: "messages:read" },
   { href: "/admin/linimasa", label: "timeline", icon: "timeline", requires: "content:read" },
   { href: "/admin/pengurus", label: "leadership", icon: "leadership", requires: "content:read" },
   { href: "/admin/profil", label: "profilePages", icon: "profile", requires: "content:read" },

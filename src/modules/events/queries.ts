@@ -123,3 +123,8 @@ export async function getPublicEvent(slug: string, locale: AppLocale) {
     availability: eventAvailability(row, row._count.registrations, now),
   };
 }
+
+/** Public events (published or cancelled) for the sitemap. */
+export async function publicEventsForSitemap(): Promise<Array<{ slug: string; updatedAt: Date }>> {
+  return db.event.findMany({ where: { status: { in: ["PUBLISHED", "CANCELLED"] } }, select: { slug: true, updatedAt: true }, orderBy: { startAt: "desc" }, take: 5000 });
+}

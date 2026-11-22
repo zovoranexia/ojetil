@@ -9,20 +9,21 @@ import { hasPermission } from "@/config/rbac";
 import { adminDateTime } from "@/lib/admin-format";
 import { fromDiliLocalInput } from "@/lib/dates";
 import { requirePageAccess } from "@/lib/security/guards";
-import { AUDIT_ACTION_CATEGORY, listAuditLogs } from "@/modules/audit/service";
+import { AUDIT_ACTION_CATEGORY, SECRETARIAT_AUDIT_CATEGORIES, listAuditLogs } from "@/modules/audit/service";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("admin.audit");
   return { title: t("metaTitle") };
 }
 
-const CATEGORIES = ["AUTH", "VERIFICATION", "CONTENT", "EVENTS", "USERS", "SYSTEM"] as const satisfies readonly AuditCategory[];
+const CATEGORIES = ["AUTH", "VERIFICATION", "CONTENT", "EVENTS", "USERS", "INBOX", "SYSTEM"] as const satisfies readonly AuditCategory[];
 const CATEGORY_TONE: Record<AuditCategory, "info" | "pending" | "verified" | "heritage" | "rejected" | "neutral"> = {
   AUTH: "info",
   VERIFICATION: "pending",
   CONTENT: "verified",
   EVENTS: "heritage",
   USERS: "rejected",
+  INBOX: "info",
   SYSTEM: "neutral",
 };
 
@@ -34,7 +35,7 @@ export default async function AuditLogPage({ searchParams }: { searchParams: SP 
   const seeAll = hasPermission(user.role, "audit:read:all");
   const [sp, t, tAdmin, locale] = await Promise.all([searchParams, getTranslations("admin.audit"), getTranslations("admin"), getLocale()]);
 
-  const allowedCategories = seeAll ? CATEGORIES : (["VERIFICATION"] as const);
+  const allowedCategories = seeAll ? CATEGORIES : SECRETARIAT_AUDIT_CATEGORIES;
   const categoryRaw = one(sp.category);
   const category = (allowedCategories as readonly string[]).includes(categoryRaw ?? "") ? (categoryRaw as AuditCategory) : undefined;
   const allowedActions = (Object.keys(AUDIT_ACTION_CATEGORY) as AuditAction[]).filter((a) => (allowedCategories as readonly string[]).includes(AUDIT_ACTION_CATEGORY[a]));

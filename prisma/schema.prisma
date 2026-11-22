@@ -289,10 +289,20 @@ model NewsArticleTranslation {
 
 /// A PDF stored under DOCUMENT_DIR (outside /public). Only PUBLISHED documents
 /// are downloadable publicly, at /documents/<slug>.pdf.
+/// Public grouping of the document library (/dokumentu).
+enum DocumentCategory {
+  STATUTE
+  REPORT
+  PRESS_RELEASE
+  LETTER
+  OTHER
+}
+
 model Document {
-  id          String        @id @default(cuid())
-  slug        String        @unique
-  status      ContentStatus @default(DRAFT)
+  id          String           @id @default(cuid())
+  slug        String           @unique
+  status      ContentStatus    @default(DRAFT)
+  category    DocumentCategory @default(OTHER)
   /// Storage key relative to DOCUMENT_DIR, e.g. "2026/9f…c1.pdf".
   fileKey     String        @unique
   /// Original file name, kept for the admin list.
@@ -310,6 +320,7 @@ model Document {
   newsArticles NewsArticle[]
 
   @@index([status, updatedAt(sort: Desc)])
+  @@index([status, category, publishedAt(sort: Desc)])
   @@map("documents")
 }
 
@@ -588,6 +599,7 @@ enum AuditCategory {
   EVENTS
   USERS
   SYSTEM
+  INBOX
 }
 
 enum AuditAction {
@@ -627,6 +639,9 @@ enum AuditAction {
   USER_PASSWORD_CHANGED
   // SYSTEM
   SEED_EXECUTED
+  // INBOX (public contact form)
+  MESSAGE_STATUS_CHANGED
+  MESSAGE_DELETED
 }
 
 model AuditLog {
@@ -653,4 +668,31 @@ model AuditLog {
   @@index([targetType, targetId])
   @@index([createdAt(sort: Desc)])
   @@map("audit_logs")
+}
+
+// ─── Contact inbox ─────────────────────────────────────────────────────────
+
+enum ContactMessageStatus {
+  NEW
+  READ
+  ARCHIVED
+}
+
+/// Messages sent through the public contact form (/kontaktu). Readable only
+/// with `messages:read` (Secretariat); every status change is audited.
+model ContactMessage {
+  id        String               @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  /// Site language the sender used (reply in that language).
+  locale    Locale
+  status    ContactMessageStatus @default(NEW)
+  createdAt DateTime             @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime             @updatedAt @db.Timestamptz(3)
+
+  @@index([status, createdAt(sort: Desc)])
+  @@map("contact_messages")
 }
