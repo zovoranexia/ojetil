@@ -617,6 +617,7 @@ Akun staf tidak pernah dihapus, hanya dinonaktifkan.
 | Login admin kembali ke halaman login terus | Situs diakses lewat HTTP atau header proxy hilang | Gunakan HTTPS; pastikan `X-Forwarded-Proto` dan `Host` diteruskan Nginx |
 | Upload foto/gambar/PDF/video gagal `413` | `client_max_body_size` Nginx terlalu kecil | Set `21m` seperti contoh (di atas `MAX_MEDIA_FILE_BYTES`) |
 | Gambar berita `403`/`404` lewat Nginx | Izin folder `public-uploads` | `www-data` perlu baca: lihat bagian 5 (`chmod 711` storage, grup `www-data`) |
+| Gambar/PDF hilang setelah deploy (kartu berita hanya menampilkan judul, `/uploads/...` `404`) | `PUBLIC_UPLOAD_DIR`/`DOCUMENT_DIR` tidak di-set → file tersimpan di dalam folder rilis lama. Log aplikasi menampilkan `[storage] ⚠ … is relative` | Set path absolut di `.env` (bagian 7), lalu salin file dari rilis lama: `sudo rsync -a /srv/ojetil/releases/*/storage/public-uploads/ /srv/ojetil/shared/storage/public-uploads/` (dan `documents/`), restart |
 | Semua pengunjung terkena rate limit bersamaan | IP klien terbaca sebagai IP proxy | Periksa `TRUSTED_PROXY_HOPS` sesuai jumlah proxy di depan aplikasi |
 | Build gagal di `next/font` | Gangguan unduhan Google Fonts | Ulangi `npm run build`; pastikan akses keluar ke `fonts.googleapis.com` |
 | Foto anggota tidak tampil di backoffice (404) | File hilang dari `uploads` atau kunci PII berubah | Pulihkan folder uploads dari backup; gunakan `.env` asli |
