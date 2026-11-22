@@ -604,10 +604,15 @@ memasangnya di PostgreSQL dan di `.env` sekaligus, lalu menguji koneksinya:
 
 ```bash
 DB_PASS="$(openssl rand -base64 32 | tr -d '/+=' | cut -c1-32)"
-printf '%s' "$DB_PASS" | sudo tee /root/ojetil-db-pass > /dev/null && sudo chmod 600 /root/ojetil-db-pass
-sudo -u postgres psql -v ON_ERROR_STOP=1 -v pass="$DB_PASS" -c "ALTER ROLE ojetil WITH LOGIN PASSWORD :'pass';"
-sudo sed -i "s|^DATABASE_URL=.*|DATABASE_URL=\"postgresql://ojetil:${DB_PASS}@localhost:5432/ojetil?schema=public\"|" /srv/ojetil/shared/.env
-sudo chown ojetil:ojetil /srv/ojetil/shared/.env && sudo chmod 600 /srv/ojetil/shared/.env
+# SQL lewat stdin (bukan -c): psql hanya mengganti variabel :'pass' pada input stdin/file.
+# Rantai && memastikan .env hanya diubah jika ALTER ROLE berhasil.
+echo "ALTER ROLE ojetil WITH LOGIN PASSWORD :'pass';" \
+  | sudo -u postgres psql -v ON_ERROR_STOP=1 -v pass="$DB_PASS" \
+  && printf '%s' "$DB_PASS" | sudo tee /root/ojetil-db-pass > /dev/null \
+  && sudo chmod 600 /root/ojetil-db-pass \
+  && sudo sed -i "s|^DATABASE_URL=.*|DATABASE_URL=\"postgresql://ojetil:${DB_PASS}@localhost:5432/ojetil?schema=public\"|" /srv/ojetil/shared/.env \
+  && sudo chown ojetil:ojetil /srv/ojetil/shared/.env && sudo chmod 600 /srv/ojetil/shared/.env \
+  && echo "Password database diperbarui di PostgreSQL dan .env"
 unset DB_PASS
 sudo -u ojetil -H bash -c 'set -a; . /srv/ojetil/shared/.env; psql "${DATABASE_URL%%\?*}" -tAc "SELECT current_user"'   # → ojetil
 ```
