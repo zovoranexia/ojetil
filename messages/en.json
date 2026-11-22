@@ -150,7 +150,6 @@
       "PRESS_RELEASE": "Press release"
     },
     "results": "{count, plural, =0 {No articles} one {# article} other {# articles}}",
-    "resultsFor": "for “{query}”",
     "empty": "No articles match your search.",
     "publishedOn": "Published {date}",
     "back": "Back to news",
@@ -163,9 +162,8 @@
     "allMunicipalities": "All municipalities",
     "national": "National",
     "tagsLabel": "Tags",
-    "tagFilter": "Tag: {tag}",
     "watchVideo": "Watch the video",
-    "applyFilter": "Apply"
+    "removeFilter": "Remove filter: {label}"
   },
   "events": {
     "metaTitle": "Youth events",

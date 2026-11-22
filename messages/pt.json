@@ -150,7 +150,6 @@
       "PRESS_RELEASE": "Comunicado de imprensa"
     },
     "results": "{count, plural, =0 {Nenhum artigo} one {# artigo} other {# artigos}}",
-    "resultsFor": "para “{query}”",
     "empty": "Nenhum artigo corresponde à sua pesquisa.",
     "publishedOn": "Publicado a {date}",
     "back": "Voltar às notícias",
@@ -163,9 +162,8 @@
     "allMunicipalities": "Todos os municípios",
     "national": "Nacional",
     "tagsLabel": "Etiquetas",
-    "tagFilter": "Etiqueta: {tag}",
     "watchVideo": "Ver o vídeo",
-    "applyFilter": "Aplicar"
+    "removeFilter": "Remover filtro: {label}"
   },
   "events": {
     "metaTitle": "Eventos juvenis",
