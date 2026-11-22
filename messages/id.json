@@ -41,7 +41,8 @@
     "openMenu": "Buka menu",
     "closeMenu": "Tutup menu",
     "language": "Bahasa",
-    "homeLink": "OJETIL — beranda"
+    "homeLink": "OJETIL — beranda",
+    "documents": "Dokumen"
   },
   "lowData": {
     "label": "Mode Hemat Data",
@@ -58,7 +59,8 @@
     "headquarters": "Kantor pusat",
     "rights": "© {year} OJETIL. Hak cipta dilindungi.",
     "staff": "Masuk staf",
-    "timezone": "Semua waktu adalah waktu Timor-Leste ({zone})."
+    "timezone": "Semua waktu adalah waktu Timor-Leste ({zone}).",
+    "sendMessage": "Kirim pesan"
   },
   "home": {
     "metaTitle": "Beranda",
@@ -118,7 +120,9 @@
       "email": "Email",
       "phone": "Telepon",
       "map": "Buka di peta",
-      "hours": "Senin–Jumat, 08.30–17.00"
+      "hours": "Senin–Jumat, 08.30–17.00",
+      "form": "Formulir kontak",
+      "formCta": "Kirim pesan ke Sekretariat"
     }
   },
   "history": {
@@ -437,7 +441,8 @@
       "leadership": "Kepengurusan",
       "profilePages": "Halaman profil",
       "users": "Pengguna & peran",
-      "audit": "Log audit"
+      "audit": "Log audit",
+      "inbox": "Pesan masuk"
     },
     "topbar": {
       "scope": "Akses",
@@ -683,7 +688,7 @@
       "metaTitle": "Log audit",
       "title": "Log audit",
       "description": "Catatan yang hanya dapat ditambah untuk proses masuk, akses data pribadi, keputusan verifikasi, ekspor, publikasi, dan perubahan akun. Entri tidak dapat diubah atau dihapus.",
-      "roleRestricted": "Peran Anda ({role}) hanya dapat melihat entri verifikasi.",
+      "roleRestricted": "Peran Anda ({role}) hanya dapat melihat entri verifikasi dan pesan masuk.",
       "filters": {
         "category": "Kategori",
         "allCategories": "Semua kategori",
@@ -700,7 +705,8 @@
         "CONTENT": "Konten",
         "EVENTS": "Acara",
         "USERS": "Pengguna",
-        "SYSTEM": "Sistem"
+        "SYSTEM": "Sistem",
+        "INBOX": "Pesan masuk"
       },
       "table": {
         "caption": "Entri log audit",
@@ -743,7 +749,9 @@
         "USER_PASSWORD_CHANGED": "Mengubah kata sandi sendiri",
         "SEED_EXECUTED": "Basis data diisi data awal",
         "MEDIA_UPDATED": "Mengubah media",
-        "MEDIA_DELETED": "Menghapus media"
+        "MEDIA_DELETED": "Menghapus media",
+        "MESSAGE_STATUS_CHANGED": "Status pesan diubah",
+        "MESSAGE_DELETED": "Pesan dihapus"
       }
     },
     "designSystem": {
@@ -1105,7 +1113,9 @@
         "publicLink": "Tautan unduhan publik",
         "deleteTitle": "Hapus dokumen ini?",
         "deleteAttached": "{count, plural, other {Dokumen ini dilampirkan pada # berita; berita tersebut akan kehilangan lampirannya.}} Tindakan ini tidak dapat dibatalkan dan dicatat dalam log audit.",
-        "deleteUnattached": "Berkas PDF dihapus secara permanen. Tindakan ini tidak dapat dibatalkan dan dicatat dalam log audit."
+        "deleteUnattached": "Berkas PDF dihapus secara permanen. Tindakan ini tidak dapat dibatalkan dan dicatat dalam log audit.",
+        "categoryLabel": "Kategori",
+        "categoryHint": "Kelompok di pustaka publik /dokumentu."
       },
       "fields": {
         "title": "Judul",
@@ -1121,6 +1131,13 @@
         "crossOrigin": "Permintaan lintas asal ditolak.",
         "unreadable": "Unggahan tidak dapat dibaca. Apakah berkas terlalu besar?",
         "malformed": "Permintaan tidak valid."
+      },
+      "categories": {
+        "STATUTE": "Anggaran dasar & peraturan",
+        "REPORT": "Laporan",
+        "PRESS_RELEASE": "Siaran pers",
+        "LETTER": "Surat resmi",
+        "OTHER": "Lainnya"
       }
     },
     "events": {
@@ -1480,6 +1497,110 @@
         "remove": "Hapus",
         "hint": "JPEG, PNG, atau WebP hingga {mb} MB. Diubah ukurannya dan dikompresi otomatis; disembunyikan dalam Mode Hemat Data."
       }
+    },
+    "inbox": {
+      "metaTitle": "Pesan masuk",
+      "metaTitleOne": "Pesan",
+      "title": "Pesan dari publik",
+      "description": "Pesan yang dikirim melalui formulir kontak di situs. Membuka pesan akan menandainya \"Sudah dibaca\".",
+      "statusLabel": "Status",
+      "open": "Aktif",
+      "search": "Cari pesan",
+      "searchPlaceholder": "Nama, email, atau teks…",
+      "filter": "Cari",
+      "empty": "Tidak ada pesan.",
+      "allMessages": "Semua pesan",
+      "receivedAt": "Diterima {date}",
+      "language": "Bahasa: {language}",
+      "reply": "Balas lewat email",
+      "archive": "Arsipkan",
+      "unarchive": "Keluarkan dari arsip",
+      "markUnread": "Tandai belum dibaca",
+      "deleteTitle": "Hapus pesan ini?",
+      "deleteDescription": "Pesan dan data pengirim akan dihapus permanen. Gunakan untuk spam atau permintaan penghapusan data.",
+      "notFound": "Pesan tidak ditemukan.",
+      "topics": {
+        "GENERAL": "Pertanyaan umum",
+        "MEMBERSHIP": "Keanggotaan & pendaftaran",
+        "MEDIA": "Pers & media",
+        "PARTNERSHIP": "Kemitraan & kerja sama",
+        "OTHER": "Lainnya"
+      },
+      "status": {
+        "NEW": "Baru",
+        "READ": "Sudah dibaca",
+        "ARCHIVED": "Diarsipkan"
+      }
+    }
+  },
+  "documents": {
+    "metaTitle": "Dokumen",
+    "eyebrow": "Pustaka",
+    "title": "Dokumen resmi",
+    "lead": "Anggaran dasar, laporan, siaran pers, dan surat resmi OJETIL — semuanya dapat diunduh gratis.",
+    "searchLabel": "Cari dokumen",
+    "searchPlaceholder": "Cari berdasarkan judul…",
+    "searchButton": "Cari",
+    "yearLabel": "Tahun",
+    "allYears": "Semua tahun",
+    "categoryLabel": "Kategori",
+    "allCategories": "Semua",
+    "results": "{count, plural, =0 {Tidak ada dokumen} other {# dokumen}}",
+    "removeFilter": "Hapus filter: {label}",
+    "clear": "Hapus",
+    "empty": "Tidak ada dokumen yang cocok dengan pencarian Anda.",
+    "download": "Unduh",
+    "availableIn": "Tersedia dalam {language}",
+    "categories": {
+      "STATUTE": "Anggaran dasar & peraturan",
+      "REPORT": "Laporan",
+      "PRESS_RELEASE": "Siaran pers",
+      "LETTER": "Surat resmi",
+      "OTHER": "Lainnya"
+    }
+  },
+  "contact": {
+    "metaTitle": "Kontak",
+    "eyebrow": "Kontak",
+    "title": "Kirim pesan kepada kami",
+    "lead": "Punya pertanyaan, usulan, atau ingin bekerja sama? Tulis ke Sekretariat OJETIL — kami membalas dalam 3 hari kerja.",
+    "direct": "Kontak langsung",
+    "privacy": "Data Anda hanya digunakan untuk membalas pesan Anda. Kami tidak membagikannya kepada pihak lain.",
+    "form": {
+      "name": "Nama lengkap",
+      "email": "Email",
+      "phone": "Telepon",
+      "optional": "opsional",
+      "topic": "Topik",
+      "message": "Pesan",
+      "messageHint": "{count} / {max} karakter",
+      "consent": "Saya setuju OJETIL menggunakan nama dan kontak saya untuk membalas pesan ini.",
+      "send": "Kirim pesan",
+      "sending": "Mengirim…",
+      "sentTitle": "Terima kasih! Pesan sudah diterima.",
+      "sentBody": "Sekretariat akan membalas melalui email dalam 3 hari kerja.",
+      "sendAnother": "Kirim pesan lain",
+      "topics": {
+        "GENERAL": "Pertanyaan umum",
+        "MEMBERSHIP": "Keanggotaan & pendaftaran",
+        "MEDIA": "Pers & media",
+        "PARTNERSHIP": "Kemitraan & kerja sama",
+        "OTHER": "Lainnya"
+      }
+    },
+    "errors": {
+      "nameMin": "Tulis nama Anda (minimal 2 karakter).",
+      "nameMax": "Nama terlalu panjang (maksimal 120 karakter).",
+      "email": "Tulis email yang valid, misalnya nama@email.com.",
+      "phone": "Nomor telepon tidak valid (contoh: +670 7700 0000).",
+      "topic": "Pilih topik.",
+      "messageMin": "Pesan terlalu pendek (minimal 10 karakter).",
+      "messageMax": "Pesan terlalu panjang (maksimal 4000 karakter).",
+      "consent": "Mohon setujui agar kami dapat membalas.",
+      "generic": "Gagal mengirim. Silakan coba lagi.",
+      "rateLimited": "Terlalu banyak pesan. Silakan coba lagi dalam satu jam.",
+      "form": "Mohon perbaiki kolom yang ditandai.",
+      "network": "Koneksi bermasalah. Periksa internet lalu coba lagi."
     }
   }
 }

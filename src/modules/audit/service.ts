@@ -42,6 +42,8 @@ export const AUDIT_ACTION_CATEGORY: Record<AuditAction, AuditCategory> = {
   USER_PASSWORD_RESET: "USERS",
   USER_PASSWORD_CHANGED: "USERS",
   SEED_EXECUTED: "SYSTEM",
+  MESSAGE_STATUS_CHANGED: "INBOX",
+  MESSAGE_DELETED: "INBOX",
 };
 
 /** Who performed the action. `null` for anonymous/public or system actions. */
@@ -124,11 +126,14 @@ export async function recordAudit(input: AuditEntryInput, client: Client = db): 
 
 /**
  * Which audit entries a role may read:
- *  SUPER_ADMIN / VIEWER → everything · VERIFIER → VERIFICATION only · EDITOR → none.
+ *  SUPER_ADMIN / VIEWER → everything · VERIFIER → VERIFICATION + INBOX (the
+ *  Secretariat's own work) · EDITOR → none.
  */
+export const SECRETARIAT_AUDIT_CATEGORIES = ["VERIFICATION", "INBOX"] as const satisfies readonly AuditCategory[];
+
 export function auditVisibilityFilter(role: Role): Prisma.AuditLogWhereInput {
   if (hasPermission(role, "audit:read:all")) return {};
-  if (hasPermission(role, "audit:read:verification")) return { category: "VERIFICATION" };
+  if (hasPermission(role, "audit:read:verification")) return { category: { in: [...SECRETARIAT_AUDIT_CATEGORIES] } };
   throw new ForbiddenError({ anyOf: ["audit:read:all", "audit:read:verification"] });
 }
 

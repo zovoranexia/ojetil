@@ -221,3 +221,8 @@ export async function popularNewsTags(take = 12): Promise<string[]> {
 export function isNewsCategory(value: unknown): value is NewsCategory {
   return typeof value === "string" && (NEWS_CATEGORIES as readonly string[]).includes(value);
 }
+
+/** Published (not scheduled) articles for the sitemap. */
+export async function publishedNewsForSitemap(): Promise<Array<{ slug: string; updatedAt: Date }>> {
+  return db.newsArticle.findMany({ where: publishedWhere(new Date()), select: { slug: true, updatedAt: true }, orderBy: { publishedAt: "desc" }, take: 5000 });
+}

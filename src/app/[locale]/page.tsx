@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd, organizationLd } from "@/components/seo/json-ld";
 import { ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
@@ -45,6 +46,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
+      <JsonLd data={organizationLd()} />
       {/* ── Hero ───────────────────────────────────────────────────────── */}
       <section aria-labelledby="hero-title" className="relative overflow-hidden border-b border-border-subtle">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[1.15fr_1fr] md:items-center lg:grid-cols-[1.35fr_1fr] lg:gap-14 md:px-8 md:py-20">

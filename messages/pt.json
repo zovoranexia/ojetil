@@ -41,7 +41,8 @@
     "openMenu": "Abrir menu",
     "closeMenu": "Fechar menu",
     "language": "Língua",
-    "homeLink": "OJETIL — página inicial"
+    "homeLink": "OJETIL — página inicial",
+    "documents": "Documentos"
   },
   "lowData": {
     "label": "Modo de Poucos Dados",
@@ -58,7 +59,8 @@
     "headquarters": "Sede",
     "rights": "© {year} OJETIL. Todos os direitos reservados.",
     "staff": "Acesso da equipa",
-    "timezone": "Todas as horas são de Timor-Leste ({zone})."
+    "timezone": "Todas as horas são de Timor-Leste ({zone}).",
+    "sendMessage": "Enviar mensagem"
   },
   "home": {
     "metaTitle": "Início",
@@ -118,7 +120,9 @@
       "email": "Email",
       "phone": "Telefone",
       "map": "Abrir no mapa",
-      "hours": "Segunda a sexta, 08:30–17:00"
+      "hours": "Segunda a sexta, 08:30–17:00",
+      "form": "Formulário de contacto",
+      "formCta": "Enviar mensagem ao Secretariado"
     }
   },
   "history": {
@@ -437,7 +441,8 @@
       "leadership": "Liderança",
       "profilePages": "Páginas de perfil",
       "users": "Utilizadores e funções",
-      "audit": "Registo de auditoria"
+      "audit": "Registo de auditoria",
+      "inbox": "Mensagens"
     },
     "topbar": {
       "scope": "Acesso",
@@ -683,7 +688,7 @@
       "metaTitle": "Registo de auditoria",
       "title": "Registo de auditoria",
       "description": "Registo só de acréscimo de inícios de sessão, acessos a dados pessoais, decisões de verificação, exportações, publicações e alterações de contas. As entradas não podem ser editadas nem eliminadas.",
-      "roleRestricted": "A sua função ({role}) só vê entradas de verificação.",
+      "roleRestricted": "A sua função ({role}) só vê entradas de verificação e de mensagens.",
       "filters": {
         "category": "Categoria",
         "allCategories": "Todas as categorias",
@@ -700,7 +705,8 @@
         "CONTENT": "Conteúdo",
         "EVENTS": "Eventos",
         "USERS": "Utilizadores",
-        "SYSTEM": "Sistema"
+        "SYSTEM": "Sistema",
+        "INBOX": "Mensagens"
       },
       "table": {
         "caption": "Entradas do registo de auditoria",
@@ -743,7 +749,9 @@
         "USER_PASSWORD_CHANGED": "Palavra-passe própria alterada",
         "SEED_EXECUTED": "Base de dados inicializada",
         "MEDIA_UPDATED": "Média editada",
-        "MEDIA_DELETED": "Média eliminada"
+        "MEDIA_DELETED": "Média eliminada",
+        "MESSAGE_STATUS_CHANGED": "Estado da mensagem alterado",
+        "MESSAGE_DELETED": "Mensagem eliminada"
       }
     },
     "designSystem": {
@@ -1105,7 +1113,9 @@
         "publicLink": "Ligação pública de descarga",
         "deleteTitle": "Eliminar este documento?",
         "deleteAttached": "{count, plural, one {Está anexado a # notícia, que perderá o anexo.} other {Está anexado a # notícias, que perderão o anexo.}} Esta ação não pode ser anulada e fica registada no registo de auditoria.",
-        "deleteUnattached": "O ficheiro PDF é removido permanentemente. Esta ação não pode ser anulada e fica registada no registo de auditoria."
+        "deleteUnattached": "O ficheiro PDF é removido permanentemente. Esta ação não pode ser anulada e fica registada no registo de auditoria.",
+        "categoryLabel": "Categoria",
+        "categoryHint": "Grupo na biblioteca pública /dokumentu."
       },
       "fields": {
         "title": "Título",
@@ -1121,6 +1131,13 @@
         "crossOrigin": "Pedido de outra origem rejeitado.",
         "unreadable": "Não foi possível ler o carregamento. O ficheiro é demasiado grande?",
         "malformed": "Pedido inválido."
+      },
+      "categories": {
+        "STATUTE": "Estatutos e regulamentos",
+        "REPORT": "Relatórios",
+        "PRESS_RELEASE": "Comunicados de imprensa",
+        "LETTER": "Cartas oficiais",
+        "OTHER": "Outros"
       }
     },
     "events": {
@@ -1480,6 +1497,110 @@
         "remove": "Remover",
         "hint": "JPEG, PNG ou WebP até {mb} MB. Redimensionada e comprimida automaticamente; oculta no Modo de Poupança de Dados."
       }
+    },
+    "inbox": {
+      "metaTitle": "Mensagens",
+      "metaTitleOne": "Mensagem",
+      "title": "Mensagens do público",
+      "description": "Mensagens enviadas pelo formulário de contacto do site. Abrir uma mensagem marca-a como \"Lida\".",
+      "statusLabel": "Estado",
+      "open": "Ativas",
+      "search": "Pesquisar mensagens",
+      "searchPlaceholder": "Nome, email ou texto…",
+      "filter": "Pesquisar",
+      "empty": "Sem mensagens.",
+      "allMessages": "Todas as mensagens",
+      "receivedAt": "Recebida em {date}",
+      "language": "Língua: {language}",
+      "reply": "Responder por email",
+      "archive": "Arquivar",
+      "unarchive": "Desarquivar",
+      "markUnread": "Marcar como nova",
+      "deleteTitle": "Eliminar esta mensagem?",
+      "deleteDescription": "A mensagem e os dados do remetente são apagados permanentemente. Use para spam ou pedidos de eliminação de dados.",
+      "notFound": "Mensagem não encontrada.",
+      "topics": {
+        "GENERAL": "Pergunta geral",
+        "MEMBERSHIP": "Adesão e registo",
+        "MEDIA": "Imprensa e média",
+        "PARTNERSHIP": "Parcerias e cooperação",
+        "OTHER": "Outro assunto"
+      },
+      "status": {
+        "NEW": "Nova",
+        "READ": "Lida",
+        "ARCHIVED": "Arquivada"
+      }
+    }
+  },
+  "documents": {
+    "metaTitle": "Documentos",
+    "eyebrow": "Biblioteca",
+    "title": "Documentos oficiais",
+    "lead": "Estatutos, relatórios, comunicados de imprensa e cartas oficiais da OJETIL — todos para descarregar gratuitamente.",
+    "searchLabel": "Pesquisar documentos",
+    "searchPlaceholder": "Pesquisar por título…",
+    "searchButton": "Pesquisar",
+    "yearLabel": "Ano",
+    "allYears": "Todos os anos",
+    "categoryLabel": "Categoria",
+    "allCategories": "Todos",
+    "results": "{count, plural, =0 {Nenhum documento} one {# documento} other {# documentos}}",
+    "removeFilter": "Remover filtro: {label}",
+    "clear": "Limpar",
+    "empty": "Nenhum documento corresponde à sua pesquisa.",
+    "download": "Descarregar",
+    "availableIn": "Disponível em {language}",
+    "categories": {
+      "STATUTE": "Estatutos e regulamentos",
+      "REPORT": "Relatórios",
+      "PRESS_RELEASE": "Comunicados de imprensa",
+      "LETTER": "Cartas oficiais",
+      "OTHER": "Outros"
+    }
+  },
+  "contact": {
+    "metaTitle": "Contacto",
+    "eyebrow": "Contacto",
+    "title": "Envie-nos uma mensagem",
+    "lead": "Tem uma pergunta, uma proposta ou quer colaborar? Escreva ao Secretariado da OJETIL — respondemos em 3 dias úteis.",
+    "direct": "Contacto direto",
+    "privacy": "Os seus dados são usados apenas para responder à sua mensagem. Não os partilhamos com terceiros.",
+    "form": {
+      "name": "Nome completo",
+      "email": "Email",
+      "phone": "Telefone",
+      "optional": "opcional",
+      "topic": "Assunto",
+      "message": "Mensagem",
+      "messageHint": "{count} / {max} caracteres",
+      "consent": "Concordo que a OJETIL use o meu nome e contactos para responder a esta mensagem.",
+      "send": "Enviar mensagem",
+      "sending": "A enviar…",
+      "sentTitle": "Obrigado! A mensagem foi recebida.",
+      "sentBody": "O Secretariado responderá por email no prazo de 3 dias úteis.",
+      "sendAnother": "Enviar outra mensagem",
+      "topics": {
+        "GENERAL": "Pergunta geral",
+        "MEMBERSHIP": "Adesão e registo",
+        "MEDIA": "Imprensa e média",
+        "PARTNERSHIP": "Parcerias e cooperação",
+        "OTHER": "Outro assunto"
+      }
+    },
+    "errors": {
+      "nameMin": "Escreva o seu nome (2 caracteres ou mais).",
+      "nameMax": "Nome demasiado longo (máximo 120 caracteres).",
+      "email": "Escreva um email válido, por exemplo nome@email.com.",
+      "phone": "Número de telefone inválido (ex.: +670 7700 0000).",
+      "topic": "Escolha um assunto.",
+      "messageMin": "Mensagem demasiado curta (10 caracteres ou mais).",
+      "messageMax": "Mensagem demasiado longa (máximo 4000 caracteres).",
+      "consent": "Por favor aceite para podermos responder.",
+      "generic": "Não foi possível enviar. Tente novamente.",
+      "rateLimited": "Demasiadas mensagens. Tente novamente dentro de uma hora.",
+      "form": "Corrija os campos assinalados.",
+      "network": "Sem ligação. Verifique a internet e tente novamente."
     }
   }
 }

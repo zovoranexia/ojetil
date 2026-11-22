@@ -41,7 +41,8 @@
     "openMenu": "Loke menu",
     "closeMenu": "Taka menu",
     "language": "Lian",
-    "homeLink": "OJETIL — pájina inísiu"
+    "homeLink": "OJETIL — pájina inísiu",
+    "documents": "Dokumentu"
   },
   "lowData": {
     "label": "Modu Dadus Ki'ik",
@@ -58,7 +59,8 @@
     "headquarters": "Sede",
     "rights": "© {year} OJETIL. Direitu hotu rezervadu.",
     "staff": "Tama ba ekipa",
-    "timezone": "Oras hotu tuir oras Timor-Leste ({zone})."
+    "timezone": "Oras hotu tuir oras Timor-Leste ({zone}).",
+    "sendMessage": "Haruka mensajen"
   },
   "home": {
     "metaTitle": "Inísiu",
@@ -118,7 +120,9 @@
       "email": "Email",
       "phone": "Telefone",
       "map": "Loke iha mapa",
-      "hours": "Segunda to'o Sesta, 08:30–17:00"
+      "hours": "Segunda to'o Sesta, 08:30–17:00",
+      "form": "Formuláriu kontaktu",
+      "formCta": "Haruka mensajen ba Sekretariadu"
     }
   },
   "history": {
@@ -437,7 +441,8 @@
       "leadership": "Lideransa",
       "profilePages": "Pájina perfil",
       "users": "Utilizadór no papél",
-      "audit": "Rejistu auditoria"
+      "audit": "Rejistu auditoria",
+      "inbox": "Mensajen"
     },
     "topbar": {
       "scope": "Asesu",
@@ -683,7 +688,7 @@
       "metaTitle": "Rejistu auditoria",
       "title": "Rejistu auditoria",
       "description": "Rejistu ne'ebé aumenta de'it kona-ba tama sistema, asesu ba dadus pesoál, desizaun verifikasaun, esportasaun, publikasaun no mudansa iha konta. Entrada sira labele edita ka hamoos.",
-      "roleRestricted": "Ita-nia papél ({role}) haree de'it entrada verifikasaun.",
+      "roleRestricted": "Ita-nia papél ({role}) haree de'it entrada verifikasaun no mensajen.",
       "filters": {
         "category": "Kategoria",
         "allCategories": "Kategoria hotu",
@@ -700,7 +705,8 @@
         "CONTENT": "Konteúdu",
         "EVENTS": "Eventu",
         "USERS": "Utilizadór",
-        "SYSTEM": "Sistema"
+        "SYSTEM": "Sistema",
+        "INBOX": "Mensajen"
       },
       "table": {
         "caption": "Entrada rejistu auditoria",
@@ -743,7 +749,9 @@
         "USER_PASSWORD_CHANGED": "Muda nia liafuan-pasee rasik",
         "SEED_EXECUTED": "Hatama dadus inisiál ba baze dadus",
         "MEDIA_UPDATED": "Edita média",
-        "MEDIA_DELETED": "Hamoos média"
+        "MEDIA_DELETED": "Hamoos média",
+        "MESSAGE_STATUS_CHANGED": "Status mensajen muda",
+        "MESSAGE_DELETED": "Mensajen hamoos"
       }
     },
     "designSystem": {
@@ -1105,7 +1113,9 @@
         "publicLink": "Link download públiku",
         "deleteTitle": "Hamoos dokumentu ida-ne'e?",
         "deleteAttached": "{count, plural, other {Dokumentu ne'e tau hamutuk ho notísia #; sira sei lakon anexu ne'e.}} La bele fila fali no rejista iha rejistu auditoria.",
-        "deleteUnattached": "Arkivu PDF sei hamoos ba nafatin. La bele fila fali no rejista iha rejistu auditoria."
+        "deleteUnattached": "Arkivu PDF sei hamoos ba nafatin. La bele fila fali no rejista iha rejistu auditoria.",
+        "categoryLabel": "Kategoria",
+        "categoryHint": "Grupu iha biblioteka públiku /dokumentu."
       },
       "fields": {
         "title": "Títulu",
@@ -1121,6 +1131,13 @@
         "crossOrigin": "Pedidu husi orijen seluk rejeita.",
         "unreadable": "Labele lee upload. Karik arkivu boot liu?",
         "malformed": "Pedidu la loos."
+      },
+      "categories": {
+        "STATUTE": "Estatutu no regulamentu",
+        "REPORT": "Relatóriu",
+        "PRESS_RELEASE": "Komunikadu imprensa",
+        "LETTER": "Karta ofisiál",
+        "OTHER": "Seluk"
       }
     },
     "events": {
@@ -1480,6 +1497,110 @@
         "remove": "Hasai",
         "hint": "JPEG, PNG ka WebP to'o {mb} MB. Muda tamañu no kompresa automátiku; subar iha Modu Dadus Uitoan."
       }
+    },
+    "inbox": {
+      "metaTitle": "Mensajen",
+      "metaTitleOne": "Mensajen",
+      "title": "Mensajen husi públiku",
+      "description": "Mensajen ne'ebé haruka liuhusi formuláriu kontaktu iha website. Loke mensajen ida marka nia hanesan \"Lee ona\".",
+      "statusLabel": "Status",
+      "open": "Ativu",
+      "search": "Buka mensajen",
+      "searchPlaceholder": "Naran, email ka testu…",
+      "filter": "Buka",
+      "empty": "La iha mensajen.",
+      "allMessages": "Mensajen hotu",
+      "receivedAt": "Simu iha {date}",
+      "language": "Lian: {language}",
+      "reply": "Hatán liuhusi email",
+      "archive": "Arkiva",
+      "unarchive": "Fila husi arkivu",
+      "markUnread": "Marka hanesan foun",
+      "deleteTitle": "Hamoos mensajen ne'e?",
+      "deleteDescription": "Mensajen no dadus ema ne'ebé haruka sei lakon ba nafatin. Uza ba spam ka pedidu atu hamoos dadus.",
+      "notFound": "Mensajen la eziste.",
+      "topics": {
+        "GENERAL": "Pergunta jerál",
+        "MEMBERSHIP": "Membru no rejistu",
+        "MEDIA": "Imprensa no média",
+        "PARTNERSHIP": "Parseria no kooperasaun",
+        "OTHER": "Seluk"
+      },
+      "status": {
+        "NEW": "Foun",
+        "READ": "Lee ona",
+        "ARCHIVED": "Arkivu"
+      }
+    }
+  },
+  "documents": {
+    "metaTitle": "Dokumentu",
+    "eyebrow": "Biblioteka",
+    "title": "Dokumentu ofisiál",
+    "lead": "Estatutu, relatóriu, komunikadu imprensa no karta ofisiál OJETIL nian — hotu bele download gratuitu.",
+    "searchLabel": "Buka dokumentu",
+    "searchPlaceholder": "Buka tuir títulu…",
+    "searchButton": "Buka",
+    "yearLabel": "Tinan",
+    "allYears": "Tinan hotu",
+    "categoryLabel": "Kategoria",
+    "allCategories": "Hotu",
+    "results": "{count, plural, =0 {La iha dokumentu} other {Dokumentu #}}",
+    "removeFilter": "Hasai filtru: {label}",
+    "clear": "Hamoos",
+    "empty": "La iha dokumentu ne'ebé tuir ita-nia buka.",
+    "download": "Download",
+    "availableIn": "Disponível iha {language}",
+    "categories": {
+      "STATUTE": "Estatutu no regulamentu",
+      "REPORT": "Relatóriu",
+      "PRESS_RELEASE": "Komunikadu imprensa",
+      "LETTER": "Karta ofisiál",
+      "OTHER": "Seluk"
+    }
+  },
+  "contact": {
+    "metaTitle": "Kontaktu",
+    "eyebrow": "Kontaktu",
+    "title": "Haruka mensajen ba ami",
+    "lead": "Iha pergunta, proposta ka hakarak kolabora? Hakerek mai Sekretariadu OJETIL — ami hatán iha loron serbisu 3 nia laran.",
+    "direct": "Kontaktu direta",
+    "privacy": "Ita-nia dadus uza de'it atu hatán ita-nia mensajen. Ami la fahe ho ema seluk.",
+    "form": {
+      "name": "Naran kompletu",
+      "email": "Email",
+      "phone": "Telefone",
+      "optional": "opsionál",
+      "topic": "Asuntu",
+      "message": "Mensajen",
+      "messageHint": "{count} / {max} karakter",
+      "consent": "Ha'u konkorda katak OJETIL uza ha'u-nia naran no kontaktu atu hatán mensajen ne'e.",
+      "send": "Haruka mensajen",
+      "sending": "Haruka hela…",
+      "sentTitle": "Obrigadu! Mensajen to'o ona.",
+      "sentBody": "Sekretariadu sei hatán liuhusi email iha loron serbisu 3 nia laran.",
+      "sendAnother": "Haruka mensajen seluk",
+      "topics": {
+        "GENERAL": "Pergunta jerál",
+        "MEMBERSHIP": "Membru no rejistu",
+        "MEDIA": "Imprensa no média",
+        "PARTNERSHIP": "Parseria no kooperasaun",
+        "OTHER": "Seluk"
+      }
+    },
+    "errors": {
+      "nameMin": "Hakerek ita-nia naran (karakter 2 ka liu).",
+      "nameMax": "Naran naruk liu (máximu karakter 120).",
+      "email": "Hakerek email ne'ebé loos, ezemplu naran@email.com.",
+      "phone": "Númeru telefone la loos (ezemplu +670 7700 0000).",
+      "topic": "Hili asuntu ida.",
+      "messageMin": "Mensajen badak liu (karakter 10 ka liu).",
+      "messageMax": "Mensajen naruk liu (máximu karakter 4000).",
+      "consent": "Favór konkorda atu ami bele hatán.",
+      "generic": "La konsege haruka. Favór koko fali.",
+      "rateLimited": "Mensajen barak liu husi ita. Favór koko fali iha oras ida.",
+      "form": "Favór hadia kampu ne'ebé marka.",
+      "network": "Koneksaun la di'ak. Haree internet no koko fali."
     }
   }
 }

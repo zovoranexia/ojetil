@@ -1,9 +1,9 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, MessageSquare, Phone } from "lucide-react";
 import NextLink from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Emblem } from "@/components/brand/emblem";
 import { TaisRibbon } from "@/components/brand/tais-ribbon";
-import { CHECK_STATUS_PATH, PRIMARY_NAV, REGISTER_PATH } from "@/config/navigation";
+import { CHECK_STATUS_PATH, CONTACT_PATH, PRIMARY_NAV, REGISTER_PATH } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import { currentDiliYear } from "@/lib/dates";
@@ -92,6 +92,12 @@ export async function SiteFooter() {
                 <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="tabular-nums hover:text-paper">
                   {contact.phone}
                 </a>
+              </li>
+              <li className="flex gap-3">
+                <MessageSquare aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-gold-accent" />
+                <Link href={CONTACT_PATH} className="font-semibold text-paper hover:underline">
+                  {t("sendMessage")}
+                </Link>
               </li>
             </ul>
           </address>

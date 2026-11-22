@@ -12,6 +12,7 @@ import type { Role } from "@prisma/client";
  * | Member records                   | PII         | PII      | 403    | Aggreg.|
  * | Approve / reject / revision      | ✔           | ✔        | ✗      | ✗      |
  * | Admin users & roles              | CRUD        | ✗        | ✗      | ✗      |
+ * | Contact inbox (/admin/pesan)     | ✔           | ✔        | ✗      | ✗      |
  * | Audit logs                       | All         | Verif.   | ✗      | All    |
  */
 export const PERMISSIONS = [
@@ -35,6 +36,10 @@ export const PERMISSIONS = [
   "members:verify",
   "members:export",
 
+  /** Contact-form inbox: read messages (names, emails, phones) and change their status. */
+  "messages:read",
+  "messages:manage",
+
   "users:manage",
 
   "audit:read:all",
@@ -56,6 +61,8 @@ const ROLE_PERMISSIONS: Record<Role, ReadonlySet<Permission>> = {
     "members:pii",
     "members:verify",
     "members:export",
+    "messages:read",
+    "messages:manage",
     "audit:read:verification",
   ]),
   EDITOR: new Set<Permission>([
@@ -110,6 +117,7 @@ const ROUTE_RULES: ReadonlyArray<{ prefix: string; requirement: PermissionRequir
   { prefix: "/admin/pengurus", requirement: "content:read" },
   { prefix: "/admin/acara", requirement: "events:read" },
   { prefix: "/admin/users", requirement: "users:manage" },
+  { prefix: "/admin/pesan", requirement: "messages:read" },
   { prefix: "/admin/audit-logs", requirement: { anyOf: ["audit:read:all", "audit:read:verification"] } },
   { prefix: "/api/admin/exports/members", requirement: "members:export" },
   { prefix: "/api/admin/exports/events", requirement: "events:export" },

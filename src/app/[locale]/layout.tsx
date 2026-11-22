@@ -46,6 +46,7 @@ const CLIENT_NAMESPACES = [
   "eventRegistration",
   "memberRegistration",
   "statusLookup",
+  "contact",
   "error",
 ] as const;
 

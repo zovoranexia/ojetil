@@ -28,7 +28,12 @@ export default async function DocumentsAdminPage({ searchParams }: { searchParam
   const status = (STATUSES as readonly string[]).includes(statusRaw ?? "") ? (statusRaw as ContentStatus) : undefined;
   const result = await listDocumentsAdmin({ q, status, page: Math.max(Number(one(sp.page) ?? 1) || 1, 1) });
   const canWrite = satisfies(user.role, "content:write");
-  const [t, tStatus, locale] = await Promise.all([getTranslations("admin.documents"), getTranslations("admin.status.content"), getLocale()]);
+  const [t, tStatus, tCat, locale] = await Promise.all([
+    getTranslations("admin.documents"),
+    getTranslations("admin.status.content"),
+    getTranslations("admin.documents.categories"),
+    getLocale(),
+  ]);
 
   return (
     <>
@@ -84,7 +89,9 @@ export default async function DocumentsAdminPage({ searchParams }: { searchParam
                   <Link href={`/admin/dokumen/${d.id}`} className="font-medium text-ink hover:text-ojetil-red hover:underline">
                     {d.title}
                   </Link>
-                  <span className="block font-mono text-xs text-ink-secondary">{d.slug}</span>
+                  <span className="block text-xs text-ink-secondary">
+                    {tCat(d.category)} · <span className="font-mono">{d.slug}</span>
+                  </span>
                 </Td>
                 <Td className="text-xs">
                   {d.fileName}

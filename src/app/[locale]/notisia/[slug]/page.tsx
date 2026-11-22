@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
 import { RichContent } from "@/components/content/rich-content";
+import { JsonLd, organizationLd } from "@/components/seo/json-ld";
 import { NewsCard } from "@/components/public/news-card";
 import { ShareButtons } from "@/components/public/share-buttons";
 import { Badge } from "@/components/ui/badge";
@@ -11,7 +12,7 @@ import { fromDbLocale } from "@/config/locales";
 import { municipalityLabel } from "@/config/municipalities";
 import { Link } from "@/i18n/navigation";
 import { formatDate, isoDate } from "@/lib/format";
-import { localizedAlternates } from "@/lib/seo";
+import { absoluteUrl, localizedAlternates } from "@/lib/seo";
 import { getPublishedDocumentSummary } from "@/modules/documents/queries";
 import { documentDownloadPath, formatFileSize } from "@/modules/documents/schema";
 import { getServerEnv } from "@/lib/env";
@@ -56,6 +57,21 @@ export default async function NewsArticlePage({ params }: { params: Params }) {
 
   return (
     <article>
+      <JsonLd
+        data={{
+          "@type": "NewsArticle",
+          headline: article.title.slice(0, 110),
+          description: article.excerpt,
+          inLanguage: servedLocale,
+          datePublished: article.publishedAt.toISOString(),
+          dateModified: article.updatedAt.toISOString(),
+          mainEntityOfPage: shareUrl,
+          ...(article.coverImageUrl ? { image: [absoluteUrl(article.coverImageUrl)] } : {}),
+          ...(article.tags.length ? { keywords: article.tags.join(", ") } : {}),
+          author: article.byline ? { "@type": "Person", name: article.byline } : { "@id": absoluteUrl("/#organization") },
+          publisher: organizationLd(),
+        }}
+      />
       <header className="border-b border-border-subtle">
         <div className="mx-auto max-w-3xl px-4 pb-10 pt-8 md:px-8 md:pt-12">
           <Link href="/notisia" className="inline-flex min-h-tap items-center gap-1.5 text-sm font-semibold text-ink-secondary hover:text-ojetil-red">
