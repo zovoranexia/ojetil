@@ -53,7 +53,8 @@ export const newsFormSchema = z.object({
     .refine((v) => parseTags(v).length <= NEWS_TAG_MAX, msg("admin.news.validation.tagsMax", { max: NEWS_TAG_MAX })),
   /** "" = no attachment. */
   documentId: z.string().trim().max(40, msg("admin.validation.maxChars", { max: 40 })),
-  translations: translationsSchema(NEWS_TRANSLATION_FIELDS),
+  /** Any one complete language is enough; readers fall back to an available version. */
+  translations: translationsSchema(NEWS_TRANSLATION_FIELDS, "any"),
 });
 
 export type NewsFormValues = z.input<typeof newsFormSchema>;

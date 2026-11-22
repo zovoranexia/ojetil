@@ -45,7 +45,7 @@ export default async function NewsEditPage({ params, searchParams }: { params: P
     <>
       <AdminPageHeading
         back={{ href: "/admin/berita", label: t("back") }}
-        title={isNew ? t("newTitle") : initial.translations.TET.title || initial.slug}
+        title={isNew ? t("newTitle") : (["TET", "PT", "ID", "EN"] as const).map((l) => initial.translations[l].title).find(Boolean) || initial.slug}
         description={saved ? t("savedNotice") : undefined}
       />
       {!canWrite ? <ReadOnlyNotice>{t("readOnly")}</ReadOnlyNotice> : null}

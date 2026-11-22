@@ -528,7 +528,8 @@
       "imageUrl": "Use a site path starting with / or an https:// URL.",
       "email": "Enter a valid email address.",
       "url": "Enter a valid https:// URL.",
-      "date": "Enter a valid date."
+      "date": "Enter a valid date.",
+      "requiredAnyLanguage": "Fill in the title and content in at least one language."
     },
     "auth": {
       "metaTitle": "Staff sign-in",
@@ -945,7 +946,7 @@
           "error": "has errors",
           "empty": "empty"
         },
-        "primaryHint": "Tetun is the primary language. Others are optional — empty ones fall back to Tetun.",
+        "primaryHint": "Write in at least one language — Tetun is recommended. Readers see their own language, otherwise Tetun, otherwise another available version.",
         "coverReplace": "Replace",
         "coverRemove": "Remove",
         "coverUploading": "Uploading…",

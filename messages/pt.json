@@ -528,7 +528,8 @@
       "imageUrl": "Use um caminho do site que comece por / ou um URL https://.",
       "email": "Introduza um endereço de email válido.",
       "url": "Introduza um URL https:// válido.",
-      "date": "Introduza uma data válida."
+      "date": "Introduza uma data válida.",
+      "requiredAnyLanguage": "Preencha o título e o conteúdo em pelo menos uma língua."
     },
     "auth": {
       "metaTitle": "Acesso da equipa",
@@ -945,7 +946,7 @@
           "error": "com erros",
           "empty": "vazio"
         },
-        "primaryHint": "O Tetun é a língua principal. As outras são opcionais — as vazias mostram a versão em Tetun.",
+        "primaryHint": "Escreva em pelo menos uma língua — recomenda-se o Tetun. Os leitores veem a sua língua; se não existir, o Tetun; senão, outra versão disponível.",
         "coverReplace": "Substituir",
         "coverRemove": "Remover",
         "coverUploading": "A carregar…",

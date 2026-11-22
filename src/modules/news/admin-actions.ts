@@ -31,7 +31,7 @@ function prepareTranslations(rows: NewsRow[]): Array<Omit<NewsRow, "excerpt"> & 
   const out = rows.map((row) => {
     const body = sanitizeArticleHtml(row.body ?? "");
     if (isEmptyArticleHtml(body)) {
-      fieldErrors[`translations.${row.locale}.body`] = [row.locale === "TET" ? msg("admin.validation.requiredTetun") : msg("admin.validation.requiredOnceStarted")];
+      fieldErrors[`translations.${row.locale}.body`] = [msg("admin.validation.requiredOnceStarted")];
     }
     return { ...row, body, excerpt: row.excerpt?.trim() || deriveExcerpt(body) };
   });
@@ -62,8 +62,9 @@ export const saveNewsArticle = authorizedAction("content:write", newsFormSchema,
     if (!publishedAt) throw new ActionError("VALIDATION", msg("admin.news.validation.checkDate"), { publishedAt: [msg("admin.news.validation.invalidDate")] });
   }
 
-  const translations = prepareTranslations(toTranslationRows(input.translations, NEWS_TRANSLATION_FIELDS) as unknown as NewsRow[]);
-  const tetTitle = translations.find((t) => t.locale === "TET")!.title;
+  const translations = prepareTranslations(toTranslationRows(input.translations, NEWS_TRANSLATION_FIELDS, "any") as unknown as NewsRow[]);
+  // Title used for the generated slug and the audit trail: Tetun when present, else the first language written.
+  const tetTitle = (translations.find((t) => t.locale === "TET") ?? translations[0]!).title;
   const autoSlug = input.slug === "";
   const baseSlug = autoSlug ? slugify(tetTitle) : input.slug;
   if (baseSlug.length < 3) throw new ActionError("VALIDATION", msg("admin.news.validation.slugRequired"), { slug: [msg("admin.news.validation.slugTitleTooShort")] });
