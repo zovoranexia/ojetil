@@ -511,9 +511,12 @@ Pemulihan hanya berhasil dengan **`.env` yang sama** (kunci PII yang sama).
 Setiap versi di-build di folder rilis baru, jadi situs tetap melayani versi lama selama build.
 Setelah itu symlink dipindah dan layanan di-restart (beberapa detik).
 
-Buat `/srv/ojetil/deploy.sh` (milik `ojetil`, `chmod 750`):
+Buat `/srv/ojetil/deploy.sh` sekali saja. Perintah di bawah menulis file sebagai user `ojetil`
+dan membuatnya bisa dieksekusi. Jika file dibuat dengan `sudo nano`, pemiliknya `root` dan
+`sudo -u ojetil … deploy.sh` gagal dengan `Permission denied`.
 
 ```bash
+sudo -u ojetil tee /srv/ojetil/deploy.sh > /dev/null <<'DEPLOY'
 #!/usr/bin/env bash
 # Jalankan sebagai: sudo -u ojetil -H /srv/ojetil/deploy.sh   (lalu restart, lihat di bawah)
 set -euo pipefail
@@ -530,7 +533,13 @@ ln -sfn "/srv/ojetil/$REL" /srv/ojetil/current
 # simpan 5 rilis terakhir
 ls -1dt /srv/ojetil/releases/* | tail -n +6 | xargs -r rm -rf
 echo "Siap: $(readlink /srv/ojetil/current) — jalankan: sudo systemctl restart ojetil"
+DEPLOY
+sudo chown ojetil:ojetil /srv/ojetil/deploy.sh
+sudo chmod 750 /srv/ojetil/deploy.sh
+ls -l /srv/ojetil/deploy.sh      # harus: -rwxr-x--- ojetil ojetil
 ```
+
+Setiap kali ada versi baru di `main`:
 
 ```bash
 sudo -u ojetil -H /srv/ojetil/deploy.sh && sudo systemctl restart ojetil
@@ -595,6 +604,8 @@ Akun staf tidak pernah dihapus, hanya dinonaktifkan.
 | Gejala | Penyebab umum | Solusi |
 | --- | --- | --- |
 | Beranda dan halaman tanpa prefiks bahasa (`/`, `/notisia`) `500`, sedangkan `/pt/...` normal; log berisi `Failed to proxy https://localhost:3000/tet … EPROTO` | Next.js dijalankan dengan `--hostname 127.0.0.1` | Hapus `--hostname` dari `ExecStart` (lihat langkah 9), `daemon-reload`, restart |
+| `sudo: cannot execute '/srv/ojetil/deploy.sh': Permission denied` | File dibuat sebagai `root` atau tanpa izin eksekusi | `sudo chown ojetil:ojetil /srv/ojetil/deploy.sh && sudo chmod 750 /srv/ojetil/deploy.sh` |
+| Log berisi `The Server Reference ID did not match the expected format. Received "…"` (ID pendek, mis. 8 karakter) | Bot pemindai mengirim header `Next-Action` palsu, atau tab admin lama setelah deploy | Aman diabaikan: permintaan ditolak tanpa menjalankan kode; muat ulang tab admin |
 | `502 Bad Gateway` | Layanan Next.js mati | `sudo systemctl status ojetil`, lalu `journalctl -u ojetil -n 50` |
 | Layanan gagal start: `Invalid server environment` | Nilai `.env` salah atau hilang | Perbaiki variabel yang disebut di log, lalu restart |
 | Layanan gagal start: `PII_… must be a base64-encoded 32-byte key` | Kunci terpotong atau salah tempel | Pastikan nilainya utuh 44 karakter base64 |
