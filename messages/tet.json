@@ -528,7 +528,8 @@
       "imageUrl": "Uza dalan sítiu ne'ebé hahú ho / ka URL https://.",
       "email": "Hakerek enderesu email ne'ebé loos.",
       "url": "Hakerek URL https:// ne'ebé loos.",
-      "date": "Hakerek data ne'ebé loos."
+      "date": "Hakerek data ne'ebé loos.",
+      "requiredAnyLanguage": "Prenxe títulu no konteúdu iha lian ida ka liu."
     },
     "auth": {
       "metaTitle": "Tama ba ekipa",
@@ -945,7 +946,7 @@
           "error": "iha erru",
           "empty": "mamuk"
         },
-        "primaryHint": "Tetun mak lian prinsipál. Seluk opsionál — sira ne'ebé mamuk sei hatudu versaun Tetun.",
+        "primaryHint": "Hakerek iha lian ida ka liu — rekomenda Tetun. Leitór sira haree sira-nia lian rasik, se la iha Tetun, se la iha lian seluk ne'ebé iha.",
         "coverReplace": "Troka",
         "coverRemove": "Hasai",
         "coverUploading": "Haruka hela…",

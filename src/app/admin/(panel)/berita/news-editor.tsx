@@ -130,7 +130,8 @@ export function NewsEditor({
   const text = useMessageText();
   const uiLocale = useLocale() as AppLocale;
   const [feedback, setFeedback] = useState<Feedback>(null);
-  const [locale, setLocale] = useState<ContentLocale>("TET");
+  // Open on the first language that has content (an article may be Portuguese-only).
+  const [locale, setLocale] = useState<ContentLocale>(() => CONTENT_LOCALES.find((l) => initial.translations[l]?.title?.trim()) ?? "TET");
   const [scheduling, setScheduling] = useState(false);
   const feedbackRef = useRef<HTMLDivElement>(null);
   const isNew = !initial.id;
@@ -194,7 +195,8 @@ export function NewsEditor({
   const tErrors = (errors.translations ?? {}) as Partial<Record<ContentLocale, Record<string, { message?: string }>>>;
   const publishedAtInput = watch("publishedAt");
   const coverImageUrl = watch("coverImageUrl");
-  const tetTitle = translations.TET.title;
+  // Slug placeholder: Tetun title, else the first title written in any language.
+  const tetTitle = translations.TET.title?.trim() || CONTENT_LOCALES.map((l) => translations[l].title?.trim()).find(Boolean) || "";
   const scheduleDate = publishedAtInput ? fromDiliLocalInput(publishedAtInput) : null;
   const isFuture = scheduleDate ? scheduleDate.getTime() > Date.now() : false;
   const live = savedStatus === "PUBLISHED";
@@ -273,7 +275,7 @@ export function NewsEditor({
               const err = (f: string) => tErrors[l]?.[f]?.message;
               return (
                 <div key={l} hidden={locale !== l} lang={l.toLowerCase()}>
-                  <Field id={id("title")} label={t("fields.title")} required={l === "TET"} error={err("title")}>
+                  <Field id={id("title")} label={t("fields.title")} required error={err("title")}>
                     <Input disabled={readOnly} {...fieldAria(id("title"), { error: err("title") })} {...register(`translations.${l}.title`)} />
                   </Field>
                 </div>
@@ -300,7 +302,7 @@ export function NewsEditor({
                   <div className="flex flex-1 flex-col gap-1.5">
                     <span id={`${id("body")}-label`} className="text-sm font-medium text-ink">
                       {t("fields.body")}
-                      {l === "TET" ? <span aria-hidden="true" className="ml-0.5 text-ojetil-red">*</span> : null}
+                      <span aria-hidden="true" className="ml-0.5 text-ojetil-red">*</span>
                     </span>
                     <Controller
                       control={control}
