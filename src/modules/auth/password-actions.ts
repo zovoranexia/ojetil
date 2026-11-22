@@ -4,6 +4,7 @@ import { fieldErrorsFrom, type ActionResult } from "@/lib/actions";
 import { db } from "@/lib/db";
 import { hashPassword, verifyPassword } from "@/lib/security/password";
 import { requireUser } from "@/lib/security/guards";
+import { msg } from "@/lib/i18n-message";
 import { isAuthError } from "@/lib/security/permissions";
 import { recordAudit } from "@/modules/audit/service";
 import { changePasswordSchema, type ChangePasswordInput } from "./password-schema";
@@ -18,14 +19,14 @@ export async function changeOwnPassword(input: ChangePasswordInput): Promise<Act
     const user = await requireUser(undefined, { allowPendingPasswordChange: true });
     const parsed = changePasswordSchema.safeParse(input);
     if (!parsed.success) {
-      return { ok: false, error: { code: "VALIDATION", message: "Please correct the highlighted fields.", fieldErrors: fieldErrorsFrom(parsed.error) } };
+      return { ok: false, error: { code: "VALIDATION", message: msg("admin.errors.validation"), fieldErrors: fieldErrorsFrom(parsed.error) } };
     }
 
     const row = await db.user.findUnique({ where: { id: user.id }, select: { passwordHash: true } });
     if (!row || !(await verifyPassword(row.passwordHash, parsed.data.currentPassword))) {
       return {
         ok: false,
-        error: { code: "VALIDATION", message: "Your current password is incorrect.", fieldErrors: { currentPassword: ["Incorrect password."] } },
+        error: { code: "VALIDATION", message: msg("admin.account.errors.currentIncorrect"), fieldErrors: { currentPassword: [msg("admin.account.errors.incorrectPassword")] } },
       };
     }
 
@@ -39,8 +40,8 @@ export async function changeOwnPassword(input: ChangePasswordInput): Promise<Act
     });
     return { ok: true, data: { email: user.email } };
   } catch (error) {
-    if (isAuthError(error)) return { ok: false, error: { code: "UNAUTHORIZED", message: "Your session has expired. Please sign in again." } };
+    if (isAuthError(error)) return { ok: false, error: { code: "UNAUTHORIZED", message: msg("admin.account.errors.sessionExpired") } };
     console.error("[auth] password change failed", error);
-    return { ok: false, error: { code: "INTERNAL", message: "Something went wrong. Please try again." } };
+    return { ok: false, error: { code: "INTERNAL", message: msg("admin.errors.internal") } };
   }
 }

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { ActionError, authorizedAction } from "@/lib/actions";
 import { db } from "@/lib/db";
+import { msg } from "@/lib/i18n-message";
 import { recordAudit } from "@/modules/audit/service";
 import { decisionSchema, memberIdSchema } from "./admin-schema";
 import { decryptMemberPii } from "./pii";
@@ -29,7 +30,7 @@ export const revealMemberPii = authorizedAction("members:pii", memberIdSchema, a
       piiKeyVersion: true,
     },
   });
-  if (!row) throw new ActionError("NOT_FOUND", "Registration not found.");
+  if (!row) throw new ActionError("NOT_FOUND", msg("admin.members.errors.notFound"));
 
   const pii = decryptMemberPii(row);
   await recordAudit({
@@ -48,12 +49,12 @@ export const revealMemberPii = authorizedAction("members:pii", memberIdSchema, a
 export const decideMemberRegistration = authorizedAction("members:verify", decisionSchema, async (input, user) => {
   const result = await db.$transaction(async (tx) => {
     const current = await tx.memberRegistration.findUnique({ where: { id: input.id }, select: { status: true, trackingCode: true } });
-    if (!current) throw new ActionError("NOT_FOUND", "Registration not found.");
+    if (!current) throw new ActionError("NOT_FOUND", msg("admin.members.errors.notFound"));
     if (current.status !== input.expectedStatus) {
-      throw new ActionError("CONFLICT", "This application was updated by someone else. Reload the page to see the latest status.");
+      throw new ActionError("CONFLICT", msg("admin.members.errors.conflict"));
     }
     if (current.status === input.decision) {
-      throw new ActionError("CONFLICT", "The application already has this status.");
+      throw new ActionError("CONFLICT", msg("admin.members.errors.alreadyStatus"));
     }
 
     const now = new Date();
@@ -66,7 +67,7 @@ export const decideMemberRegistration = authorizedAction("members:verify", decis
         verifiedAt: input.decision === "VERIFIED" ? now : null,
       },
     });
-    if (updated.count !== 1) throw new ActionError("CONFLICT", "This application was updated by someone else. Reload the page.");
+    if (updated.count !== 1) throw new ActionError("CONFLICT", msg("admin.members.errors.conflict"));
 
     await tx.memberStatusChange.create({
       data: { registrationId: input.id, fromStatus: current.status, toStatus: input.decision, note: input.note, actorId: user.id },

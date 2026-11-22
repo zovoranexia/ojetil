@@ -4,6 +4,8 @@ import * as Tabs from "@radix-ui/react-tabs";
 import { AlertCircle, Check } from "lucide-react";
 import type { FieldErrors, FieldValues, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { Field, fieldAria, textareaClassName } from "@/components/forms/field";
+import { useTranslations } from "next-intl";
+import { useMessageText } from "@/components/i18n/message-text";
 import { Input } from "@/components/ui/input";
 import { CONTENT_LOCALES, LOCALE_TAB_LABELS, type TranslationFieldSpec } from "@/modules/content/admin-schema";
 import { cn } from "@/lib/utils";
@@ -26,12 +28,14 @@ export function TranslationTabs<T extends FieldValues>({
   errors: FieldErrors<T>;
   disabled?: boolean;
 }) {
+  const t = useTranslations("admin.translationTabs");
+  const text = useMessageText();
   const values = ((watch("translations" as never) as unknown) ?? {}) as Record<string, Record<string, string>>;
   const tErrors = ((errors as Record<string, unknown>).translations ?? {}) as Record<string, Record<string, { message?: string }> | undefined>;
 
   return (
     <Tabs.Root defaultValue="TET" className="rounded-card border border-border-subtle">
-      <Tabs.List aria-label="Content language" className="flex overflow-x-auto border-b border-border-subtle bg-paper">
+      <Tabs.List aria-label={t("contentLanguage")} className="flex overflow-x-auto border-b border-border-subtle bg-paper">
         {CONTENT_LOCALES.map((locale) => {
           const v = values[locale] ?? {};
           const hasError = Boolean(tErrors[locale] && Object.keys(tErrors[locale]!).length);
@@ -47,11 +51,11 @@ export function TranslationTabs<T extends FieldValues>({
             >
               {LOCALE_TAB_LABELS[locale]}
               {hasError ? (
-                <AlertCircle aria-label="has errors" className="size-4 text-status-rejected" />
+                <AlertCircle aria-label={t("hasErrors")} className="size-4 text-status-rejected" />
               ) : complete ? (
-                <Check aria-label="complete" className="size-4 text-status-verified" />
+                <Check aria-label={t("complete")} className="size-4 text-status-verified" />
               ) : (
-                <span className="text-xs font-normal">{locale === "TET" ? "required" : "optional"}</span>
+                <span className="text-xs font-normal">{locale === "TET" ? t("required") : t("optional")}</span>
               )}
             </Tabs.Trigger>
           );
@@ -60,24 +64,25 @@ export function TranslationTabs<T extends FieldValues>({
       {CONTENT_LOCALES.map((locale) => (
         <Tabs.Content key={locale} value={locale} forceMount className="space-y-5 p-5 data-[state=inactive]:hidden" lang={locale.toLowerCase()}>
           {locale !== "TET" ? (
-            <p className="text-xs text-ink-secondary">Leave every field empty to show the Tetun version to {LOCALE_TAB_LABELS[locale]} readers.</p>
+            <p className="text-xs text-ink-secondary">{t("fallbackHint", { language: LOCALE_TAB_LABELS[locale] })}</p>
           ) : null}
           {fields.map((f) => {
             const id = `translations-${locale}-${f.name}`;
             const name = `translations.${locale}.${f.name}`;
             const error = tErrors[locale]?.[f.name]?.message;
+            const hint = f.hint ? text(f.hint) : undefined;
             return (
-              <Field key={f.name} id={id} label={f.label} required={f.required && locale === "TET"} hint={f.hint} error={error}>
+              <Field key={f.name} id={id} label={text(f.label)} required={f.required && locale === "TET"} hint={hint} error={error}>
                 {f.multiline ? (
                   <textarea
                     rows={f.rows ?? 6}
                     disabled={disabled}
                     className={cn(textareaClassName, f.rows && f.rows > 8 && "font-mono text-sm")}
-                    {...fieldAria(id, { hint: Boolean(f.hint), error })}
+                    {...fieldAria(id, { hint: Boolean(hint), error })}
                     {...register(name as never)}
                   />
                 ) : (
-                  <Input disabled={disabled} {...fieldAria(id, { hint: Boolean(f.hint), error })} {...register(name as never)} />
+                  <Input disabled={disabled} {...fieldAria(id, { hint: Boolean(hint), error })} {...register(name as never)} />
                 )}
               </Field>
             );

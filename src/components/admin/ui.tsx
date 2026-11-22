@@ -1,11 +1,13 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import type { AttendeeStatus, ContentStatus, EventStatus, RegistrationStatus } from "@prisma/client";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-/* Server-safe presentational building blocks for backoffice pages. */
+/* Server-safe presentational building blocks for backoffice pages (non-async, so
+   next-intl's useTranslations works in both Server and Client Components). */
 
 export function AdminPageHeading({
   title,
@@ -86,29 +88,34 @@ export function EmptyRow({ colSpan, children }: { colSpan: number; children: Rea
 }
 
 /* ── Status badges ──────────────────────────────────────────────────── */
-const MEMBER_STATUS: Record<RegistrationStatus, { label: string; tone: "pending" | "info" | "verified" | "rejected" }> = {
-  PENDING_VERIFICATION: { label: "Pending verification", tone: "pending" },
-  NEEDS_REVISION: { label: "Needs revision", tone: "info" },
-  VERIFIED: { label: "Verified", tone: "verified" },
-  REJECTED: { label: "Rejected", tone: "rejected" },
+/* Labels live in messages: admin.status.member.*, admin.status.content.*
+   (DRAFT/PUBLISHED/ARCHIVED/CANCELLED), admin.status.attendee.*, admin.status.category.* */
+const MEMBER_STATUS_TONE: Record<RegistrationStatus, "pending" | "info" | "verified" | "rejected"> = {
+  PENDING_VERIFICATION: "pending",
+  NEEDS_REVISION: "info",
+  VERIFIED: "verified",
+  REJECTED: "rejected",
 };
 export function MemberStatusBadge({ status }: { status: RegistrationStatus }) {
-  return <Badge tone={MEMBER_STATUS[status].tone}>{MEMBER_STATUS[status].label}</Badge>;
+  const t = useTranslations("admin.status.member");
+  return <Badge tone={MEMBER_STATUS_TONE[status]}>{t(status)}</Badge>;
 }
-export const MEMBER_STATUS_LABELS = Object.fromEntries(Object.entries(MEMBER_STATUS).map(([k, v]) => [k, v.label])) as Record<RegistrationStatus, string>;
 
 export function ContentStatusBadge({ status }: { status: ContentStatus | EventStatus }) {
+  const t = useTranslations("admin.status.content");
   const tone = status === "PUBLISHED" ? "verified" : status === "DRAFT" ? "neutral" : status === "CANCELLED" ? "rejected" : "info";
-  return <Badge tone={tone}>{status.charAt(0) + status.slice(1).toLowerCase()}</Badge>;
+  return <Badge tone={tone}>{t(status)}</Badge>;
 }
 
 export function AttendeeStatusBadge({ status }: { status: AttendeeStatus }) {
+  const t = useTranslations("admin.status.attendee");
   const tone = status === "ATTENDED" ? "verified" : status === "CANCELLED" ? "rejected" : "info";
-  return <Badge tone={tone}>{status.charAt(0) + status.slice(1).toLowerCase()}</Badge>;
+  return <Badge tone={tone}>{t(status)}</Badge>;
 }
 
 export function CategoryBadge({ category }: { category: "VETERAN_KLANDESTIN" | "ANGGOTA_PEMUDA" }) {
-  return category === "VETERAN_KLANDESTIN" ? <Badge tone="heritageDark">Veteran</Badge> : <Badge tone="heritage">Youth</Badge>;
+  const t = useTranslations("admin.status.category");
+  return <Badge tone={category === "VETERAN_KLANDESTIN" ? "heritageDark" : "heritage"}>{t(category)}</Badge>;
 }
 
 /* ── Pagination (preserves filters) ─────────────────────────────────── */
@@ -132,21 +139,20 @@ export function AdminPagination({
     const s = q.toString();
     return s ? `${basePath}?${s}` : basePath;
   };
+  const t = useTranslations("admin.common");
   const cls = "inline-flex min-h-tap items-center gap-1 rounded-control border border-border-subtle bg-surface-card px-3 text-sm font-semibold hover:border-border-strong md:min-h-9";
   return (
-    <nav aria-label="Pagination" className="mt-4 flex items-center justify-between gap-3 text-sm">
-      <p className="tabular-nums text-ink-secondary">
-        {total} {total === 1 ? "result" : "results"} · page {page} of {pageCount}
-      </p>
+    <nav aria-label={t("pagination")} className="mt-4 flex items-center justify-between gap-3 text-sm">
+      <p className="tabular-nums text-ink-secondary">{t("resultsPage", { total, page, pageCount })}</p>
       <div className="flex gap-2">
         {page > 1 ? (
           <Link href={href(page - 1)} className={cls}>
-            <ChevronLeft aria-hidden="true" className="size-4" /> Previous
+            <ChevronLeft aria-hidden="true" className="size-4" /> {t("previous")}
           </Link>
         ) : null}
         {page < pageCount ? (
           <Link href={href(page + 1)} className={cls}>
-            Next <ChevronRight aria-hidden="true" className="size-4" />
+            {t("next")} <ChevronRight aria-hidden="true" className="size-4" />
           </Link>
         ) : null}
       </div>

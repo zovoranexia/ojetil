@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import { Plus, Star } from "lucide-react";
 import Link from "next/link";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { ContentStatus } from "@prisma/client";
 import { AdminPageHeading, AdminPagination, ContentStatusBadge, DataTable, EmptyRow, Td, Th, filterControlClass } from "@/components/admin/ui";
 import { Button } from "@/components/ui/button";
+import type { AppLocale } from "@/config/locales";
 import { satisfies } from "@/config/rbac";
 import { adminDate, adminDateTime } from "@/lib/admin-format";
 import { requirePageAccess } from "@/lib/security/guards";
 import { CONTENT_STATUSES } from "@/modules/content/admin-common";
-import { NEWS_CATEGORY_LABELS } from "@/modules/news/categories";
 import { listNewsAdmin } from "@/modules/news/admin-queries";
 
-export const metadata: Metadata = { title: "News" };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("admin.news.meta");
+  return { title: t("list") };
+}
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
 const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v)?.trim() || undefined;
@@ -24,17 +28,18 @@ export default async function NewsAdminPage({ searchParams }: { searchParams: SP
   const status = (CONTENT_STATUSES as readonly string[]).includes(statusRaw ?? "") ? (statusRaw as ContentStatus) : undefined;
   const result = await listNewsAdmin({ q, status, page: Math.max(Number(one(sp.page) ?? 1) || 1, 1) });
   const canWrite = satisfies(user.role, "content:write");
+  const [t, tStatus, locale] = await Promise.all([getTranslations("admin.news"), getTranslations("admin.status.content"), getLocale() as Promise<AppLocale>]);
 
   return (
     <>
       <AdminPageHeading
-        title="News & press releases"
-        description="Each article is edited in Tetun, Portuguese, Indonesian and English."
+        title={t("list.title")}
+        description={t("list.description")}
         actions={
           canWrite ? (
             <Button asChild>
               <Link href="/admin/berita/baru">
-                <Plus aria-hidden="true" /> New article
+                <Plus aria-hidden="true" /> {t("list.newArticle")}
               </Link>
             </Button>
           ) : null
@@ -42,33 +47,33 @@ export default async function NewsAdminPage({ searchParams }: { searchParams: SP
       />
       <form method="get" role="search" className="mb-4 grid gap-2 rounded-card border border-border-subtle bg-surface-card p-3 sm:grid-cols-[1fr_auto_auto]">
         <label htmlFor="q" className="sr-only">
-          Search
+          {t("list.search")}
         </label>
-        <input id="q" name="q" defaultValue={q} placeholder="Search title or slug" className={filterControlClass} />
+        <input id="q" name="q" defaultValue={q} placeholder={t("list.searchPlaceholder")} className={filterControlClass} />
         <label htmlFor="status" className="sr-only">
-          Status
+          {t("list.status")}
         </label>
         <select id="status" name="status" defaultValue={status ?? ""} className={filterControlClass}>
-          <option value="">All statuses</option>
+          <option value="">{t("list.allStatuses")}</option>
           {CONTENT_STATUSES.map((s) => (
             <option key={s} value={s}>
-              {s.charAt(0) + s.slice(1).toLowerCase()}
+              {tStatus(s)}
             </option>
           ))}
         </select>
         <Button type="submit" variant="editorial" size="sm">
-          Filter
+          {t("list.filter")}
         </Button>
       </form>
-      <DataTable caption="News articles">
+      <DataTable caption={t("list.caption")}>
         <thead>
           <tr>
-            <Th>Title (Tetun)</Th>
-            <Th>Category</Th>
-            <Th>Languages</Th>
-            <Th>Published</Th>
-            <Th>Updated</Th>
-            <Th>Status</Th>
+            <Th>{t("list.colTitle")}</Th>
+            <Th>{t("list.colCategory")}</Th>
+            <Th>{t("list.colLanguages")}</Th>
+            <Th>{t("list.colPublished")}</Th>
+            <Th>{t("list.colUpdated")}</Th>
+            <Th>{t("list.colStatus")}</Th>
           </tr>
         </thead>
         <tbody>
@@ -79,14 +84,14 @@ export default async function NewsAdminPage({ searchParams }: { searchParams: SP
                   <Link href={`/admin/berita/${a.id}`} className="font-medium text-ink hover:text-ojetil-red hover:underline">
                     {a.title}
                   </Link>
-                  {a.isFeatured ? <Star aria-label="Featured" className="ml-1.5 inline size-3.5 fill-gold-text text-gold-text" /> : null}
+                  {a.isFeatured ? <Star aria-label={t("list.featured")} className="ml-1.5 inline size-3.5 fill-gold-text text-gold-text" /> : null}
                   <span className="block font-mono text-xs text-ink-secondary">{a.slug}</span>
                 </Td>
-                <Td>{NEWS_CATEGORY_LABELS[a.category]}</Td>
+                <Td>{t(`categories.${a.category}`)}</Td>
                 <Td className="font-mono text-xs">{a.locales.join(" · ")}</Td>
-                <Td className="tabular-nums">{adminDate(a.publishedAt)}</Td>
+                <Td className="tabular-nums">{adminDate(a.publishedAt, locale)}</Td>
                 <Td className="tabular-nums text-ink-secondary">
-                  {adminDateTime(a.updatedAt)}
+                  {adminDateTime(a.updatedAt, locale)}
                   {a.author ? <span className="block text-xs">{a.author.name}</span> : null}
                 </Td>
                 <Td>
@@ -95,7 +100,7 @@ export default async function NewsAdminPage({ searchParams }: { searchParams: SP
               </tr>
             ))
           ) : (
-            <EmptyRow colSpan={6}>No articles found.</EmptyRow>
+            <EmptyRow colSpan={6}>{t("list.empty")}</EmptyRow>
           )}
         </tbody>
       </DataTable>

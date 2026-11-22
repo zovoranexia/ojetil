@@ -407,5 +407,988 @@
       "form": "Perbaiki kolom yang ditandai.",
       "network": "Masalah koneksi. Periksa internet lalu coba lagi."
     }
+  },
+  "admin": {
+    "shell": {
+      "backoffice": "Backoffice",
+      "home": "Backoffice OJETIL — ringkasan",
+      "navLabel": "Backoffice",
+      "openMenu": "Buka menu",
+      "closeMenu": "Tutup menu",
+      "viewPublicSite": "Lihat situs publik",
+      "designSystem": "Sistem desain"
+    },
+    "nav": {
+      "overview": "Ringkasan",
+      "members": "Anggota & veteran",
+      "news": "Berita",
+      "documents": "Dokumen",
+      "events": "Acara",
+      "timeline": "Linimasa",
+      "leadership": "Kepengurusan",
+      "profilePages": "Halaman profil",
+      "users": "Pengguna & peran",
+      "audit": "Log audit"
+    },
+    "topbar": {
+      "scope": "Akses",
+      "language": "Bahasa",
+      "darkMode": "Mode gelap",
+      "lightMode": "Mode terang",
+      "accountMenu": "Menu akun",
+      "role": "Peran",
+      "changePassword": "Ganti kata sandi",
+      "signOut": "Keluar"
+    },
+    "roles": {
+      "SUPER_ADMIN": {
+        "label": "Super Admin",
+        "short": "Super Admin",
+        "description": "Akses penuh ke sistem, termasuk pengelolaan pengguna."
+      },
+      "VERIFIER": {
+        "label": "Verifikator (Sekretariat)",
+        "short": "Verifikator",
+        "description": "Meninjau pendaftaran anggota dan veteran."
+      },
+      "EDITOR": {
+        "label": "Editor (Redaksi & Program)",
+        "short": "Editor",
+        "description": "Menerbitkan berita, sejarah, kepengurusan, dan acara."
+      },
+      "VIEWER": {
+        "label": "Peninjau (Pengurus)",
+        "short": "Peninjau",
+        "description": "Pengawasan hanya-baca dengan data anggota teragregasi."
+      }
+    },
+    "common": {
+      "cancel": "Batal",
+      "delete": "Hapus",
+      "save": "Simpan",
+      "saveChanges": "Simpan perubahan",
+      "saving": "Menyimpan…",
+      "copy": "Salin",
+      "copied": "Tersalin",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "pagination": "Paginasi",
+      "resultsPage": "{total} hasil · halaman {page} dari {pageCount}",
+      "deletePermanentlyTitle": "Hapus permanen?",
+      "deletePermanentlyDescription": "Tindakan ini tidak dapat dibatalkan. Penghapusan dicatat di log audit."
+    },
+    "translationTabs": {
+      "contentLanguage": "Bahasa konten",
+      "hasErrors": "ada kesalahan",
+      "complete": "lengkap",
+      "required": "wajib",
+      "optional": "opsional",
+      "fallbackHint": "Kosongkan semua kolom agar pembaca {language} melihat versi Tetun."
+    },
+    "status": {
+      "member": {
+        "PENDING_VERIFICATION": "Menunggu verifikasi",
+        "NEEDS_REVISION": "Perlu revisi",
+        "VERIFIED": "Terverifikasi",
+        "REJECTED": "Ditolak"
+      },
+      "content": {
+        "DRAFT": "Draf",
+        "PUBLISHED": "Terbit",
+        "ARCHIVED": "Diarsipkan",
+        "CANCELLED": "Dibatalkan"
+      },
+      "attendee": {
+        "REGISTERED": "Terdaftar",
+        "CANCELLED": "Dibatalkan",
+        "ATTENDED": "Hadir"
+      },
+      "category": {
+        "VETERAN_KLANDESTIN": "Veteran",
+        "ANGGOTA_PEMUDA": "Pemuda"
+      }
+    },
+    "errors": {
+      "validation": "Perbaiki kolom yang ditandai.",
+      "internal": "Terjadi kesalahan. Silakan coba lagi.",
+      "unauthorized": "Diperlukan autentikasi.",
+      "forbidden": "Anda tidak memiliki izin untuk melakukan tindakan ini.",
+      "mustChangePassword": "Pilih kata sandi baru sebelum melanjutkan.",
+      "loginFailed": "Email atau kata sandi salah, atau akun sedang dikunci sementara. Setelah 5 kali gagal, akun dikunci selama 15 menit."
+    },
+    "validation": {
+      "required": "Kolom ini wajib diisi.",
+      "maxChars": "Gunakan paling banyak {max} karakter.",
+      "requiredTetun": "Wajib diisi dalam bahasa Tetun.",
+      "requiredOnceStarted": "Wajib diisi setelah bahasa ini mulai diisi.",
+      "slugMin": "Slug minimal 3 karakter.",
+      "slugMax": "Slug terlalu panjang.",
+      "slugPattern": "Gunakan huruf kecil, angka, dan tanda hubung tunggal saja.",
+      "imageUrl": "Gunakan path situs yang diawali / atau URL https://.",
+      "email": "Masukkan alamat email yang valid.",
+      "url": "Masukkan URL https:// yang valid.",
+      "date": "Masukkan tanggal yang valid."
+    },
+    "auth": {
+      "metaTitle": "Masuk staf",
+      "title": "Masuk staf",
+      "intro": "Gunakan akun yang diberikan kepada Anda oleh Sekretariat OJETIL.",
+      "staffOnly": "Hanya untuk staf OJETIL yang berwenang. Setiap proses masuk dan setiap akses ke data anggota dicatat.",
+      "passwordChanged": "Kata sandi telah diubah. Masuk dengan kata sandi baru Anda.",
+      "email": "Email",
+      "password": "Kata sandi",
+      "showPassword": "Tampilkan kata sandi",
+      "hidePassword": "Sembunyikan kata sandi",
+      "signIn": "Masuk",
+      "signingIn": "Sedang masuk…",
+      "validation": {
+        "emailRequired": "Masukkan alamat email Anda.",
+        "passwordRequired": "Masukkan kata sandi Anda."
+      }
+    },
+    "account": {
+      "metaTitle": "Ubah kata sandi",
+      "backofficeName": "Backoffice OJETIL",
+      "title": "Ubah kata sandi",
+      "titleMustChange": "Pilih kata sandi Anda sendiri",
+      "intro": "Masuk sebagai {email}. Anda akan diminta masuk kembali dengan kata sandi baru.",
+      "introMustChange": "Anda masuk dengan kata sandi sementara dari administrator. Tetapkan kata sandi pribadi untuk melanjutkan — tidak boleh ada orang lain yang mengetahuinya.",
+      "backToBackoffice": "Kembali ke backoffice",
+      "signOut": "Keluar",
+      "currentPassword": "Kata sandi saat ini",
+      "newPassword": "Kata sandi baru",
+      "newPasswordHint": "Minimal 12 karakter, huruf besar dan kecil, serta angka atau simbol.",
+      "confirmPassword": "Ulangi kata sandi baru",
+      "submit": "Ubah kata sandi",
+      "validation": {
+        "currentRequired": "Masukkan kata sandi Anda saat ini.",
+        "mismatch": "Kedua kata sandi baru tidak cocok.",
+        "sameAsCurrent": "Pilih kata sandi yang berbeda dari kata sandi saat ini.",
+        "minLength": "Gunakan minimal {min} karakter.",
+        "mixedCase": "Gunakan kombinasi huruf besar dan kecil.",
+        "numberOrSymbol": "Sertakan angka atau simbol."
+      },
+      "errors": {
+        "currentIncorrect": "Kata sandi Anda saat ini salah.",
+        "incorrectPassword": "Kata sandi salah.",
+        "sessionExpired": "Sesi Anda telah berakhir. Silakan masuk kembali."
+      }
+    },
+    "forbidden": {
+      "metaTitle": "Akses ditolak",
+      "title": "Akses ditolak",
+      "roleDenied": "Peran Anda — {role} — tidak mencakup akses ke area ini. Jika Anda memerlukannya, mintalah kepada Super Admin.",
+      "signInRequired": "Anda perlu masuk dengan akun yang berwenang untuk melihat area ini.",
+      "backToDashboard": "Kembali ke dasbor",
+      "signInAsOther": "Masuk sebagai orang lain",
+      "signIn": "Masuk"
+    },
+    "users": {
+      "metaTitle": "Pengguna & peran",
+      "title": "Pengguna & peran",
+      "description": "Akun staf tidak pernah dihapus — nonaktifkan untuk menjaga jejak audit. Perubahan peran dan penonaktifan langsung mengeluarkan orang tersebut dari sesinya.",
+      "addTitle": "Tambah akun staf",
+      "tableCaption": "Akun staf",
+      "columns": {
+        "user": "Pengguna",
+        "role": "Peran",
+        "lastSignIn": "Terakhir masuk",
+        "status": "Status",
+        "manage": "Kelola"
+      },
+      "state": {
+        "active": "Aktif",
+        "locked": "Terkunci",
+        "deactivated": "Nonaktif"
+      },
+      "fields": {
+        "name": "Nama lengkap",
+        "email": "Email",
+        "role": "Peran"
+      },
+      "create": "Buat",
+      "created": "Akun dibuat untuk {email}.",
+      "temporaryPasswordFor": "Kata sandi sementara untuk {email}",
+      "newTemporaryPassword": "Kata sandi sementara baru",
+      "oneTimeNote": "Hanya ditampilkan sekali. Berikan kepada orang tersebut melalui saluran yang aman; ia harus merahasiakannya.",
+      "self": "Ini akun Anda — Super Admin lain yang harus mengubahnya.",
+      "roleFor": "Peran untuk {name}",
+      "deactivate": "Nonaktifkan",
+      "reactivate": "Aktifkan kembali",
+      "deactivateTitle": "Nonaktifkan {name}?",
+      "reactivateTitle": "Aktifkan kembali {name}?",
+      "deactivateDescription": "Sesinya langsung diakhiri dan ia tidak dapat masuk sampai diaktifkan kembali. Riwayat auditnya tetap disimpan.",
+      "reactivateDescription": "Ia dapat masuk kembali dengan kata sandinya saat ini.",
+      "resetPassword": "Atur ulang kata sandi",
+      "resetTitle": "Atur ulang kata sandi untuk {name}?",
+      "resetDescription": "Kata sandi sementara baru dibuat, akun dibuka kuncinya, dan semua sesinya diakhiri.",
+      "validation": {
+        "nameRequired": "Masukkan nama lengkap.",
+        "roleRequired": "Pilih peran."
+      },
+      "errors": {
+        "emailExists": "Akun dengan email ini sudah ada.",
+        "emailInUse": "Sudah digunakan.",
+        "notFound": "Pengguna tidak ditemukan.",
+        "ownRole": "Anda tidak dapat mengubah peran Anda sendiri.",
+        "ownDeactivate": "Anda tidak dapat menonaktifkan akun Anda sendiri.",
+        "ownReset": "Gunakan “Ubah kata sandi” untuk akun Anda sendiri.",
+        "lastSuperAdminRole": "Ini adalah Super Admin aktif terakhir; promosikan orang lain terlebih dahulu.",
+        "lastSuperAdminDeactivate": "Ini adalah Super Admin aktif terakhir dan tidak dapat dinonaktifkan."
+      }
+    },
+    "dashboard": {
+      "metaTitle": "Ringkasan",
+      "welcome": "Selamat datang, {name}",
+      "description": "Ringkasan seluruh organisasi. Angka-angka ini bersifat agregat dan tidak memuat data pribadi.",
+      "kpis": {
+        "verified": "Anggota terverifikasi",
+        "pending": "Menunggu verifikasi",
+        "awaitingRevision": "+ {count} menunggu revisi",
+        "activeEvents": "Acara aktif",
+        "eventRegistrations": "Pendaftaran acara"
+      },
+      "municipality": {
+        "title": "Anggota per munisipalitas",
+        "description": "Pendaftaran terverifikasi dan dalam proses (tidak termasuk yang ditolak).",
+        "municipality": "Munisipalitas",
+        "verified": "Terverifikasi",
+        "inProgress": "Dalam proses"
+      },
+      "activity": {
+        "title": "Aktivitas terbaru",
+        "fromAudit": "Dari log audit",
+        "latestContent": "Perubahan konten terbaru",
+        "viewAll": "Lihat semua",
+        "empty": "Belum ada aktivitas.",
+        "systemActor": "Sistem / publik",
+        "news": "Berita",
+        "event": "Acara"
+      }
+    },
+    "audit": {
+      "metaTitle": "Log audit",
+      "title": "Log audit",
+      "description": "Catatan yang hanya dapat ditambah untuk proses masuk, akses data pribadi, keputusan verifikasi, ekspor, publikasi, dan perubahan akun. Entri tidak dapat diubah atau dihapus.",
+      "roleRestricted": "Peran Anda ({role}) hanya dapat melihat entri verifikasi.",
+      "filters": {
+        "category": "Kategori",
+        "allCategories": "Semua kategori",
+        "action": "Tindakan",
+        "allActions": "Semua tindakan",
+        "actorEmail": "Email pelaku",
+        "fromDate": "Dari tanggal",
+        "toDate": "Sampai tanggal",
+        "submit": "Saring"
+      },
+      "categories": {
+        "AUTH": "Autentikasi",
+        "VERIFICATION": "Verifikasi",
+        "CONTENT": "Konten",
+        "EVENTS": "Acara",
+        "USERS": "Pengguna",
+        "SYSTEM": "Sistem"
+      },
+      "table": {
+        "caption": "Entri log audit",
+        "when": "Waktu (Díli)",
+        "actor": "Pelaku",
+        "action": "Tindakan",
+        "target": "Target & detail",
+        "ip": "IP",
+        "details": "Detail",
+        "systemActor": "Sistem / publik",
+        "empty": "Tidak ada entri yang cocok dengan filter ini."
+      },
+      "actions": {
+        "LOGIN_SUCCEEDED": "Berhasil masuk",
+        "LOGIN_FAILED": "Gagal masuk",
+        "LOGOUT": "Keluar",
+        "ACCOUNT_LOCKED": "Akun dikunci",
+        "MEMBER_PII_VIEWED": "Melihat data pribadi anggota",
+        "MEMBER_STATUS_CHANGED": "Mengubah status anggota",
+        "MEMBER_EXPORTED": "Mengekspor anggota terverifikasi",
+        "CONTENT_CREATED": "Membuat konten",
+        "CONTENT_UPDATED": "Memperbarui konten",
+        "CONTENT_PUBLISHED": "Menerbitkan konten",
+        "CONTENT_UNPUBLISHED": "Membatalkan terbitan konten",
+        "CONTENT_DELETED": "Menghapus konten",
+        "MEDIA_UPLOADED": "Mengunggah gambar",
+        "EVENT_CREATED": "Membuat acara",
+        "EVENT_UPDATED": "Memperbarui acara",
+        "EVENT_PUBLISHED": "Menerbitkan acara",
+        "EVENT_UNPUBLISHED": "Membatalkan terbitan acara",
+        "EVENT_CANCELLED": "Membatalkan acara",
+        "EVENT_DELETED": "Menghapus acara",
+        "EVENT_ATTENDEES_EXPORTED": "Mengekspor peserta acara",
+        "EVENT_ATTENDANCE_UPDATED": "Memperbarui kehadiran acara",
+        "USER_CREATED": "Membuat pengguna",
+        "USER_ROLE_CHANGED": "Mengubah peran pengguna",
+        "USER_DEACTIVATED": "Menonaktifkan pengguna",
+        "USER_REACTIVATED": "Mengaktifkan kembali pengguna",
+        "USER_PASSWORD_RESET": "Mengatur ulang kata sandi pengguna",
+        "USER_PASSWORD_CHANGED": "Mengubah kata sandi sendiri",
+        "SEED_EXECUTED": "Basis data diisi data awal"
+      }
+    },
+    "designSystem": {
+      "metaTitle": "Sistem desain",
+      "badge": "Sistem desain",
+      "title": "Arsip yang Bermartabat,",
+      "titleAccent": "Energi Generasi Baru",
+      "intro": "Referensi token untuk platform web OJETIL. Pemeriksaan diakritik:",
+      "colours": "Token warna",
+      "swatchUse": {
+        "redPrimary": "CTA utama, status aktif, aksen linimasa",
+        "redHover": "Hover / ditekan utama",
+        "inkPrimary": "Teks, judul, footer, tombol editorial",
+        "inkSecondary": "Metadata, cap waktu, label",
+        "goldAccent": "Aksen HANYA pada permukaan ink",
+        "goldText": "Teks & lencana oker pada permukaan terang",
+        "surfacePaper": "Kanvas halaman publik",
+        "surfaceCard": "Kartu, modal, ruang kerja admin",
+        "borderSubtle": "Garis tepi, pemisah, input"
+      },
+      "status": "Semantik status",
+      "inkSurface": "Pada permukaan ink, aksen emas diperbolehkan:",
+      "typography": "Tipografi",
+      "typographyBody": "Plus Jakarta Sans untuk antarmuka dan teks isi.",
+      "tabularNumerals": "Angka tabular:",
+      "controls": "Kontrol (target sentuh ≥ 44px)"
+    },
+    "members": {
+      "metaTitle": "Anggota & veteran",
+      "aggregates": {
+        "description": "Angka agregat. Data perorangan hanya dapat diakses oleh Sekretariat.",
+        "byTrack": "Per kategori",
+        "byTrackCaption": "Pendaftaran per kategori",
+        "applications": "Pendaftaran",
+        "verified": "Terverifikasi",
+        "byMunicipality": "Per munisipalitas",
+        "byMunicipalityCaption": "Pendaftaran per munisipalitas",
+        "inProgress": "Dalam proses"
+      },
+      "queue": {
+        "title": "Antrean verifikasi",
+        "description": "Pendaftaran anggota dan veteran. Data pribadi tetap terenkripsi sampai Anda membuka data dan menampilkannya.",
+        "export": "Ekspor yang terverifikasi (CSV)",
+        "search": "Cari",
+        "searchPlaceholder": "Nama, nama klandestin, kode pelacakan, atau nomor BI",
+        "allStatuses": "Semua status",
+        "allTracks": "Semua kategori",
+        "allMunicipalities": "Semua munisipalitas",
+        "filter": "Saring",
+        "tableCaption": "Pendaftaran anggota",
+        "possibleDuplicate": "Kemungkinan duplikat",
+        "empty": "Tidak ada pendaftaran yang cocok dengan filter ini."
+      },
+      "columns": {
+        "trackingCode": "Kode pelacakan",
+        "applicant": "Pendaftar",
+        "track": "Kategori",
+        "municipality": "Munisipalitas",
+        "submitted": "Dikirim",
+        "status": "Status"
+      },
+      "detail": {
+        "metaTitle": "Pendaftaran",
+        "subtitle": "{code} · dikirim {date}",
+        "duplicateWarning": "{count, plural, other {Kemungkinan duplikat — nomor BI yang sama muncul di # pendaftaran lain:}}",
+        "identity": "Identitas & domisili",
+        "personalData": "Data pribadi (terenkripsi)",
+        "veteranBackground": "Latar belakang era klandestin",
+        "youthBackground": "Latar belakang anggota muda",
+        "decision": "Keputusan",
+        "history": "Riwayat verifikasi",
+        "noPiiAccess": "Peran Anda tidak dapat melihat data pribadi terenkripsi.",
+        "currentStatus": "Status saat ini: {status}",
+        "byActor": "oleh {name}",
+        "submittedByApplicant": "Dikirim oleh pendaftar",
+        "consentGiven": "Diberikan {date} (pemberitahuan {version})"
+      },
+      "fields": {
+        "fullName": "Nama lengkap",
+        "clandestineAlias": "Nama klandestin",
+        "dateOfBirth": "Tanggal lahir",
+        "gender": "Jenis kelamin",
+        "municipality": "Munisipalitas",
+        "administrativePost": "Pos administratif",
+        "email": "Email",
+        "submittedIn": "Bahasa pengisian",
+        "yearJoined": "Tahun bergabung",
+        "region": "Wilayah",
+        "cell": "Sel / jaringan",
+        "witness": "Saksi / rekan referensi",
+        "institution": "Sekolah / universitas / pekerjaan",
+        "interests": "Minat",
+        "motivation": "Motivasi",
+        "consent": "Persetujuan"
+      },
+      "genders": {
+        "MALE": "Laki-laki",
+        "FEMALE": "Perempuan",
+        "PREFER_NOT_TO_SAY": "Tidak ingin menyebutkan"
+      },
+      "interestAreas": {
+        "EDUCATION": "Pendidikan",
+        "ADVOCACY": "Advokasi",
+        "MEDIA": "Media",
+        "COMMUNITY_SERVICE": "Pengabdian masyarakat"
+      },
+      "pii": {
+        "intro": "Alamat, telepon, dan nomor BI terenkripsi. Menampilkannya dicatat di log audit beserta nama Anda.",
+        "introWithPhoto": "Alamat, telepon, nomor BI, dan foto terenkripsi. Menampilkannya dicatat di log audit beserta nama Anda.",
+        "reveal": "Tampilkan data pribadi",
+        "photoAlt": "Foto pendaftar",
+        "phone": "Telepon / WhatsApp",
+        "nationalId": "Bilhete de Identidade (BI)",
+        "address": "Alamat tempat tinggal",
+        "hide": "Sembunyikan"
+      },
+      "decision": {
+        "approve": "Setujui",
+        "approveConfirm": "Setujui dan verifikasi pendaftaran ini?",
+        "revise": "Minta revisi",
+        "reviseConfirm": "Minta informasi tambahan dari pendaftar?",
+        "reject": "Tolak",
+        "rejectConfirm": "Tolak pendaftaran ini?",
+        "noteLabel": "Alasan / catatan",
+        "noteHint": "Wajib untuk setiap keputusan. Untuk “Minta revisi” dan “Tolak”, catatan ini ditampilkan kepada pendaftar di halaman status publik — tulislah untuk mereka.",
+        "confirmDescription": "Catatan: “{note}”. Ini dicatat di riwayat verifikasi dan log audit.",
+        "tooShort": "Tulis catatan (minimal 5 karakter) untuk mengaktifkan tombol keputusan.",
+        "success": "Status {code} diperbarui."
+      },
+      "validation": {
+        "noteMin": "Tulis alasan singkat (minimal 5 karakter)."
+      },
+      "errors": {
+        "notFound": "Pendaftaran tidak ditemukan.",
+        "conflict": "Pendaftaran ini telah diperbarui oleh orang lain. Muat ulang halaman untuk melihat status terbaru.",
+        "alreadyStatus": "Pendaftaran ini sudah memiliki status tersebut."
+      }
+    },
+    "news": {
+      "meta": {
+        "list": "Berita",
+        "edit": "Edit artikel",
+        "new": "Artikel baru"
+      },
+      "list": {
+        "title": "Berita & siaran pers",
+        "description": "Setiap artikel disunting dalam bahasa Tetun, Portugis, Indonesia, dan Inggris.",
+        "newArticle": "Artikel baru",
+        "search": "Cari",
+        "searchPlaceholder": "Cari judul atau slug",
+        "status": "Status",
+        "allStatuses": "Semua status",
+        "filter": "Saring",
+        "caption": "Artikel berita",
+        "colTitle": "Judul (Tetun)",
+        "colCategory": "Kategori",
+        "colLanguages": "Bahasa",
+        "colPublished": "Diterbitkan",
+        "colUpdated": "Diperbarui",
+        "colStatus": "Status",
+        "featured": "Unggulan",
+        "empty": "Tidak ada artikel ditemukan."
+      },
+      "edit": {
+        "back": "Berita & artikel",
+        "newTitle": "Artikel baru",
+        "savedNotice": "Draf disimpan. Sekarang Anda dapat menerbitkan atau menjadwalkannya.",
+        "readOnly": "Hanya baca: peran Anda dapat melihat konten tetapi tidak dapat menyuntingnya."
+      },
+      "categories": {
+        "ORGANIZATION": "Organisasi",
+        "CIVIC_EDUCATION": "Pendidikan kewarganegaraan",
+        "YOUTH": "Pemuda",
+        "COMMEMORATION": "Peringatan",
+        "PRESS_RELEASE": "Siaran pers"
+      },
+      "languages": {
+        "TET": "Tetun",
+        "PT": "Portugis",
+        "ID": "Indonesia",
+        "EN": "Inggris"
+      },
+      "fields": {
+        "title": "Judul",
+        "excerpt": "Ringkasan",
+        "excerptHint": "Satu atau dua kalimat yang ditampilkan pada kartu dan hasil pencarian.",
+        "body": "Konten",
+        "coverImageAlt": "Deskripsi gambar sampul (teks alternatif)",
+        "coverImageAltHint": "Jelaskan gambar sampul bagi orang yang tidak dapat melihatnya.",
+        "slug": "Alamat (slug)",
+        "slugHint": "Opsional — dibuat dari judul. Hanya huruf, angka, dan tanda hubung. Digunakan bersama oleh semua bahasa.",
+        "category": "Jenis",
+        "municipality": "Munisipalitas",
+        "municipalityHint": "Opsional — untuk berita tentang munisipalitas tertentu.",
+        "municipalityNone": "Nasional (tanpa munisipalitas)",
+        "document": "Lampiran PDF",
+        "documentHint": "Dokumen terbit dari bagian Dokumen.",
+        "documentNone": "— Tidak ada —",
+        "documentUnpublished": " — tidak diterbitkan, tersembunyi di situs",
+        "byline": "Penulis",
+        "bylineHint": "Opsional — misalnya nama penulis untuk artikel opini.",
+        "tags": "Tag",
+        "tagsHint": "Pisahkan dengan koma.",
+        "isFeatured": "Tampilkan di beranda",
+        "coverImage": "Gambar sampul"
+      },
+      "editor": {
+        "contentSection": "Konten",
+        "contentLanguage": "Bahasa konten",
+        "localeState": {
+          "complete": "lengkap",
+          "partial": "belum lengkap",
+          "error": "ada kesalahan",
+          "empty": "kosong"
+        },
+        "primaryHint": "Tetun adalah bahasa utama. Bahasa lain opsional — yang kosong akan menampilkan versi Tetun.",
+        "coverReplace": "Ganti",
+        "coverRemove": "Hapus",
+        "coverUploading": "Mengunggah…",
+        "coverChoose": "Pilih…",
+        "coverHint": "JPEG, PNG, atau WebP hingga {mb} MB. Diubah ukurannya dan dikompresi otomatis; disembunyikan dalam Mode Hemat Data.",
+        "publishing": "Penerbitan",
+        "scheduled": "Terjadwal",
+        "publishedLabel": "Diterbitkan:",
+        "publishLabel": "Terbitkan:",
+        "immediately": "segera",
+        "editDate": "Ubah",
+        "doneDate": "Selesai",
+        "dateLabel": "Tanggal dan waktu Díli (UTC+9). Waktu di masa depan akan menjadwalkan artikel.",
+        "keepOriginalDate": "Pertahankan tanggal asli",
+        "publishImmediately": "Terbitkan segera",
+        "saveDraft": "Simpan draf",
+        "update": "Perbarui",
+        "saveFirst": "Simpan draf terlebih dahulu; opsi penerbitan akan muncul setelahnya.",
+        "unpublish": "Batalkan terbit",
+        "schedule": "Jadwalkan",
+        "publish": "Terbitkan",
+        "cannotPublish": "Peran Anda tidak dapat menerbitkan.",
+        "viewOnSite": "Lihat di situs",
+        "deleteArticle": "Hapus artikel",
+        "details": "Detail"
+      },
+      "toast": {
+        "saved": "Artikel disimpan.",
+        "unpublished": "Artikel batal diterbitkan — kembali menjadi draf.",
+        "scheduled": "Artikel dijadwalkan.",
+        "published": "Artikel diterbitkan."
+      },
+      "validation": {
+        "checkAllTabs": "Perbaiki kolom yang ditandai (periksa setiap tab bahasa).",
+        "categoryRequired": "Pilih jenis.",
+        "tagsMax": "Maksimal {max} tag.",
+        "checkDate": "Periksa tanggal penerbitan.",
+        "invalidDate": "Tanggal dan waktu tidak valid.",
+        "slugNoFree": "Tidak dapat membuat alamat yang tersedia; masukkan alamat secara manual.",
+        "slugDifferent": "Masukkan alamat lain.",
+        "slugRequired": "Masukkan alamat (slug).",
+        "slugTitleTooShort": "Judul terlalu pendek untuk membuat alamat; masukkan alamat secara manual.",
+        "documentNotPublished": "Hanya dokumen yang sudah terbit yang dapat dilampirkan.",
+        "documentChoosePublished": "Pilih dokumen yang sudah terbit."
+      },
+      "errors": {
+        "cannotPublish": "Peran Anda tidak dapat menerbitkan konten.",
+        "notFound": "Artikel tidak ditemukan."
+      }
+    },
+    "richText": {
+      "placeholder": "Mulai menulis…",
+      "toolbar": {
+        "label": "Pemformatan",
+        "heading2": "Judul 2",
+        "heading3": "Judul 3",
+        "bold": "Tebal",
+        "italic": "Miring",
+        "underline": "Garis bawah",
+        "strike": "Coret",
+        "alignLeft": "Rata kiri",
+        "alignCenter": "Rata tengah",
+        "alignRight": "Rata kanan",
+        "justify": "Rata kiri-kanan",
+        "bulletList": "Daftar berpoin",
+        "orderedList": "Daftar bernomor",
+        "quote": "Kutipan",
+        "horizontalRule": "Garis horizontal",
+        "link": "Tautan",
+        "insertImage": "Sisipkan gambar",
+        "uploadingImage": "Mengunggah gambar…",
+        "embedVideo": "Sematkan video (YouTube atau Vimeo)",
+        "undo": "Urungkan",
+        "redo": "Ulangi"
+      },
+      "prompt": {
+        "link": "Alamat tautan",
+        "video": "URL YouTube atau Vimeo",
+        "alt": "Jelaskan gambar (teks alternatif)",
+        "insert": "Sisipkan",
+        "apply": "Terapkan",
+        "removeLink": "Hapus tautan",
+        "skip": "Lewati"
+      },
+      "errors": {
+        "linkInvalid": "Gunakan alamat lengkap yang diawali https:// (atau mailto:).",
+        "videoInvalid": "Hanya tautan YouTube dan Vimeo yang dapat disematkan."
+      },
+      "upload": {
+        "notImage": "Pilih berkas gambar (JPEG, PNG, WebP, GIF, atau AVIF).",
+        "tooLarge": "Gambar lebih besar dari {mb} MB.",
+        "failed": "Unggahan gagal. Silakan coba lagi.",
+        "network": "Unggahan gagal. Periksa koneksi Anda dan coba lagi.",
+        "unreadable": "Unggahan tidak dapat dibaca. Apakah berkasnya terlalu besar?",
+        "noFile": "Pilih gambar untuk diunggah.",
+        "invalidSize": "Gambar kosong atau lebih besar dari {mb} MB.",
+        "invalidType": "Berkas ini bukan gambar yang didukung (JPEG, PNG, WebP, GIF, atau AVIF)."
+      }
+    },
+    "documents": {
+      "metaTitle": "Dokumen",
+      "metaTitleOne": "Dokumen",
+      "title": "Dokumen",
+      "description": "Pustaka PDF: anggaran dasar, laporan, pernyataan. Dokumen yang diterbitkan dapat diunduh publik dan dilampirkan pada berita.",
+      "upload": "Unggah dokumen",
+      "search": "Cari",
+      "searchPlaceholder": "Cari judul, slug, atau nama berkas",
+      "statusLabel": "Status",
+      "allStatuses": "Semua status",
+      "filter": "Saring",
+      "table": {
+        "caption": "Dokumen",
+        "title": "Judul (Tetun)",
+        "file": "Berkas",
+        "languages": "Bahasa",
+        "usedIn": "Digunakan di",
+        "updated": "Diperbarui",
+        "status": "Status"
+      },
+      "usedInArticles": "{count, plural, other {# berita}}",
+      "empty": "Belum ada dokumen.",
+      "allDocuments": "Semua dokumen",
+      "newTitle": "Dokumen baru",
+      "uploadedDraft": "Dokumen diunggah sebagai draf.",
+      "editDescription": "Dokumen PDF dapat diterbitkan untuk diunduh dan dilampirkan pada berita.",
+      "readOnly": "Hanya baca: peran Anda dapat melihat dokumen tetapi tidak dapat mengubahnya.",
+      "editor": {
+        "chooseFileToUpload": "Pilih berkas PDF untuk diunggah.",
+        "uploadFailed": "Unggahan gagal. Periksa koneksi dan ukuran berkas, lalu coba lagi.",
+        "saved": "Dokumen disimpan.",
+        "checkTabs": "Perbaiki isian yang ditandai (periksa setiap tab bahasa).",
+        "fileLabel": "Berkas PDF",
+        "fileHint": "Hanya PDF, maksimal {size}.",
+        "chooseReplacement": "Pilih PDF baru untuk mengganti berkas saat ini…",
+        "choosePdf": "Pilih PDF…",
+        "currentFile": "Berkas saat ini:",
+        "open": "Buka",
+        "publishing": "Penerbitan",
+        "slugLabel": "Alamat (slug)",
+        "slugHint": "Hanya huruf, angka, dan tanda hubung.",
+        "generateSlugTitle": "Buat dari judul Tetun",
+        "generateSlugSr": "Buat slug dari judul Tetun",
+        "uploadAndSave": "Unggah & simpan draf",
+        "saveDraftFirst": "Simpan draf terlebih dahulu; opsi penerbitan muncul setelahnya.",
+        "publish": "Terbitkan",
+        "unpublish": "Batalkan terbit",
+        "publishedToast": "Dokumen diterbitkan.",
+        "unpublishedToast": "Penerbitan dokumen dibatalkan.",
+        "publicLink": "Tautan unduhan publik",
+        "deleteTitle": "Hapus dokumen ini?",
+        "deleteAttached": "{count, plural, other {Dokumen ini dilampirkan pada # berita; berita tersebut akan kehilangan lampirannya.}} Tindakan ini tidak dapat dibatalkan dan dicatat dalam log audit.",
+        "deleteUnattached": "Berkas PDF dihapus secara permanen. Tindakan ini tidak dapat dibatalkan dan dicatat dalam log audit."
+      },
+      "fields": {
+        "title": "Judul",
+        "description": "Deskripsi",
+        "descriptionHint": "Opsional. Satu atau dua kalimat tentang dokumen."
+      },
+      "validation": {
+        "chooseFile": "Pilih berkas PDF.",
+        "tooLarge": "PDF lebih besar dari {size}.",
+        "fileEmpty": "Berkas kosong.",
+        "notPdf": "Ini bukan berkas PDF yang valid.",
+        "notFound": "Dokumen tidak ditemukan.",
+        "crossOrigin": "Permintaan lintas asal ditolak.",
+        "unreadable": "Unggahan tidak dapat dibaca. Apakah berkas terlalu besar?",
+        "malformed": "Permintaan tidak valid."
+      }
+    },
+    "events": {
+      "metaTitle": "Acara",
+      "metaEdit": "Ubah acara",
+      "metaAttendees": "Peserta",
+      "title": "Acara pemuda",
+      "description": "Seminar, debat, dan lokakarya dengan daftar peserta. Waktu ditampilkan dalam waktu Díli (OTL).",
+      "newEvent": "Acara baru",
+      "periodNav": "Periode acara",
+      "upcoming": "Mendatang",
+      "past": "Lampau",
+      "all": "Semua",
+      "table": {
+        "caption": "Acara",
+        "event": "Acara",
+        "type": "Jenis",
+        "starts": "Mulai",
+        "seats": "Kursi",
+        "status": "Status",
+        "attendees": "Peserta"
+      },
+      "online": "Daring",
+      "ended": "selesai",
+      "attendeesLink": "Peserta",
+      "empty": "Tidak ada acara pada periode ini.",
+      "types": {
+        "SEMINAR": "Seminar",
+        "DEBATE": "Debat publik",
+        "WORKSHOP": "Lokakarya"
+      },
+      "allEvents": "Semua acara",
+      "attendeesCount": "Peserta ({count})",
+      "readOnly": "Hanya baca: peran Anda dapat melihat acara tetapi tidak dapat mengubahnya.",
+      "editor": {
+        "saved": "Acara disimpan.",
+        "checkTabs": "Perbaiki isian yang ditandai (periksa setiap tab bahasa).",
+        "whenWhere": "Kapan & di mana — semua waktu dalam waktu Díli (Asia/Dili, UTC+09:00)",
+        "starts": "Mulai",
+        "ends": "Selesai",
+        "venue": "Tempat",
+        "municipality": "Munisipalitas",
+        "municipalityNone": "— tidak ada / daring —",
+        "onlineEvent": "Acara daring",
+        "meetingLink": "Tautan pertemuan",
+        "meetingLinkHint": "Dikirim ke peserta terdaftar; tidak pernah ditampilkan ke publik.",
+        "status": "Status",
+        "type": "Jenis",
+        "slugLabel": "Slug URL",
+        "slugHint": "/edukasaun/acara/slug-anda",
+        "generateSlugTitle": "Buat dari judul Tetun",
+        "generateSlugSr": "Buat slug dari judul Tetun",
+        "capacity": "Kapasitas (kursi)",
+        "capacityHint": "{count} orang terdaftar saat ini.",
+        "registrationOpen": "Pendaftaran dibuka",
+        "deadline": "Batas waktu pendaftaran",
+        "deadlineHint": "Kosong = sampai acara dimulai.",
+        "coverImage": "URL gambar sampul",
+        "create": "Buat acara",
+        "coverImagePlaceholder": "/uploads/… atau https://…"
+      },
+      "attendees": {
+        "backToEvent": "Detail acara",
+        "title": "Peserta · {title}",
+        "summary": "{date} · {active} dari {capacity} kursi terisi · {attended} sudah hadir · {cancelled} dibatalkan",
+        "exportCsv": "Ekspor CSV",
+        "searchLabel": "Cari peserta",
+        "searchPlaceholder": "Nama, email, atau kode tiket",
+        "statusLabel": "Status",
+        "allStatuses": "Semua status",
+        "filter": "Saring",
+        "caption": "Peserta acara",
+        "ticket": "Tiket",
+        "attendee": "Peserta",
+        "institution": "Institusi",
+        "registered": "Terdaftar",
+        "attendance": "Kehadiran",
+        "empty": "Tidak ada peserta yang cocok.",
+        "attendanceFor": "Kehadiran untuk {name}"
+      },
+      "fields": {
+        "title": "Judul",
+        "summary": "Ringkasan",
+        "description": "Deskripsi",
+        "descriptionHint": "Mendukung Markdown (daftar agenda, **tebal**).",
+        "locationDetails": "Petunjuk / detail lokasi",
+        "locationDetailsHint": "mis. “lantai 2, di samping perpustakaan”."
+      },
+      "validation": {
+        "startInvalid": "Mulai: pilih tanggal dan waktu yang valid.",
+        "endInvalid": "Selesai: pilih tanggal dan waktu yang valid.",
+        "venueMin": "Masukkan tempat atau “Online”.",
+        "httpsLink": "Gunakan tautan https://.",
+        "number": "Masukkan angka.",
+        "wholeNumber": "Masukkan bilangan bulat.",
+        "minSeat": "Minimal 1 kursi.",
+        "maxSeats": "Maksimal {max} kursi.",
+        "deadlineInvalid": "Pilih tanggal dan waktu yang valid, atau biarkan kosong.",
+        "endAfterStart": "Acara harus selesai setelah dimulai.",
+        "meetingLinkRequired": "Acara daring memerlukan tautan pertemuan.",
+        "deadlineBeforeStart": "Batas waktu harus sebelum acara dimulai.",
+        "cannotPublish": "Peran Anda tidak dapat menerbitkan acara.",
+        "notFound": "Acara tidak ditemukan.",
+        "capacityBelow": "Kapasitas lebih kecil dari jumlah peserta terdaftar.",
+        "capacityAtLeast": "Minimal {count} — sebanyak itu orang sudah terdaftar.",
+        "hasRegistrations": "{count, plural, other {Acara ini memiliki # pendaftaran.}} Ubah statusnya menjadi Dibatalkan alih-alih menghapusnya.",
+        "registrationNotFound": "Pendaftaran tidak ditemukan.",
+        "eventFull": "Acara sudah penuh ({taken}/{capacity}). Naikkan kapasitas terlebih dahulu."
+      }
+    },
+    "content": {
+      "readOnly": "Hanya baca: peran Anda dapat melihat konten tetapi tidak dapat mengeditnya.",
+      "checkEveryTab": "Perbaiki kolom yang ditandai (periksa setiap tab bahasa).",
+      "status": "Status",
+      "displayOrder": "Urutan tampilan",
+      "displayOrderHint": "Angka yang lebih kecil tampil lebih dulu.",
+      "validation": {
+        "number": "Masukkan angka.",
+        "wholeNumber": "Masukkan bilangan bulat.",
+        "numberMin": "Minimal {min}.",
+        "numberMax": "Maksimal {max}."
+      },
+      "errors": {
+        "publishForbidden": "Peran Anda tidak dapat menerbitkan konten.",
+        "slugConflict": "Slug tersebut sudah digunakan.",
+        "slugConflictField": "Slug tersebut sudah digunakan oleh item lain."
+      }
+    },
+    "timeline": {
+      "metaTitle": "Linimasa",
+      "editMetaTitle": "Edit tonggak sejarah",
+      "heading": "Linimasa sejarah",
+      "description": "Tonggak sejarah naratif yang ditampilkan di /istoria. Tonggak yang disorot (1980–1999) juga tampil di beranda.",
+      "newMilestone": "Tonggak baru",
+      "create": "Buat tonggak",
+      "tableCaption": "Tonggak linimasa",
+      "columns": {
+        "order": "Urutan",
+        "date": "Tanggal",
+        "titleTetun": "Judul (Tetun)",
+        "languages": "Bahasa",
+        "status": "Status"
+      },
+      "highlighted": "Disorot",
+      "empty": "Belum ada tonggak sejarah.",
+      "decade": "{year}-an",
+      "saved": "Tonggak sejarah disimpan.",
+      "datePrecision": "Presisi tanggal",
+      "datePrecisionHint": "Gunakan hanya presisi yang didukung sumber.",
+      "precision": {
+        "DECADE": "Dekade (“1980-an”)",
+        "YEAR": "Tahun",
+        "MONTH": "Bulan dan tahun",
+        "DAY": "Tanggal pasti"
+      },
+      "year": "Tahun",
+      "month": "Bulan",
+      "day": "Hari",
+      "months": {
+        "1": "Jan",
+        "2": "Feb",
+        "3": "Mar",
+        "4": "Apr",
+        "5": "Mei",
+        "6": "Jun",
+        "7": "Jul",
+        "8": "Agu",
+        "9": "Sep",
+        "10": "Okt",
+        "11": "Nov",
+        "12": "Des"
+      },
+      "anchorSlug": "Slug jangkar",
+      "anchorSlugHint": "/istoria#slug-anda",
+      "highlight": "Sorot (cuplikan di beranda)",
+      "imageUrl": "URL gambar",
+      "fields": {
+        "title": "Judul",
+        "summary": "Ringkasan",
+        "body": "Kisah lengkap",
+        "bodyHint": "Markdown. Ditampilkan saat pembaca membuka tonggak.",
+        "imageAlt": "Deskripsi gambar (teks alternatif)"
+      },
+      "validation": {
+        "monthRequired": "Pilih bulan untuk presisi ini.",
+        "dayInvalid": "Masukkan tanggal yang valid untuk bulan ini."
+      },
+      "errors": {
+        "notFound": "Tonggak sejarah tidak ditemukan."
+      }
+    },
+    "leadership": {
+      "metaTitle": "Kepengurusan",
+      "editMetaTitle": "Edit pengurus",
+      "heading": "Direktori kepengurusan",
+      "description": "Direktorat Nasional dan koordinator kotamadya yang ditampilkan di halaman Tentang.",
+      "addLeader": "Tambah pengurus",
+      "columns": {
+        "name": "Nama",
+        "positionTetun": "Jabatan (Tetun)",
+        "level": "Tingkat",
+        "term": "Masa jabatan",
+        "status": "Status"
+      },
+      "levelShort": {
+        "NATIONAL": "Nasional",
+        "MUNICIPAL": "Kotamadya · {municipality}"
+      },
+      "present": "sekarang",
+      "empty": "Belum ada pengurus.",
+      "saved": "Pengurus disimpan.",
+      "fullName": "Nama lengkap",
+      "level": "Tingkat",
+      "levels": {
+        "NATIONAL": "Direktorat Nasional",
+        "MUNICIPAL": "Koordinator kotamadya"
+      },
+      "municipality": "Kotamadya",
+      "termStart": "Masa jabatan dari",
+      "termEnd": "Masa jabatan sampai",
+      "termEndPlaceholder": "berlangsung",
+      "photoUrl": "URL foto",
+      "fields": {
+        "title": "Jabatan",
+        "bio": "Biografi singkat"
+      },
+      "validation": {
+        "fullNameRequired": "Masukkan nama lengkap.",
+        "municipalityRequired": "Koordinator kotamadya memerlukan kotamadya.",
+        "termEndRange": "Akhir masa jabatan harus berupa tahun antara tahun mulai dan 2100."
+      },
+      "errors": {
+        "notFound": "Pengurus tidak ditemukan."
+      }
+    },
+    "profile": {
+      "metaTitle": "Halaman profil",
+      "editMetaTitle": "Edit bagian profil",
+      "heading": "Profil institusi",
+      "description": "Bagian tetap pada halaman Tentang dan Sejarah, dalam empat bahasa.",
+      "tableCaption": "Bagian profil",
+      "columns": {
+        "section": "Bagian",
+        "shownOn": "Ditampilkan di",
+        "languages": "Bahasa",
+        "updated": "Diperbarui",
+        "status": "Status"
+      },
+      "sections": {
+        "PROFILE": {
+          "label": "Profil institusi",
+          "where": "Halaman Tentang — pendahuluan"
+        },
+        "VISION": {
+          "label": "Visi",
+          "where": "Halaman Tentang"
+        },
+        "MISSION": {
+          "label": "Misi",
+          "where": "Halaman Tentang — satu poin per baris “- ”"
+        },
+        "VALUES": {
+          "label": "Nilai dan moto",
+          "where": "Halaman Tentang"
+        },
+        "HISTORY_INTRO": {
+          "label": "Pengantar sejarah",
+          "where": "Kepala halaman Sejarah"
+        }
+      },
+      "notCreated": "Belum dibuat",
+      "saved": "Bagian disimpan.",
+      "fields": {
+        "title": "Judul",
+        "body": "Teks",
+        "bodyHint": "Mendukung Markdown."
+      }
+    }
   }
 }

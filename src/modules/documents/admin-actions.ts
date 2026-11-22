@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { ActionError, authorizedAction } from "@/lib/actions";
 import { db } from "@/lib/db";
+import { msg } from "@/lib/i18n-message";
 import { recordAudit } from "@/modules/audit/service";
 import { deleteDocumentFile } from "./storage";
 
@@ -12,7 +13,7 @@ const idSchema = z.object({ id: z.string().min(1) });
 async function setStatus(id: string, publish: boolean, user: Parameters<typeof recordAudit>[0]["actor"]) {
   await db.$transaction(async (tx) => {
     const doc = await tx.document.findUnique({ where: { id }, select: { slug: true, status: true, publishedAt: true } });
-    if (!doc) throw new ActionError("NOT_FOUND", "Document not found.");
+    if (!doc) throw new ActionError("NOT_FOUND", msg("admin.documents.validation.notFound"));
     if (publish === (doc.status === "PUBLISHED")) return;
     await tx.document.update({
       where: { id },
@@ -40,7 +41,7 @@ export const unpublishDocument = authorizedAction("content:publish", idSchema, a
 export const deleteDocument = authorizedAction("content:write", idSchema, async ({ id }, user) => {
   const fileKey = await db.$transaction(async (tx) => {
     const doc = await tx.document.findUnique({ where: { id }, select: { slug: true, status: true, fileKey: true, fileName: true, _count: { select: { newsArticles: true } } } });
-    if (!doc) throw new ActionError("NOT_FOUND", "Document not found.");
+    if (!doc) throw new ActionError("NOT_FOUND", msg("admin.documents.validation.notFound"));
     await tx.document.delete({ where: { id } });
     await recordAudit(
       {

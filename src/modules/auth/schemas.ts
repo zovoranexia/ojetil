@@ -1,14 +1,18 @@
 import { z } from "zod";
+import { msg } from "@/lib/i18n-message";
 import { PASSWORD_MAX_LENGTH } from "@/lib/security/password-policy";
 
 export const loginSchema = z.object({
   email: z
     .string()
     .trim()
-    .min(1, "Enter your email address.")
-    .max(254)
-    .pipe(z.email("Enter a valid email address.")),
-  password: z.string().min(1, "Enter your password.").max(PASSWORD_MAX_LENGTH),
+    .min(1, msg("admin.auth.validation.emailRequired"))
+    .max(254, msg("admin.validation.maxChars", { max: 254 }))
+    .pipe(z.email(msg("admin.validation.email"))),
+  password: z
+    .string()
+    .min(1, msg("admin.auth.validation.passwordRequired"))
+    .max(PASSWORD_MAX_LENGTH, msg("admin.validation.maxChars", { max: PASSWORD_MAX_LENGTH })),
   callbackUrl: z.string().max(512).optional(),
 });
 

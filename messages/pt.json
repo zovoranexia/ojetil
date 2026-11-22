@@ -407,5 +407,988 @@
       "form": "Corrija os campos assinalados.",
       "network": "Problema de ligação. Verifique a internet e tente novamente."
     }
+  },
+  "admin": {
+    "shell": {
+      "backoffice": "Backoffice",
+      "home": "Backoffice OJETIL — visão geral",
+      "navLabel": "Backoffice",
+      "openMenu": "Abrir menu",
+      "closeMenu": "Fechar menu",
+      "viewPublicSite": "Ver site público",
+      "designSystem": "Sistema de design"
+    },
+    "nav": {
+      "overview": "Visão geral",
+      "members": "Membros e veteranos",
+      "news": "Notícias",
+      "documents": "Documentos",
+      "events": "Eventos",
+      "timeline": "Cronologia",
+      "leadership": "Liderança",
+      "profilePages": "Páginas de perfil",
+      "users": "Utilizadores e funções",
+      "audit": "Registo de auditoria"
+    },
+    "topbar": {
+      "scope": "Acesso",
+      "language": "Idioma",
+      "darkMode": "Modo escuro",
+      "lightMode": "Modo claro",
+      "accountMenu": "Menu da conta",
+      "role": "Função",
+      "changePassword": "Alterar palavra-passe",
+      "signOut": "Terminar sessão"
+    },
+    "roles": {
+      "SUPER_ADMIN": {
+        "label": "Super Admin",
+        "short": "Super Admin",
+        "description": "Acesso total ao sistema, incluindo a gestão de utilizadores."
+      },
+      "VERIFIER": {
+        "label": "Verificador (Secretariado)",
+        "short": "Verificador",
+        "description": "Analisa as candidaturas de membros e veteranos."
+      },
+      "EDITOR": {
+        "label": "Editor (Editorial e Programas)",
+        "short": "Editor",
+        "description": "Publica notícias, história, liderança e eventos."
+      },
+      "VIEWER": {
+        "label": "Observador (Direção)",
+        "short": "Observador",
+        "description": "Supervisão só de leitura com dados agregados de membros."
+      }
+    },
+    "common": {
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "save": "Guardar",
+      "saveChanges": "Guardar alterações",
+      "saving": "A guardar…",
+      "copy": "Copiar",
+      "copied": "Copiado",
+      "previous": "Anterior",
+      "next": "Seguinte",
+      "pagination": "Paginação",
+      "resultsPage": "{total, plural, one {# resultado} other {# resultados}} · página {page} de {pageCount}",
+      "deletePermanentlyTitle": "Eliminar definitivamente?",
+      "deletePermanentlyDescription": "Esta ação não pode ser desfeita. A eliminação fica registada no registo de auditoria."
+    },
+    "translationTabs": {
+      "contentLanguage": "Idioma do conteúdo",
+      "hasErrors": "tem erros",
+      "complete": "completo",
+      "required": "obrigatório",
+      "optional": "opcional",
+      "fallbackHint": "Deixe todos os campos vazios para mostrar a versão em Tétum aos leitores de {language}."
+    },
+    "status": {
+      "member": {
+        "PENDING_VERIFICATION": "A aguardar verificação",
+        "NEEDS_REVISION": "Requer revisão",
+        "VERIFIED": "Verificado",
+        "REJECTED": "Rejeitado"
+      },
+      "content": {
+        "DRAFT": "Rascunho",
+        "PUBLISHED": "Publicado",
+        "ARCHIVED": "Arquivado",
+        "CANCELLED": "Cancelado"
+      },
+      "attendee": {
+        "REGISTERED": "Inscrito",
+        "CANCELLED": "Cancelado",
+        "ATTENDED": "Presente"
+      },
+      "category": {
+        "VETERAN_KLANDESTIN": "Veterano",
+        "ANGGOTA_PEMUDA": "Jovem"
+      }
+    },
+    "errors": {
+      "validation": "Corrija os campos assinalados.",
+      "internal": "Ocorreu um erro. Tente novamente.",
+      "unauthorized": "É necessária autenticação.",
+      "forbidden": "Não tem permissão para realizar esta ação.",
+      "mustChangePassword": "Escolha uma nova palavra-passe antes de continuar.",
+      "loginFailed": "O email ou a palavra-passe estão incorretos, ou a conta está temporariamente bloqueada. Após 5 tentativas falhadas, a conta fica bloqueada durante 15 minutos."
+    },
+    "validation": {
+      "required": "Este campo é obrigatório.",
+      "maxChars": "Use no máximo {max} caracteres.",
+      "requiredTetun": "Obrigatório em Tétum.",
+      "requiredOnceStarted": "Obrigatório depois de iniciar este idioma.",
+      "slugMin": "O slug deve ter pelo menos 3 caracteres.",
+      "slugMax": "O slug é demasiado longo.",
+      "slugPattern": "Use apenas letras minúsculas, números e hífenes simples.",
+      "imageUrl": "Use um caminho do site que comece por / ou um URL https://.",
+      "email": "Introduza um endereço de email válido.",
+      "url": "Introduza um URL https:// válido.",
+      "date": "Introduza uma data válida."
+    },
+    "auth": {
+      "metaTitle": "Acesso da equipa",
+      "title": "Acesso da equipa",
+      "intro": "Utilize a conta que lhe foi atribuída pelo Secretariado da OJETIL.",
+      "staffOnly": "Apenas para pessoal autorizado da OJETIL. Todos os inícios de sessão e acessos a dados de membros são registados.",
+      "passwordChanged": "Palavra-passe alterada. Inicie sessão com a nova palavra-passe.",
+      "email": "Email",
+      "password": "Palavra-passe",
+      "showPassword": "Mostrar palavra-passe",
+      "hidePassword": "Ocultar palavra-passe",
+      "signIn": "Iniciar sessão",
+      "signingIn": "A iniciar sessão…",
+      "validation": {
+        "emailRequired": "Introduza o seu endereço de email.",
+        "passwordRequired": "Introduza a sua palavra-passe."
+      }
+    },
+    "account": {
+      "metaTitle": "Alterar palavra-passe",
+      "backofficeName": "Backoffice OJETIL",
+      "title": "Alterar palavra-passe",
+      "titleMustChange": "Escolha a sua própria palavra-passe",
+      "intro": "Sessão iniciada como {email}. Terá de iniciar sessão novamente com a nova palavra-passe.",
+      "introMustChange": "Iniciou sessão com uma palavra-passe temporária atribuída por um administrador. Defina uma palavra-passe pessoal para continuar — mais ninguém a deve conhecer.",
+      "backToBackoffice": "Voltar ao backoffice",
+      "signOut": "Terminar sessão",
+      "currentPassword": "Palavra-passe atual",
+      "newPassword": "Nova palavra-passe",
+      "newPasswordHint": "Pelo menos 12 caracteres, maiúsculas e minúsculas, e um número ou símbolo.",
+      "confirmPassword": "Repita a nova palavra-passe",
+      "submit": "Alterar palavra-passe",
+      "validation": {
+        "currentRequired": "Introduza a sua palavra-passe atual.",
+        "mismatch": "As duas novas palavras-passe não coincidem.",
+        "sameAsCurrent": "Escolha uma palavra-passe diferente da atual.",
+        "minLength": "Utilize pelo menos {min} caracteres.",
+        "mixedCase": "Combine letras maiúsculas e minúsculas.",
+        "numberOrSymbol": "Inclua um número ou um símbolo."
+      },
+      "errors": {
+        "currentIncorrect": "A sua palavra-passe atual está incorreta.",
+        "incorrectPassword": "Palavra-passe incorreta.",
+        "sessionExpired": "A sua sessão expirou. Inicie sessão novamente."
+      }
+    },
+    "forbidden": {
+      "metaTitle": "Acesso negado",
+      "title": "Acesso negado",
+      "roleDenied": "A sua função — {role} — não inclui acesso a esta área. Se precisar, peça a um Super Admin.",
+      "signInRequired": "Precisa de iniciar sessão com uma conta autorizada para ver esta área.",
+      "backToDashboard": "Voltar ao painel",
+      "signInAsOther": "Iniciar sessão com outra conta",
+      "signIn": "Iniciar sessão"
+    },
+    "users": {
+      "metaTitle": "Utilizadores e funções",
+      "title": "Utilizadores e funções",
+      "description": "As contas da equipa nunca são eliminadas — desative-as para preservar o registo de auditoria. Alterar a função ou desativar termina imediatamente a sessão da pessoa.",
+      "addTitle": "Adicionar conta da equipa",
+      "tableCaption": "Contas da equipa",
+      "columns": {
+        "user": "Utilizador",
+        "role": "Função",
+        "lastSignIn": "Último início de sessão",
+        "status": "Estado",
+        "manage": "Gerir"
+      },
+      "state": {
+        "active": "Ativa",
+        "locked": "Bloqueada",
+        "deactivated": "Desativada"
+      },
+      "fields": {
+        "name": "Nome completo",
+        "email": "Email",
+        "role": "Função"
+      },
+      "create": "Criar",
+      "created": "Conta criada para {email}.",
+      "temporaryPasswordFor": "Palavra-passe temporária para {email}",
+      "newTemporaryPassword": "Nova palavra-passe temporária",
+      "oneTimeNote": "Mostrada apenas uma vez. Entregue-a à pessoa por um canal seguro; ela deve mantê-la privada.",
+      "self": "É a sua conta — outro Super Admin tem de a alterar.",
+      "roleFor": "Função de {name}",
+      "deactivate": "Desativar",
+      "reactivate": "Reativar",
+      "deactivateTitle": "Desativar {name}?",
+      "reactivateTitle": "Reativar {name}?",
+      "deactivateDescription": "A sessão termina de imediato e não poderá iniciar sessão até ser reativada. O histórico de auditoria é mantido.",
+      "reactivateDescription": "Poderá iniciar sessão novamente com a palavra-passe atual.",
+      "resetPassword": "Repor palavra-passe",
+      "resetTitle": "Repor a palavra-passe de {name}?",
+      "resetDescription": "É gerada uma nova palavra-passe temporária, a conta é desbloqueada e todas as sessões terminam.",
+      "validation": {
+        "nameRequired": "Introduza o nome completo.",
+        "roleRequired": "Escolha uma função."
+      },
+      "errors": {
+        "emailExists": "Já existe uma conta com este email.",
+        "emailInUse": "Já está em uso.",
+        "notFound": "Utilizador não encontrado.",
+        "ownRole": "Não pode alterar a sua própria função.",
+        "ownDeactivate": "Não pode desativar a sua própria conta.",
+        "ownReset": "Utilize “Alterar palavra-passe” para a sua própria conta.",
+        "lastSuperAdminRole": "Este é o último Super Admin ativo; promova primeiro outra pessoa.",
+        "lastSuperAdminDeactivate": "Este é o último Super Admin ativo e não pode ser desativado."
+      }
+    },
+    "dashboard": {
+      "metaTitle": "Visão geral",
+      "welcome": "Bem-vindo(a), {name}",
+      "description": "Visão geral de toda a organização. Os números são agregados e não contêm dados pessoais.",
+      "kpis": {
+        "verified": "Membros verificados",
+        "pending": "A aguardar verificação",
+        "awaitingRevision": "+ {count} a aguardar revisão",
+        "activeEvents": "Eventos ativos",
+        "eventRegistrations": "Inscrições em eventos"
+      },
+      "municipality": {
+        "title": "Membros por município",
+        "description": "Candidaturas verificadas e em curso (excluindo as rejeitadas).",
+        "municipality": "Município",
+        "verified": "Verificados",
+        "inProgress": "Em curso"
+      },
+      "activity": {
+        "title": "Atividade recente",
+        "fromAudit": "Do registo de auditoria",
+        "latestContent": "Alterações de conteúdo mais recentes",
+        "viewAll": "Ver tudo",
+        "empty": "Ainda não há atividade.",
+        "systemActor": "Sistema / público",
+        "news": "Notícia",
+        "event": "Evento"
+      }
+    },
+    "audit": {
+      "metaTitle": "Registo de auditoria",
+      "title": "Registo de auditoria",
+      "description": "Registo só de acréscimo de inícios de sessão, acessos a dados pessoais, decisões de verificação, exportações, publicações e alterações de contas. As entradas não podem ser editadas nem eliminadas.",
+      "roleRestricted": "A sua função ({role}) só vê entradas de verificação.",
+      "filters": {
+        "category": "Categoria",
+        "allCategories": "Todas as categorias",
+        "action": "Ação",
+        "allActions": "Todas as ações",
+        "actorEmail": "Email do autor",
+        "fromDate": "Data inicial",
+        "toDate": "Data final",
+        "submit": "Filtrar"
+      },
+      "categories": {
+        "AUTH": "Autenticação",
+        "VERIFICATION": "Verificação",
+        "CONTENT": "Conteúdo",
+        "EVENTS": "Eventos",
+        "USERS": "Utilizadores",
+        "SYSTEM": "Sistema"
+      },
+      "table": {
+        "caption": "Entradas do registo de auditoria",
+        "when": "Quando (Díli)",
+        "actor": "Autor",
+        "action": "Ação",
+        "target": "Alvo e detalhes",
+        "ip": "IP",
+        "details": "Detalhes",
+        "systemActor": "Sistema / público",
+        "empty": "Nenhuma entrada corresponde a estes filtros."
+      },
+      "actions": {
+        "LOGIN_SUCCEEDED": "Sessão iniciada",
+        "LOGIN_FAILED": "Início de sessão falhado",
+        "LOGOUT": "Sessão terminada",
+        "ACCOUNT_LOCKED": "Conta bloqueada",
+        "MEMBER_PII_VIEWED": "Dados pessoais de membro consultados",
+        "MEMBER_STATUS_CHANGED": "Estado de membro alterado",
+        "MEMBER_EXPORTED": "Membros verificados exportados",
+        "CONTENT_CREATED": "Conteúdo criado",
+        "CONTENT_UPDATED": "Conteúdo atualizado",
+        "CONTENT_PUBLISHED": "Conteúdo publicado",
+        "CONTENT_UNPUBLISHED": "Publicação de conteúdo anulada",
+        "CONTENT_DELETED": "Conteúdo eliminado",
+        "MEDIA_UPLOADED": "Imagem carregada",
+        "EVENT_CREATED": "Evento criado",
+        "EVENT_UPDATED": "Evento atualizado",
+        "EVENT_PUBLISHED": "Evento publicado",
+        "EVENT_UNPUBLISHED": "Publicação de evento anulada",
+        "EVENT_CANCELLED": "Evento cancelado",
+        "EVENT_DELETED": "Evento eliminado",
+        "EVENT_ATTENDEES_EXPORTED": "Participantes do evento exportados",
+        "EVENT_ATTENDANCE_UPDATED": "Presenças do evento atualizadas",
+        "USER_CREATED": "Utilizador criado",
+        "USER_ROLE_CHANGED": "Função de utilizador alterada",
+        "USER_DEACTIVATED": "Utilizador desativado",
+        "USER_REACTIVATED": "Utilizador reativado",
+        "USER_PASSWORD_RESET": "Palavra-passe de utilizador reposta",
+        "USER_PASSWORD_CHANGED": "Palavra-passe própria alterada",
+        "SEED_EXECUTED": "Base de dados inicializada"
+      }
+    },
+    "designSystem": {
+      "metaTitle": "Sistema de design",
+      "badge": "Sistema de design",
+      "title": "Arquivo Digno,",
+      "titleAccent": "Energia da Nova Geração",
+      "intro": "Referência de tokens da plataforma web OJETIL. Verificação de diacríticos:",
+      "colours": "Tokens de cor",
+      "swatchUse": {
+        "redPrimary": "CTA principal, estados ativos, destaques da cronologia",
+        "redHover": "Hover / pressionado principal",
+        "inkPrimary": "Texto, títulos, rodapé, botões editoriais",
+        "inkSecondary": "Metadados, carimbos de data/hora, etiquetas",
+        "goldAccent": "Destaques APENAS em superfícies ink",
+        "goldText": "Texto e etiquetas ocre em superfícies claras",
+        "surfacePaper": "Fundo das páginas públicas",
+        "surfaceCard": "Cartões, modais, área de trabalho de administração",
+        "borderSubtle": "Contornos, divisores, campos"
+      },
+      "status": "Semântica de estado",
+      "inkSurface": "Em superfícies ink, o destaque dourado é permitido:",
+      "typography": "Tipografia",
+      "typographyBody": "Plus Jakarta Sans para a interface e o texto corrido.",
+      "tabularNumerals": "Algarismos tabulares:",
+      "controls": "Controlos (áreas de toque ≥ 44px)"
+    },
+    "members": {
+      "metaTitle": "Membros e veteranos",
+      "aggregates": {
+        "description": "Números agregados. Os registos individuais estão reservados ao Secretariado.",
+        "byTrack": "Por categoria",
+        "byTrackCaption": "Candidaturas por categoria",
+        "applications": "Candidaturas",
+        "verified": "Verificadas",
+        "byMunicipality": "Por município",
+        "byMunicipalityCaption": "Candidaturas por município",
+        "inProgress": "Em curso"
+      },
+      "queue": {
+        "title": "Fila de verificação",
+        "description": "Candidaturas de membros e veteranos. Os dados pessoais permanecem cifrados até abrir um registo e os revelar.",
+        "export": "Exportar verificados (CSV)",
+        "search": "Pesquisar",
+        "searchPlaceholder": "Nome, nome clandestino, código de acompanhamento ou número do BI",
+        "allStatuses": "Todos os estados",
+        "allTracks": "Todas as categorias",
+        "allMunicipalities": "Todos os municípios",
+        "filter": "Filtrar",
+        "tableCaption": "Candidaturas de membros",
+        "possibleDuplicate": "Possível duplicado",
+        "empty": "Nenhuma candidatura corresponde a estes filtros."
+      },
+      "columns": {
+        "trackingCode": "Código de acompanhamento",
+        "applicant": "Candidato",
+        "track": "Categoria",
+        "municipality": "Município",
+        "submitted": "Submetida",
+        "status": "Estado"
+      },
+      "detail": {
+        "metaTitle": "Candidatura",
+        "subtitle": "{code} · submetida em {date}",
+        "duplicateWarning": "{count, plural, one {Possível duplicado — o mesmo número de BI aparece em # outra candidatura:} other {Possível duplicado — o mesmo número de BI aparece em # outras candidaturas:}}",
+        "identity": "Identidade e residência",
+        "personalData": "Dados pessoais (cifrados)",
+        "veteranBackground": "Percurso na clandestinidade",
+        "youthBackground": "Percurso do membro jovem",
+        "decision": "Decisão",
+        "history": "Histórico de verificação",
+        "noPiiAccess": "A sua função não permite ver dados pessoais cifrados.",
+        "currentStatus": "Estado atual: {status}",
+        "byActor": "por {name}",
+        "submittedByApplicant": "Submetida pelo candidato",
+        "consentGiven": "Dado em {date} (nota {version})"
+      },
+      "fields": {
+        "fullName": "Nome completo",
+        "clandestineAlias": "Nome clandestino",
+        "dateOfBirth": "Data de nascimento",
+        "gender": "Género",
+        "municipality": "Município",
+        "administrativePost": "Posto administrativo",
+        "email": "Email",
+        "submittedIn": "Idioma de submissão",
+        "yearJoined": "Ano de entrada",
+        "region": "Região",
+        "cell": "Célula / rede",
+        "witness": "Testemunha / camarada de referência",
+        "institution": "Escola / universidade / profissão",
+        "interests": "Áreas de interesse",
+        "motivation": "Motivação",
+        "consent": "Consentimento"
+      },
+      "genders": {
+        "MALE": "Masculino",
+        "FEMALE": "Feminino",
+        "PREFER_NOT_TO_SAY": "Prefere não dizer"
+      },
+      "interestAreas": {
+        "EDUCATION": "Educação",
+        "ADVOCACY": "Advocacia",
+        "MEDIA": "Comunicação social",
+        "COMMUNITY_SERVICE": "Serviço comunitário"
+      },
+      "pii": {
+        "intro": "A morada, o telefone e o número do BI estão cifrados. Revelá-los fica registado no registo de auditoria com o seu nome.",
+        "introWithPhoto": "A morada, o telefone, o número do BI e a fotografia estão cifrados. Revelá-los fica registado no registo de auditoria com o seu nome.",
+        "reveal": "Revelar dados pessoais",
+        "photoAlt": "Fotografia do candidato",
+        "phone": "Telefone / WhatsApp",
+        "nationalId": "Bilhete de Identidade",
+        "address": "Morada",
+        "hide": "Ocultar"
+      },
+      "decision": {
+        "approve": "Aprovar",
+        "approveConfirm": "Aprovar e verificar esta candidatura?",
+        "revise": "Pedir revisão",
+        "reviseConfirm": "Pedir mais informação ao candidato?",
+        "reject": "Rejeitar",
+        "rejectConfirm": "Rejeitar esta candidatura?",
+        "noteLabel": "Motivo / nota",
+        "noteHint": "Obrigatória em todas as decisões. Em “Pedir revisão” e “Rejeitar”, esta nota é mostrada ao candidato na página pública de estado — escreva-a para ele.",
+        "confirmDescription": "Nota: “{note}”. Fica registada no histórico de verificação e no registo de auditoria.",
+        "tooShort": "Escreva uma nota (5 ou mais caracteres) para ativar os botões de decisão.",
+        "success": "Estado atualizado para {code}."
+      },
+      "validation": {
+        "noteMin": "Escreva um motivo curto (pelo menos 5 caracteres)."
+      },
+      "errors": {
+        "notFound": "Registo não encontrado.",
+        "conflict": "Esta candidatura foi atualizada por outra pessoa. Recarregue a página para ver o estado mais recente.",
+        "alreadyStatus": "A candidatura já tem este estado."
+      }
+    },
+    "news": {
+      "meta": {
+        "list": "Notícias",
+        "edit": "Editar artigo",
+        "new": "Novo artigo"
+      },
+      "list": {
+        "title": "Notícias e comunicados de imprensa",
+        "description": "Cada artigo é editado em Tetun, Português, Indonésio e Inglês.",
+        "newArticle": "Novo artigo",
+        "search": "Pesquisar",
+        "searchPlaceholder": "Pesquisar título ou slug",
+        "status": "Estado",
+        "allStatuses": "Todos os estados",
+        "filter": "Filtrar",
+        "caption": "Artigos de notícias",
+        "colTitle": "Título (Tetun)",
+        "colCategory": "Categoria",
+        "colLanguages": "Línguas",
+        "colPublished": "Publicado",
+        "colUpdated": "Atualizado",
+        "colStatus": "Estado",
+        "featured": "Em destaque",
+        "empty": "Nenhum artigo encontrado."
+      },
+      "edit": {
+        "back": "Notícias e artigos",
+        "newTitle": "Novo artigo",
+        "savedNotice": "Rascunho guardado. Já pode publicá-lo ou agendá-lo.",
+        "readOnly": "Só leitura: a sua função pode ver o conteúdo, mas não editá-lo."
+      },
+      "categories": {
+        "ORGANIZATION": "Organização",
+        "CIVIC_EDUCATION": "Educação cívica",
+        "YOUTH": "Juventude",
+        "COMMEMORATION": "Comemoração",
+        "PRESS_RELEASE": "Comunicado de imprensa"
+      },
+      "languages": {
+        "TET": "Tetun",
+        "PT": "Português",
+        "ID": "Indonésio",
+        "EN": "Inglês"
+      },
+      "fields": {
+        "title": "Título",
+        "excerpt": "Resumo",
+        "excerptHint": "Uma ou duas frases mostradas nos cartões e nos resultados de pesquisa.",
+        "body": "Conteúdo",
+        "coverImageAlt": "Descrição da imagem de capa (texto alternativo)",
+        "coverImageAltHint": "Descreva a imagem de capa para quem não a pode ver.",
+        "slug": "Endereço (slug)",
+        "slugHint": "Opcional — gerado a partir do título. Apenas letras, números e hífenes. Comum a todas as línguas.",
+        "category": "Tipo",
+        "municipality": "Município",
+        "municipalityHint": "Opcional — para notícias sobre um município específico.",
+        "municipalityNone": "Nacional (sem município)",
+        "document": "Anexo PDF",
+        "documentHint": "Um documento publicado da secção Documentos.",
+        "documentNone": "— Nenhum —",
+        "documentUnpublished": " — não publicado, oculto no site",
+        "byline": "Autoria",
+        "bylineHint": "Opcional — por exemplo, o nome do autor em artigos de opinião.",
+        "tags": "Etiquetas",
+        "tagsHint": "Separe com vírgulas.",
+        "isFeatured": "Destacar na página inicial",
+        "coverImage": "Imagem de capa"
+      },
+      "editor": {
+        "contentSection": "Conteúdo",
+        "contentLanguage": "Língua do conteúdo",
+        "localeState": {
+          "complete": "preenchido",
+          "partial": "incompleto",
+          "error": "com erros",
+          "empty": "vazio"
+        },
+        "primaryHint": "O Tetun é a língua principal. As outras são opcionais — as vazias mostram a versão em Tetun.",
+        "coverReplace": "Substituir",
+        "coverRemove": "Remover",
+        "coverUploading": "A carregar…",
+        "coverChoose": "Escolher…",
+        "coverHint": "JPEG, PNG ou WebP até {mb} MB. Redimensionada e comprimida automaticamente; oculta no Modo de Poupança de Dados.",
+        "publishing": "Publicação",
+        "scheduled": "Agendado",
+        "publishedLabel": "Publicado:",
+        "publishLabel": "Publicar:",
+        "immediately": "imediatamente",
+        "editDate": "Editar",
+        "doneDate": "Concluído",
+        "dateLabel": "Data e hora em Díli (UTC+9). Uma hora futura agenda o artigo.",
+        "keepOriginalDate": "Manter a data original",
+        "publishImmediately": "Publicar imediatamente",
+        "saveDraft": "Guardar rascunho",
+        "update": "Atualizar",
+        "saveFirst": "Guarde primeiro o rascunho; as opções de publicação aparecem depois.",
+        "unpublish": "Despublicar",
+        "schedule": "Agendar",
+        "publish": "Publicar",
+        "cannotPublish": "A sua função não pode publicar.",
+        "viewOnSite": "Ver no site",
+        "deleteArticle": "Eliminar artigo",
+        "details": "Detalhes"
+      },
+      "toast": {
+        "saved": "Artigo guardado.",
+        "unpublished": "Artigo despublicado — voltou a ser rascunho.",
+        "scheduled": "Artigo agendado.",
+        "published": "Artigo publicado."
+      },
+      "validation": {
+        "checkAllTabs": "Corrija os campos assinalados (verifique todos os separadores de língua).",
+        "categoryRequired": "Escolha um tipo.",
+        "tagsMax": "No máximo {max} etiquetas.",
+        "checkDate": "Verifique a data de publicação.",
+        "invalidDate": "Data e hora inválidas.",
+        "slugNoFree": "Não foi possível gerar um endereço livre; introduza um manualmente.",
+        "slugDifferent": "Introduza um endereço diferente.",
+        "slugRequired": "Introduza um endereço (slug).",
+        "slugTitleTooShort": "O título é demasiado curto para gerar um endereço; introduza um manualmente.",
+        "documentNotPublished": "Só podem ser anexados documentos publicados.",
+        "documentChoosePublished": "Escolha um documento publicado."
+      },
+      "errors": {
+        "cannotPublish": "A sua função não pode publicar conteúdo.",
+        "notFound": "Artigo não encontrado."
+      }
+    },
+    "richText": {
+      "placeholder": "Comece a escrever…",
+      "toolbar": {
+        "label": "Formatação",
+        "heading2": "Título 2",
+        "heading3": "Título 3",
+        "bold": "Negrito",
+        "italic": "Itálico",
+        "underline": "Sublinhado",
+        "strike": "Rasurado",
+        "alignLeft": "Alinhar à esquerda",
+        "alignCenter": "Centrar",
+        "alignRight": "Alinhar à direita",
+        "justify": "Justificar",
+        "bulletList": "Lista com marcas",
+        "orderedList": "Lista numerada",
+        "quote": "Citação",
+        "horizontalRule": "Linha horizontal",
+        "link": "Ligação",
+        "insertImage": "Inserir imagem",
+        "uploadingImage": "A carregar imagem…",
+        "embedVideo": "Incorporar vídeo (YouTube ou Vimeo)",
+        "undo": "Anular",
+        "redo": "Refazer"
+      },
+      "prompt": {
+        "link": "Endereço da ligação",
+        "video": "URL do YouTube ou Vimeo",
+        "alt": "Descreva a imagem (texto alternativo)",
+        "insert": "Inserir",
+        "apply": "Aplicar",
+        "removeLink": "Remover ligação",
+        "skip": "Ignorar"
+      },
+      "errors": {
+        "linkInvalid": "Use um endereço completo a começar por https:// (ou mailto:).",
+        "videoInvalid": "Só é possível incorporar ligações do YouTube e do Vimeo."
+      },
+      "upload": {
+        "notImage": "Escolha um ficheiro de imagem (JPEG, PNG, WebP, GIF ou AVIF).",
+        "tooLarge": "A imagem tem mais de {mb} MB.",
+        "failed": "O carregamento falhou. Tente novamente.",
+        "network": "O carregamento falhou. Verifique a ligação e tente novamente.",
+        "unreadable": "Não foi possível ler o carregamento. O ficheiro é demasiado grande?",
+        "noFile": "Escolha uma imagem para carregar.",
+        "invalidSize": "A imagem está vazia ou tem mais de {mb} MB.",
+        "invalidType": "Este ficheiro não é uma imagem suportada (JPEG, PNG, WebP, GIF ou AVIF)."
+      }
+    },
+    "documents": {
+      "metaTitle": "Documentos",
+      "metaTitleOne": "Documento",
+      "title": "Documentos",
+      "description": "Biblioteca de PDF: estatutos, relatórios, comunicados. Os documentos publicados podem ser descarregados publicamente e anexados a notícias.",
+      "upload": "Carregar documento",
+      "search": "Pesquisar",
+      "searchPlaceholder": "Pesquisar título, slug ou nome do ficheiro",
+      "statusLabel": "Estado",
+      "allStatuses": "Todos os estados",
+      "filter": "Filtrar",
+      "table": {
+        "caption": "Documentos",
+        "title": "Título (Tetun)",
+        "file": "Ficheiro",
+        "languages": "Línguas",
+        "usedIn": "Usado em",
+        "updated": "Atualizado",
+        "status": "Estado"
+      },
+      "usedInArticles": "{count, plural, one {# notícia} other {# notícias}}",
+      "empty": "Ainda não há documentos.",
+      "allDocuments": "Todos os documentos",
+      "newTitle": "Novo documento",
+      "uploadedDraft": "Documento carregado como rascunho.",
+      "editDescription": "Os documentos PDF podem ser publicados para descarga e anexados a notícias.",
+      "readOnly": "Só de leitura: a sua função permite ver documentos, mas não editá-los.",
+      "editor": {
+        "chooseFileToUpload": "Escolha um ficheiro PDF para carregar.",
+        "uploadFailed": "O carregamento falhou. Verifique a ligação e o tamanho do ficheiro e tente novamente.",
+        "saved": "Documento guardado.",
+        "checkTabs": "Corrija os campos assinalados (verifique todos os separadores de língua).",
+        "fileLabel": "Ficheiro PDF",
+        "fileHint": "Apenas PDF, até {size}.",
+        "chooseReplacement": "Escolha um novo PDF para substituir o ficheiro atual…",
+        "choosePdf": "Escolha um PDF…",
+        "currentFile": "Ficheiro atual:",
+        "open": "Abrir",
+        "publishing": "Publicação",
+        "slugLabel": "Endereço (slug)",
+        "slugHint": "Apenas letras, números e hífenes.",
+        "generateSlugTitle": "Gerar a partir do título em Tetun",
+        "generateSlugSr": "Gerar slug a partir do título em Tetun",
+        "uploadAndSave": "Carregar e guardar rascunho",
+        "saveDraftFirst": "Guarde primeiro o rascunho; as opções de publicação aparecem depois.",
+        "publish": "Publicar",
+        "unpublish": "Despublicar",
+        "publishedToast": "Documento publicado.",
+        "unpublishedToast": "Documento despublicado.",
+        "publicLink": "Ligação pública de descarga",
+        "deleteTitle": "Eliminar este documento?",
+        "deleteAttached": "{count, plural, one {Está anexado a # notícia, que perderá o anexo.} other {Está anexado a # notícias, que perderão o anexo.}} Esta ação não pode ser anulada e fica registada no registo de auditoria.",
+        "deleteUnattached": "O ficheiro PDF é removido permanentemente. Esta ação não pode ser anulada e fica registada no registo de auditoria."
+      },
+      "fields": {
+        "title": "Título",
+        "description": "Descrição",
+        "descriptionHint": "Opcional. Uma ou duas frases sobre o documento."
+      },
+      "validation": {
+        "chooseFile": "Escolha um ficheiro PDF.",
+        "tooLarge": "O PDF é maior do que {size}.",
+        "fileEmpty": "O ficheiro está vazio.",
+        "notPdf": "Este não é um ficheiro PDF válido.",
+        "notFound": "Documento não encontrado.",
+        "crossOrigin": "Pedido de outra origem rejeitado.",
+        "unreadable": "Não foi possível ler o carregamento. O ficheiro é demasiado grande?",
+        "malformed": "Pedido inválido."
+      }
+    },
+    "events": {
+      "metaTitle": "Eventos",
+      "metaEdit": "Editar evento",
+      "metaAttendees": "Participantes",
+      "title": "Eventos juvenis",
+      "description": "Seminários, debates e workshops com listas de participantes. Horas apresentadas na hora de Díli (OTL).",
+      "newEvent": "Novo evento",
+      "periodNav": "Período do evento",
+      "upcoming": "Próximos",
+      "past": "Passados",
+      "all": "Todos",
+      "table": {
+        "caption": "Eventos",
+        "event": "Evento",
+        "type": "Tipo",
+        "starts": "Início",
+        "seats": "Lugares",
+        "status": "Estado",
+        "attendees": "Participantes"
+      },
+      "online": "Online",
+      "ended": "terminado",
+      "attendeesLink": "Participantes",
+      "empty": "Não há eventos neste período.",
+      "types": {
+        "SEMINAR": "Seminário",
+        "DEBATE": "Debate público",
+        "WORKSHOP": "Workshop"
+      },
+      "allEvents": "Todos os eventos",
+      "attendeesCount": "Participantes ({count})",
+      "readOnly": "Só de leitura: a sua função permite ver eventos, mas não editá-los.",
+      "editor": {
+        "saved": "Evento guardado.",
+        "checkTabs": "Corrija os campos assinalados (verifique todos os separadores de língua).",
+        "whenWhere": "Quando e onde — todas as horas na hora de Díli (Asia/Dili, UTC+09:00)",
+        "starts": "Início",
+        "ends": "Fim",
+        "venue": "Local",
+        "municipality": "Município",
+        "municipalityNone": "— nenhum / online —",
+        "onlineEvent": "Evento online",
+        "meetingLink": "Ligação da reunião",
+        "meetingLinkHint": "Enviada aos participantes inscritos; nunca mostrada publicamente.",
+        "status": "Estado",
+        "type": "Tipo",
+        "slugLabel": "Slug do URL",
+        "slugHint": "/edukasaun/acara/o-seu-slug",
+        "generateSlugTitle": "Gerar a partir do título em Tetun",
+        "generateSlugSr": "Gerar slug a partir do título em Tetun",
+        "capacity": "Capacidade (lugares)",
+        "capacityHint": "{count, plural, one {# inscrito atualmente.} other {# inscritos atualmente.}}",
+        "registrationOpen": "Inscrições abertas",
+        "deadline": "Prazo de inscrição",
+        "deadlineHint": "Vazio = até ao início do evento.",
+        "coverImage": "URL da imagem de capa",
+        "create": "Criar evento",
+        "coverImagePlaceholder": "/uploads/… ou https://…"
+      },
+      "attendees": {
+        "backToEvent": "Detalhes do evento",
+        "title": "Participantes · {title}",
+        "summary": "{date} · {active} de {capacity} lugares ocupados · {attended} com entrada registada · {cancelled} cancelados",
+        "exportCsv": "Exportar CSV",
+        "searchLabel": "Pesquisar participantes",
+        "searchPlaceholder": "Nome, email ou código do bilhete",
+        "statusLabel": "Estado",
+        "allStatuses": "Todos os estados",
+        "filter": "Filtrar",
+        "caption": "Participantes do evento",
+        "ticket": "Bilhete",
+        "attendee": "Participante",
+        "institution": "Instituição",
+        "registered": "Inscrição",
+        "attendance": "Presença",
+        "empty": "Nenhum participante corresponde.",
+        "attendanceFor": "Presença de {name}"
+      },
+      "fields": {
+        "title": "Título",
+        "summary": "Resumo",
+        "description": "Descrição",
+        "descriptionHint": "Suporta Markdown (listas de agenda, **negrito**).",
+        "locationDetails": "Indicações / detalhes do local",
+        "locationDetailsHint": "p. ex. “2.º piso, ao lado da biblioteca”."
+      },
+      "validation": {
+        "startInvalid": "Início: escolha uma data e hora válidas.",
+        "endInvalid": "Fim: escolha uma data e hora válidas.",
+        "venueMin": "Indique o local ou “Online”.",
+        "httpsLink": "Use uma ligação https://.",
+        "number": "Introduza um número.",
+        "wholeNumber": "Introduza um número inteiro.",
+        "minSeat": "Pelo menos 1 lugar.",
+        "maxSeats": "No máximo {max} lugares.",
+        "deadlineInvalid": "Escolha uma data e hora válidas ou deixe vazio.",
+        "endAfterStart": "O evento tem de terminar depois de começar.",
+        "meetingLinkRequired": "Os eventos online precisam de uma ligação da reunião.",
+        "deadlineBeforeStart": "O prazo tem de ser anterior ao início.",
+        "cannotPublish": "A sua função não pode publicar eventos.",
+        "notFound": "Evento não encontrado.",
+        "capacityBelow": "A capacidade é inferior ao número de participantes inscritos.",
+        "capacityAtLeast": "Pelo menos {count} — já há esse número de pessoas inscritas.",
+        "hasRegistrations": "{count, plural, one {Este evento tem # inscrição.} other {Este evento tem # inscrições.}} Altere o estado para Cancelado em vez de o eliminar.",
+        "registrationNotFound": "Inscrição não encontrada.",
+        "eventFull": "O evento está lotado ({taken}/{capacity}). Aumente primeiro a capacidade."
+      }
+    },
+    "content": {
+      "readOnly": "Só de leitura: a sua função pode ver conteúdos, mas não editá-los.",
+      "checkEveryTab": "Corrija os campos assinalados (verifique todos os separadores de idioma).",
+      "status": "Estado",
+      "displayOrder": "Ordem de apresentação",
+      "displayOrderHint": "Os números mais baixos aparecem primeiro.",
+      "validation": {
+        "number": "Introduza um número.",
+        "wholeNumber": "Introduza um número inteiro.",
+        "numberMin": "Deve ser pelo menos {min}.",
+        "numberMax": "Deve ser no máximo {max}."
+      },
+      "errors": {
+        "publishForbidden": "A sua função não pode publicar conteúdos.",
+        "slugConflict": "Esse slug já está a ser utilizado.",
+        "slugConflictField": "Esse slug já está a ser utilizado por outro item."
+      }
+    },
+    "timeline": {
+      "metaTitle": "Cronologia",
+      "editMetaTitle": "Editar marco",
+      "heading": "Cronologia histórica",
+      "description": "Marcos narrativos apresentados em /istoria. Os marcos em destaque (1980–1999) aparecem também na página inicial.",
+      "newMilestone": "Novo marco",
+      "create": "Criar marco",
+      "tableCaption": "Marcos da cronologia",
+      "columns": {
+        "order": "Ordem",
+        "date": "Data",
+        "titleTetun": "Título (Tetun)",
+        "languages": "Idiomas",
+        "status": "Estado"
+      },
+      "highlighted": "Em destaque",
+      "empty": "Ainda não há marcos.",
+      "decade": "Anos {year}",
+      "saved": "Marco guardado.",
+      "datePrecision": "Precisão da data",
+      "datePrecisionHint": "Indique apenas a precisão que as fontes confirmam.",
+      "precision": {
+        "DECADE": "Década (“anos 1980”)",
+        "YEAR": "Ano",
+        "MONTH": "Mês e ano",
+        "DAY": "Data exata"
+      },
+      "year": "Ano",
+      "month": "Mês",
+      "day": "Dia",
+      "months": {
+        "1": "jan.",
+        "2": "fev.",
+        "3": "mar.",
+        "4": "abr.",
+        "5": "mai.",
+        "6": "jun.",
+        "7": "jul.",
+        "8": "ago.",
+        "9": "set.",
+        "10": "out.",
+        "11": "nov.",
+        "12": "dez."
+      },
+      "anchorSlug": "Slug da âncora",
+      "anchorSlugHint": "/istoria#o-seu-slug",
+      "highlight": "Destacar (pré-visualização na página inicial)",
+      "imageUrl": "URL da imagem",
+      "fields": {
+        "title": "Título",
+        "summary": "Resumo",
+        "body": "História completa",
+        "bodyHint": "Markdown. Apresentado quando o leitor expande o marco.",
+        "imageAlt": "Descrição da imagem (texto alternativo)"
+      },
+      "validation": {
+        "monthRequired": "Escolha o mês para esta precisão.",
+        "dayInvalid": "Introduza um dia válido para este mês."
+      },
+      "errors": {
+        "notFound": "Marco não encontrado."
+      }
+    },
+    "leadership": {
+      "metaTitle": "Liderança",
+      "editMetaTitle": "Editar dirigente",
+      "heading": "Diretório da liderança",
+      "description": "Direção Nacional e coordenadores municipais apresentados na página Sobre.",
+      "addLeader": "Adicionar dirigente",
+      "columns": {
+        "name": "Nome",
+        "positionTetun": "Cargo (Tetun)",
+        "level": "Nível",
+        "term": "Mandato",
+        "status": "Estado"
+      },
+      "levelShort": {
+        "NATIONAL": "Nacional",
+        "MUNICIPAL": "Municipal · {municipality}"
+      },
+      "present": "presente",
+      "empty": "Ainda não há dirigentes.",
+      "saved": "Dirigente guardado.",
+      "fullName": "Nome completo",
+      "level": "Nível",
+      "levels": {
+        "NATIONAL": "Direção Nacional",
+        "MUNICIPAL": "Coordenador municipal"
+      },
+      "municipality": "Município",
+      "termStart": "Mandato desde",
+      "termEnd": "Mandato até",
+      "termEndPlaceholder": "em curso",
+      "photoUrl": "URL da fotografia",
+      "fields": {
+        "title": "Cargo",
+        "bio": "Biografia breve"
+      },
+      "validation": {
+        "fullNameRequired": "Introduza o nome completo.",
+        "municipalityRequired": "Os coordenadores municipais precisam de um município.",
+        "termEndRange": "O fim do mandato deve ser um ano entre o ano de início e 2100."
+      },
+      "errors": {
+        "notFound": "Dirigente não encontrado."
+      }
+    },
+    "profile": {
+      "metaTitle": "Páginas de perfil",
+      "editMetaTitle": "Editar secção do perfil",
+      "heading": "Perfil institucional",
+      "description": "Secções fixas das páginas Sobre e História, em quatro idiomas.",
+      "tableCaption": "Secções do perfil",
+      "columns": {
+        "section": "Secção",
+        "shownOn": "Apresentada em",
+        "languages": "Idiomas",
+        "updated": "Atualizada",
+        "status": "Estado"
+      },
+      "sections": {
+        "PROFILE": {
+          "label": "Perfil institucional",
+          "where": "Página Sobre — introdução"
+        },
+        "VISION": {
+          "label": "Visão",
+          "where": "Página Sobre"
+        },
+        "MISSION": {
+          "label": "Missão",
+          "where": "Página Sobre — um ponto por linha “- ”"
+        },
+        "VALUES": {
+          "label": "Valores e lema",
+          "where": "Página Sobre"
+        },
+        "HISTORY_INTRO": {
+          "label": "Introdução à história",
+          "where": "Cabeçalho da página História"
+        }
+      },
+      "notCreated": "Não criada",
+      "saved": "Secção guardada.",
+      "fields": {
+        "title": "Título",
+        "body": "Texto",
+        "bodyHint": "Suporta Markdown."
+      }
+    }
   }
 }

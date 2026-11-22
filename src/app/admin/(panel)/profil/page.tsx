@@ -1,27 +1,30 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getLocale, getTranslations } from "next-intl/server";
 import { AdminPageHeading, ContentStatusBadge, DataTable, Td, Th } from "@/components/admin/ui";
 import { adminDateTime } from "@/lib/admin-format";
 import { requirePageAccess } from "@/lib/security/guards";
 import { listProfileSectionsAdmin } from "@/modules/content/institutional-queries";
-import { PROFILE_SECTION_LABELS } from "@/modules/content/institutional-schema";
 
-export const metadata: Metadata = { title: "Profile pages" };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("admin.profile");
+  return { title: t("metaTitle") };
+}
 
 export default async function ProfileAdminPage() {
   await requirePageAccess("content:read", "/admin/profil");
-  const rows = await listProfileSectionsAdmin();
+  const [rows, t, locale] = await Promise.all([listProfileSectionsAdmin(), getTranslations("admin.profile"), getLocale()]);
   return (
     <>
-      <AdminPageHeading title="Institutional profile" description="Fixed sections of the About and History pages, in four languages." />
-      <DataTable caption="Profile sections">
+      <AdminPageHeading title={t("heading")} description={t("description")} />
+      <DataTable caption={t("tableCaption")}>
         <thead>
           <tr>
-            <Th>Section</Th>
-            <Th>Shown on</Th>
-            <Th>Languages</Th>
-            <Th>Updated</Th>
-            <Th>Status</Th>
+            <Th>{t("columns.section")}</Th>
+            <Th>{t("columns.shownOn")}</Th>
+            <Th>{t("columns.languages")}</Th>
+            <Th>{t("columns.updated")}</Th>
+            <Th>{t("columns.status")}</Th>
           </tr>
         </thead>
         <tbody>
@@ -29,13 +32,13 @@ export default async function ProfileAdminPage() {
             <tr key={r.key} className="hover:bg-paper">
               <Td>
                 <Link href={`/admin/profil/${r.key}`} className="font-medium hover:text-ojetil-red hover:underline">
-                  {PROFILE_SECTION_LABELS[r.key].label}
+                  {t(`sections.${r.key}.label`)}
                 </Link>
               </Td>
-              <Td className="text-ink-secondary">{PROFILE_SECTION_LABELS[r.key].where}</Td>
+              <Td className="text-ink-secondary">{t(`sections.${r.key}.where`)}</Td>
               <Td className="font-mono text-xs">{r.locales.join(" · ") || "—"}</Td>
-              <Td className="tabular-nums text-ink-secondary">{adminDateTime(r.updatedAt)}</Td>
-              <Td>{r.status ? <ContentStatusBadge status={r.status} /> : <span className="text-ink-secondary">Not created</span>}</Td>
+              <Td className="tabular-nums text-ink-secondary">{adminDateTime(r.updatedAt, locale)}</Td>
+              <Td>{r.status ? <ContentStatusBadge status={r.status} /> : <span className="text-ink-secondary">{t("notCreated")}</span>}</Td>
             </tr>
           ))}
         </tbody>

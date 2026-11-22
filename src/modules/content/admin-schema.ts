@@ -1,5 +1,6 @@
 import type { Locale } from "@prisma/client";
 import { z } from "zod";
+import { msg } from "@/lib/i18n-message";
 
 /** Client-safe helpers shared by every multilingual CMS editor. */
 export const CONTENT_LOCALES = ["TET", "PT", "ID", "EN"] as const satisfies readonly Locale[];
@@ -9,11 +10,13 @@ export const LOCALE_TAB_LABELS: Record<ContentLocale, string> = { TET: "TET", PT
 
 export interface TranslationFieldSpec {
   name: string;
+  /** `msg()`-encoded message key, e.g. msg("admin.news.fields.title"). */
   label: string;
   required: boolean;
   max: number;
   multiline?: boolean;
   rows?: number;
+  /** `msg()`-encoded message key. */
   hint?: string;
 }
 
@@ -27,7 +30,7 @@ export type TranslationValues = Record<ContentLocale, Record<string, string>>;
  */
 export function translationsSchema(fields: readonly TranslationFieldSpec[]) {
   const localeShape = Object.fromEntries(
-    fields.map((f) => [f.name, z.string().trim().max(f.max, `${f.label}: at most ${f.max} characters.`)]),
+    fields.map((f) => [f.name, z.string().trim().max(f.max, msg("admin.validation.maxChars", { max: f.max }))]),
   ) as Record<string, z.ZodString>;
 
   return z
@@ -42,7 +45,7 @@ export function translationsSchema(fields: readonly TranslationFieldSpec[]) {
             ctx.addIssue({
               code: "custom",
               path: [locale, f.name],
-              message: locale === "TET" ? `${f.label} (Tetun) is required.` : `${f.label} is required once this language is started.`,
+              message: locale === "TET" ? msg("admin.validation.requiredTetun") : msg("admin.validation.requiredOnceStarted"),
             });
           }
         }

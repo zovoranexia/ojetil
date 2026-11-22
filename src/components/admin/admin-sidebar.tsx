@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { ADMIN_NAV, isAdminNavActive, type AdminNavIcon } from "@/config/admin-nav";
 import { satisfies } from "@/config/rbac";
@@ -39,6 +40,7 @@ const ICONS: Record<AdminNavIcon, LucideIcon> = {
 function NavList({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   const role = useRole();
+  const t = useTranslations("admin.nav");
   return (
     <ul className="space-y-0.5">
       {ADMIN_NAV.filter((item) => satisfies(role, item.requires)).map((item) => {
@@ -56,7 +58,7 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
               )}
             >
               <Icon aria-hidden="true" className="size-4 shrink-0" />
-              {item.label}
+              {t(item.label)}
             </Link>
           </li>
         );
@@ -65,8 +67,9 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-/** `desktop`: fixed sidebar (lg+). `mobile`: menu button with a slide-down panel (below lg). */
+/** `desktop`: fixed sidebar (lg+). `mobile`: menu button (in the top bar) with a slide-down panel (below lg). */
 export function AdminSidebar({ footer, variant }: { footer: React.ReactNode; variant: "desktop" | "mobile" }) {
+  const t = useTranslations("admin.shell");
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   useEffect(() => setOpen(false), [pathname]);
@@ -74,7 +77,7 @@ export function AdminSidebar({ footer, variant }: { footer: React.ReactNode; var
   if (variant === "desktop") {
     return (
       <aside className="flex w-60 shrink-0 flex-col bg-ink px-3 py-5">
-        <nav aria-label="Backoffice" className="flex-1">
+        <nav aria-label={t("navLabel")} className="flex-1">
           <NavList />
         </nav>
         <div className="border-t border-paper/10 pt-4">{footer}</div>
@@ -89,13 +92,13 @@ export function AdminSidebar({ footer, variant }: { footer: React.ReactNode; var
           aria-expanded={open}
           aria-controls="admin-mobile-nav"
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex size-tap items-center justify-center rounded-control text-paper hover:bg-paper/10"
+          className="inline-flex size-tap items-center justify-center rounded-control text-ink hover:bg-surface-muted"
         >
           {open ? <X aria-hidden="true" className="size-5" /> : <Menu aria-hidden="true" className="size-5" />}
-          <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+          <span className="sr-only">{open ? t("closeMenu") : t("openMenu")}</span>
         </button>
-        <div id="admin-mobile-nav" hidden={!open} className="absolute inset-x-0 top-full z-40 bg-ink px-3 pb-4 shadow-lg">
-          <nav aria-label="Backoffice">
+        <div id="admin-mobile-nav" hidden={!open} className="ink-chrome absolute inset-x-0 top-full z-40 bg-ink px-3 pb-4 pt-2 shadow-lg">
+          <nav aria-label={t("navLabel")}>
             <NavList onNavigate={() => setOpen(false)} />
           </nav>
           <div className="mt-3 border-t border-paper/10 pt-3">{footer}</div>

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { hasPermission } from "@/config/rbac";
 import { ActionError, authorizedAction } from "@/lib/actions";
+import { msg } from "@/lib/i18n-message";
 import { db } from "@/lib/db";
 import { recordAudit } from "@/modules/audit/service";
 import { contentAuditActions, rethrowSlugConflict } from "./admin-server";
@@ -18,7 +19,7 @@ import {
 } from "./institutional-schema";
 
 function assertCanPublish(role: Parameters<typeof hasPermission>[0], status: string) {
-  if (status === "PUBLISHED" && !hasPermission(role, "content:publish")) throw new ActionError("FORBIDDEN", "Your role cannot publish content.");
+  if (status === "PUBLISHED" && !hasPermission(role, "content:publish")) throw new ActionError("FORBIDDEN", msg("admin.content.errors.publishForbidden"));
 }
 
 /* ── Timeline ─────────────────────────────────────────────────────── */
@@ -41,7 +42,7 @@ export const saveMilestone = authorizedAction("content:write", timelineFormSchem
   try {
     const saved = await db.$transaction(async (tx) => {
       const previous = input.id ? await tx.timelineMilestone.findUnique({ where: { id: input.id }, select: { status: true } }) : null;
-      if (input.id && !previous) throw new ActionError("NOT_FOUND", "Milestone not found.");
+      if (input.id && !previous) throw new ActionError("NOT_FOUND", msg("admin.timeline.errors.notFound"));
       const row = input.id
         ? await tx.timelineMilestone.update({ where: { id: input.id }, data: { ...data, translations: { deleteMany: {}, create: translations } }, select: { id: true } })
         : await tx.timelineMilestone.create({ data: { ...data, translations: { create: translations } }, select: { id: true } });
@@ -64,7 +65,7 @@ export const saveMilestone = authorizedAction("content:write", timelineFormSchem
 export const deleteMilestone = authorizedAction("content:write", z.object({ id: z.string().min(1) }), async ({ id }, user) => {
   await db.$transaction(async (tx) => {
     const row = await tx.timelineMilestone.findUnique({ where: { id }, select: { slug: true } });
-    if (!row) throw new ActionError("NOT_FOUND", "Milestone not found.");
+    if (!row) throw new ActionError("NOT_FOUND", msg("admin.timeline.errors.notFound"));
     await tx.timelineMilestone.delete({ where: { id } });
     await recordAudit({ action: "CONTENT_DELETED", actor: user, target: { type: "TimelineMilestone", id }, metadata: { slug: row.slug } }, tx);
   });
@@ -89,7 +90,7 @@ export const saveLeader = authorizedAction("content:write", leadershipFormSchema
   };
   const saved = await db.$transaction(async (tx) => {
     const previous = input.id ? await tx.leadershipMember.findUnique({ where: { id: input.id }, select: { status: true } }) : null;
-    if (input.id && !previous) throw new ActionError("NOT_FOUND", "Leader not found.");
+    if (input.id && !previous) throw new ActionError("NOT_FOUND", msg("admin.leadership.errors.notFound"));
     const row = input.id
       ? await tx.leadershipMember.update({ where: { id: input.id }, data: { ...data, translations: { deleteMany: {}, create: translations } }, select: { id: true } })
       : await tx.leadershipMember.create({ data: { ...data, translations: { create: translations } }, select: { id: true } });
@@ -108,7 +109,7 @@ export const saveLeader = authorizedAction("content:write", leadershipFormSchema
 export const deleteLeader = authorizedAction("content:write", z.object({ id: z.string().min(1) }), async ({ id }, user) => {
   await db.$transaction(async (tx) => {
     const row = await tx.leadershipMember.findUnique({ where: { id }, select: { fullName: true } });
-    if (!row) throw new ActionError("NOT_FOUND", "Leader not found.");
+    if (!row) throw new ActionError("NOT_FOUND", msg("admin.leadership.errors.notFound"));
     await tx.leadershipMember.delete({ where: { id } });
     await recordAudit({ action: "CONTENT_DELETED", actor: user, target: { type: "LeadershipMember", id }, metadata: { title: row.fullName } }, tx);
   });

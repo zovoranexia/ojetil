@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Wand2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { EditorActions } from "@/components/admin/editor-actions";
@@ -16,7 +17,6 @@ import { deleteEvent, saveEvent } from "@/modules/events/admin-actions";
 import {
   EVENT_STATUS_VALUES,
   EVENT_TRANSLATION_FIELDS,
-  EVENT_TYPE_LABELS,
   EVENT_TYPE_VALUES,
   eventFormSchema,
   type EventFormValues,
@@ -36,6 +36,10 @@ export function EventEditor({
   totalRegistrations: number;
 }) {
   const router = useRouter();
+  const t = useTranslations("admin.events.editor");
+  const tTypes = useTranslations("admin.events.types");
+  const tStatus = useTranslations("admin.status.content");
+  const tc = useTranslations("admin.common");
   const [feedback, setFeedback] = useState<Feedback>(null);
   const feedbackRef = useRef<HTMLDivElement>(null);
   const isNew = !initial.id;
@@ -63,10 +67,10 @@ export function EventEditor({
         return announce({ kind: "error", message: r.error.message });
       }
       if (isNew) return router.push(`/admin/acara/${r.data.id}`);
-      announce({ kind: "success", message: "Event saved." });
+      announce({ kind: "success", message: t("saved") });
       router.refresh();
     },
-    () => announce({ kind: "error", message: "Please correct the highlighted fields (check every language tab)." }),
+    () => announce({ kind: "error", message: t("checkTabs") }),
   );
 
   async function onDelete() {
@@ -87,19 +91,19 @@ export function EventEditor({
           <TranslationTabs fields={EVENT_TRANSLATION_FIELDS} register={register} watch={watch} errors={errors} disabled={readOnly} />
 
           <div className="grid gap-5 rounded-card border border-border-subtle bg-surface-card p-5 sm:grid-cols-2">
-            <p className="text-sm font-semibold sm:col-span-2">When & where — all times are Díli time (Asia/Dili, UTC+09:00)</p>
-            <Field id="startAt" label="Starts" required error={err("startAt")}>
+            <p className="text-sm font-semibold sm:col-span-2">{t("whenWhere")}</p>
+            <Field id="startAt" label={t("starts")} required error={err("startAt")}>
               <Input type="datetime-local" {...fieldAria("startAt", { error: err("startAt") })} {...register("startAt")} />
             </Field>
-            <Field id="endAt" label="Ends" required error={err("endAt")}>
+            <Field id="endAt" label={t("ends")} required error={err("endAt")}>
               <Input type="datetime-local" {...fieldAria("endAt", { error: err("endAt") })} {...register("endAt")} />
             </Field>
-            <Field id="location" label="Venue" required className="sm:col-span-2" error={err("location")}>
+            <Field id="location" label={t("venue")} required className="sm:col-span-2" error={err("location")}>
               <Input placeholder="Auditóriu UNTL, Kampus Caicoli, Díli" {...fieldAria("location", { error: err("location") })} {...register("location")} />
             </Field>
-            <Field id="municipality" label="Municipality" error={err("municipality")}>
+            <Field id="municipality" label={t("municipality")} error={err("municipality")}>
               <select className={selectClassName} {...fieldAria("municipality", { error: err("municipality") })} {...register("municipality")}>
-                <option value="">— none / online —</option>
+                <option value="">{t("municipalityNone")}</option>
                 {MUNICIPALITIES.map((m) => (
                   <option key={m.value} value={m.value}>
                     {m.label}
@@ -108,10 +112,10 @@ export function EventEditor({
               </select>
             </Field>
             <label className="flex min-h-tap items-center gap-3 self-end text-sm">
-              <input type="checkbox" className="size-5 accent-ojetil-red" {...register("isOnline")} /> Online event
+              <input type="checkbox" className="size-5 accent-ojetil-red" {...register("isOnline")} /> {t("onlineEvent")}
             </label>
             {isOnline ? (
-              <Field id="onlineUrl" label="Meeting link" required className="sm:col-span-2" hint="Sent to registered attendees; never shown publicly." error={err("onlineUrl")}>
+              <Field id="onlineUrl" label={t("meetingLink")} required className="sm:col-span-2" hint={t("meetingLinkHint")} error={err("onlineUrl")}>
                 <Input type="url" placeholder="https://…" {...fieldAria("onlineUrl", { hint: true, error: err("onlineUrl") })} {...register("onlineUrl")} />
               </Field>
             ) : null}
@@ -119,49 +123,49 @@ export function EventEditor({
         </div>
 
         <div className="space-y-5 rounded-card border border-border-subtle bg-surface-card p-5 xl:self-start">
-          <Field id="status" label="Status" required error={err("status")}>
+          <Field id="status" label={t("status")} required error={err("status")}>
             <select className={selectClassName} {...fieldAria("status", { error: err("status") })} {...register("status")}>
               {EVENT_STATUS_VALUES.map((s) => (
                 <option key={s} value={s} disabled={s === "PUBLISHED" && !canPublish}>
-                  {s.charAt(0) + s.slice(1).toLowerCase()}
+                  {tStatus(s)}
                 </option>
               ))}
             </select>
           </Field>
-          <Field id="type" label="Type" required error={err("type")}>
+          <Field id="type" label={t("type")} required error={err("type")}>
             <select className={selectClassName} {...fieldAria("type", { error: err("type") })} {...register("type")}>
-              {EVENT_TYPE_VALUES.map((t) => (
-                <option key={t} value={t}>
-                  {EVENT_TYPE_LABELS[t]}
+              {EVENT_TYPE_VALUES.map((type) => (
+                <option key={type} value={type}>
+                  {tTypes(type)}
                 </option>
               ))}
             </select>
           </Field>
-          <Field id="slug" label="URL slug" required hint="/edukasaun/acara/your-slug" error={err("slug")}>
+          <Field id="slug" label={t("slugLabel")} required hint={t("slugHint")} error={err("slug")}>
             <div className="flex gap-2">
               <Input className="font-mono text-sm" {...fieldAria("slug", { hint: true, error: err("slug") })} {...register("slug")} />
               <button
                 type="button"
-                title="Generate from the Tetun title"
+                title={t("generateSlugTitle")}
                 onClick={() => setValue("slug", slugify(getValues("translations.TET.title") ?? ""), { shouldValidate: true, shouldDirty: true })}
                 className="inline-flex size-tap shrink-0 items-center justify-center rounded-control border border-border-subtle hover:border-border-strong md:size-10"
               >
                 <Wand2 aria-hidden="true" className="size-4" />
-                <span className="sr-only">Generate slug from Tetun title</span>
+                <span className="sr-only">{t("generateSlugSr")}</span>
               </button>
             </div>
           </Field>
-          <Field id="capacity" label="Capacity (seats)" required hint={registered ? `${registered} currently registered.` : undefined} error={err("capacity")}>
+          <Field id="capacity" label={t("capacity")} required hint={registered ? t("capacityHint", { count: registered }) : undefined} error={err("capacity")}>
             <Input type="number" inputMode="numeric" min={1} className="tabular-nums" {...fieldAria("capacity", { hint: Boolean(registered), error: err("capacity") })} {...register("capacity")} />
           </Field>
           <label className="flex min-h-tap items-center gap-3 text-sm">
-            <input type="checkbox" className="size-5 accent-ojetil-red" {...register("registrationOpen")} /> Registration open
+            <input type="checkbox" className="size-5 accent-ojetil-red" {...register("registrationOpen")} /> {t("registrationOpen")}
           </label>
-          <Field id="registrationDeadline" label="Registration deadline" hint="Empty = until the event starts." error={err("registrationDeadline")}>
+          <Field id="registrationDeadline" label={t("deadline")} hint={t("deadlineHint")} error={err("registrationDeadline")}>
             <Input type="datetime-local" {...fieldAria("registrationDeadline", { hint: true, error: err("registrationDeadline") })} {...register("registrationDeadline")} />
           </Field>
-          <Field id="coverImageUrl" label="Cover image URL" error={err("coverImageUrl")}>
-            <Input placeholder="/uploads/… or https://…" {...fieldAria("coverImageUrl", { error: err("coverImageUrl") })} {...register("coverImageUrl")} />
+          <Field id="coverImageUrl" label={t("coverImage")} error={err("coverImageUrl")}>
+            <Input placeholder={t("coverImagePlaceholder")} {...fieldAria("coverImageUrl", { error: err("coverImageUrl") })} {...register("coverImageUrl")} />
           </Field>
         </div>
       </fieldset>
@@ -170,7 +174,7 @@ export function EventEditor({
           saving={isSubmitting}
           canDelete={!isNew && totalRegistrations === 0}
           onDelete={onDelete}
-          saveLabel={isNew ? "Create event" : "Save changes"}
+          saveLabel={isNew ? t("create") : tc("saveChanges")}
         />
       ) : null}
     </form>

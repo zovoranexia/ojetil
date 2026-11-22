@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { AdminPageHeading, ReadOnlyNotice } from "@/components/admin/ui";
 import { satisfies } from "@/config/rbac";
 import { requirePageAccess } from "@/lib/security/guards";
@@ -8,7 +9,10 @@ import { getMilestoneForEdit, nextMilestoneOrder } from "@/modules/content/insti
 import { TIMELINE_TRANSLATION_FIELDS, type TimelineFormValues } from "@/modules/content/institutional-schema";
 import { MilestoneEditor } from "../milestone-editor";
 
-export const metadata: Metadata = { title: "Edit milestone" };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("admin.timeline");
+  return { title: t("editMetaTitle") };
+}
 
 export default async function MilestoneEditPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -29,11 +33,12 @@ export default async function MilestoneEditPage({ params }: { params: Promise<{ 
       }
     : await getMilestoneForEdit(id);
   if (!initial) notFound();
+  const [t, tc] = await Promise.all([getTranslations("admin.timeline"), getTranslations("admin.content")]);
   const canWrite = satisfies(user.role, "content:write");
   return (
     <>
-      <AdminPageHeading back={{ href: "/admin/linimasa", label: "Timeline" }} title={isNew ? "New milestone" : initial.translations.TET.title || initial.slug} />
-      {!canWrite ? <ReadOnlyNotice>Read-only: your role can view content but not edit it.</ReadOnlyNotice> : null}
+      <AdminPageHeading back={{ href: "/admin/linimasa", label: t("metaTitle") }} title={isNew ? t("newMilestone") : initial.translations.TET.title || initial.slug} />
+      {!canWrite ? <ReadOnlyNotice>{tc("readOnly")}</ReadOnlyNotice> : null}
       <MilestoneEditor initial={initial} readOnly={!canWrite} canPublish={satisfies(user.role, "content:publish")} />
     </>
   );

@@ -3,12 +3,14 @@ import { createHash, randomUUID } from "node:crypto";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve, sep } from "node:path";
 import { getServerEnv } from "@/lib/env";
+import { msg } from "@/lib/i18n-message";
 
 /**
  * PDF storage for the Documents module. Files live under DOCUMENT_DIR (never
  * /public) with random names; the public route only streams PUBLISHED ones.
  * Validation: size limit, "%PDF-" magic bytes at offset 0 and an "%%EOF"
  * trailer near the end (rejects truncated uploads and renamed non-PDFs).
+ * Upload errors carry msg()-encoded keys (decoded in the editor).
  */
 export class DocumentFileError extends Error {
   override name = "DocumentFileError";
@@ -49,11 +51,11 @@ export function safeFileName(name: string): string {
 export async function storeDocumentFile(file: File, now: Date = new Date()): Promise<StoredDocumentFile> {
   const max = getServerEnv().MAX_DOCUMENT_BYTES;
   const mb = Math.round(max / 1_048_576);
-  if (file.size === 0) throw new DocumentFileError("The file is empty.");
-  if (file.size > max) throw new DocumentFileError(`The PDF is larger than ${mb} MB.`);
+  if (file.size === 0) throw new DocumentFileError(msg("admin.documents.validation.fileEmpty"));
+  if (file.size > max) throw new DocumentFileError(msg("admin.documents.validation.tooLarge", { size: `${mb} MB` }));
   const data = Buffer.from(await file.arrayBuffer());
-  if (data.length > max) throw new DocumentFileError(`The PDF is larger than ${mb} MB.`);
-  if (!isPdf(data)) throw new DocumentFileError("This is not a valid PDF file.");
+  if (data.length > max) throw new DocumentFileError(msg("admin.documents.validation.tooLarge", { size: `${mb} MB` }));
+  if (!isPdf(data)) throw new DocumentFileError(msg("admin.documents.validation.notPdf"));
 
   const fileKey = `${now.getUTCFullYear()}/${randomUUID()}.pdf`;
   const full = pathForKey(fileKey);

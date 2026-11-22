@@ -1,12 +1,14 @@
 import "server-only";
 import { z } from "zod";
 import type { PermissionRequirement } from "@/config/rbac";
+import { msg } from "@/lib/i18n-message";
 import { requireUser, type SessionUser } from "@/lib/security/guards";
 import { ForbiddenError, UnauthorizedError } from "@/lib/security/permissions";
 
 /**
  * Uniform Server Action result, consumed by React Hook Form on the client:
  * field errors map onto inputs, `message` feeds the form-level alert.
+ * Messages may be `msg()`-encoded keys (src/lib/i18n-message.ts); the UI decodes them.
  */
 export type ActionErrorCode = "UNAUTHORIZED" | "FORBIDDEN" | "VALIDATION" | "NOT_FOUND" | "CONFLICT" | "INTERNAL";
 
@@ -42,7 +44,7 @@ function toFailure(error: unknown): ActionResult<never> {
     return { ok: false, error: { code: error.code, message: error.message, fieldErrors: error.fieldErrors } };
   }
   console.error("[action] unhandled error", error);
-  return { ok: false, error: { code: "INTERNAL", message: "Something went wrong. Please try again." } };
+  return { ok: false, error: { code: "INTERNAL", message: msg("admin.errors.internal") } };
 }
 
 /**
@@ -63,7 +65,7 @@ export function authorizedAction<S extends z.ZodType, T>(
       if (!parsed.success) {
         return {
           ok: false,
-          error: { code: "VALIDATION", message: "Please correct the highlighted fields.", fieldErrors: fieldErrorsFrom(parsed.error) },
+          error: { code: "VALIDATION", message: msg("admin.errors.validation"), fieldErrors: fieldErrorsFrom(parsed.error) },
         };
       }
       return { ok: true, data: await handler(parsed.data, user) };
@@ -84,7 +86,7 @@ export function publicAction<S extends z.ZodType, T>(
       if (!parsed.success) {
         return {
           ok: false,
-          error: { code: "VALIDATION", message: "Please correct the highlighted fields.", fieldErrors: fieldErrorsFrom(parsed.error) },
+          error: { code: "VALIDATION", message: msg("admin.errors.validation"), fieldErrors: fieldErrorsFrom(parsed.error) },
         };
       }
       return { ok: true, data: await handler(parsed.data) };

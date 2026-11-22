@@ -2,9 +2,11 @@
 
 import { Eye, EyeOff, Loader2, Lock } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useRef, useState, useTransition } from "react";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
 import { FormFeedback, type Feedback } from "@/components/admin/form-feedback";
+import { useMessageText } from "@/components/i18n/message-text";
 import { textareaClassName } from "@/components/forms/field";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -16,15 +18,17 @@ export function RevealPii({ id, hasPhoto }: { id: string; hasPhoto: boolean }) {
   const [pii, setPii] = useState<{ address: string; phone: string; nationalId: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
+  const t = useTranslations("admin.members.pii");
+  const resolve = useMessageText();
 
   if (!pii) {
     return (
       <div className="space-y-3">
         <p className="flex items-start gap-2 text-sm text-ink-secondary">
           <Lock aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
-          Address, phone, national ID{hasPhoto ? " and photo" : ""} are encrypted. Revealing them is recorded in the audit log with your name.
+          {hasPhoto ? t("introWithPhoto") : t("intro")}
         </p>
-        {error ? <p className="text-sm text-status-rejected">{error}</p> : null}
+        {error ? <p className="text-sm text-status-rejected">{resolve(error)}</p> : null}
         <Button
           variant="editorial"
           size="sm"
@@ -38,7 +42,7 @@ export function RevealPii({ id, hasPhoto }: { id: string; hasPhoto: boolean }) {
           }
         >
           {pending ? <Loader2 aria-hidden="true" className="animate-spin" /> : <Eye aria-hidden="true" />}
-          Reveal personal data
+          {t("reveal")}
         </Button>
       </div>
     );
@@ -49,35 +53,36 @@ export function RevealPii({ id, hasPhoto }: { id: string; hasPhoto: boolean }) {
       <div className="flex flex-wrap gap-5">
         {hasPhoto ? (
           // eslint-disable-next-line @next/next/no-img-element -- authorised, uncached admin route
-          <img src={`/api/admin/members/${id}/photo`} alt="Applicant photo" className="size-28 rounded-card border border-border-subtle object-cover" />
+          <img src={`/api/admin/members/${id}/photo`} alt={t("photoAlt")} className="size-28 rounded-card border border-border-subtle object-cover" />
         ) : null}
         <dl className="grid flex-1 gap-3 text-sm sm:grid-cols-2">
           <div>
-            <dt className="text-ink-secondary">Phone / WhatsApp</dt>
+            <dt className="text-ink-secondary">{t("phone")}</dt>
             <dd className="font-medium tabular-nums">{pii.phone}</dd>
           </div>
           <div>
-            <dt className="text-ink-secondary">Bilhete de Identidade</dt>
+            <dt className="text-ink-secondary">{t("nationalId")}</dt>
             <dd className="tracking-code font-medium">{pii.nationalId}</dd>
           </div>
           <div className="sm:col-span-2">
-            <dt className="text-ink-secondary">Residential address</dt>
+            <dt className="text-ink-secondary">{t("address")}</dt>
             <dd className="font-medium">{pii.address}</dd>
           </div>
         </dl>
       </div>
       <Button variant="outline" size="sm" onClick={() => setPii(null)}>
-        <EyeOff aria-hidden="true" /> Hide
+        <EyeOff aria-hidden="true" /> {t("hide")}
       </Button>
     </div>
   );
 }
 
-const DECISION_COPY: Record<Decision, { label: string; confirm: string; tone: "primary" | "destructive"; variant: "primary" | "outline" | "destructive" }> = {
-  VERIFIED: { label: "Approve", confirm: "Approve and verify this application?", tone: "primary", variant: "primary" },
-  NEEDS_REVISION: { label: "Request revision", confirm: "Ask the applicant for more information?", tone: "primary", variant: "outline" },
-  REJECTED: { label: "Reject", confirm: "Reject this application?", tone: "destructive", variant: "destructive" },
-};
+/** `label` / `confirm` are message keys under `admin.members.decision`. */
+const DECISION_COPY = {
+  VERIFIED: { label: "approve", confirm: "approveConfirm", tone: "primary", variant: "primary" },
+  NEEDS_REVISION: { label: "revise", confirm: "reviseConfirm", tone: "primary", variant: "outline" },
+  REJECTED: { label: "reject", confirm: "rejectConfirm", tone: "destructive", variant: "destructive" },
+} as const satisfies Record<Decision, { label: string; confirm: string; tone: "primary" | "destructive"; variant: "primary" | "outline" | "destructive" }>;
 
 export function DecisionPanel({ id, status }: { id: string; status: "PENDING_VERIFICATION" | "NEEDS_REVISION" | "VERIFIED" | "REJECTED" }) {
   const router = useRouter();
@@ -86,6 +91,8 @@ export function DecisionPanel({ id, status }: { id: string; status: "PENDING_VER
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [pending, startTransition] = useTransition();
   const feedbackRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations("admin.members.decision");
+  const resolve = useMessageText();
 
   function decide(decision: Decision) {
     setFeedback(null);
@@ -93,11 +100,12 @@ export function DecisionPanel({ id, status }: { id: string; status: "PENDING_VER
     startTransition(async () => {
       const r = await decideMemberRegistration({ id, decision, expectedStatus: status, note });
       if (r.ok) {
-        setFeedback({ kind: "success", message: `Status updated for ${r.data.trackingCode}.` });
+        setFeedback({ kind: "success", message: t("success", { code: r.data.trackingCode }) });
         setNote("");
         router.refresh();
       } else {
-        setNoteError(r.error.fieldErrors?.note?.[0] ?? null);
+        const noteIssue = r.error.fieldErrors?.note?.[0];
+        setNoteError(noteIssue ? resolve(noteIssue) : null);
         setFeedback({ kind: "error", message: r.error.message });
       }
       requestAnimationFrame(() => feedbackRef.current?.focus());
@@ -111,7 +119,7 @@ export function DecisionPanel({ id, status }: { id: string; status: "PENDING_VER
       <FormFeedback ref={feedbackRef} feedback={feedback} />
       <div className="space-y-1.5">
         <Label htmlFor="decision-note" required>
-          Reason / note
+          {t("noteLabel")}
         </Label>
         <textarea
           id="decision-note"
@@ -124,7 +132,7 @@ export function DecisionPanel({ id, status }: { id: string; status: "PENDING_VER
           className={textareaClassName}
         />
         <p id="decision-note-hint" className="text-xs text-ink-secondary">
-          Required for every decision. For “Request revision” and “Reject” this note is shown to the applicant on the public status page — write it for them.
+          {t("noteHint")}
         </p>
         {noteError ? <p className="text-sm text-status-rejected">{noteError}</p> : null}
       </div>
@@ -134,21 +142,21 @@ export function DecisionPanel({ id, status }: { id: string; status: "PENDING_VER
           .map((d) => (
             <ConfirmDialog
               key={d}
-              title={DECISION_COPY[d].confirm}
-              description={`Note: “${note.trim() || "—"}”. This is recorded in the verification history and audit log.`}
-              confirmLabel={DECISION_COPY[d].label}
+              title={t(DECISION_COPY[d].confirm)}
+              description={t("confirmDescription", { note: note.trim() || "—" })}
+              confirmLabel={t(DECISION_COPY[d].label)}
               tone={DECISION_COPY[d].tone}
               onConfirm={() => decide(d)}
               trigger={
                 <Button variant={DECISION_COPY[d].variant} size="sm" disabled={pending || tooShort}>
                   {pending ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
-                  {DECISION_COPY[d].label}
+                  {t(DECISION_COPY[d].label)}
                 </Button>
               }
             />
           ))}
       </div>
-      {tooShort ? <p className="text-xs text-ink-secondary">Write a note (5+ characters) to enable the decision buttons.</p> : null}
+      {tooShort ? <p className="text-xs text-ink-secondary">{t("tooShort")}</p> : null}
     </div>
   );
 }

@@ -2,7 +2,9 @@
 
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { forwardRef } from "react";
+import { MessageText } from "@/components/i18n/message-text";
 
+/** `message` may be plain text or a msg()-encoded key (decoded on display). */
 export type Feedback = { kind: "success" | "error"; message: string } | null;
 
 /** Form-level message, focusable so it can be announced after submit. */
@@ -21,7 +23,9 @@ export const FormFeedback = forwardRef<HTMLDivElement, { feedback: Feedback }>(f
       }
     >
       {ok ? <CheckCircle2 aria-hidden="true" className="mt-0.5 size-4 shrink-0" /> : <AlertCircle aria-hidden="true" className="mt-0.5 size-4 shrink-0" />}
-      <p>{feedback.message}</p>
+      <p>
+        <MessageText value={feedback.message} />
+      </p>
     </div>
   );
 });

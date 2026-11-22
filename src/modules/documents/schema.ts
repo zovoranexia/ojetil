@@ -1,11 +1,12 @@
 import { z } from "zod";
+import { msg } from "@/lib/i18n-message";
 import { slugField } from "@/modules/content/admin-common";
 import { translationsSchema, type TranslationFieldSpec } from "@/modules/content/admin-schema";
 
 /** Client-safe Documents form rules (shared by the editor and the API route). */
 export const DOCUMENT_TRANSLATION_FIELDS: readonly TranslationFieldSpec[] = [
-  { name: "title", label: "Title", required: true, max: 200 },
-  { name: "description", label: "Description", required: false, max: 600, multiline: true, rows: 3, hint: "Optional. One or two sentences about the document." },
+  { name: "title", label: msg("admin.documents.fields.title"), required: true, max: 200 },
+  { name: "description", label: msg("admin.documents.fields.description"), required: false, max: 600, multiline: true, rows: 3, hint: msg("admin.documents.fields.descriptionHint") },
 ];
 
 export const documentFormSchema = z.object({

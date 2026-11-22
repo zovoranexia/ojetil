@@ -2,6 +2,7 @@ import "server-only";
 import type { Locale } from "@prisma/client";
 import { ActionError } from "@/lib/actions";
 import { db } from "@/lib/db";
+import { msg } from "@/lib/i18n-message";
 import type { SessionUser } from "@/lib/security/guards";
 import { recordAudit } from "@/modules/audit/service";
 import { rethrowSlugConflict } from "@/modules/content/admin-server";
@@ -22,7 +23,7 @@ function rows(input: Input) {
  */
 export async function saveDocument(params: { id?: string; input: Input; file: File | null; user: SessionUser }): Promise<{ id: string }> {
   const { id, input, file, user } = params;
-  if (!id && !file) throw new ActionError("VALIDATION", "Choose a PDF file.", { file: ["Choose a PDF file."] });
+  if (!id && !file) throw new ActionError("VALIDATION", msg("admin.documents.validation.chooseFile"), { file: [msg("admin.documents.validation.chooseFile")] });
 
   const stored: StoredDocumentFile | null = file ? await storeDocumentFile(file) : null;
   const translations = rows(input);
@@ -32,7 +33,7 @@ export async function saveDocument(params: { id?: string; input: Input; file: Fi
     const saved = await db.$transaction(async (tx) => {
       if (id) {
         const previous = await tx.document.findUnique({ where: { id }, select: { fileKey: true } });
-        if (!previous) throw new ActionError("NOT_FOUND", "Document not found.");
+        if (!previous) throw new ActionError("NOT_FOUND", msg("admin.documents.validation.notFound"));
         if (stored) replacedKey = previous.fileKey;
         const doc = await tx.document.update({
           where: { id },

@@ -1,11 +1,12 @@
 import type { Role } from "@prisma/client";
 import { satisfies, type PermissionRequirement } from "@/config/rbac";
+import { msg } from "@/lib/i18n-message";
 
 /** 401 — no valid session. */
 export class UnauthorizedError extends Error {
   override name = "UnauthorizedError";
   readonly status = 401;
-  constructor(message = "Authentication required.") {
+  constructor(message = msg("admin.errors.unauthorized")) {
     super(message);
   }
 }
@@ -14,7 +15,7 @@ export class UnauthorizedError extends Error {
 export class ForbiddenError extends Error {
   override name = "ForbiddenError";
   readonly status = 403;
-  constructor(readonly requirement: PermissionRequirement, message = "You do not have permission to perform this action.") {
+  constructor(readonly requirement: PermissionRequirement, message = msg("admin.errors.forbidden")) {
     super(message);
   }
 }
