@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, CheckCircle2, Clock, CreditCard, FileWarning, Loader2, Search, XCircle } from "lucide-react";
+import { AlertCircle, CheckCircle2, Clock, FileWarning, Loader2, Search, XCircle } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -22,7 +22,6 @@ interface LookupResult {
   updatedAt: string;
   verifiedAt: string | null;
   message: string | null;
-  cardToken: string | null;
 }
 type ApiResult = { ok: true; data: LookupResult } | { ok: false; error: { message: string; fieldErrors?: Record<string, string[]> } };
 interface FormValues {
@@ -134,19 +133,6 @@ export function StatusLookup({ initialCode, contactEmail }: { initialCode: strin
           <div className="rounded-card border border-border-subtle bg-paper p-4">
             <p className="text-sm font-semibold text-ink-secondary">{t("result.message")}</p>
             <p className="mt-2 whitespace-pre-line">{result.message}</p>
-          </div>
-        ) : null}
-        {result.cardToken ? (
-          <div className="flex flex-col gap-3 rounded-card border border-ink bg-ink p-4 text-paper sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="font-semibold text-gold-accent">{t("result.cardTitle")}</p>
-              <p className="mt-1 text-sm text-paper/80">{t("result.cardBody")}</p>
-            </div>
-            <Button asChild variant="primary" className="shrink-0">
-              <a href={`${locale === "tet" ? "" : `/${locale}`}/komunidade/kartaun/${result.cardToken}`} rel="noreferrer">
-                <CreditCard aria-hidden="true" /> {t("result.cardOpen")}
-              </a>
-            </Button>
           </div>
         ) : null}
         <p className="text-sm text-ink-secondary">{t("result.contact", { email: contactEmail })}</p>
