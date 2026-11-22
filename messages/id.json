@@ -1603,5 +1603,83 @@
       "form": "Mohon perbaiki kolom yang ditandai.",
       "network": "Koneksi bermasalah. Periksa internet lalu coba lagi."
     }
+  },
+  "emails": {
+    "footer": "Email otomatis dari {org}. Untuk membalas, cukup tekan \"Balas\" — Sekretariat akan menerimanya.",
+    "adminFooter": "Notifikasi untuk tim OJETIL. Detail lengkap ada di backoffice (perlu login).",
+    "greeting": "Halo {name},",
+    "memberReceived": {
+      "subject": "Pendaftaran Anda sudah kami terima ({code})",
+      "preheader": "Simpan kode Anda untuk mengecek status.",
+      "heading": "Pendaftaran diterima",
+      "body": "Terima kasih telah mendaftar di OJETIL. Sekretariat akan memverifikasi data Anda dan kami akan mengirim email lagi setelah ada keputusan.",
+      "keepCode": "Simpan kode di bawah ini: Anda memerlukannya, bersama tanggal lahir, untuk mengecek status.",
+      "code": "Kode pendaftaran",
+      "category": "Kategori",
+      "button": "Cek status"
+    },
+    "memberDecision": {
+      "VERIFIED": {
+        "subject": "Selamat! Pendaftaran Anda telah diverifikasi ({code})",
+        "heading": "Selamat bergabung di OJETIL",
+        "body": "Sekretariat telah memverifikasi pendaftaran Anda. Kini Anda resmi menjadi anggota OJETIL."
+      },
+      "NEEDS_REVISION": {
+        "subject": "Pendaftaran Anda perlu diperbaiki ({code})",
+        "heading": "Perlu informasi tambahan",
+        "body": "Sekretariat memerlukan Anda memperbaiki atau melengkapi beberapa informasi. Baca catatan di bawah dan hubungi Sekretariat."
+      },
+      "REJECTED": {
+        "subject": "Keputusan atas pendaftaran Anda ({code})",
+        "heading": "Pendaftaran tidak disetujui",
+        "body": "Mohon maaf, Sekretariat tidak dapat menyetujui pendaftaran Anda. Alasannya ada di bawah. Jika ada pertanyaan, balas email ini."
+      },
+      "noteLabel": "Catatan dari Sekretariat",
+      "button": "Cek status"
+    },
+    "adminMember": {
+      "subject": "Pendaftaran anggota baru: {code}",
+      "heading": "Pendaftaran baru menunggu verifikasi",
+      "body": "Ada pendaftaran anggota baru. Buka backoffice untuk memverifikasi.",
+      "municipality": "Munisipalitas",
+      "button": "Buka di backoffice"
+    },
+    "adminContact": {
+      "subject": "Pesan baru: {topic}",
+      "heading": "Pesan baru dari situs",
+      "body": "Seseorang mengirim pesan melalui formulir kontak. Baca dan balas di backoffice.",
+      "topic": "Topik",
+      "language": "Bahasa",
+      "button": "Baca pesan"
+    },
+    "event": {
+      "ticket": "Kode tiket",
+      "when": "Waktu",
+      "where": "Tempat",
+      "online": "Daring (online)",
+      "button": "Lihat detail acara"
+    },
+    "eventRegistered": {
+      "subject": "Pendaftaran berhasil: {title}",
+      "preheader": "Tiket Anda: {ticket}",
+      "heading": "Pendaftaran dikonfirmasi",
+      "body": "Tempat Anda di \"{title}\" sudah dipesan.",
+      "onlineNote": "Kami akan mengirim tautan online lewat email sehari sebelum acara.",
+      "inPersonNote": "Tunjukkan kode tiket di pintu masuk. Kami akan mengirim pengingat sehari sebelumnya."
+    },
+    "eventReminder": {
+      "subject": "Besok: {title}",
+      "preheader": "Pengingat acara Anda.",
+      "heading": "Sampai jumpa besok: {title}",
+      "bodyOnline": "Acara dimulai dalam 24 jam. Gunakan tombol di bawah untuk bergabung ke sesi online.",
+      "bodyInPerson": "Acara dimulai dalam 24 jam. Jangan lupa kode tiket Anda.",
+      "join": "Gabung online"
+    },
+    "eventCancelled": {
+      "subject": "Dibatalkan: {title}",
+      "heading": "Acara dibatalkan",
+      "body": "Mohon maaf, acara \"{title}\" dibatalkan. Anda tidak perlu melakukan apa pun. Lihat acara lain di situs.",
+      "button": "Lihat acara lain"
+    }
   }
 }

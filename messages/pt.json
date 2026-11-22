@@ -1603,5 +1603,83 @@
       "form": "Corrija os campos assinalados.",
       "network": "Sem ligação. Verifique a internet e tente novamente."
     }
+  },
+  "emails": {
+    "footer": "Email automático da {org}. Para responder, basta usar \"Responder\" — o Secretariado recebe.",
+    "adminFooter": "Notificação para a equipa OJETIL. Detalhes completos no backoffice (requer login).",
+    "greeting": "Olá {name},",
+    "memberReceived": {
+      "subject": "Recebemos o seu registo ({code})",
+      "preheader": "Guarde o seu código para consultar o estado.",
+      "heading": "Registo recebido",
+      "body": "Obrigado por se registar na OJETIL. O Secretariado vai verificar os seus dados e enviaremos novo email quando houver uma decisão.",
+      "keepCode": "Guarde o código abaixo: precisa dele, com a sua data de nascimento, para consultar o estado.",
+      "code": "Código de registo",
+      "category": "Categoria",
+      "button": "Consultar estado"
+    },
+    "memberDecision": {
+      "VERIFIED": {
+        "subject": "Parabéns! O seu registo foi verificado ({code})",
+        "heading": "Bem-vindo(a) à OJETIL",
+        "body": "O Secretariado verificou o seu registo. Agora é membro oficial da OJETIL."
+      },
+      "NEEDS_REVISION": {
+        "subject": "O seu registo precisa de correção ({code})",
+        "heading": "Precisamos de mais informação",
+        "body": "O Secretariado precisa que corrija ou complete alguma informação. Leia a nota abaixo e contacte o Secretariado."
+      },
+      "REJECTED": {
+        "subject": "Decisão sobre o seu registo ({code})",
+        "heading": "Registo não aprovado",
+        "body": "Lamentamos, o Secretariado não pôde aprovar o seu registo. O motivo está abaixo. Se tiver perguntas, responda a este email."
+      },
+      "noteLabel": "Nota do Secretariado",
+      "button": "Consultar estado"
+    },
+    "adminMember": {
+      "subject": "Novo registo de membro: {code}",
+      "heading": "Novo registo a aguardar verificação",
+      "body": "Há um novo registo de membro. Abra o backoffice para verificar.",
+      "municipality": "Município",
+      "button": "Abrir no backoffice"
+    },
+    "adminContact": {
+      "subject": "Nova mensagem: {topic}",
+      "heading": "Nova mensagem do site",
+      "body": "Alguém enviou uma mensagem pelo formulário de contacto. Leia e responda no backoffice.",
+      "topic": "Assunto",
+      "language": "Língua",
+      "button": "Ler mensagem"
+    },
+    "event": {
+      "ticket": "Código do bilhete",
+      "when": "Quando",
+      "where": "Onde",
+      "online": "Online",
+      "button": "Ver detalhes do evento"
+    },
+    "eventRegistered": {
+      "subject": "Inscrição confirmada: {title}",
+      "preheader": "O seu bilhete: {ticket}",
+      "heading": "Inscrição confirmada",
+      "body": "O seu lugar em \"{title}\" está reservado.",
+      "onlineNote": "Enviaremos o link online por email um dia antes do evento.",
+      "inPersonNote": "Mostre o código do bilhete à entrada. Enviaremos um lembrete um dia antes."
+    },
+    "eventReminder": {
+      "subject": "Amanhã: {title}",
+      "preheader": "Lembrete do seu evento.",
+      "heading": "Até amanhã: {title}",
+      "bodyOnline": "O evento começa nas próximas 24 horas. Use o botão abaixo para entrar na sessão online.",
+      "bodyInPerson": "O evento começa nas próximas 24 horas. Não se esqueça do seu código de bilhete.",
+      "join": "Entrar online"
+    },
+    "eventCancelled": {
+      "subject": "Cancelado: {title}",
+      "heading": "Evento cancelado",
+      "body": "Lamentamos, o evento \"{title}\" foi cancelado. Não precisa de fazer nada. Veja outros eventos no site.",
+      "button": "Ver outros eventos"
+    }
   }
 }

@@ -1603,5 +1603,83 @@
       "form": "Favór hadia kampu ne'ebé marka.",
       "network": "Koneksaun la di'ak. Haree internet no koko fali."
     }
+  },
+  "emails": {
+    "footer": "Email automátiku husi {org}. Atu hatán, uza de'it 'Reply' — Sekretariadu sei simu.",
+    "adminFooter": "Notifikasaun ba ekipa OJETIL. Detalle kompletu iha backoffice (presiza login).",
+    "greeting": "Bondia {name},",
+    "memberReceived": {
+      "subject": "Ami simu ona ita-nia rejistu ({code})",
+      "preheader": "Rai ita-nia kódigu atu haree status.",
+      "heading": "Rejistu simu ona",
+      "body": "Obrigadu tanba rejista ho OJETIL. Sekretariadu sei verifika ita-nia dadus no ami sei haruka email fali bainhira iha desizaun.",
+      "keepCode": "Rai kódigu tuir mai ne'e: ita presiza ho ita-nia data moris atu haree status.",
+      "code": "Kódigu rejistu",
+      "category": "Kategoria",
+      "button": "Haree status"
+    },
+    "memberDecision": {
+      "VERIFIED": {
+        "subject": "Parabéns! Ita-nia rejistu verifika ona ({code})",
+        "heading": "Benvindu ba OJETIL",
+        "body": "Sekretariadu verifika ona ita-nia rejistu. Agora ita membru ofisiál OJETIL nian."
+      },
+      "NEEDS_REVISION": {
+        "subject": "Ita-nia rejistu presiza hadia ({code})",
+        "heading": "Presiza informasaun tan",
+        "body": "Sekretariadu presiza ita hadia ka kompleta informasaun balu. Lee nota iha okos no kontaktu Sekretariadu."
+      },
+      "REJECTED": {
+        "subject": "Desizaun kona-ba ita-nia rejistu ({code})",
+        "heading": "Rejistu la aprova",
+        "body": "Ho sentimentu, Sekretariadu la bele aprova ita-nia rejistu. Razaun mak iha okos. Se ita iha pergunta, favór hatán email ne'e."
+      },
+      "noteLabel": "Nota husi Sekretariadu",
+      "button": "Haree status"
+    },
+    "adminMember": {
+      "subject": "Rejistu membru foun: {code}",
+      "heading": "Rejistu foun hein verifikasaun",
+      "body": "Iha rejistu membru foun ida. Loke backoffice atu verifika.",
+      "municipality": "Munisípiu",
+      "button": "Loke iha backoffice"
+    },
+    "adminContact": {
+      "subject": "Mensajen foun: {topic}",
+      "heading": "Mensajen foun husi website",
+      "body": "Ema ida haruka mensajen liuhusi formuláriu kontaktu. Lee no hatán iha backoffice.",
+      "topic": "Asuntu",
+      "language": "Lian",
+      "button": "Lee mensajen"
+    },
+    "event": {
+      "ticket": "Kódigu bilhete",
+      "when": "Bainhira",
+      "where": "Iha ne'ebé",
+      "online": "Online",
+      "button": "Haree detalle eventu"
+    },
+    "eventRegistered": {
+      "subject": "Ita rejista ona: {title}",
+      "preheader": "Ita-nia bilhete: {ticket}",
+      "heading": "Inskrisaun konfirma ona",
+      "body": "Ita-nia fatin iha \"{title}\" rezerva ona.",
+      "onlineNote": "Ami sei haruka link online liuhusi email loron ida molok eventu.",
+      "inPersonNote": "Hatudu kódigu bilhete iha entrada. Ami sei haruka lembrete loron ida molok."
+    },
+    "eventReminder": {
+      "subject": "Aban: {title}",
+      "preheader": "Lembrete kona-ba ita-nia eventu.",
+      "heading": "Hasoru malu aban: {title}",
+      "bodyOnline": "Eventu hahú iha oras 24 nia laran. Uza butaun iha okos atu tama ba sorumutu online.",
+      "bodyInPerson": "Eventu hahú iha oras 24 nia laran. La bele haluha ita-nia kódigu bilhete.",
+      "join": "Tama online"
+    },
+    "eventCancelled": {
+      "subject": "Kansela: {title}",
+      "heading": "Eventu kansela ona",
+      "body": "Ho sentimentu, eventu \"{title}\" kansela ona. Ita-nia inskrisaun la presiza halo buat ida. Haree eventu seluk iha website.",
+      "button": "Haree eventu seluk"
+    }
   }
 }

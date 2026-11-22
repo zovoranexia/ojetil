@@ -1,6 +1,8 @@
 "use server";
 
+import type { EventStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { z } from "zod";
 import { hasPermission } from "@/config/rbac";
 import { ActionError, authorizedAction } from "@/lib/actions";
@@ -10,6 +12,7 @@ import { msg } from "@/lib/i18n-message";
 import { recordAudit } from "@/modules/audit/service";
 import { eventAuditActions, rethrowSlugConflict, sanitizeRichTranslations } from "@/modules/content/admin-server";
 import { filledLocales, toTranslationRows } from "@/modules/content/admin-schema";
+import { sendEventCancelled } from "@/modules/notifications/emails";
 import { EVENT_TRANSLATION_FIELDS, attendanceSchema, eventFormSchema } from "./admin-schema";
 
 type EventRow = { title: string; summary: string; description: string; locationDetails: string | null };
@@ -26,6 +29,7 @@ export const saveEvent = authorizedAction("events:write", eventFormSchema, async
     EVENT_TRANSLATION_FIELDS,
   );
 
+  let previousStatus: EventStatus | null = null;
   try {
     const saved = await db.$transaction(async (tx) => {
       // Same row lock the public registration takes, so the capacity check below can't race a sign-up.
@@ -37,6 +41,7 @@ export const saveEvent = authorizedAction("events:write", eventFormSchema, async
           })
         : null;
       if (input.id && !previous) throw new ActionError("NOT_FOUND", msg("admin.events.validation.notFound"));
+      previousStatus = previous?.status ?? null;
       if (previous && input.capacity < previous._count.registrations) {
         throw new ActionError("VALIDATION", msg("admin.events.validation.capacityBelow"), {
           capacity: [msg("admin.events.validation.capacityAtLeast", { count: previous._count.registrations })],
@@ -77,6 +82,10 @@ export const saveEvent = authorizedAction("events:write", eventFormSchema, async
       return event;
     });
     revalidatePath("/admin/acara");
+    // Newly cancelled: tell registered attendees (after the response; never blocks the save).
+    if (input.status === "CANCELLED" && previousStatus !== null && previousStatus !== "CANCELLED") {
+      after(() => sendEventCancelled(saved.id));
+    }
     return { id: saved.id };
   } catch (error) {
     if (error instanceof ActionError) throw error;
