@@ -56,6 +56,7 @@ export default async function NewsEditPage({ params, searchParams }: { params: P
         canPublish={satisfies(user.role, "content:publish")}
         documents={documents}
         maxImageBytes={getServerEnv().MAX_IMAGE_UPLOAD_BYTES}
+        maxMediaBytes={getServerEnv().MAX_MEDIA_FILE_BYTES}
         publishedSlug={initial.status === "PUBLISHED" ? initial.slug : null}
       />
     </>

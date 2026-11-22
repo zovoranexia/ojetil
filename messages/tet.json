@@ -425,6 +425,7 @@
       "members": "Membru no veteranu",
       "news": "Notísia",
       "documents": "Dokumentu",
+      "media": "Biblioteka média",
       "events": "Eventu",
       "timeline": "Liña tempu",
       "leadership": "Lideransa",
@@ -719,7 +720,7 @@
         "CONTENT_PUBLISHED": "Publika konteúdu",
         "CONTENT_UNPUBLISHED": "Hasai publikasaun konteúdu",
         "CONTENT_DELETED": "Hamoos konteúdu",
-        "MEDIA_UPLOADED": "Haruka imajen",
+        "MEDIA_UPLOADED": "Haruka média",
         "EVENT_CREATED": "Kria eventu",
         "EVENT_UPDATED": "Atualiza eventu",
         "EVENT_PUBLISHED": "Publika eventu",
@@ -734,7 +735,9 @@
         "USER_REACTIVATED": "Reativa utilizadór",
         "USER_PASSWORD_RESET": "Hadia liafuan-pasee utilizadór",
         "USER_PASSWORD_CHANGED": "Muda nia liafuan-pasee rasik",
-        "SEED_EXECUTED": "Hatama dadus inisiál ba baze dadus"
+        "SEED_EXECUTED": "Hatama dadus inisiál ba baze dadus",
+        "MEDIA_UPDATED": "Edita média",
+        "MEDIA_DELETED": "Hamoos média"
       }
     },
     "designSystem": {
@@ -889,7 +892,7 @@
         "allStatuses": "Estadu hotu",
         "filter": "Filtra",
         "caption": "Artigu notísia",
-        "colTitle": "Títulu (Tetun)",
+        "colTitle": "Títulu",
         "colCategory": "Kategoria",
         "colLanguages": "Lian",
         "colPublished": "Publika",
@@ -1393,6 +1396,85 @@
         "title": "Títulu",
         "body": "Testu",
         "bodyHint": "Markdown bele uza."
+      }
+    },
+    "media": {
+      "metaTitle": "Biblioteka média",
+      "title": "Biblioteka média",
+      "description": "Foto, PDF, vídeo no áudiu ne'ebé uza iha website tomak.",
+      "searchLabel": "Buka",
+      "searchPlaceholder": "Naran arkivu ka kréditu…",
+      "typeLabel": "Tipu",
+      "allTypes": "Hotu",
+      "filter": "Filtra",
+      "results": "{count, plural, =0 {Laiha arkivu} one {Arkivu #} other {Arkivu #}}",
+      "kinds": {
+        "IMAGE": "Imajen",
+        "PDF": "Dokumentu PDF",
+        "VIDEO": "Vídeo",
+        "AUDIO": "Áudiu",
+        "VIDEO_LINK": "Ligasaun vídeo"
+      },
+      "dropTitle": "Dada no hatuun arkivu iha ne'e",
+      "dropHint": "JPG, PNG, WebP, PDF, MP4, MP3 — imajen sei otimiza no dadus fatin sei hasai.",
+      "limits": "To'o {imageMb} MB ba imajen ida no {fileMb} MB ba PDF, vídeo ka áudiu ida. Ba vídeo naruk, aumenta ligasaun YouTube ka Vimeo.",
+      "chooseFiles": "Hili arkivu",
+      "addLink": "Aumenta vídeo ho ligasaun",
+      "uploading": "Haruka {current} husi {total}…",
+      "uploaded": "{count, plural, one {Arkivu # aumenta ona} other {Arkivu # aumenta ona}}",
+      "uploadFailed": "{name}: {error}",
+      "empty": "Seidauk iha média. Haruka arkivu dahuluk iha leten.",
+      "noResults": "La iha buat ida tuir buka ne'e.",
+      "readOnly": "Lee de'it: ita-nia knaar bele haree biblioteka maibé labele muda.",
+      "link": {
+        "title": "Aumenta vídeo ho ligasaun",
+        "urlLabel": "Ligasaun YouTube ka Vimeo",
+        "titleLabel": "Títulu (opsionál)",
+        "add": "Aumenta vídeo",
+        "added": "Vídeo aumenta ona."
+      },
+      "details": {
+        "title": "Detalle média",
+        "fileName": "Naran",
+        "credit": "Kréditu / fonte",
+        "creditHint": "Fotógrafu ka fonte, editór sira mak haree.",
+        "altText": "Deskrisaun (testu alternativu)",
+        "altHint": "Uza bainhira imajen tama iha artigu.",
+        "link": "Ligasaun",
+        "copyLink": "Kopia ligasaun",
+        "copied": "Ligasaun kopia ona",
+        "open": "Loke",
+        "save": "Rai",
+        "saved": "Mudansa rai ona.",
+        "delete": "Hamoos",
+        "deleteTitle": "Hamoos arkivu ne'e?",
+        "deleteDescription": "Arkivu sei lakon husi website no labele restaura. Hamoos ne'e rejista iha rejistu auditoria.",
+        "deleted": "Arkivu hamoos ona.",
+        "addedBy": "Aumenta husi {name} · {date}",
+        "addedOn": "Aumenta {date}",
+        "dimensions": "{width} × {height} px",
+        "close": "Taka"
+      },
+      "picker": {
+        "title": "Biblioteka média",
+        "titleImages": "Hili imajen",
+        "titleVideos": "Hili vídeo",
+        "upload": "Haruka foun",
+        "insert": "Tau",
+        "loadMore": "Haree tan",
+        "selected": "Hili ona"
+      },
+      "errors": {
+        "empty": "Arkivu mamuk.",
+        "tooLarge": "Arkivu boot liu {mb} MB.",
+        "badImage": "Imajen la suporta ka aat. Uza JPG, PNG, WebP, GIF ka AVIF.",
+        "unsupported": "Tipu arkivu la suporta. Uza JPG, PNG, WebP, PDF, MP4 ka MP3.",
+        "badLink": "Bele aumenta de'it ligasaun YouTube no Vimeo.",
+        "notFound": "Média la hetan.",
+        "inUse": "Sei uza iha {count, plural, one {artigu #} other {artigu #}} ({slugs}). Hasai uluk iha ne'ebá.",
+        "unreadable": "Labele lee arkivu ne'ebé haruka. Arkivu boot liu ka?",
+        "noFile": "Hili arkivu ida atu haruka.",
+        "network": "Haruka la susesu. Haree koneksaun no koko fali."
       }
     }
   }

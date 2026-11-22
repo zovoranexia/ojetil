@@ -40,7 +40,7 @@ function root(): string {
 
 /** Absolute path for a key ("news/2026/<uuid>.webp"), refusing traversal outside the root. */
 export function publicUploadPath(key: string): string | null {
-  if (!/^[a-z0-9/_-]+\.webp$/i.test(key) || key.includes("..")) return null;
+  if (!/^[a-z0-9/_-]+\.(webp|pdf|mp4|mp3)$/i.test(key) || key.includes("..")) return null;
   const base = root();
   const full = resolve(base, key);
   return full.startsWith(base + sep) ? full : null;
@@ -48,12 +48,14 @@ export function publicUploadPath(key: string): string | null {
 
 export interface StoredImage {
   url: string;
+  /** Relative to PUBLIC_UPLOAD_DIR. */
+  key: string;
   width: number;
   height: number;
   bytes: number;
 }
 
-export async function storePublicImage(file: File, folder: "news" = "news", now: Date = new Date()): Promise<StoredImage> {
+export async function storePublicImage(file: File, folder: "news" | "media" = "media", now: Date = new Date()): Promise<StoredImage> {
   const max = getServerEnv().MAX_IMAGE_UPLOAD_BYTES;
   if (file.size === 0 || file.size > max) throw new ImageUploadError("size");
   const input = Buffer.from(await file.arrayBuffer());
@@ -75,10 +77,10 @@ export async function storePublicImage(file: File, folder: "news" = "news", now:
   const full = publicUploadPath(key)!;
   await mkdir(dirname(full), { recursive: true });
   await writeFile(full, output.data, { flag: "wx", mode: 0o644 });
-  return { url: `${PUBLIC_UPLOAD_URL_PREFIX}${key}`, width: output.info.width, height: output.info.height, bytes: output.data.length };
+  return { url: `${PUBLIC_UPLOAD_URL_PREFIX}${key}`, key, width: output.info.width, height: output.info.height, bytes: output.data.length };
 }
 
-export async function readPublicImage(key: string): Promise<{ data: Buffer; mtime: Date } | null> {
+export async function readPublicUpload(key: string): Promise<{ data: Buffer; mtime: Date } | null> {
   const full = publicUploadPath(key);
   if (!full) return null;
   try {

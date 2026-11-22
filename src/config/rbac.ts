@@ -104,6 +104,7 @@ const ROUTE_RULES: ReadonlyArray<{ prefix: string; requirement: PermissionRequir
   { prefix: "/admin/anggota", requirement: "members:aggregate" },
   { prefix: "/admin/berita", requirement: "content:read" },
   { prefix: "/admin/dokumen", requirement: "content:read" },
+  { prefix: "/admin/media", requirement: "content:read" },
   { prefix: "/admin/profil", requirement: "content:read" },
   { prefix: "/admin/linimasa", requirement: "content:read" },
   { prefix: "/admin/pengurus", requirement: "content:read" },
@@ -115,6 +116,7 @@ const ROUTE_RULES: ReadonlyArray<{ prefix: string; requirement: PermissionRequir
   { prefix: "/api/admin/members", requirement: "members:read" },
   { prefix: "/api/admin/documents", requirement: "content:read" }, // writes re-checked by withApiAuth("content:write")
   { prefix: "/api/admin/uploads", requirement: "content:write" },
+  { prefix: "/api/admin/media", requirement: "content:write" },
   { prefix: "/admin", requirement: "dashboard:view" },
   { prefix: "/api/admin", requirement: "dashboard:view" },
 ];
