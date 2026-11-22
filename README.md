@@ -7,6 +7,8 @@ registration portal, and an RBAC-protected backoffice.
 
 > **Status:** Phase 1 MVP complete (all 5 build phases). See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 > for the directory tree, data model and security model.
+>
+> **Production deployment (VPS Ubuntu 26.04, Bahasa Indonesia):** [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Stack
 
@@ -67,6 +69,8 @@ publication and account change is written to the append-only audit log.
 | `db:up` / `db:down` | Start / stop the PostgreSQL container |
 | `db:migrate` | Create a new migration during development |
 | `db:deploy` / `db:seed` / `db:reset` / `db:studio` | Apply migrations / seed / reset / Prisma Studio |
+| `admin:create` | Create a Super Admin with a one-time temporary password: `npm run admin:create -- --email … --name "…"` (production bootstrap) |
+| `SEED_SCOPE=content npm run db:seed` | Load only the institutional profile + history timeline as DRAFT (no demo accounts or data; never overwrites existing rows). Allowed in production |
 
 ## Security notes
 
