@@ -70,6 +70,30 @@ const VideoEmbed = Node.create({
   },
 });
 
+/**
+ * Images carry an optional alignment (`data-align` = left | center | right).
+ * Left/right float the image beside the text on wider screens; none = full width.
+ * Set by the regular align buttons while an image is selected.
+ */
+export const IMAGE_ALIGNMENTS = ["left", "center", "right"] as const;
+type ImageAlign = (typeof IMAGE_ALIGNMENTS)[number];
+
+const AlignableImage = Image.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      align: {
+        default: null,
+        parseHTML: (el) => {
+          const v = el.getAttribute("data-align");
+          return (IMAGE_ALIGNMENTS as readonly string[]).includes(v ?? "") ? v : null;
+        },
+        renderHTML: (attrs) => (attrs.align ? { "data-align": attrs.align } : {}),
+      },
+    };
+  },
+});
+
 type PromptState =
   | { kind: "link"; value: string }
   | { kind: "video"; value: string }
@@ -87,7 +111,7 @@ function ToolbarButton({ label, icon: Icon, active, disabled, onClick }: { label
       onMouseDown={(e) => e.preventDefault()} // keep the editor selection
       onClick={onClick}
       className={cn(
-        "inline-flex size-9 shrink-0 items-center justify-center rounded-control text-ink-secondary transition-colors",
+        "inline-flex size-9 shrink-0 items-center justify-center rounded-control text-ink-secondary transition-colors md:size-8",
         "hover:bg-surface-muted hover:text-ink disabled:pointer-events-none disabled:opacity-40",
         active && "bg-surface-muted text-ink",
       )}
@@ -97,7 +121,12 @@ function ToolbarButton({ label, icon: Icon, active, disabled, onClick }: { label
   );
 }
 
-const Sep = () => <span aria-hidden="true" className="mx-1 h-6 w-px shrink-0 bg-border-subtle" />;
+/** A run of related buttons; its left border is the divider (clipped when it starts a row). */
+const Group = ({ children }: { children: ReactNode }) => (
+  <div role="group" className="flex shrink-0 items-center gap-0.5 border-l border-border-subtle px-1">
+    {children}
+  </div>
+);
 
 function Toolbar({ editor, onImage, uploading, onPrompt }: { editor: Editor; onImage: () => void; uploading: boolean; onPrompt: (p: PromptState) => void }) {
   const s = useEditorState({
@@ -109,6 +138,11 @@ function Toolbar({ editor, onImage, uploading, onPrompt }: { editor: Editor; onI
       italic: e.isActive("italic"),
       underline: e.isActive("underline"),
       strike: e.isActive("strike"),
+      // With an image selected, the align buttons show and set the image's alignment.
+      image: e.state.selection instanceof NodeSelection && e.state.selection.node.type.name === "image",
+      imageAlign: (e.state.selection instanceof NodeSelection && e.state.selection.node.type.name === "image"
+        ? (e.state.selection.node.attrs.align as ImageAlign | null)
+        : null),
       left: e.isActive({ textAlign: "left" }),
       center: e.isActive({ textAlign: "center" }),
       right: e.isActive({ textAlign: "right" }),
@@ -125,40 +159,68 @@ function Toolbar({ editor, onImage, uploading, onPrompt }: { editor: Editor; onI
   const t = useTranslations("admin.richText.toolbar");
   const c = () => editor.chain().focus();
   const off = !s.editable;
+  /** Aligns the selected image (clicking the active alignment again resets it to full width), or the text block. */
+  const align = (a: "left" | "center" | "right" | "justify") => {
+    if (s.image) {
+      if (a === "justify") return;
+      // Keep the image selected so the user can try another alignment straight away.
+      c().updateAttributes("image", { align: s.imageAlign === a ? null : a }).setNodeSelection(editor.state.selection.from).run();
+      return;
+    }
+    c().setTextAlign(a).run();
+  };
+  const alignActive = (a: "left" | "center" | "right" | "justify") => (s.image ? s.imageAlign === a : s[a]);
 
+  /*
+   * Buttons are grouped; each group draws its own left divider. The row sits
+   * 1px left of a clipping wrapper, so whichever group starts a line (first
+   * line or after wrapping) has its divider clipped: no divider ever dangles at
+   * the start of a row, and a group never splits across rows.
+   */
   return (
-    <div role="toolbar" aria-label={t("label")} className="flex flex-wrap items-center gap-0.5 border-b border-border-subtle bg-paper/60 px-2 py-1.5">
-      <ToolbarButton label={t("heading2")} icon={Heading2} active={s.h2} disabled={off} onClick={() => c().toggleHeading({ level: 2 }).run()} />
-      <ToolbarButton label={t("heading3")} icon={Heading3} active={s.h3} disabled={off} onClick={() => c().toggleHeading({ level: 3 }).run()} />
-      <Sep />
-      <ToolbarButton label={t("bold")} icon={Bold} active={s.bold} disabled={off} onClick={() => c().toggleBold().run()} />
-      <ToolbarButton label={t("italic")} icon={Italic} active={s.italic} disabled={off} onClick={() => c().toggleItalic().run()} />
-      <ToolbarButton label={t("underline")} icon={Underline} active={s.underline} disabled={off} onClick={() => c().toggleUnderline().run()} />
-      <ToolbarButton label={t("strike")} icon={Strikethrough} active={s.strike} disabled={off} onClick={() => c().toggleStrike().run()} />
-      <Sep />
-      <ToolbarButton label={t("alignLeft")} icon={AlignLeft} active={s.left} disabled={off} onClick={() => c().setTextAlign("left").run()} />
-      <ToolbarButton label={t("alignCenter")} icon={AlignCenter} active={s.center} disabled={off} onClick={() => c().setTextAlign("center").run()} />
-      <ToolbarButton label={t("alignRight")} icon={AlignRight} active={s.right} disabled={off} onClick={() => c().setTextAlign("right").run()} />
-      <ToolbarButton label={t("justify")} icon={AlignJustify} active={s.justify} disabled={off} onClick={() => c().setTextAlign("justify").run()} />
-      <Sep />
-      <ToolbarButton label={t("bulletList")} icon={List} active={s.bullet} disabled={off} onClick={() => c().toggleBulletList().run()} />
-      <ToolbarButton label={t("orderedList")} icon={ListOrdered} active={s.ordered} disabled={off} onClick={() => c().toggleOrderedList().run()} />
-      <ToolbarButton label={t("quote")} icon={Quote} active={s.quote} disabled={off} onClick={() => c().toggleBlockquote().run()} />
-      <Sep />
-      <ToolbarButton label={t("horizontalRule")} icon={Minus} disabled={off} onClick={() => c().setHorizontalRule().run()} />
-      <Sep />
-      <ToolbarButton
-        label={t("link")}
-        icon={Link2}
-        active={s.link}
-        disabled={off}
-        onClick={() => onPrompt({ kind: "link", value: (editor.getAttributes("link").href as string | undefined) ?? "https://" })}
-      />
-      <ToolbarButton label={uploading ? t("uploadingImage") : t("insertImage")} icon={uploading ? Loader2 : ImagePlus} disabled={off || uploading} onClick={onImage} />
-      <ToolbarButton label={t("embedVideo")} icon={MonitorPlay} disabled={off} onClick={() => onPrompt({ kind: "video", value: "" })} />
-      <Sep />
-      <ToolbarButton label={t("undo")} icon={Undo2} disabled={off || !s.canUndo} onClick={() => c().undo().run()} />
-      <ToolbarButton label={t("redo")} icon={Redo2} disabled={off || !s.canRedo} onClick={() => c().redo().run()} />
+    <div role="toolbar" aria-label={t("label")} className="border-b border-border-subtle bg-paper/60 px-2 py-1.5">
+      {/* overflow clips at the padding edge, so the clipping box itself has no padding */}
+      <div className="overflow-hidden">
+        <div className="-ml-px flex flex-wrap items-center gap-y-1">
+        <Group>
+          <ToolbarButton label={t("heading2")} icon={Heading2} active={s.h2} disabled={off} onClick={() => c().toggleHeading({ level: 2 }).run()} />
+          <ToolbarButton label={t("heading3")} icon={Heading3} active={s.h3} disabled={off} onClick={() => c().toggleHeading({ level: 3 }).run()} />
+        </Group>
+        <Group>
+          <ToolbarButton label={t("bold")} icon={Bold} active={s.bold} disabled={off} onClick={() => c().toggleBold().run()} />
+          <ToolbarButton label={t("italic")} icon={Italic} active={s.italic} disabled={off} onClick={() => c().toggleItalic().run()} />
+          <ToolbarButton label={t("underline")} icon={Underline} active={s.underline} disabled={off} onClick={() => c().toggleUnderline().run()} />
+          <ToolbarButton label={t("strike")} icon={Strikethrough} active={s.strike} disabled={off} onClick={() => c().toggleStrike().run()} />
+        </Group>
+        <Group>
+          <ToolbarButton label={t("alignLeft")} icon={AlignLeft} active={alignActive("left")} disabled={off} onClick={() => align("left")} />
+          <ToolbarButton label={t("alignCenter")} icon={AlignCenter} active={alignActive("center")} disabled={off} onClick={() => align("center")} />
+          <ToolbarButton label={t("alignRight")} icon={AlignRight} active={alignActive("right")} disabled={off} onClick={() => align("right")} />
+          <ToolbarButton label={t("justify")} icon={AlignJustify} active={alignActive("justify")} disabled={off || s.image} onClick={() => align("justify")} />
+        </Group>
+        <Group>
+          <ToolbarButton label={t("bulletList")} icon={List} active={s.bullet} disabled={off} onClick={() => c().toggleBulletList().run()} />
+          <ToolbarButton label={t("orderedList")} icon={ListOrdered} active={s.ordered} disabled={off} onClick={() => c().toggleOrderedList().run()} />
+          <ToolbarButton label={t("quote")} icon={Quote} active={s.quote} disabled={off} onClick={() => c().toggleBlockquote().run()} />
+        </Group>
+        <Group>
+          <ToolbarButton label={t("horizontalRule")} icon={Minus} disabled={off} onClick={() => c().setHorizontalRule().run()} />
+          <ToolbarButton
+            label={t("link")}
+            icon={Link2}
+            active={s.link}
+            disabled={off}
+            onClick={() => onPrompt({ kind: "link", value: (editor.getAttributes("link").href as string | undefined) ?? "https://" })}
+          />
+          <ToolbarButton label={uploading ? t("uploadingImage") : t("insertImage")} icon={uploading ? Loader2 : ImagePlus} disabled={off || uploading} onClick={onImage} />
+          <ToolbarButton label={t("embedVideo")} icon={MonitorPlay} disabled={off} onClick={() => onPrompt({ kind: "video", value: "" })} />
+        </Group>
+        <Group>
+          <ToolbarButton label={t("undo")} icon={Undo2} disabled={off || !s.canUndo} onClick={() => c().undo().run()} />
+          <ToolbarButton label={t("redo")} icon={Redo2} disabled={off || !s.canRedo} onClick={() => c().redo().run()} />
+        </Group>
+        </div>
+      </div>
     </div>
   );
 }
@@ -174,6 +236,7 @@ export function RichTextEditor({
   placeholder,
   maxImageBytes,
   lang,
+  fill = false,
 }: {
   id: string;
   value: string;
@@ -185,6 +248,8 @@ export function RichTextEditor({
   placeholder?: string;
   maxImageBytes: number;
   lang?: string;
+  /** Stretch to the parent's height (parent must be a flex column); still grows with long content. */
+  fill?: boolean;
 }) {
   const t = useTranslations("admin.richText");
   const tCommon = useTranslations("admin.common");
@@ -214,7 +279,7 @@ export function RichTextEditor({
       }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Placeholder.configure({ placeholder: placeholder ?? t("placeholder") }),
-      Image.configure({ inline: false, allowBase64: false }),
+      AlignableImage.configure({ inline: false, allowBase64: false }),
       VideoEmbed,
     ],
     content: value,
@@ -227,7 +292,7 @@ export function RichTextEditor({
         ...(describedBy ? { "aria-describedby": describedBy } : {}),
         ...(invalid ? { "aria-invalid": "true" } : {}),
         ...(lang ? { lang } : {}),
-        class: "rich-content rich-editor min-h-72 px-4 py-3 outline-none",
+        class: "rich-content rich-editor min-h-72 flex-1 px-4 py-3 outline-none",
       },
       // Images pasted/dropped as files would otherwise become base64 blobs; route them through the uploader instead.
       handlePaste: (_view, event) => {
@@ -371,7 +436,8 @@ export function RichTextEditor({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-control border bg-surface-card focus-within:border-ojetil-red",
+        "flex flex-col overflow-hidden rounded-control border bg-surface-card focus-within:border-ojetil-red",
+        fill && "flex-1",
         invalid ? "border-status-rejected" : "border-border-subtle hover:border-border-strong",
         disabled && "opacity-70",
       )}
@@ -383,7 +449,8 @@ export function RichTextEditor({
           {promptError}
         </p>
       ) : null}
-      <EditorContent editor={editor} />
+      {/* The ProseMirror element fills the frame, so a click anywhere in it places the caret. */}
+      <EditorContent editor={editor} className="flex flex-1 flex-col" />
       <input
         ref={fileRef}
         type="file"

@@ -318,6 +318,7 @@ html.dark .rich-content a {
    (src/lib/content/sanitize.ts). */
 @layer components {
   .rich-content {
+    display: flow-root; /* contains floated images */
     color: var(--ojetil-ink-primary);
     font-size: 1rem;
     line-height: 1.7;
@@ -385,6 +386,34 @@ html.dark .rich-content a {
     height: auto;
     border-radius: 0.5rem;
     background: var(--ojetil-surface-muted);
+  }
+  /* Image alignment (editor: select an image, then an align button). Floats only
+     where there is room for text beside the image; on phones every image is full width. */
+  .rich-content img[data-align="center"] {
+    margin-inline: auto;
+  }
+  @media (min-width: 640px) {
+    .rich-content img[data-align="left"],
+    .rich-content img[data-align="right"] {
+      max-width: min(50%, 22rem);
+      margin-top: 0.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .rich-content img[data-align="left"] {
+      float: left;
+      margin-right: 1.25rem;
+    }
+    .rich-content img[data-align="right"] {
+      float: right;
+      margin-left: 1.25rem;
+    }
+    .rich-content h2,
+    .rich-content h3,
+    .rich-content hr,
+    .rich-content blockquote,
+    .rich-content [data-video-embed] {
+      clear: both;
+    }
   }
   .rich-content [data-video-embed] {
     position: relative;
