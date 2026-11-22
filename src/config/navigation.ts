@@ -6,6 +6,7 @@ export const PRIMARY_NAV = [
   { href: "/notisia", key: "news" },
   { href: "/edukasaun/acara", key: "events" },
   { href: "/dokumentu", key: "documents" },
+  { href: "/kontaktu", key: "contact" },
 ] as const;
 
 export const REGISTER_PATH = "/komunidade/registrasi";
