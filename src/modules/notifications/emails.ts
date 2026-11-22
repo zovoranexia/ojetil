@@ -55,7 +55,7 @@ async function send(to: string | string[], locale: AppLocale, build: (t: Transla
 /** Applicant: "we received your registration" with the tracking code (only if they gave an email). */
 export async function sendMemberRegistrationReceived(p: { email: string | null; fullName: string; trackingCode: string; category: MemberCategory; locale: AppLocale }) {
   if (!p.email) return false;
-  const tCat = await getTranslations({ locale: p.locale, namespace: "memberRegistration.categories" });
+  const tCat = await getTranslations({ locale: p.locale, namespace: "statusLookup.categories" });
   return send(p.email, p.locale, (t) => ({
     subject: t("memberReceived.subject", { code: p.trackingCode }),
     preheader: t("memberReceived.preheader"),
@@ -94,7 +94,7 @@ export async function sendMemberDecision(registrationId: string) {
 export async function sendAdminNewMember(p: { trackingCode: string; category: MemberCategory; municipality: Municipality }) {
   const to = adminNotifyRecipients();
   if (!to.length) return false;
-  const tCat = await getTranslations({ locale: "tet", namespace: "memberRegistration.categories" });
+  const tCat = await getTranslations({ locale: "tet", namespace: "statusLookup.categories" });
   return send(to, "tet", (t) => ({
     subject: t("adminMember.subject", { code: p.trackingCode }),
     preheader: t("adminMember.body"),
