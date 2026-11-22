@@ -3,7 +3,7 @@ import { ArrowLeft, CalendarDays, Clock, MapPin, Video } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
-import { Markdown } from "@/components/content/markdown";
+import { RichContent } from "@/components/content/rich-content";
 import { CapacityMeter } from "@/components/public/capacity-meter";
 import { ContentImage } from "@/components/public/content-image";
 import { Badge } from "@/components/ui/badge";
@@ -93,7 +93,7 @@ export default async function EventDetailPage({ params }: { params: Params }) {
             <h2 id="about-event" className="text-2xl">
               {t("about")}
             </h2>
-            <Markdown source={event.description} className="mt-4" />
+            <RichContent body={event.description} className="mt-4" />
           </section>
         </div>
 

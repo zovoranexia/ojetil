@@ -95,7 +95,15 @@ export function EventEditor({
       <FormFeedback ref={feedbackRef} feedback={feedback} />
       <fieldset disabled={readOnly} className="grid gap-6 xl:grid-cols-[1fr_22rem]">
         <div className="space-y-6">
-          <TranslationTabs fields={EVENT_TRANSLATION_FIELDS} register={register} watch={watch} errors={errors} disabled={readOnly} />
+          <TranslationTabs
+            fields={EVENT_TRANSLATION_FIELDS}
+            register={register}
+            watch={watch}
+            errors={errors}
+            disabled={readOnly}
+            control={control}
+            mediaLimits={{ imageBytes: maxImageBytes, mediaBytes: maxMediaBytes }}
+          />
 
           <div className="grid gap-5 rounded-card border border-border-subtle bg-surface-card p-5 sm:grid-cols-2">
             <p className="text-sm font-semibold sm:col-span-2">{t("whenWhere")}</p>

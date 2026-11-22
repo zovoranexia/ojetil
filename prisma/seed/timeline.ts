@@ -1,5 +1,6 @@
 import type { DatePrecision, PrismaClient } from "@prisma/client";
 import { type L10n, log, translationRows } from "./helpers";
+import { markdownToHtml } from "../../src/lib/content/markdown-to-html";
 
 type Milestone = {
   slug: string;
@@ -312,7 +313,8 @@ export async function seedTimeline(db: PrismaClient, opts: { contentOnly?: boole
       skipped++;
       continue;
     }
-    const translations = translationRows(m.content);
+    // Narratives are stored as rich-text HTML, like the editor produces.
+    const translations = translationRows(m.content).map((t) => ({ ...t, body: t.body ? markdownToHtml(t.body) : t.body }));
     const data = {
       year: m.year,
       month: m.month ?? null,

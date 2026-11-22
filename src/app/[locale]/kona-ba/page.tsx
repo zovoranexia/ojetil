@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Clock, ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
-import { Markdown } from "@/components/content/markdown";
+import { RichContent } from "@/components/content/rich-content";
+import { articlePlainText, richListItems } from "@/lib/content/sanitize";
 import { ContentImage } from "@/components/public/content-image";
 import { PageHeader, SectionHeading } from "@/components/public/page-header";
 import { Badge } from "@/components/ui/badge";
@@ -67,7 +68,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       <div className="mx-auto max-w-6xl px-4 py-12 md:px-8 md:py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
-          {profile ? <Markdown source={profile.body} className="text-lg md:text-xl" /> : null}
+          {profile ? <RichContent body={profile.body} className="text-lg md:text-xl" /> : null}
 
           {/* Vision, mission, values */}
           <div className="space-y-6">
@@ -76,7 +77,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 <h2 id="vision" className="text-2xl text-gold-accent">
                   {sections.VISION.title}
                 </h2>
-                <p className="mt-3 font-serif text-xl leading-snug">{sections.VISION.body}</p>
+                <p className="mt-3 font-serif text-xl leading-snug">{articlePlainText(sections.VISION.body)}</p>
               </section>
             ) : null}
             {sections.VALUES ? (
@@ -84,7 +85,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 <h2 id="values" className="text-xl">
                   {sections.VALUES.title}
                 </h2>
-                <Markdown source={sections.VALUES.body} className="mt-3 text-base md:text-base" />
+                <RichContent body={sections.VALUES.body} className="mt-3 text-base md:text-base" />
               </section>
             ) : null}
           </div>
@@ -96,11 +97,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               {sections.MISSION.title}
             </h2>
             <ol className="mt-6 grid gap-4 md:grid-cols-2">
-              {sections.MISSION.body
-                .split("\n")
-                .map((l) => l.replace(/^\s*[-*]\s+/, "").trim())
-                .filter(Boolean)
-                .map((item, i) => (
+              {richListItems(sections.MISSION.body).map((item, i) => (
                   <li key={i} className="flex gap-4 rounded-card border border-border-subtle bg-surface-card p-5">
                     <span className="font-serif text-3xl font-bold tabular-nums text-ojetil-red">{String(i + 1).padStart(2, "0")}</span>
                     <span className="pt-1">{item}</span>

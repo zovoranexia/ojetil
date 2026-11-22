@@ -22,7 +22,7 @@ export const DATE_PRECISIONS = ["DECADE", "YEAR", "MONTH", "DAY"] as const;
 export const TIMELINE_TRANSLATION_FIELDS: readonly TranslationFieldSpec[] = [
   { name: "title", label: msg("admin.timeline.fields.title"), required: true, max: 200 },
   { name: "summary", label: msg("admin.timeline.fields.summary"), required: true, max: 600, multiline: true, rows: 3 },
-  { name: "body", label: msg("admin.timeline.fields.body"), required: false, max: 10000, multiline: true, rows: 8, hint: msg("admin.timeline.fields.bodyHint") },
+  { name: "body", label: msg("admin.timeline.fields.body"), required: false, max: 100_000, rich: true },
   { name: "imageAlt", label: msg("admin.timeline.fields.imageAlt"), required: false, max: 200 },
 ];
 
@@ -89,7 +89,7 @@ export const PROFILE_SECTION_KEYS = ["PROFILE", "VISION", "MISSION", "VALUES", "
 /* Section names and placement hints live in messages: admin.profile.sections.<KEY>.{label,where}. */
 export const PROFILE_TRANSLATION_FIELDS: readonly TranslationFieldSpec[] = [
   { name: "title", label: msg("admin.profile.fields.title"), required: true, max: 200 },
-  { name: "body", label: msg("admin.profile.fields.body"), required: true, max: 10000, multiline: true, rows: 8, hint: msg("admin.profile.fields.bodyHint") },
+  { name: "body", label: msg("admin.profile.fields.body"), required: true, max: 100_000, rich: true },
 ];
 export const profileFormSchema = z.object({
   key: z.enum(PROFILE_SECTION_KEYS),

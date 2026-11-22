@@ -16,7 +16,17 @@ import { DATE_PRECISIONS, TIMELINE_TRANSLATION_FIELDS, timelineFormSchema, type 
 
 const MONTH_NUMBERS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] as const;
 
-export function MilestoneEditor({ initial, readOnly, canPublish }: { initial: TimelineFormValues; readOnly: boolean; canPublish: boolean }) {
+export function MilestoneEditor({
+  initial,
+  readOnly,
+  canPublish,
+  mediaLimits,
+}: {
+  initial: TimelineFormValues;
+  readOnly: boolean;
+  canPublish: boolean;
+  mediaLimits: { imageBytes: number; mediaBytes: number };
+}) {
   const t = useTranslations("admin.timeline");
   const tc = useTranslations("admin.content");
   const tStatus = useTranslations("admin.status.content");
@@ -24,7 +34,7 @@ export function MilestoneEditor({ initial, readOnly, canPublish }: { initial: Ti
   const [feedback, setFeedback] = useState<Feedback>(null);
   const ref = useRef<HTMLDivElement>(null);
   const isNew = !initial.id;
-  const { register, handleSubmit, watch, setError, formState: { errors, isSubmitting } } = useForm<TimelineFormValues>({
+  const { control, register, handleSubmit, watch, setError, formState: { errors, isSubmitting } } = useForm<TimelineFormValues>({
     resolver: zodResolver(timelineFormSchema),
     defaultValues: initial,
     reValidateMode: "onChange",
@@ -53,7 +63,7 @@ export function MilestoneEditor({ initial, readOnly, canPublish }: { initial: Ti
     <form onSubmit={onSubmit} noValidate className="space-y-6">
       <FormFeedback ref={ref} feedback={feedback} />
       <fieldset disabled={readOnly} className="grid gap-6 xl:grid-cols-[1fr_20rem]">
-        <TranslationTabs fields={TIMELINE_TRANSLATION_FIELDS} register={register} watch={watch} errors={errors} disabled={readOnly} />
+        <TranslationTabs fields={TIMELINE_TRANSLATION_FIELDS} register={register} watch={watch} errors={errors} disabled={readOnly} control={control} mediaLimits={mediaLimits} />
         <div className="space-y-5 rounded-card border border-border-subtle bg-surface-card p-5 xl:self-start">
           <Field id="status" label={tc("status")} required error={err("status")}>
             <select className={selectClassName} {...fieldAria("status", { error: err("status") })} {...register("status")}>

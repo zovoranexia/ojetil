@@ -1207,7 +1207,6 @@
         "title": "Title",
         "summary": "Summary",
         "description": "Description",
-        "descriptionHint": "Markdown supported (agenda lists, **bold**).",
         "locationDetails": "Directions / location details",
         "locationDetailsHint": "e.g. “2nd floor, next to the library”."
       },
@@ -1303,7 +1302,6 @@
         "title": "Title",
         "summary": "Summary",
         "body": "Full story",
-        "bodyHint": "Markdown. Shown when the reader expands the milestone.",
         "imageAlt": "Image description (alt text)"
       },
       "validation": {
@@ -1397,8 +1395,7 @@
       "saved": "Section saved.",
       "fields": {
         "title": "Title",
-        "body": "Text",
-        "bodyHint": "Markdown supported."
+        "body": "Text"
       }
     },
     "media": {

@@ -13,14 +13,24 @@ import { CONTENT_STATUSES } from "@/modules/content/admin-common";
 import { saveProfileSection } from "@/modules/content/institutional-actions";
 import { PROFILE_TRANSLATION_FIELDS, profileFormSchema, type ProfileFormValues } from "@/modules/content/institutional-schema";
 
-export function ProfileEditor({ initial, readOnly, canPublish }: { initial: ProfileFormValues; readOnly: boolean; canPublish: boolean }) {
+export function ProfileEditor({
+  initial,
+  readOnly,
+  canPublish,
+  mediaLimits,
+}: {
+  initial: ProfileFormValues;
+  readOnly: boolean;
+  canPublish: boolean;
+  mediaLimits: { imageBytes: number; mediaBytes: number };
+}) {
   const t = useTranslations("admin.profile");
   const tc = useTranslations("admin.content");
   const tStatus = useTranslations("admin.status.content");
   const router = useRouter();
   const [feedback, setFeedback] = useState<Feedback>(null);
   const ref = useRef<HTMLDivElement>(null);
-  const { register, handleSubmit, watch, setError, formState: { errors, isSubmitting } } = useForm<ProfileFormValues>({
+  const { control, register, handleSubmit, watch, setError, formState: { errors, isSubmitting } } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: initial,
     reValidateMode: "onChange",
@@ -54,7 +64,7 @@ export function ProfileEditor({ initial, readOnly, canPublish }: { initial: Prof
             ))}
           </select>
         </Field>
-        <TranslationTabs fields={PROFILE_TRANSLATION_FIELDS} register={register} watch={watch} errors={errors} disabled={readOnly} />
+        <TranslationTabs fields={PROFILE_TRANSLATION_FIELDS} register={register} watch={watch} errors={errors} disabled={readOnly} control={control} mediaLimits={mediaLimits} />
       </fieldset>
       {!readOnly ? <EditorActions saving={isSubmitting} canDelete={false} /> : null}
     </form>

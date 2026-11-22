@@ -7,7 +7,7 @@ import { ActionError, authorizedAction } from "@/lib/actions";
 import { msg } from "@/lib/i18n-message";
 import { db } from "@/lib/db";
 import { recordAudit } from "@/modules/audit/service";
-import { contentAuditActions, rethrowSlugConflict } from "./admin-server";
+import { contentAuditActions, rethrowSlugConflict, sanitizeRichTranslations } from "./admin-server";
 import { filledLocales, toTranslationRows, type ContentLocale } from "./admin-schema";
 import {
   LEADERSHIP_TRANSLATION_FIELDS,
@@ -26,7 +26,7 @@ function assertCanPublish(role: Parameters<typeof hasPermission>[0], status: str
 export const saveMilestone = authorizedAction("content:write", timelineFormSchema, async (input, user) => {
   assertCanPublish(user.role, input.status);
   type Row = { title: string; summary: string; body: string | null; imageAlt: string | null };
-  const translations = toTranslationRows<keyof Row>(input.translations, TIMELINE_TRANSLATION_FIELDS) as Array<{ locale: ContentLocale } & Row>;
+  const translations = sanitizeRichTranslations(toTranslationRows<keyof Row>(input.translations, TIMELINE_TRANSLATION_FIELDS) as Array<{ locale: ContentLocale } & Row>, TIMELINE_TRANSLATION_FIELDS);
   const precise = input.datePrecision === "MONTH" || input.datePrecision === "DAY";
   const data = {
     slug: input.slug,
@@ -121,7 +121,7 @@ export const deleteLeader = authorizedAction("content:write", z.object({ id: z.s
 export const saveProfileSection = authorizedAction("content:write", profileFormSchema, async (input, user) => {
   assertCanPublish(user.role, input.status);
   type Row = { title: string; body: string };
-  const translations = toTranslationRows<keyof Row>(input.translations, PROFILE_TRANSLATION_FIELDS) as Array<{ locale: ContentLocale } & Row>;
+  const translations = sanitizeRichTranslations(toTranslationRows<keyof Row>(input.translations, PROFILE_TRANSLATION_FIELDS) as Array<{ locale: ContentLocale } & Row>, PROFILE_TRANSLATION_FIELDS);
   const saved = await db.$transaction(async (tx) => {
     const previous = await tx.profileSection.findUnique({ where: { key: input.key }, select: { status: true } });
     const row = await tx.profileSection.upsert({

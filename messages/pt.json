@@ -1207,7 +1207,6 @@
         "title": "Título",
         "summary": "Resumo",
         "description": "Descrição",
-        "descriptionHint": "Suporta Markdown (listas de agenda, **negrito**).",
         "locationDetails": "Indicações / detalhes do local",
         "locationDetailsHint": "p. ex. “2.º piso, ao lado da biblioteca”."
       },
@@ -1303,7 +1302,6 @@
         "title": "Título",
         "summary": "Resumo",
         "body": "História completa",
-        "bodyHint": "Markdown. Apresentado quando o leitor expande o marco.",
         "imageAlt": "Descrição da imagem (texto alternativo)"
       },
       "validation": {
@@ -1397,8 +1395,7 @@
       "saved": "Secção guardada.",
       "fields": {
         "title": "Título",
-        "body": "Texto",
-        "bodyHint": "Suporta Markdown."
+        "body": "Texto"
       }
     },
     "media": {
