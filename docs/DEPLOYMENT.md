@@ -189,6 +189,17 @@ sudo install -d -o ojetil -g ojetil -m 750 /srv/ojetil/releases /srv/ojetil/shar
 sudo install -d -o ojetil -g ojetil -m 700 /srv/ojetil/shared/storage /srv/ojetil/shared/storage/uploads
 ```
 
+`/srv/ojetil` sengaja berizin `750`, jadi akun admin Anda (mis. `deploy`) mendapat
+`Permission denied` saat `cd /srv/ojetil`. Ini disengaja karena folder itu berisi kunci enkripsi.
+Agar bisa melihat isinya (kode rilis, symlink `current`), masukkan akun admin ke grup `ojetil`:
+
+```bash
+sudo usermod -aG ojetil "$USER"   # lalu logout dan login SSH ulang
+```
+
+`.env` (600) dan folder `uploads` (700) tetap hanya bisa dibaca user `ojetil`. Untuk perintah
+yang perlu mengubah file aplikasi, tetap gunakan `sudo -u ojetil -H …` seperti di panduan ini.
+
 ---
 
 ## 6. Akses ke repository (deploy key)
