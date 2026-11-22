@@ -21,6 +21,7 @@
     "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset",
     "db:studio": "prisma studio",
+    "admin:create": "tsx --conditions=react-server scripts/create-admin.ts",
     "postinstall": "prisma generate"
   },
   "prisma": {

@@ -304,8 +304,14 @@ const MILESTONES: Milestone[] = [
   },
 ];
 
-export async function seedTimeline(db: PrismaClient): Promise<void> {
+/** `contentOnly`: create missing milestones as DRAFT; never modify existing ones. */
+export async function seedTimeline(db: PrismaClient, opts: { contentOnly?: boolean } = {}): Promise<void> {
+  let skipped = 0;
   for (const [index, m] of MILESTONES.entries()) {
+    if (opts.contentOnly && (await db.timelineMilestone.findUnique({ where: { slug: m.slug }, select: { id: true } }))) {
+      skipped++;
+      continue;
+    }
     const translations = translationRows(m.content);
     const data = {
       year: m.year,
@@ -314,7 +320,7 @@ export async function seedTimeline(db: PrismaClient): Promise<void> {
       datePrecision: m.datePrecision,
       isHighlighted: m.isHighlighted,
       displayOrder: (index + 1) * 10,
-      status: "PUBLISHED" as const,
+      status: opts.contentOnly ? ("DRAFT" as const) : ("PUBLISHED" as const),
     };
     await db.timelineMilestone.upsert({
       where: { slug: m.slug },
@@ -322,5 +328,5 @@ export async function seedTimeline(db: PrismaClient): Promise<void> {
       update: { ...data, translations: { deleteMany: {}, create: translations } },
     });
   }
-  log("Timeline milestones", `${MILESTONES.length} milestones × 4 locales`);
+  log("Timeline milestones", `${MILESTONES.length - skipped} milestones × 4 locales${opts.contentOnly ? ` as DRAFT, ${skipped} existing kept` : ""}`);
 }

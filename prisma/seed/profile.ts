@@ -144,18 +144,28 @@ const SECTIONS: Section[] = [
   },
 ];
 
-export async function seedProfile(db: PrismaClient): Promise<void> {
+/**
+ * `contentOnly` (production bootstrap): create missing sections as DRAFT and never
+ * touch sections that already exist, so editors' work is never overwritten.
+ */
+export async function seedProfile(db: PrismaClient, opts: { contentOnly?: boolean } = {}): Promise<void> {
+  const status = opts.contentOnly ? ("DRAFT" as const) : ("PUBLISHED" as const);
+  let skipped = 0;
   for (const s of SECTIONS) {
+    if (opts.contentOnly && (await db.profileSection.findUnique({ where: { key: s.key }, select: { id: true } }))) {
+      skipped++;
+      continue;
+    }
     const translations = translationRows(s.content);
     await db.profileSection.upsert({
       where: { key: s.key },
-      create: { key: s.key, displayOrder: s.displayOrder, status: "PUBLISHED", translations: { create: translations } },
+      create: { key: s.key, displayOrder: s.displayOrder, status, translations: { create: translations } },
       update: {
         displayOrder: s.displayOrder,
-        status: "PUBLISHED",
+        status,
         translations: { deleteMany: {}, create: translations },
       },
     });
   }
-  log("Profile sections", `${SECTIONS.length} sections × 4 locales`);
+  log("Profile sections", `${SECTIONS.length - skipped} sections × 4 locales${opts.contentOnly ? ` as DRAFT, ${skipped} existing kept` : ""}`);
 }
