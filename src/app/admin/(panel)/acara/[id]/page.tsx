@@ -6,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { AdminPageHeading, ReadOnlyNotice } from "@/components/admin/ui";
 import { Button } from "@/components/ui/button";
 import { satisfies } from "@/config/rbac";
+import { getServerEnv } from "@/lib/env";
 import { diliDaysFromNow, toDiliLocalInput } from "@/lib/dates";
 import { requirePageAccess } from "@/lib/security/guards";
 import { emptyTranslations } from "@/modules/content/admin-schema";
@@ -63,7 +64,7 @@ export default async function EventEditPage({ params }: { params: Promise<{ id: 
         }
       />
       {!canWrite ? <ReadOnlyNotice>{t("readOnly")}</ReadOnlyNotice> : null}
-      <EventEditor initial={initial} readOnly={!canWrite} canPublish={satisfies(user.role, "events:publish")} registered={registered} totalRegistrations={totalRegistrations} />
+      <EventEditor initial={initial} readOnly={!canWrite} canPublish={satisfies(user.role, "events:publish")} registered={registered} totalRegistrations={totalRegistrations} maxImageBytes={getServerEnv().MAX_IMAGE_UPLOAD_BYTES} maxMediaBytes={getServerEnv().MAX_MEDIA_FILE_BYTES} />
     </>
   );
 }

@@ -5,7 +5,7 @@ import { msg } from "@/lib/i18n-message";
 import { imageUrlField, slugField } from "@/modules/content/admin-common";
 import { translationsSchema, type TranslationFieldSpec } from "@/modules/content/admin-schema";
 
-export const EVENT_TYPE_VALUES = ["SEMINAR", "DEBATE", "WORKSHOP"] as const;
+export const EVENT_TYPE_VALUES = ["SEMINAR", "DEBATE", "WORKSHOP", "NATIONAL_DAY"] as const;
 export const EVENT_STATUS_VALUES = ["DRAFT", "PUBLISHED", "CANCELLED"] as const;
 
 export const EVENT_TRANSLATION_FIELDS: readonly TranslationFieldSpec[] = [

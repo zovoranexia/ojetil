@@ -9,6 +9,7 @@ import { Controller, useForm } from "react-hook-form";
 import { EditorActions } from "@/components/admin/editor-actions";
 import { applyFieldErrors, FormFeedback, type Feedback } from "@/components/admin/form-feedback";
 import { TranslationTabs } from "@/components/admin/translation-tabs";
+import { CoverImageField } from "@/components/admin/media/cover-image-field";
 import { DateTime24Input } from "@/components/forms/date-time-24";
 import { Field, fieldAria, selectClassName } from "@/components/forms/field";
 import { Input } from "@/components/ui/input";
@@ -29,12 +30,16 @@ export function EventEditor({
   canPublish,
   registered,
   totalRegistrations,
+  maxImageBytes,
+  maxMediaBytes,
 }: {
   initial: EventFormValues;
   readOnly: boolean;
   canPublish: boolean;
   registered: number;
   totalRegistrations: number;
+  maxImageBytes: number;
+  maxMediaBytes: number;
 }) {
   const router = useRouter();
   const t = useTranslations("admin.events.editor");
@@ -172,9 +177,21 @@ export function EventEditor({
                 <DateTime24Input id="registrationDeadline" value={field.value ?? ""} onChange={field.onChange} invalid={Boolean(err("registrationDeadline"))} describedBy={`registrationDeadline-hint`} dateLabel={tc("dateField")} timeLabel={tc("timeField")} calendarLabel={tc("openCalendar")} />
               )} />
           </Field>
-          <Field id="coverImageUrl" label={t("coverImage")} error={err("coverImageUrl")}>
-            <Input placeholder={t("coverImagePlaceholder")} {...fieldAria("coverImageUrl", { error: err("coverImageUrl") })} {...register("coverImageUrl")} />
-          </Field>
+          <Controller
+            control={control}
+            name="coverImageUrl"
+            render={({ field }) => (
+              <CoverImageField
+                label={t("coverImage")}
+                value={field.value ?? ""}
+                onChange={(url) => field.onChange(url)}
+                disabled={readOnly}
+                maxImageBytes={maxImageBytes}
+                maxMediaBytes={maxMediaBytes}
+                error={err("coverImageUrl")}
+              />
+            )}
+          />
         </div>
       </fieldset>
       {!readOnly ? (

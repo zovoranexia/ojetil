@@ -172,7 +172,8 @@
     "types": {
       "SEMINAR": "Seminar",
       "DEBATE": "Debat publik",
-      "WORKSHOP": "Lokakarya"
+      "WORKSHOP": "Lokakarya",
+      "NATIONAL_DAY": "Hari Nasional"
     },
     "online": "Daring",
     "emptyUpcoming": "Belum ada acara mendatang untuk jenis ini.",
@@ -953,11 +954,6 @@
           "empty": "kosong"
         },
         "primaryHint": "Tulis dalam minimal satu bahasa — Tetun disarankan. Pembaca melihat bahasa mereka sendiri, jika tidak ada Tetun, jika tidak ada versi lain yang tersedia.",
-        "coverReplace": "Ganti",
-        "coverRemove": "Hapus",
-        "coverUploading": "Mengunggah…",
-        "coverChoose": "Pilih…",
-        "coverHint": "JPEG, PNG, atau WebP hingga {mb} MB. Diubah ukurannya dan dikompresi otomatis; disembunyikan dalam Mode Hemat Data.",
         "publishing": "Penerbitan",
         "scheduled": "Terjadwal",
         "publishedLabel": "Diterbitkan:",
@@ -1149,7 +1145,8 @@
       "types": {
         "SEMINAR": "Seminar",
         "DEBATE": "Debat publik",
-        "WORKSHOP": "Lokakarya"
+        "WORKSHOP": "Lokakarya",
+        "NATIONAL_DAY": "Hari Nasional"
       },
       "allEvents": "Semua acara",
       "attendeesCount": "Peserta ({count})",
@@ -1178,8 +1175,7 @@
         "deadline": "Batas waktu pendaftaran",
         "deadlineHint": "Kosong = sampai acara dimulai.",
         "coverImage": "URL gambar sampul",
-        "create": "Buat acara",
-        "coverImagePlaceholder": "/uploads/… atau https://…"
+        "create": "Buat acara"
       },
       "attendees": {
         "backToEvent": "Detail acara",
@@ -1475,6 +1471,12 @@
         "unreadable": "File unggahan tidak bisa dibaca. Apakah terlalu besar?",
         "noFile": "Pilih file untuk diunggah.",
         "network": "Unggahan gagal. Periksa koneksi lalu coba lagi."
+      },
+      "cover": {
+        "choose": "Pilih…",
+        "replace": "Ganti",
+        "remove": "Hapus",
+        "hint": "JPEG, PNG, atau WebP hingga {mb} MB. Diubah ukurannya dan dikompresi otomatis; disembunyikan dalam Mode Hemat Data."
       }
     }
   }
