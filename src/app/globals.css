@@ -49,6 +49,9 @@
   /* ── Tais ribbon: 24×4 px rhythmic geometric tile (red · ink · gold) ───── */
   --ojetil-tais-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='4' viewBox='0 0 24 4' shape-rendering='crispEdges'%3E%3Crect width='9' height='4' fill='%23A61C1C'/%3E%3Crect x='9' width='15' height='4' fill='%2318181B'/%3E%3Cpath d='M11 4 13 0 15 4Z' fill='%23C98A12'/%3E%3Cpath d='M17 0 19 4 21 0Z' fill='%23C98A12'/%3E%3C/svg%3E");
 
+  /* ── Tais weave: 40×40 px diamond lattice for large dark panels (gold · red) ─ */
+  --ojetil-tais-weave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M20 2 38 20 20 38 2 20Z' fill='none' stroke='%23C98A12' stroke-width='1.5'/%3E%3Cpath d='M20 12 28 20 20 28 12 20Z' fill='%23A61C1C'/%3E%3Cpath d='M20 17 23 20 20 23 17 20Z' fill='%23C98A12'/%3E%3Cpath d='M0 0 4 0 0 4ZM40 0 36 0 40 4ZM0 40 4 40 0 36ZM40 40 36 40 40 36Z' fill='%23C98A12'/%3E%3C/svg%3E");
+
   /* ── shadcn/ui semantic aliases mapped onto OJETIL tokens ──────────────── */
   --background: var(--ojetil-surface-paper);
   --foreground: var(--ojetil-ink-primary);
