@@ -9,9 +9,12 @@ import { routing } from "@/i18n/routing";
 import { getBandwidthMode } from "@/lib/bandwidth";
 import { fontVariables } from "../fonts";
 
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
+/*
+ * Every public page reads the Low-Data cookie and live data (seats, news), so it
+ * is rendered per request. Declaring it here stops `next build` from attempting
+ * static prerenders that would query the database at build time (and fail in CI).
+ */
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
