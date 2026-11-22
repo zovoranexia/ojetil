@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { BackToTop } from "@/components/public/back-to-top";
 import { SiteFooter } from "@/components/public/site-footer";
 import { SiteHeader } from "@/components/public/site-header";
 import { siteConfig } from "@/config/site";
@@ -64,6 +65,8 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} data-bandwidth={bandwidth} className={fontVariables}>
       <body className="flex min-h-dvh flex-col">
+        {/* Focus lands here after "back to top", so the next Tab reaches the skip link. */}
+        <span id="page-top" tabIndex={-1} className="outline-none" />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-control focus:bg-ink focus:px-4 focus:py-3 focus:text-paper"
@@ -76,6 +79,7 @@ export default async function LocaleLayout({
             {children}
           </main>
           <SiteFooter />
+          <BackToTop />
         </NextIntlClientProvider>
       </body>
     </html>

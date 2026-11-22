@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
-import { Emblem } from "@/components/brand/emblem";
 import { EventCard } from "@/components/public/event-card";
+import { HeroEmblem } from "@/components/public/hero-emblem";
 import { NewsCard } from "@/components/public/news-card";
 import { Eyebrow, SectionHeading } from "@/components/public/page-header";
 import { Button } from "@/components/ui/button";
 import { CHECK_STATUS_PATH, REGISTER_PATH } from "@/config/navigation";
-import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import { formatNumber } from "@/lib/format";
 import { localizedAlternates } from "@/lib/seo";
@@ -48,7 +47,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       {/* ── Hero ───────────────────────────────────────────────────────── */}
       <section aria-labelledby="hero-title" className="relative overflow-hidden border-b border-border-subtle">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[1.35fr_1fr] md:items-center md:px-8 md:py-20">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[1.15fr_1fr] md:items-center lg:grid-cols-[1.35fr_1fr] lg:gap-14 md:px-8 md:py-20">
           <div>
             <Eyebrow>{t("hero.eyebrow")}</Eyebrow>
             <h1 id="hero-title" className="mt-4 text-[2.5rem] leading-[1.05] md:text-6xl">
@@ -68,29 +67,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </div>
           </div>
 
-          {/* Editorial panel: typographic, image-free so it costs almost nothing on mobile data. */}
-          <div className="relative rounded-card bg-ink p-6 text-paper md:p-8">
-            <div
-              aria-hidden="true"
-              className="decorative-media pointer-events-none absolute inset-0 rounded-card opacity-[0.07] [background-image:var(--ojetil-tais-pattern)] [background-size:48px_8px]"
-            />
-            <div className="relative flex items-center gap-4">
-              <Emblem size={72} priority />
-              <div>
-                <p className="font-serif text-2xl font-bold text-gold-accent">{siteConfig.motto}</p>
-                <p className="text-sm text-paper/75">{siteConfig.mottoSubline}</p>
-              </div>
-            </div>
-            <ol className="relative mt-8 space-y-4 border-l border-gold-accent/40 pl-5">
-              {milestones.slice(0, 4).map((m) => (
-                <li key={m.slug} className="relative">
-                  <span aria-hidden="true" className="absolute -left-[25px] top-2 size-2.5 rounded-full bg-gold-accent" />
-                  <p className="font-serif text-lg font-semibold tabular-nums text-gold-accent">{milestoneYear(m, decade)}</p>
-                  <p className="text-sm text-paper/85">{m.title}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
+          <HeroEmblem
+            milestones={milestones.slice(0, 4).map((m) => ({
+              key: m.slug,
+              year: milestoneYear(m, decade),
+              title: m.title,
+            }))}
+          />
         </div>
       </section>
 
