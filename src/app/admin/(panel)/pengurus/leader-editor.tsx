@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -15,6 +16,9 @@ import { deleteLeader, saveLeader } from "@/modules/content/institutional-action
 import { LEADERSHIP_TRANSLATION_FIELDS, leadershipFormSchema, type LeadershipFormValues } from "@/modules/content/institutional-schema";
 
 export function LeaderEditor({ initial, readOnly, canPublish }: { initial: LeadershipFormValues; readOnly: boolean; canPublish: boolean }) {
+  const t = useTranslations("admin.leadership");
+  const tc = useTranslations("admin.content");
+  const tStatus = useTranslations("admin.status.content");
   const router = useRouter();
   const [feedback, setFeedback] = useState<Feedback>(null);
   const ref = useRef<HTMLDivElement>(null);
@@ -36,10 +40,10 @@ export function LeaderEditor({ initial, readOnly, canPublish }: { initial: Leade
         return announce({ kind: "error", message: r.error.message });
       }
       if (isNew) return router.push(`/admin/pengurus/${r.data.id}`);
-      announce({ kind: "success", message: "Leader saved." });
+      announce({ kind: "success", message: t("saved") });
       router.refresh();
     },
-    () => announce({ kind: "error", message: "Please correct the highlighted fields (check every language tab)." }),
+    () => announce({ kind: "error", message: tc("checkEveryTab") }),
   );
   const level = watch("level");
   const err = (k: keyof LeadershipFormValues) => (errors[k] as { message?: string } | undefined)?.message;
@@ -49,29 +53,29 @@ export function LeaderEditor({ initial, readOnly, canPublish }: { initial: Leade
       <FormFeedback ref={ref} feedback={feedback} />
       <fieldset disabled={readOnly} className="grid gap-6 xl:grid-cols-[1fr_20rem]">
         <div className="space-y-6">
-          <Field id="fullName" label="Full name" required error={err("fullName")} className="rounded-card border border-border-subtle bg-surface-card p-5">
+          <Field id="fullName" label={t("fullName")} required error={err("fullName")} className="rounded-card border border-border-subtle bg-surface-card p-5">
             <Input autoComplete="off" {...fieldAria("fullName", { error: err("fullName") })} {...register("fullName")} />
           </Field>
           <TranslationTabs fields={LEADERSHIP_TRANSLATION_FIELDS} register={register} watch={watch} errors={errors} disabled={readOnly} />
         </div>
         <div className="space-y-5 rounded-card border border-border-subtle bg-surface-card p-5 xl:self-start">
-          <Field id="status" label="Status" required error={err("status")}>
+          <Field id="status" label={tc("status")} required error={err("status")}>
             <select className={selectClassName} {...fieldAria("status", { error: err("status") })} {...register("status")}>
               {CONTENT_STATUSES.map((s) => (
                 <option key={s} value={s} disabled={s === "PUBLISHED" && !canPublish}>
-                  {s.charAt(0) + s.slice(1).toLowerCase()}
+                  {tStatus(s)}
                 </option>
               ))}
             </select>
           </Field>
-          <Field id="level" label="Level" required error={err("level")}>
+          <Field id="level" label={t("level")} required error={err("level")}>
             <select className={selectClassName} {...fieldAria("level", { error: err("level") })} {...register("level")}>
-              <option value="NATIONAL">National Directorate</option>
-              <option value="MUNICIPAL">Municipal coordinator</option>
+              <option value="NATIONAL">{t("levels.NATIONAL")}</option>
+              <option value="MUNICIPAL">{t("levels.MUNICIPAL")}</option>
             </select>
           </Field>
           {level === "MUNICIPAL" ? (
-            <Field id="municipality" label="Municipality" required error={err("municipality")}>
+            <Field id="municipality" label={t("municipality")} required error={err("municipality")}>
               <select className={selectClassName} {...fieldAria("municipality", { error: err("municipality") })} {...register("municipality")}>
                 <option value="" />
                 {MUNICIPALITIES.map((m) => (
@@ -83,17 +87,17 @@ export function LeaderEditor({ initial, readOnly, canPublish }: { initial: Leade
             </Field>
           ) : null}
           <div className="grid grid-cols-2 gap-3">
-            <Field id="termStart" label="Term from" required error={err("termStart")}>
+            <Field id="termStart" label={t("termStart")} required error={err("termStart")}>
               <Input type="number" inputMode="numeric" {...fieldAria("termStart", { error: err("termStart") })} {...register("termStart")} />
             </Field>
-            <Field id="termEnd" label="Term to" error={err("termEnd")}>
-              <Input type="number" inputMode="numeric" placeholder="ongoing" {...fieldAria("termEnd", { error: err("termEnd") })} {...register("termEnd")} />
+            <Field id="termEnd" label={t("termEnd")} error={err("termEnd")}>
+              <Input type="number" inputMode="numeric" placeholder={t("termEndPlaceholder")} {...fieldAria("termEnd", { error: err("termEnd") })} {...register("termEnd")} />
             </Field>
           </div>
-          <Field id="displayOrder" label="Display order" required error={err("displayOrder")}>
+          <Field id="displayOrder" label={tc("displayOrder")} required error={err("displayOrder")}>
             <Input type="number" inputMode="numeric" {...fieldAria("displayOrder", { error: err("displayOrder") })} {...register("displayOrder")} />
           </Field>
-          <Field id="photoUrl" label="Photo URL" error={err("photoUrl")}>
+          <Field id="photoUrl" label={t("photoUrl")} error={err("photoUrl")}>
             <Input {...fieldAria("photoUrl", { error: err("photoUrl") })} {...register("photoUrl")} />
           </Field>
         </div>
@@ -107,7 +111,7 @@ export function LeaderEditor({ initial, readOnly, canPublish }: { initial: Leade
             if (r.ok) router.push("/admin/pengurus");
             else announce({ kind: "error", message: r.error.message });
           }}
-          saveLabel={isNew ? "Add leader" : "Save changes"}
+          saveLabel={isNew ? t("addLeader") : undefined}
         />
       ) : null}
     </form>

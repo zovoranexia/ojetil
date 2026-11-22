@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { satisfies, type PermissionRequirement } from "@/config/rbac";
 import { ForbiddenError, requirePermission, UnauthorizedError } from "@/lib/security/permissions";
+import { msg } from "@/lib/i18n-message";
 
 /**
  * Layer 2 of RBAC: session-aware guards for Server Components, Server Actions
@@ -41,7 +42,7 @@ export async function requireUser(
   const user = await getSessionUser();
   if (!user) throw new UnauthorizedError();
   if (user.mustChangePassword && !opts.allowPendingPasswordChange) {
-    throw new ForbiddenError(requirement ?? "dashboard:view", "Choose a new password before continuing.");
+    throw new ForbiddenError(requirement ?? "dashboard:view", msg("admin.errors.mustChangePassword"));
   }
   if (requirement) requirePermission(user.role, requirement);
   return user;
@@ -86,7 +87,7 @@ export function withApiAuth<P = Record<string, string>>(
         return NextResponse.json({ error: "FORBIDDEN", message: error.message }, { status: 403 });
       }
       console.error("[api] unhandled error", error);
-      return NextResponse.json({ error: "INTERNAL", message: "Unexpected server error." }, { status: 500 });
+      return NextResponse.json({ error: "INTERNAL", message: msg("admin.errors.internal") }, { status: 500 });
     }
   };
 }

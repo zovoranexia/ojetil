@@ -1,10 +1,12 @@
 import { Lock } from "lucide-react";
 import type { ReactNode } from "react";
+import { MessageText } from "@/components/i18n/message-text";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 /**
- * Label + control + hint + inline error, wired for assistive tech:
+ * Label + control + hint + inline error, wired for assistive tech
+ * (`error` may be a msg()-encoded key, see src/lib/i18n-message.ts):
  * pass `describedBy(id)` output to the control's aria-describedby.
  */
 export function Field({
@@ -51,7 +53,7 @@ export function Field({
       ) : null}
       {error ? (
         <p id={`${id}-error`} className="text-sm text-status-rejected">
-          {error}
+          <MessageText value={error} />
         </p>
       ) : null}
     </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Download } from "lucide-react";
 import { notFound } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { AttendeeStatus } from "@prisma/client";
 import { AdminPageHeading, AttendeeStatusBadge, DataTable, EmptyRow, Td, Th, filterControlClass } from "@/components/admin/ui";
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,10 @@ import { ATTENDEE_STATUS_VALUES } from "@/modules/events/admin-schema";
 import { getEventAttendees } from "@/modules/events/admin-queries";
 import { AttendanceControl } from "./attendance-control";
 
-export const metadata: Metadata = { title: "Attendees" };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("admin.events");
+  return { title: t("metaAttendees") };
+}
 
 export default async function AttendeesPage({
   params,
@@ -32,18 +36,25 @@ export default async function AttendeesPage({
   const canWrite = satisfies(user.role, "events:write");
   const canExport = satisfies(user.role, "events:export");
   const active = data.summary.registered + data.summary.attended;
+  const [t, tStatus, locale] = await Promise.all([getTranslations("admin.events.attendees"), getTranslations("admin.status.attendee"), getLocale()]);
 
   return (
     <>
       <AdminPageHeading
-        back={{ href: `/admin/acara/${id}`, label: "Event details" }}
-        title={`Attendees · ${data.event.title}`}
-        description={`${adminDateTime(data.event.startAt)} · ${active} of ${data.event.capacity} seats taken · ${data.summary.attended} checked in · ${data.summary.cancelled} cancelled`}
+        back={{ href: `/admin/acara/${id}`, label: t("backToEvent") }}
+        title={t("title", { title: data.event.title })}
+        description={t("summary", {
+          date: adminDateTime(data.event.startAt, locale),
+          active,
+          capacity: data.event.capacity,
+          attended: data.summary.attended,
+          cancelled: data.summary.cancelled,
+        })}
         actions={
           canExport ? (
             <Button asChild variant="outline">
               <a href={`/api/admin/exports/events/${id}`} download>
-                <Download aria-hidden="true" /> Export CSV
+                <Download aria-hidden="true" /> {t("exportCsv")}
               </a>
             </Button>
           ) : null
@@ -51,32 +62,32 @@ export default async function AttendeesPage({
       />
       <form method="get" role="search" className="mb-4 grid gap-2 rounded-card border border-border-subtle bg-surface-card p-3 sm:grid-cols-[1fr_auto_auto]">
         <label htmlFor="q" className="sr-only">
-          Search attendees
+          {t("searchLabel")}
         </label>
-        <input id="q" name="q" defaultValue={q} placeholder="Name, email or ticket code" className={filterControlClass} />
+        <input id="q" name="q" defaultValue={q} placeholder={t("searchPlaceholder")} className={filterControlClass} />
         <label htmlFor="status" className="sr-only">
-          Status
+          {t("statusLabel")}
         </label>
         <select id="status" name="status" defaultValue={status ?? ""} className={filterControlClass}>
-          <option value="">All statuses</option>
+          <option value="">{t("allStatuses")}</option>
           {ATTENDEE_STATUS_VALUES.map((s) => (
             <option key={s} value={s}>
-              {s.charAt(0) + s.slice(1).toLowerCase()}
+              {tStatus(s)}
             </option>
           ))}
         </select>
         <Button type="submit" variant="editorial" size="sm">
-          Filter
+          {t("filter")}
         </Button>
       </form>
-      <DataTable caption="Event attendees">
+      <DataTable caption={t("caption")}>
         <thead>
           <tr>
-            <Th>Ticket</Th>
-            <Th>Attendee</Th>
-            <Th>Institution</Th>
-            <Th>Registered</Th>
-            <Th>Attendance</Th>
+            <Th>{t("ticket")}</Th>
+            <Th>{t("attendee")}</Th>
+            <Th>{t("institution")}</Th>
+            <Th>{t("registered")}</Th>
+            <Th>{t("attendance")}</Th>
           </tr>
         </thead>
         <tbody>
@@ -93,12 +104,12 @@ export default async function AttendeesPage({
                   {a.institution ?? "—"}
                   {a.municipality ? <span className="block text-xs text-ink-secondary">{municipalityLabel(a.municipality)}</span> : null}
                 </Td>
-                <Td className="tabular-nums text-ink-secondary">{adminDateTime(a.createdAt)}</Td>
+                <Td className="tabular-nums text-ink-secondary">{adminDateTime(a.createdAt, locale)}</Td>
                 <Td>{canWrite ? <AttendanceControl registrationId={a.id} status={a.status} name={a.fullName} /> : <AttendeeStatusBadge status={a.status} />}</Td>
               </tr>
             ))
           ) : (
-            <EmptyRow colSpan={5}>No attendees match.</EmptyRow>
+            <EmptyRow colSpan={5}>{t("empty")}</EmptyRow>
           )}
         </tbody>
       </DataTable>

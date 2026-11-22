@@ -407,5 +407,988 @@
       "form": "Favór hadia kampu sira ne'ebé marka.",
       "network": "Problema ligasaun. Haree ita-nia internet no koko fali."
     }
+  },
+  "admin": {
+    "shell": {
+      "backoffice": "Backoffice",
+      "home": "Backoffice OJETIL — vizaun jeral",
+      "navLabel": "Backoffice",
+      "openMenu": "Loke menu",
+      "closeMenu": "Taka menu",
+      "viewPublicSite": "Haree sítiu públiku",
+      "designSystem": "Sistema dezeñu"
+    },
+    "nav": {
+      "overview": "Vizaun jeral",
+      "members": "Membru no veteranu",
+      "news": "Notísia",
+      "documents": "Dokumentu",
+      "events": "Eventu",
+      "timeline": "Liña tempu",
+      "leadership": "Lideransa",
+      "profilePages": "Pájina perfil",
+      "users": "Utilizadór no papél",
+      "audit": "Rejistu auditoria"
+    },
+    "topbar": {
+      "scope": "Asesu",
+      "language": "Lian",
+      "darkMode": "Modu nakukun",
+      "lightMode": "Modu naroman",
+      "accountMenu": "Menu konta",
+      "role": "Papél",
+      "changePassword": "Troka liafuan-pasee",
+      "signOut": "Sai"
+    },
+    "roles": {
+      "SUPER_ADMIN": {
+        "label": "Super Admin",
+        "short": "Super Admin",
+        "description": "Asesu kompletu ba sistema, inklui jestaun utilizadór."
+      },
+      "VERIFIER": {
+        "label": "Verifikadór (Sekretariadu)",
+        "short": "Verifikadór",
+        "description": "Revee aplikasaun membru no veteranu."
+      },
+      "EDITOR": {
+        "label": "Editór (Editoriál no Programa)",
+        "short": "Editór",
+        "description": "Publika notísia, istória, lideransa no eventu."
+      },
+      "VIEWER": {
+        "label": "Observadór (Direksaun)",
+        "short": "Observadór",
+        "description": "Supervizaun lee-de'it ho dadus membru agregadu."
+      }
+    },
+    "common": {
+      "cancel": "Kansela",
+      "delete": "Hamoos",
+      "save": "Rai",
+      "saveChanges": "Rai mudansa",
+      "saving": "Rai hela…",
+      "copy": "Kopia",
+      "copied": "Kopia ona",
+      "previous": "Molok",
+      "next": "Tuir mai",
+      "pagination": "Paginasaun",
+      "resultsPage": "{total, plural, one {rezultadu #} other {rezultadu #}} · pájina {page} husi {pageCount}",
+      "deletePermanentlyTitle": "Hamoos ba nafatin?",
+      "deletePermanentlyDescription": "La bele fila fali. Hamoos ne'e rejista iha rejistu auditoria."
+    },
+    "translationTabs": {
+      "contentLanguage": "Lian konteúdu",
+      "hasErrors": "iha erru",
+      "complete": "kompletu",
+      "required": "obrigatóriu",
+      "optional": "opsionál",
+      "fallbackHint": "Husik kampu hotu mamuk atu hatudu versaun Tetun ba leitór {language}."
+    },
+    "status": {
+      "member": {
+        "PENDING_VERIFICATION": "Hein verifikasaun",
+        "NEEDS_REVISION": "Presiza revizaun",
+        "VERIFIED": "Verifika ona",
+        "REJECTED": "Rejeita"
+      },
+      "content": {
+        "DRAFT": "Rascuñu",
+        "PUBLISHED": "Publika ona",
+        "ARCHIVED": "Arkiva ona",
+        "CANCELLED": "Kansela ona"
+      },
+      "attendee": {
+        "REGISTERED": "Rejista ona",
+        "CANCELLED": "Kansela ona",
+        "ATTENDED": "Partisipa ona"
+      },
+      "category": {
+        "VETERAN_KLANDESTIN": "Veteranu",
+        "ANGGOTA_PEMUDA": "Foin-sa'e"
+      }
+    },
+    "errors": {
+      "validation": "Favór hadia kampu sira ne'ebé marka.",
+      "internal": "Iha problema ruma. Favór koko fali.",
+      "unauthorized": "Presiza autentikasaun.",
+      "forbidden": "Ita la iha permisaun atu halo asaun ne'e.",
+      "mustChangePassword": "Hili liafuan-pasee foun molok kontinua.",
+      "loginFailed": "Email ka liafuan-pasee la loos, ka konta bloke ba tempu badak. Depois tentativa sala 5, konta bloke ba minutu 15."
+    },
+    "validation": {
+      "required": "Kampu ne'e obrigatóriu.",
+      "maxChars": "Uza karakter {max} maizumenus.",
+      "requiredTetun": "Obrigatóriu iha Tetun.",
+      "requiredOnceStarted": "Obrigatóriu bainhira hahú ona lian ne'e.",
+      "slugMin": "Slug tenke iha karakter 3 ka liu.",
+      "slugMax": "Slug naruk liu.",
+      "slugPattern": "Uza letra ki'ik, númeru no hífen ida-ida de'it.",
+      "imageUrl": "Uza dalan sítiu ne'ebé hahú ho / ka URL https://.",
+      "email": "Hakerek enderesu email ne'ebé loos.",
+      "url": "Hakerek URL https:// ne'ebé loos.",
+      "date": "Hakerek data ne'ebé loos."
+    },
+    "auth": {
+      "metaTitle": "Tama ba ekipa",
+      "title": "Tama ba ekipa",
+      "intro": "Uza konta ne'ebé Sekretariadu OJETIL fó ba ita.",
+      "staffOnly": "Ba ekipa OJETIL ne'ebé autorizadu de'it. Tama hotu no asesu hotu ba dadus membru sira rejista.",
+      "passwordChanged": "Liafuan-pasee troka ona. Tama ho ita-nia liafuan-pasee foun.",
+      "email": "Email",
+      "password": "Liafuan-pasee",
+      "showPassword": "Hatudu liafuan-pasee",
+      "hidePassword": "Subar liafuan-pasee",
+      "signIn": "Tama",
+      "signingIn": "Tama hela…",
+      "validation": {
+        "emailRequired": "Hakerek ita-nia enderesu email.",
+        "passwordRequired": "Hakerek ita-nia liafuan-pasee."
+      }
+    },
+    "account": {
+      "metaTitle": "Troka liafuan-pasee",
+      "backofficeName": "Backoffice OJETIL",
+      "title": "Troka liafuan-pasee",
+      "titleMustChange": "Hili ita-nia liafuan-pasee rasik",
+      "intro": "Tama ona hanesan {email}. Ita sei tenke tama fali ho liafuan-pasee foun.",
+      "introMustChange": "Ita tama ho liafuan-pasee provizóriu ne'ebé administradór fó. Define liafuan-pasee pesoál ida atu kontinua — ema seluk labele hatene.",
+      "backToBackoffice": "Fila ba backoffice",
+      "signOut": "Sai",
+      "currentPassword": "Liafuan-pasee atuál",
+      "newPassword": "Liafuan-pasee foun",
+      "newPasswordHint": "Karakter 12 ka liu, letra boot no ki'ik, no númeru ka símbolu ida.",
+      "confirmPassword": "Repete liafuan-pasee foun",
+      "submit": "Troka liafuan-pasee",
+      "validation": {
+        "currentRequired": "Hakerek ita-nia liafuan-pasee atuál.",
+        "mismatch": "Liafuan-pasee foun rua la hanesan.",
+        "sameAsCurrent": "Hili liafuan-pasee ida ne'ebé la hanesan ho atuál.",
+        "minLength": "Uza karakter {min} ka liu.",
+        "mixedCase": "Kahur letra boot no letra ki'ik.",
+        "numberOrSymbol": "Tau númeru ka símbolu ida."
+      },
+      "errors": {
+        "currentIncorrect": "Ita-nia liafuan-pasee atuál la loos.",
+        "incorrectPassword": "Liafuan-pasee la loos.",
+        "sessionExpired": "Ita-nia sesaun remata ona. Favór tama fali."
+      }
+    },
+    "forbidden": {
+      "metaTitle": "Asesu bandu",
+      "title": "Asesu bandu",
+      "roleDenied": "Ita-nia papél — {role} — la inklui asesu ba área ne'e. Se ita presiza, husu ba Super Admin ida.",
+      "signInRequired": "Ita tenke tama ho konta autorizadu atu haree área ne'e.",
+      "backToDashboard": "Fila ba painel",
+      "signInAsOther": "Tama hanesan ema seluk",
+      "signIn": "Tama"
+    },
+    "users": {
+      "metaTitle": "Utilizadór no papél",
+      "title": "Utilizadór no papél",
+      "description": "Konta ekipa nian nunka hamoos — dezativa sira atu rai rejistu auditoria. Troka papél no dezativasaun halo ema ne'e sai kedas.",
+      "addTitle": "Aumenta konta ekipa",
+      "tableCaption": "Konta ekipa",
+      "columns": {
+        "user": "Utilizadór",
+        "role": "Papél",
+        "lastSignIn": "Tama ikus",
+        "status": "Estadu",
+        "manage": "Jere"
+      },
+      "state": {
+        "active": "Ativu",
+        "locked": "Bloke",
+        "deactivated": "Dezativadu"
+      },
+      "fields": {
+        "name": "Naran kompletu",
+        "email": "Email",
+        "role": "Papél"
+      },
+      "create": "Kria",
+      "created": "Konta kria ona ba {email}.",
+      "temporaryPasswordFor": "Liafuan-pasee provizóriu ba {email}",
+      "newTemporaryPassword": "Liafuan-pasee provizóriu foun",
+      "oneTimeNote": "Hatudu dala ida de'it. Fó ba ema ne'e liuhusi kanál seguru; nia tenke rai ho segredu.",
+      "self": "Ne'e ita — Super Admin seluk mak tenke troka ita-nia konta.",
+      "roleFor": "Papél ba {name}",
+      "deactivate": "Dezativa",
+      "reactivate": "Reativa",
+      "deactivateTitle": "Dezativa {name}?",
+      "reactivateTitle": "Reativa {name}?",
+      "deactivateDescription": "Sira sai kedas no labele tama to'o reativa fali. Sira-nia istória auditoria sei rai nafatin.",
+      "reactivateDescription": "Sira bele tama fali ho sira-nia liafuan-pasee atuál.",
+      "resetPassword": "Reseta liafuan-pasee",
+      "resetTitle": "Reseta liafuan-pasee ba {name}?",
+      "resetDescription": "Sistema kria liafuan-pasee provizóriu foun, konta la bloke ona no sira-nia sesaun hotu remata.",
+      "validation": {
+        "nameRequired": "Hakerek naran kompletu.",
+        "roleRequired": "Hili papél ida."
+      },
+      "errors": {
+        "emailExists": "Konta ho email ida-ne'e iha tiha ona.",
+        "emailInUse": "Uza tiha ona.",
+        "notFound": "Utilizadór la hetan.",
+        "ownRole": "Ita labele troka ita-nia papél rasik.",
+        "ownDeactivate": "Ita labele dezativa ita-nia konta rasik.",
+        "ownReset": "Uza “Troka liafuan-pasee” ba ita-nia konta rasik.",
+        "lastSuperAdminRole": "Ne'e Super Admin ativu ikus; promove ema seluk uluk.",
+        "lastSuperAdminDeactivate": "Ne'e Super Admin ativu ikus no labele dezativa."
+      }
+    },
+    "dashboard": {
+      "metaTitle": "Vizaun jeral",
+      "welcome": "Bemvindu, {name}",
+      "description": "Vizaun jeral ba organizasaun tomak. Númeru sira-ne'e mak totál de'it no la iha dadus pesoál.",
+      "kpis": {
+        "verified": "Membru verifika ona",
+        "pending": "Hein verifikasaun",
+        "awaitingRevision": "+ {count} hein revizaun",
+        "activeEvents": "Eventu ativu",
+        "eventRegistrations": "Rejistu eventu"
+      },
+      "municipality": {
+        "title": "Membru tuir munisípiu",
+        "description": "Kandidatura verifika ona no iha prosesu (la inklui sira ne'ebé rejeita).",
+        "municipality": "Munisípiu",
+        "verified": "Verifika ona",
+        "inProgress": "Iha prosesu"
+      },
+      "activity": {
+        "title": "Atividade foin daudaun",
+        "fromAudit": "Husi rejistu auditoria",
+        "latestContent": "Mudansa foun liu iha konteúdu",
+        "viewAll": "Haree hotu",
+        "empty": "Seidauk iha atividade.",
+        "systemActor": "Sistema / públiku",
+        "news": "Notísia",
+        "event": "Eventu"
+      }
+    },
+    "audit": {
+      "metaTitle": "Rejistu auditoria",
+      "title": "Rejistu auditoria",
+      "description": "Rejistu ne'ebé aumenta de'it kona-ba tama sistema, asesu ba dadus pesoál, desizaun verifikasaun, esportasaun, publikasaun no mudansa iha konta. Entrada sira labele edita ka hamoos.",
+      "roleRestricted": "Ita-nia papél ({role}) haree de'it entrada verifikasaun.",
+      "filters": {
+        "category": "Kategoria",
+        "allCategories": "Kategoria hotu",
+        "action": "Asaun",
+        "allActions": "Asaun hotu",
+        "actorEmail": "Email autór",
+        "fromDate": "Husi data",
+        "toDate": "To'o data",
+        "submit": "Filtru"
+      },
+      "categories": {
+        "AUTH": "Autentikasaun",
+        "VERIFICATION": "Verifikasaun",
+        "CONTENT": "Konteúdu",
+        "EVENTS": "Eventu",
+        "USERS": "Utilizadór",
+        "SYSTEM": "Sistema"
+      },
+      "table": {
+        "caption": "Entrada rejistu auditoria",
+        "when": "Bainhira (Díli)",
+        "actor": "Autór",
+        "action": "Asaun",
+        "target": "Alvu no detalle",
+        "ip": "IP",
+        "details": "Detalle",
+        "systemActor": "Sistema / públiku",
+        "empty": "La iha entrada ne'ebé tuir filtru sira-ne'e."
+      },
+      "actions": {
+        "LOGIN_SUCCEEDED": "Tama ona",
+        "LOGIN_FAILED": "Tama la susesu",
+        "LOGOUT": "Sai ona",
+        "ACCOUNT_LOCKED": "Konta bloke",
+        "MEMBER_PII_VIEWED": "Haree dadus pesoál membru",
+        "MEMBER_STATUS_CHANGED": "Muda estatutu membru",
+        "MEMBER_EXPORTED": "Esporta membru verifika ona",
+        "CONTENT_CREATED": "Kria konteúdu",
+        "CONTENT_UPDATED": "Atualiza konteúdu",
+        "CONTENT_PUBLISHED": "Publika konteúdu",
+        "CONTENT_UNPUBLISHED": "Hasai publikasaun konteúdu",
+        "CONTENT_DELETED": "Hamoos konteúdu",
+        "MEDIA_UPLOADED": "Haruka imajen",
+        "EVENT_CREATED": "Kria eventu",
+        "EVENT_UPDATED": "Atualiza eventu",
+        "EVENT_PUBLISHED": "Publika eventu",
+        "EVENT_UNPUBLISHED": "Hasai publikasaun eventu",
+        "EVENT_CANCELLED": "Kansela eventu",
+        "EVENT_DELETED": "Hamoos eventu",
+        "EVENT_ATTENDEES_EXPORTED": "Esporta partisipante eventu",
+        "EVENT_ATTENDANCE_UPDATED": "Atualiza prezensa eventu",
+        "USER_CREATED": "Kria utilizadór",
+        "USER_ROLE_CHANGED": "Muda papél utilizadór",
+        "USER_DEACTIVATED": "Dezativa utilizadór",
+        "USER_REACTIVATED": "Reativa utilizadór",
+        "USER_PASSWORD_RESET": "Hadia liafuan-pasee utilizadór",
+        "USER_PASSWORD_CHANGED": "Muda nia liafuan-pasee rasik",
+        "SEED_EXECUTED": "Hatama dadus inisiál ba baze dadus"
+      }
+    },
+    "designSystem": {
+      "metaTitle": "Sistema dezeñu",
+      "badge": "Sistema dezeñu",
+      "title": "Arkivu ho Dignidade,",
+      "titleAccent": "Enerjia Jerasaun Foun",
+      "intro": "Referénsia token ba plataforma web OJETIL. Verifikasaun diakrítiku:",
+      "colours": "Token kór",
+      "swatchUse": {
+        "redPrimary": "CTA prinsipál, estadu ativu, aksentu liña tempu",
+        "redHover": "Hover / hanehan prinsipál",
+        "inkPrimary": "Testu, títulu, rodapé, butaun editoriál",
+        "inkSecondary": "Metadadus, oras, etiketa",
+        "goldAccent": "Aksentu iha superfísie ink de'it",
+        "goldText": "Testu no badge okre iha superfísie naroman",
+        "surfacePaper": "Fundu pájina públiku",
+        "surfaceCard": "Kartaun, modál, espasu servisu admin",
+        "borderSubtle": "Limite, separadór, kampu"
+      },
+      "status": "Signifikadu estatutu",
+      "inkSurface": "Iha superfísie ink, aksentu osan-mean bele uza:",
+      "typography": "Tipografia",
+      "typographyBody": "Plus Jakarta Sans ba interface no testu prinsipál.",
+      "tabularNumerals": "Númeru tabulár:",
+      "controls": "Kontrolu (área toka ≥ 44px)"
+    },
+    "members": {
+      "metaTitle": "Membru no veteranu",
+      "aggregates": {
+        "description": "Númeru agregadu. So Sekretariadu mak bele haree rejistu individuál.",
+        "byTrack": "Tuir kategoria",
+        "byTrackCaption": "Kandidatura tuir kategoria",
+        "applications": "Kandidatura",
+        "verified": "Verifika ona",
+        "byMunicipality": "Tuir munisípiu",
+        "byMunicipalityCaption": "Kandidatura tuir munisípiu",
+        "inProgress": "Iha prosesu"
+      },
+      "queue": {
+        "title": "Lista verifikasaun",
+        "description": "Kandidatura membru no veteranu. Dadus pesoál sei enkriptadu to'o ita loke rejistu ida no hatudu.",
+        "export": "Esporta sira ne'ebé verifika ona (CSV)",
+        "search": "Buka",
+        "searchPlaceholder": "Naran, naran klandestin, kódigu rejistu ka númeru BI",
+        "allStatuses": "Status hotu",
+        "allTracks": "Kategoria hotu",
+        "allMunicipalities": "Munisípiu hotu",
+        "filter": "Filtra",
+        "tableCaption": "Kandidatura membru",
+        "possibleDuplicate": "Bele dobradu",
+        "empty": "La iha kandidatura ne'ebé tuir filtru sira-ne'e."
+      },
+      "columns": {
+        "trackingCode": "Kódigu rejistu",
+        "applicant": "Kandidatu",
+        "track": "Kategoria",
+        "municipality": "Munisípiu",
+        "submitted": "Haruka iha",
+        "status": "Status"
+      },
+      "detail": {
+        "metaTitle": "Kandidatura",
+        "subtitle": "{code} · haruka iha {date}",
+        "duplicateWarning": "{count, plural, other {Bele dobradu — númeru BI hanesan mosu iha kandidatura seluk #:}}",
+        "identity": "Identidade no hela-fatin",
+        "personalData": "Dadus pesoál (enkriptadu)",
+        "veteranBackground": "Istória tempu klandestina",
+        "youthBackground": "Istória membru joven",
+        "decision": "Desizaun",
+        "history": "Istória verifikasaun",
+        "noPiiAccess": "Ita-nia knaar la bele haree dadus pesoál enkriptadu.",
+        "currentStatus": "Status agora: {status}",
+        "byActor": "husi {name}",
+        "submittedByApplicant": "Kandidatu mak haruka",
+        "consentGiven": "Fó iha {date} (nota {version})"
+      },
+      "fields": {
+        "fullName": "Naran kompletu",
+        "clandestineAlias": "Naran klandestin",
+        "dateOfBirth": "Data moris",
+        "gender": "Jéneru",
+        "municipality": "Munisípiu",
+        "administrativePost": "Postu administrativu",
+        "email": "Email",
+        "submittedIn": "Lian rejistu",
+        "yearJoined": "Tinan tama",
+        "region": "Rejiaun",
+        "cell": "Selula / rede",
+        "witness": "Sasin / kamarada referénsia",
+        "institution": "Eskola / universidade / servisu",
+        "interests": "Área interese",
+        "motivation": "Motivasaun",
+        "consent": "Konsentimentu"
+      },
+      "genders": {
+        "MALE": "Mane",
+        "FEMALE": "Feto",
+        "PREFER_NOT_TO_SAY": "Prefere la temi"
+      },
+      "interestAreas": {
+        "EDUCATION": "Edukasaun",
+        "ADVOCACY": "Advokasia",
+        "MEDIA": "Média",
+        "COMMUNITY_SERVICE": "Serbisu komunitáriu"
+      },
+      "pii": {
+        "intro": "Enderesu, telefone no númeru BI enkriptadu. Bainhira ita hatudu sira, ne'e rejista iha rejistu auditoria ho ita-nia naran.",
+        "introWithPhoto": "Enderesu, telefone, númeru BI no foto enkriptadu. Bainhira ita hatudu sira, ne'e rejista iha rejistu auditoria ho ita-nia naran.",
+        "reveal": "Hatudu dadus pesoál",
+        "photoAlt": "Foto kandidatu",
+        "phone": "Telefone / WhatsApp",
+        "nationalId": "Bilhete de Identidade",
+        "address": "Enderesu hela-fatin",
+        "hide": "Subar"
+      },
+      "decision": {
+        "approve": "Aprova",
+        "approveConfirm": "Aprova no verifika kandidatura ne'e?",
+        "revise": "Husu revizaun",
+        "reviseConfirm": "Husu informasaun tan ba kandidatu?",
+        "reject": "Rejeita",
+        "rejectConfirm": "Rejeita kandidatura ne'e?",
+        "noteLabel": "Razaun / nota",
+        "noteHint": "Obrigatóriu ba desizaun hotu. Ba “Husu revizaun” no “Rejeita”, nota ne'e sei mosu ba kandidatu iha pájina status públiku — hakerek ba sira.",
+        "confirmDescription": "Nota: “{note}”. Ne'e rejista iha istória verifikasaun no rejistu auditoria.",
+        "tooShort": "Hakerek nota ida (karakter 5 ka liu) atu ativa butaun desizaun.",
+        "success": "Status ba {code} atualiza ona."
+      },
+      "validation": {
+        "noteMin": "Hakerek razaun badak ida (karakter 5 ka liu)."
+      },
+      "errors": {
+        "notFound": "La hetan rejistu.",
+        "conflict": "Ema seluk atualiza ona kandidatura ne'e. Karrega fali pájina atu haree status foun.",
+        "alreadyStatus": "Kandidatura ne'e iha ona status ne'e."
+      }
+    },
+    "news": {
+      "meta": {
+        "list": "Notísia",
+        "edit": "Edita artigu",
+        "new": "Artigu foun"
+      },
+      "list": {
+        "title": "Notísia no komunikadu imprensa",
+        "description": "Artigu ida-idak edita iha Tetun, Portugés, Indonézia no Inglés.",
+        "newArticle": "Artigu foun",
+        "search": "Buka",
+        "searchPlaceholder": "Buka títulu ka slug",
+        "status": "Estadu",
+        "allStatuses": "Estadu hotu",
+        "filter": "Filtra",
+        "caption": "Artigu notísia",
+        "colTitle": "Títulu (Tetun)",
+        "colCategory": "Kategoria",
+        "colLanguages": "Lian",
+        "colPublished": "Publika",
+        "colUpdated": "Atualiza",
+        "colStatus": "Estadu",
+        "featured": "Destaka",
+        "empty": "La hetan artigu."
+      },
+      "edit": {
+        "back": "Notísia no artigu",
+        "newTitle": "Artigu foun",
+        "savedNotice": "Rascuñu rai ona. Agora ita bele publika ka programa nia.",
+        "readOnly": "Lee de'it: ita-nia papél bele haree konteúdu maibé labele edita."
+      },
+      "categories": {
+        "ORGANIZATION": "Organizasaun",
+        "CIVIC_EDUCATION": "Edukasaun sívika",
+        "YOUTH": "Juventude",
+        "COMMEMORATION": "Komemorasaun",
+        "PRESS_RELEASE": "Komunikadu imprensa"
+      },
+      "languages": {
+        "TET": "Tetun",
+        "PT": "Portugés",
+        "ID": "Indonézia",
+        "EN": "Inglés"
+      },
+      "fields": {
+        "title": "Títulu",
+        "excerpt": "Rezumu",
+        "excerptHint": "Fraze ida ka rua ne'ebé hatudu iha kartaun no rezultadu buka.",
+        "body": "Konteúdu",
+        "coverImageAlt": "Deskrisaun imajen kapa (testu alternativu)",
+        "coverImageAltHint": "Deskreve imajen kapa ba ema ne'ebé labele haree.",
+        "slug": "Enderesu (slug)",
+        "slugHint": "Opsionál — kria husi títulu. Letra, númeru no hífen de'it. Lian hotu uza hanesan.",
+        "category": "Tipu",
+        "municipality": "Munisípiu",
+        "municipalityHint": "Opsionál — ba notísia kona-ba munisípiu ida.",
+        "municipalityNone": "Nasionál (la iha munisípiu)",
+        "document": "Anexu PDF",
+        "documentHint": "Dokumentu publikadu ida husi seksaun Dokumentu.",
+        "documentNone": "— La iha —",
+        "documentUnpublished": " — la publika, subar iha sítiu",
+        "byline": "Autór",
+        "bylineHint": "Opsionál — ezemplu naran autór ba artigu opiniaun.",
+        "tags": "Etiketa",
+        "tagsHint": "Fahe ho vírgula.",
+        "isFeatured": "Destaka iha pájina prinsipál",
+        "coverImage": "Imajen kapa"
+      },
+      "editor": {
+        "contentSection": "Konteúdu",
+        "contentLanguage": "Lian konteúdu",
+        "localeState": {
+          "complete": "kompletu",
+          "partial": "la kompletu",
+          "error": "iha erru",
+          "empty": "mamuk"
+        },
+        "primaryHint": "Tetun mak lian prinsipál. Seluk opsionál — sira ne'ebé mamuk sei hatudu versaun Tetun.",
+        "coverReplace": "Troka",
+        "coverRemove": "Hasai",
+        "coverUploading": "Haruka hela…",
+        "coverChoose": "Hili…",
+        "coverHint": "JPEG, PNG ka WebP to'o {mb} MB. Muda tamañu no kompresa automátiku; subar iha Modu Dadus Uitoan.",
+        "publishing": "Publikasaun",
+        "scheduled": "Programa ona",
+        "publishedLabel": "Publika:",
+        "publishLabel": "Publika:",
+        "immediately": "agora kedas",
+        "editDate": "Edita",
+        "doneDate": "Remata",
+        "dateLabel": "Data no oras iha Díli (UTC+9). Oras iha futuru sei programa artigu.",
+        "keepOriginalDate": "Mantein data orijinál",
+        "publishImmediately": "Publika agora kedas",
+        "saveDraft": "Rai rascuñu",
+        "update": "Atualiza",
+        "saveFirst": "Rai uluk rascuñu; opsaun publikasaun sei mosu depois.",
+        "unpublish": "Hasai husi publikasaun",
+        "schedule": "Programa",
+        "publish": "Publika",
+        "cannotPublish": "Ita-nia papél labele publika.",
+        "viewOnSite": "Haree iha sítiu",
+        "deleteArticle": "Hamoos artigu",
+        "details": "Detalle"
+      },
+      "toast": {
+        "saved": "Artigu rai ona.",
+        "unpublished": "Artigu hasai ona husi publikasaun — sai rascuñu fali.",
+        "scheduled": "Artigu programa ona.",
+        "published": "Artigu publika ona."
+      },
+      "validation": {
+        "checkAllTabs": "Favór hadia kampu sira ne'ebé marka (haree aba lian hotu).",
+        "categoryRequired": "Hili tipu ida.",
+        "tagsMax": "Etiketa {max} maizumenus.",
+        "checkDate": "Haree fali data publikasaun.",
+        "invalidDate": "Data no oras la loos.",
+        "slugNoFree": "La konsege kria enderesu livre ida; hakerek ida rasik.",
+        "slugDifferent": "Hakerek enderesu seluk.",
+        "slugRequired": "Hakerek enderesu (slug).",
+        "slugTitleTooShort": "Títulu badak liu atu kria enderesu; hakerek ida rasik.",
+        "documentNotPublished": "Dokumentu publikadu de'it mak bele tau hanesan anexu.",
+        "documentChoosePublished": "Hili dokumentu publikadu ida."
+      },
+      "errors": {
+        "cannotPublish": "Ita-nia papél labele publika konteúdu.",
+        "notFound": "La hetan artigu."
+      }
+    },
+    "richText": {
+      "placeholder": "Hahú hakerek…",
+      "toolbar": {
+        "label": "Formatu",
+        "heading2": "Títulu 2",
+        "heading3": "Títulu 3",
+        "bold": "Negritu",
+        "italic": "Itáliku",
+        "underline": "Sublinha",
+        "strike": "Risku",
+        "alignLeft": "Alinha ba karuk",
+        "alignCenter": "Alinha ba klaran",
+        "alignRight": "Alinha ba los",
+        "justify": "Justifika",
+        "bulletList": "Lista ho pontu",
+        "orderedList": "Lista ho númeru",
+        "quote": "Sitasaun",
+        "horizontalRule": "Liña orizontál",
+        "link": "Ligasaun",
+        "insertImage": "Tau imajen",
+        "uploadingImage": "Haruka hela imajen…",
+        "embedVideo": "Tau vídeo (YouTube ka Vimeo)",
+        "undo": "Kansela asaun",
+        "redo": "Halo fali"
+      },
+      "prompt": {
+        "link": "Enderesu ligasaun",
+        "video": "URL YouTube ka Vimeo",
+        "alt": "Deskreve imajen (testu alternativu)",
+        "insert": "Tau",
+        "apply": "Aplika",
+        "removeLink": "Hasai ligasaun",
+        "skip": "Liu"
+      },
+      "errors": {
+        "linkInvalid": "Uza enderesu kompletu ne'ebé hahú ho https:// (ka mailto:).",
+        "videoInvalid": "Ligasaun YouTube no Vimeo de'it mak bele tau."
+      },
+      "upload": {
+        "notImage": "Hili arkivu imajen (JPEG, PNG, WebP, GIF ka AVIF).",
+        "tooLarge": "Imajen boot liu {mb} MB.",
+        "failed": "Haruka la susesu. Favór koko fali.",
+        "network": "Haruka la susesu. Haree ita-nia ligasaun no koko fali.",
+        "unreadable": "La konsege lee arkivu ne'ebé haruka. Karik arkivu boot liu?",
+        "noFile": "Hili imajen ida atu haruka.",
+        "invalidSize": "Imajen mamuk ka boot liu {mb} MB.",
+        "invalidType": "Arkivu ne'e la'ós imajen ne'ebé aseita (JPEG, PNG, WebP, GIF ka AVIF)."
+      }
+    },
+    "documents": {
+      "metaTitle": "Dokumentu",
+      "metaTitleOne": "Dokumentu",
+      "title": "Dokumentu",
+      "description": "Biblioteka PDF: estatutu, relatóriu, deklarasaun. Dokumentu ne'ebé publika ona bele download ba públiku no tau hamutuk ho notísia.",
+      "upload": "Upload dokumentu",
+      "search": "Buka",
+      "searchPlaceholder": "Buka títulu, slug ka naran arkivu",
+      "statusLabel": "Estatutu",
+      "allStatuses": "Estatutu hotu",
+      "filter": "Filtra",
+      "table": {
+        "caption": "Dokumentu",
+        "title": "Títulu (Tetun)",
+        "file": "Arkivu",
+        "languages": "Lian",
+        "usedIn": "Uza iha",
+        "updated": "Atualiza",
+        "status": "Estatutu"
+      },
+      "usedInArticles": "{count, plural, other {notísia #}}",
+      "empty": "Seidauk iha dokumentu.",
+      "allDocuments": "Dokumentu hotu",
+      "newTitle": "Dokumentu foun",
+      "uploadedDraft": "Dokumentu upload ona hanesan rascuñu.",
+      "editDescription": "Dokumentu PDF bele publika atu download no tau hamutuk ho notísia.",
+      "readOnly": "Lee de'it: ita-nia papél bele haree dokumentu maibé labele edita.",
+      "editor": {
+        "chooseFileToUpload": "Hili arkivu PDF ida atu upload.",
+        "uploadFailed": "Upload la konsege. Haree ita-nia ligasaun no tamañu arkivu, depois koko fali.",
+        "saved": "Dokumentu rai ona.",
+        "checkTabs": "Favór hadia kampu sira ne'ebé marka (haree tab lian hotu).",
+        "fileLabel": "Arkivu PDF",
+        "fileHint": "PDF de'it, to'o {size}.",
+        "chooseReplacement": "Hili PDF foun atu troka arkivu atuál…",
+        "choosePdf": "Hili PDF ida…",
+        "currentFile": "Arkivu atuál:",
+        "open": "Loke",
+        "publishing": "Publikasaun",
+        "slugLabel": "Enderesu (slug)",
+        "slugHint": "Letra, númeru no hífen de'it.",
+        "generateSlugTitle": "Halo husi títulu Tetun",
+        "generateSlugSr": "Halo slug husi títulu Tetun",
+        "uploadAndSave": "Upload no rai rascuñu",
+        "saveDraftFirst": "Rai rascuñu uluk; opsaun publikasaun sei mosu depois.",
+        "publish": "Publika",
+        "unpublish": "Kansela publikasaun",
+        "publishedToast": "Dokumentu publika ona.",
+        "unpublishedToast": "Dokumentu la publika ona.",
+        "publicLink": "Link download públiku",
+        "deleteTitle": "Hamoos dokumentu ida-ne'e?",
+        "deleteAttached": "{count, plural, other {Dokumentu ne'e tau hamutuk ho notísia #; sira sei lakon anexu ne'e.}} La bele fila fali no rejista iha rejistu auditoria.",
+        "deleteUnattached": "Arkivu PDF sei hamoos ba nafatin. La bele fila fali no rejista iha rejistu auditoria."
+      },
+      "fields": {
+        "title": "Títulu",
+        "description": "Deskrisaun",
+        "descriptionHint": "Opsionál. Fraze ida ka rua kona-ba dokumentu."
+      },
+      "validation": {
+        "chooseFile": "Hili arkivu PDF ida.",
+        "tooLarge": "PDF boot liu {size}.",
+        "fileEmpty": "Arkivu mamuk.",
+        "notPdf": "Ne'e la'ós arkivu PDF ne'ebé loos.",
+        "notFound": "Dokumentu la hetan.",
+        "crossOrigin": "Pedidu husi orijen seluk rejeita.",
+        "unreadable": "Labele lee upload. Karik arkivu boot liu?",
+        "malformed": "Pedidu la loos."
+      }
+    },
+    "events": {
+      "metaTitle": "Eventu",
+      "metaEdit": "Edita eventu",
+      "metaAttendees": "Partisipante",
+      "title": "Eventu juventude",
+      "description": "Semináriu, debate no workshop ho lista partisipante. Oras hatudu tuir oras Díli (OTL).",
+      "newEvent": "Eventu foun",
+      "periodNav": "Períodu eventu",
+      "upcoming": "Sei mai",
+      "past": "Liu ona",
+      "all": "Hotu",
+      "table": {
+        "caption": "Eventu",
+        "event": "Eventu",
+        "type": "Tipu",
+        "starts": "Hahú",
+        "seats": "Fatin",
+        "status": "Estatutu",
+        "attendees": "Partisipante"
+      },
+      "online": "Online",
+      "ended": "remata ona",
+      "attendeesLink": "Partisipante",
+      "empty": "La iha eventu iha períodu ida-ne'e.",
+      "types": {
+        "SEMINAR": "Semináriu",
+        "DEBATE": "Debate públiku",
+        "WORKSHOP": "Workshop"
+      },
+      "allEvents": "Eventu hotu",
+      "attendeesCount": "Partisipante ({count})",
+      "readOnly": "Lee de'it: ita-nia papél bele haree eventu maibé labele edita.",
+      "editor": {
+        "saved": "Eventu rai ona.",
+        "checkTabs": "Favór hadia kampu sira ne'ebé marka (haree tab lian hotu).",
+        "whenWhere": "Bainhira no iha ne'ebé — oras hotu tuir oras Díli (Asia/Dili, UTC+09:00)",
+        "starts": "Hahú",
+        "ends": "Remata",
+        "venue": "Fatin",
+        "municipality": "Munisípiu",
+        "municipalityNone": "— la iha / online —",
+        "onlineEvent": "Eventu online",
+        "meetingLink": "Link enkontru",
+        "meetingLinkHint": "Haruka ba partisipante rejistadu; nunka hatudu ba públiku.",
+        "status": "Estatutu",
+        "type": "Tipu",
+        "slugLabel": "Slug URL",
+        "slugHint": "/edukasaun/acara/ita-nia-slug",
+        "generateSlugTitle": "Halo husi títulu Tetun",
+        "generateSlugSr": "Halo slug husi títulu Tetun",
+        "capacity": "Kapasidade (fatin)",
+        "capacityHint": "Ema {count} rejista ona agora.",
+        "registrationOpen": "Rejistu loke",
+        "deadline": "Prazu rejistu",
+        "deadlineHint": "Mamuk = to'o eventu hahú.",
+        "coverImage": "URL imajen kapa",
+        "create": "Kria eventu",
+        "coverImagePlaceholder": "/uploads/… ka https://…"
+      },
+      "attendees": {
+        "backToEvent": "Detalle eventu",
+        "title": "Partisipante · {title}",
+        "summary": "{date} · fatin {active} husi {capacity} okupa ona · {attended} tama ona · {cancelled} kansela",
+        "exportCsv": "Esporta CSV",
+        "searchLabel": "Buka partisipante",
+        "searchPlaceholder": "Naran, email ka kódigu bilhete",
+        "statusLabel": "Estatutu",
+        "allStatuses": "Estatutu hotu",
+        "filter": "Filtra",
+        "caption": "Partisipante eventu",
+        "ticket": "Bilhete",
+        "attendee": "Partisipante",
+        "institution": "Instituisaun",
+        "registered": "Rejista",
+        "attendance": "Prezensa",
+        "empty": "La iha partisipante ne'ebé hanesan.",
+        "attendanceFor": "Prezensa ba {name}"
+      },
+      "fields": {
+        "title": "Títulu",
+        "summary": "Rezumu",
+        "description": "Deskrisaun",
+        "descriptionHint": "Bele uza Markdown (lista ajenda, **negritu**).",
+        "locationDetails": "Dalan / detalle fatin",
+        "locationDetailsHint": "ezemplu “andar 2, besik biblioteka”."
+      },
+      "validation": {
+        "startInvalid": "Hahú: hili data no oras ne'ebé loos.",
+        "endInvalid": "Remata: hili data no oras ne'ebé loos.",
+        "venueMin": "Hakerek fatin ka “Online”.",
+        "httpsLink": "Uza link https://.",
+        "number": "Hakerek númeru ida.",
+        "wholeNumber": "Hakerek númeru tomak.",
+        "minSeat": "Fatin 1 ka liu.",
+        "maxSeats": "Fatin {max} maizumenus.",
+        "deadlineInvalid": "Hili data no oras ne'ebé loos, ka husik mamuk.",
+        "endAfterStart": "Eventu tenke remata depois hahú.",
+        "meetingLinkRequired": "Eventu online presiza link enkontru.",
+        "deadlineBeforeStart": "Prazu tenke molok eventu hahú.",
+        "cannotPublish": "Ita-nia papél labele publika eventu.",
+        "notFound": "Eventu la hetan.",
+        "capacityBelow": "Kapasidade ki'ik liu númeru partisipante rejistadu.",
+        "capacityAtLeast": "Pelumenus {count} — ema hamutuk ne'e rejista tiha ona.",
+        "hasRegistrations": "{count, plural, other {Eventu ida-ne'e iha rejistu #.}} Muda ninia estatutu ba Kansela ona duké hamoos.",
+        "registrationNotFound": "Rejistu la hetan.",
+        "eventFull": "Eventu nakonu ona ({taken}/{capacity}). Aumenta kapasidade uluk."
+      }
+    },
+    "content": {
+      "readOnly": "Lee de'it: ita-nia papél bele haree konteúdu maibé la bele edita.",
+      "checkEveryTab": "Favór hadia kampu sira ne'ebé marka (haree aba lian hotu).",
+      "status": "Status",
+      "displayOrder": "Orden hatudu",
+      "displayOrderHint": "Númeru ki'ik sira mosu uluk.",
+      "validation": {
+        "number": "Hatama númeru ida.",
+        "wholeNumber": "Hatama númeru enteiru ida.",
+        "numberMin": "Tenke pelumenus {min}.",
+        "numberMax": "Tenke maizumenus {max}."
+      },
+      "errors": {
+        "publishForbidden": "Ita-nia papél la bele publika konteúdu.",
+        "slugConflict": "Slug ne'e uza tiha ona.",
+        "slugConflictField": "Slug ne'e uza tiha ona husi item seluk."
+      }
+    },
+    "timeline": {
+      "metaTitle": "Liña tempu",
+      "editMetaTitle": "Edita marku",
+      "heading": "Liña tempu istória",
+      "description": "Marku narrativu sira ne'ebé mosu iha /istoria. Marku destakadu (1980–1999) mosu mós iha pájina inísiu.",
+      "newMilestone": "Marku foun",
+      "create": "Kria marku",
+      "tableCaption": "Marku liña tempu",
+      "columns": {
+        "order": "Orden",
+        "date": "Data",
+        "titleTetun": "Títulu (Tetun)",
+        "languages": "Lian",
+        "status": "Status"
+      },
+      "highlighted": "Destakadu",
+      "empty": "Seidauk iha marku.",
+      "decade": "Tinan {year} sira",
+      "saved": "Marku rai ona.",
+      "datePrecision": "Presizaun data",
+      "datePrecisionHint": "Uza de'it presizaun ne'ebé fonte sira suporta.",
+      "precision": {
+        "DECADE": "Dékada (“tinan 1980 sira”)",
+        "YEAR": "Tinan",
+        "MONTH": "Fulan no tinan",
+        "DAY": "Data loloos"
+      },
+      "year": "Tinan",
+      "month": "Fulan",
+      "day": "Loron",
+      "months": {
+        "1": "Jan",
+        "2": "Fev",
+        "3": "Mar",
+        "4": "Abr",
+        "5": "Mai",
+        "6": "Juñ",
+        "7": "Jul",
+        "8": "Ago",
+        "9": "Set",
+        "10": "Out",
+        "11": "Nov",
+        "12": "Dez"
+      },
+      "anchorSlug": "Slug âncora",
+      "anchorSlugHint": "/istoria#ita-nia-slug",
+      "highlight": "Destaka (prévia iha pájina inísiu)",
+      "imageUrl": "URL imajen",
+      "fields": {
+        "title": "Títulu",
+        "summary": "Rezumu",
+        "body": "Istória kompletu",
+        "bodyHint": "Markdown. Mosu bainhira leitór loke marku.",
+        "imageAlt": "Deskrisaun imajen (testu alternativu)"
+      },
+      "validation": {
+        "monthRequired": "Hili fulan ba presizaun ida-ne'e.",
+        "dayInvalid": "Hatama loron ne'ebé loos ba fulan ida-ne'e."
+      },
+      "errors": {
+        "notFound": "Marku la hetan."
+      }
+    },
+    "leadership": {
+      "metaTitle": "Lideransa",
+      "editMetaTitle": "Edita lider",
+      "heading": "Diretóriu lideransa",
+      "description": "Diresaun Nasionál no koordenadór munisipál sira ne'ebé mosu iha pájina Kona-ba.",
+      "addLeader": "Aumenta lider",
+      "columns": {
+        "name": "Naran",
+        "positionTetun": "Kargu (Tetun)",
+        "level": "Nivel",
+        "term": "Mandatu",
+        "status": "Status"
+      },
+      "levelShort": {
+        "NATIONAL": "Nasionál",
+        "MUNICIPAL": "Munisipál · {municipality}"
+      },
+      "present": "agora",
+      "empty": "Seidauk iha lider.",
+      "saved": "Lider rai ona.",
+      "fullName": "Naran kompletu",
+      "level": "Nivel",
+      "levels": {
+        "NATIONAL": "Diresaun Nasionál",
+        "MUNICIPAL": "Koordenadór munisipál"
+      },
+      "municipality": "Munisípiu",
+      "termStart": "Mandatu husi",
+      "termEnd": "Mandatu to'o",
+      "termEndPlaceholder": "kontinua",
+      "photoUrl": "URL foto",
+      "fields": {
+        "title": "Kargu",
+        "bio": "Biografia badak"
+      },
+      "validation": {
+        "fullNameRequired": "Hatama naran kompletu.",
+        "municipalityRequired": "Koordenadór munisipál presiza munisípiu ida.",
+        "termEndRange": "Rohan mandatu tenke tinan ida entre tinan hahú no 2100."
+      },
+      "errors": {
+        "notFound": "Lider la hetan."
+      }
+    },
+    "profile": {
+      "metaTitle": "Pájina perfil",
+      "editMetaTitle": "Edita seksaun perfil",
+      "heading": "Perfil institusionál",
+      "description": "Seksaun fiksu husi pájina Kona-ba no Istória, iha lian haat.",
+      "tableCaption": "Seksaun perfil",
+      "columns": {
+        "section": "Seksaun",
+        "shownOn": "Mosu iha",
+        "languages": "Lian",
+        "updated": "Atualiza",
+        "status": "Status"
+      },
+      "sections": {
+        "PROFILE": {
+          "label": "Perfil institusionál",
+          "where": "Pájina Kona-ba — introdusaun"
+        },
+        "VISION": {
+          "label": "Vizaun",
+          "where": "Pájina Kona-ba"
+        },
+        "MISSION": {
+          "label": "Misaun",
+          "where": "Pájina Kona-ba — pontu ida kada liña “- ”"
+        },
+        "VALUES": {
+          "label": "Valór no motu",
+          "where": "Pájina Kona-ba"
+        },
+        "HISTORY_INTRO": {
+          "label": "Introdusaun istória",
+          "where": "Kabesallu pájina Istória"
+        }
+      },
+      "notCreated": "Seidauk kria",
+      "saved": "Seksaun rai ona.",
+      "fields": {
+        "title": "Títulu",
+        "body": "Testu",
+        "bodyHint": "Markdown bele uza."
+      }
+    }
   }
 }

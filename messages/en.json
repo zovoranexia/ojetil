@@ -407,5 +407,988 @@
       "form": "Please correct the highlighted fields.",
       "network": "Connection problem. Check your internet and try again."
     }
+  },
+  "admin": {
+    "shell": {
+      "backoffice": "Backoffice",
+      "home": "OJETIL backoffice — overview",
+      "navLabel": "Backoffice",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "viewPublicSite": "View public site",
+      "designSystem": "Design system"
+    },
+    "nav": {
+      "overview": "Overview",
+      "members": "Members & veterans",
+      "news": "News",
+      "documents": "Documents",
+      "events": "Events",
+      "timeline": "Timeline",
+      "leadership": "Leadership",
+      "profilePages": "Profile pages",
+      "users": "Users & roles",
+      "audit": "Audit log"
+    },
+    "topbar": {
+      "scope": "Access",
+      "language": "Language",
+      "darkMode": "Dark mode",
+      "lightMode": "Light mode",
+      "accountMenu": "Account menu",
+      "role": "Role",
+      "changePassword": "Change password",
+      "signOut": "Sign out"
+    },
+    "roles": {
+      "SUPER_ADMIN": {
+        "label": "Super Admin",
+        "short": "Super Admin",
+        "description": "Full system access, including user management."
+      },
+      "VERIFIER": {
+        "label": "Verifier (Secretariat)",
+        "short": "Verifier",
+        "description": "Reviews member and veteran applications."
+      },
+      "EDITOR": {
+        "label": "Editor (Editorial & Programs)",
+        "short": "Editor",
+        "description": "Publishes news, history, leadership and events."
+      },
+      "VIEWER": {
+        "label": "Viewer (Board)",
+        "short": "Viewer",
+        "description": "Read-only oversight with aggregated member data."
+      }
+    },
+    "common": {
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "save": "Save",
+      "saveChanges": "Save changes",
+      "saving": "Saving…",
+      "copy": "Copy",
+      "copied": "Copied",
+      "previous": "Previous",
+      "next": "Next",
+      "pagination": "Pagination",
+      "resultsPage": "{total, plural, one {# result} other {# results}} · page {page} of {pageCount}",
+      "deletePermanentlyTitle": "Delete permanently?",
+      "deletePermanentlyDescription": "This cannot be undone. The deletion is recorded in the audit log."
+    },
+    "translationTabs": {
+      "contentLanguage": "Content language",
+      "hasErrors": "has errors",
+      "complete": "complete",
+      "required": "required",
+      "optional": "optional",
+      "fallbackHint": "Leave every field empty to show the Tetun version to {language} readers."
+    },
+    "status": {
+      "member": {
+        "PENDING_VERIFICATION": "Pending verification",
+        "NEEDS_REVISION": "Needs revision",
+        "VERIFIED": "Verified",
+        "REJECTED": "Rejected"
+      },
+      "content": {
+        "DRAFT": "Draft",
+        "PUBLISHED": "Published",
+        "ARCHIVED": "Archived",
+        "CANCELLED": "Cancelled"
+      },
+      "attendee": {
+        "REGISTERED": "Registered",
+        "CANCELLED": "Cancelled",
+        "ATTENDED": "Attended"
+      },
+      "category": {
+        "VETERAN_KLANDESTIN": "Veteran",
+        "ANGGOTA_PEMUDA": "Youth"
+      }
+    },
+    "errors": {
+      "validation": "Please correct the highlighted fields.",
+      "internal": "Something went wrong. Please try again.",
+      "unauthorized": "Authentication required.",
+      "forbidden": "You do not have permission to perform this action.",
+      "mustChangePassword": "Choose a new password before continuing.",
+      "loginFailed": "Email or password is incorrect, or the account is temporarily locked. After 5 failed attempts an account is locked for 15 minutes."
+    },
+    "validation": {
+      "required": "This field is required.",
+      "maxChars": "Use at most {max} characters.",
+      "requiredTetun": "Required in Tetun.",
+      "requiredOnceStarted": "Required once this language is started.",
+      "slugMin": "Slug must be at least 3 characters.",
+      "slugMax": "Slug is too long.",
+      "slugPattern": "Use lowercase letters, numbers and single hyphens only.",
+      "imageUrl": "Use a site path starting with / or an https:// URL.",
+      "email": "Enter a valid email address.",
+      "url": "Enter a valid https:// URL.",
+      "date": "Enter a valid date."
+    },
+    "auth": {
+      "metaTitle": "Staff sign-in",
+      "title": "Staff sign-in",
+      "intro": "Use the account issued to you by the OJETIL Secretariat.",
+      "staffOnly": "Authorised OJETIL staff only. Every sign-in and every access to member data is recorded.",
+      "passwordChanged": "Password changed. Sign in with your new password.",
+      "email": "Email",
+      "password": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "signIn": "Sign in",
+      "signingIn": "Signing in…",
+      "validation": {
+        "emailRequired": "Enter your email address.",
+        "passwordRequired": "Enter your password."
+      }
+    },
+    "account": {
+      "metaTitle": "Change password",
+      "backofficeName": "OJETIL Backoffice",
+      "title": "Change password",
+      "titleMustChange": "Choose your own password",
+      "intro": "Signed in as {email}. You will be asked to sign in again with the new password.",
+      "introMustChange": "You signed in with a temporary password issued by an administrator. Set a personal password to continue — no one else should know it.",
+      "backToBackoffice": "Back to the backoffice",
+      "signOut": "Sign out",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "newPasswordHint": "At least 12 characters, upper- and lower-case, and a number or symbol.",
+      "confirmPassword": "Repeat new password",
+      "submit": "Change password",
+      "validation": {
+        "currentRequired": "Enter your current password.",
+        "mismatch": "The two new passwords do not match.",
+        "sameAsCurrent": "Choose a password different from the current one.",
+        "minLength": "Use at least {min} characters.",
+        "mixedCase": "Mix upper- and lower-case letters.",
+        "numberOrSymbol": "Include a number or a symbol."
+      },
+      "errors": {
+        "currentIncorrect": "Your current password is incorrect.",
+        "incorrectPassword": "Incorrect password.",
+        "sessionExpired": "Your session has expired. Please sign in again."
+      }
+    },
+    "forbidden": {
+      "metaTitle": "Access denied",
+      "title": "Access denied",
+      "roleDenied": "Your role — {role} — does not include access to this area. If you need it, ask a Super Admin.",
+      "signInRequired": "You need to sign in with an authorised account to view this area.",
+      "backToDashboard": "Back to dashboard",
+      "signInAsOther": "Sign in as someone else",
+      "signIn": "Sign in"
+    },
+    "users": {
+      "metaTitle": "Users & roles",
+      "title": "Users & roles",
+      "description": "Staff accounts are never deleted — deactivate them to preserve the audit trail. Role changes and deactivation sign the person out immediately.",
+      "addTitle": "Add staff account",
+      "tableCaption": "Staff accounts",
+      "columns": {
+        "user": "User",
+        "role": "Role",
+        "lastSignIn": "Last sign-in",
+        "status": "Status",
+        "manage": "Manage"
+      },
+      "state": {
+        "active": "Active",
+        "locked": "Locked",
+        "deactivated": "Deactivated"
+      },
+      "fields": {
+        "name": "Full name",
+        "email": "Email",
+        "role": "Role"
+      },
+      "create": "Create",
+      "created": "Account created for {email}.",
+      "temporaryPasswordFor": "Temporary password for {email}",
+      "newTemporaryPassword": "New temporary password",
+      "oneTimeNote": "Shown only once. Give it to the person through a secure channel; they should keep it private.",
+      "self": "This is you — another Super Admin must change your account.",
+      "roleFor": "Role for {name}",
+      "deactivate": "Deactivate",
+      "reactivate": "Reactivate",
+      "deactivateTitle": "Deactivate {name}?",
+      "reactivateTitle": "Reactivate {name}?",
+      "deactivateDescription": "They are signed out immediately and cannot sign in until reactivated. Their audit history is kept.",
+      "reactivateDescription": "They can sign in again with their current password.",
+      "resetPassword": "Reset password",
+      "resetTitle": "Reset password for {name}?",
+      "resetDescription": "A new temporary password is generated, the account is unlocked and all their sessions end.",
+      "validation": {
+        "nameRequired": "Enter the full name.",
+        "roleRequired": "Choose a role."
+      },
+      "errors": {
+        "emailExists": "An account with this email already exists.",
+        "emailInUse": "Already in use.",
+        "notFound": "User not found.",
+        "ownRole": "You cannot change your own role.",
+        "ownDeactivate": "You cannot deactivate your own account.",
+        "ownReset": "Use “Change password” for your own account.",
+        "lastSuperAdminRole": "This is the last active Super Admin; promote someone else first.",
+        "lastSuperAdminDeactivate": "This is the last active Super Admin and cannot be deactivated."
+      }
+    },
+    "dashboard": {
+      "metaTitle": "Overview",
+      "welcome": "Welcome, {name}",
+      "description": "Organisation-wide overview. Figures are aggregates and contain no personal data.",
+      "kpis": {
+        "verified": "Verified members",
+        "pending": "Pending verification",
+        "awaitingRevision": "+ {count} awaiting revision",
+        "activeEvents": "Active events",
+        "eventRegistrations": "Event registrations"
+      },
+      "municipality": {
+        "title": "Members by municipality",
+        "description": "Verified and in-progress applications (rejected excluded).",
+        "municipality": "Municipality",
+        "verified": "Verified",
+        "inProgress": "In progress"
+      },
+      "activity": {
+        "title": "Recent activity",
+        "fromAudit": "From the audit log",
+        "latestContent": "Latest content changes",
+        "viewAll": "View all",
+        "empty": "No activity yet.",
+        "systemActor": "System / public",
+        "news": "News",
+        "event": "Event"
+      }
+    },
+    "audit": {
+      "metaTitle": "Audit log",
+      "title": "Audit log",
+      "description": "Append-only record of sign-ins, personal-data access, verification decisions, exports, publishing and account changes. Entries cannot be edited or deleted.",
+      "roleRestricted": "Your role ({role}) sees verification entries only.",
+      "filters": {
+        "category": "Category",
+        "allCategories": "All categories",
+        "action": "Action",
+        "allActions": "All actions",
+        "actorEmail": "Actor email",
+        "fromDate": "From date",
+        "toDate": "To date",
+        "submit": "Filter"
+      },
+      "categories": {
+        "AUTH": "Authentication",
+        "VERIFICATION": "Verification",
+        "CONTENT": "Content",
+        "EVENTS": "Events",
+        "USERS": "Users",
+        "SYSTEM": "System"
+      },
+      "table": {
+        "caption": "Audit log entries",
+        "when": "When (Díli)",
+        "actor": "Actor",
+        "action": "Action",
+        "target": "Target & details",
+        "ip": "IP",
+        "details": "Details",
+        "systemActor": "System / public",
+        "empty": "No entries match these filters."
+      },
+      "actions": {
+        "LOGIN_SUCCEEDED": "Signed in",
+        "LOGIN_FAILED": "Failed sign-in",
+        "LOGOUT": "Signed out",
+        "ACCOUNT_LOCKED": "Account locked",
+        "MEMBER_PII_VIEWED": "Viewed member personal data",
+        "MEMBER_STATUS_CHANGED": "Changed member status",
+        "MEMBER_EXPORTED": "Exported verified members",
+        "CONTENT_CREATED": "Created content",
+        "CONTENT_UPDATED": "Updated content",
+        "CONTENT_PUBLISHED": "Published content",
+        "CONTENT_UNPUBLISHED": "Unpublished content",
+        "CONTENT_DELETED": "Deleted content",
+        "MEDIA_UPLOADED": "Uploaded image",
+        "EVENT_CREATED": "Created event",
+        "EVENT_UPDATED": "Updated event",
+        "EVENT_PUBLISHED": "Published event",
+        "EVENT_UNPUBLISHED": "Unpublished event",
+        "EVENT_CANCELLED": "Cancelled event",
+        "EVENT_DELETED": "Deleted event",
+        "EVENT_ATTENDEES_EXPORTED": "Exported event attendees",
+        "EVENT_ATTENDANCE_UPDATED": "Updated event attendance",
+        "USER_CREATED": "Created user",
+        "USER_ROLE_CHANGED": "Changed user role",
+        "USER_DEACTIVATED": "Deactivated user",
+        "USER_REACTIVATED": "Reactivated user",
+        "USER_PASSWORD_RESET": "Reset user password",
+        "USER_PASSWORD_CHANGED": "Changed own password",
+        "SEED_EXECUTED": "Database seeded"
+      }
+    },
+    "designSystem": {
+      "metaTitle": "Design system",
+      "badge": "Design system",
+      "title": "Dignified Archive,",
+      "titleAccent": "Next-Generation Energy",
+      "intro": "Token reference for the OJETIL web platform. Diacritics check:",
+      "colours": "Colour tokens",
+      "swatchUse": {
+        "redPrimary": "Primary CTA, active states, timeline accents",
+        "redHover": "Primary hover / pressed",
+        "inkPrimary": "Text, headings, footer, editorial buttons",
+        "inkSecondary": "Metadata, timestamps, labels",
+        "goldAccent": "Accents on ink surfaces ONLY",
+        "goldText": "Ochre text & badges on light surfaces",
+        "surfacePaper": "Public page canvas",
+        "surfaceCard": "Cards, modals, admin workspace",
+        "borderSubtle": "Borders, dividers, inputs"
+      },
+      "status": "Status semantics",
+      "inkSurface": "On ink surfaces the gold accent is permitted:",
+      "typography": "Typography",
+      "typographyBody": "Plus Jakarta Sans for interface and body copy.",
+      "tabularNumerals": "Tabular numerals:",
+      "controls": "Controls (≥ 44px tap targets)"
+    },
+    "members": {
+      "metaTitle": "Members & veterans",
+      "aggregates": {
+        "description": "Aggregated figures. Individual records are restricted to the Secretariat.",
+        "byTrack": "By track",
+        "byTrackCaption": "Applications by track",
+        "applications": "Applications",
+        "verified": "Verified",
+        "byMunicipality": "By municipality",
+        "byMunicipalityCaption": "Applications by municipality",
+        "inProgress": "In progress"
+      },
+      "queue": {
+        "title": "Verification queue",
+        "description": "Member and veteran applications. Personal data stays encrypted until you open a record and reveal it.",
+        "export": "Export verified (CSV)",
+        "search": "Search",
+        "searchPlaceholder": "Name, clandestine name, tracking code or BI number",
+        "allStatuses": "All statuses",
+        "allTracks": "All tracks",
+        "allMunicipalities": "All municipalities",
+        "filter": "Filter",
+        "tableCaption": "Member applications",
+        "possibleDuplicate": "Possible duplicate",
+        "empty": "No applications match these filters."
+      },
+      "columns": {
+        "trackingCode": "Tracking code",
+        "applicant": "Applicant",
+        "track": "Track",
+        "municipality": "Municipality",
+        "submitted": "Submitted",
+        "status": "Status"
+      },
+      "detail": {
+        "metaTitle": "Application",
+        "subtitle": "{code} · submitted {date}",
+        "duplicateWarning": "{count, plural, one {Possible duplicate — the same national ID appears on # other application:} other {Possible duplicate — the same national ID appears on # other applications:}}",
+        "identity": "Identity & residence",
+        "personalData": "Personal data (encrypted)",
+        "veteranBackground": "Clandestine-era background",
+        "youthBackground": "Youth member background",
+        "decision": "Decision",
+        "history": "Verification history",
+        "noPiiAccess": "Your role cannot view encrypted personal data.",
+        "currentStatus": "Current status: {status}",
+        "byActor": "by {name}",
+        "submittedByApplicant": "Submitted by applicant",
+        "consentGiven": "Given {date} (notice {version})"
+      },
+      "fields": {
+        "fullName": "Full name",
+        "clandestineAlias": "Clandestine name",
+        "dateOfBirth": "Date of birth",
+        "gender": "Gender",
+        "municipality": "Municipality",
+        "administrativePost": "Administrative post",
+        "email": "Email",
+        "submittedIn": "Submitted in",
+        "yearJoined": "Year joined",
+        "region": "Region",
+        "cell": "Cell / network",
+        "witness": "Witness / comrade reference",
+        "institution": "School / university / occupation",
+        "interests": "Interests",
+        "motivation": "Motivation",
+        "consent": "Consent"
+      },
+      "genders": {
+        "MALE": "Male",
+        "FEMALE": "Female",
+        "PREFER_NOT_TO_SAY": "Prefer not to say"
+      },
+      "interestAreas": {
+        "EDUCATION": "Education",
+        "ADVOCACY": "Advocacy",
+        "MEDIA": "Media",
+        "COMMUNITY_SERVICE": "Community service"
+      },
+      "pii": {
+        "intro": "Address, phone and national ID are encrypted. Revealing them is recorded in the audit log with your name.",
+        "introWithPhoto": "Address, phone, national ID and photo are encrypted. Revealing them is recorded in the audit log with your name.",
+        "reveal": "Reveal personal data",
+        "photoAlt": "Applicant photo",
+        "phone": "Phone / WhatsApp",
+        "nationalId": "Bilhete de Identidade",
+        "address": "Residential address",
+        "hide": "Hide"
+      },
+      "decision": {
+        "approve": "Approve",
+        "approveConfirm": "Approve and verify this application?",
+        "revise": "Request revision",
+        "reviseConfirm": "Ask the applicant for more information?",
+        "reject": "Reject",
+        "rejectConfirm": "Reject this application?",
+        "noteLabel": "Reason / note",
+        "noteHint": "Required for every decision. For “Request revision” and “Reject” this note is shown to the applicant on the public status page — write it for them.",
+        "confirmDescription": "Note: “{note}”. This is recorded in the verification history and audit log.",
+        "tooShort": "Write a note (5+ characters) to enable the decision buttons.",
+        "success": "Status updated for {code}."
+      },
+      "validation": {
+        "noteMin": "Write a short reason (at least 5 characters)."
+      },
+      "errors": {
+        "notFound": "Registration not found.",
+        "conflict": "This application was updated by someone else. Reload the page to see the latest status.",
+        "alreadyStatus": "The application already has this status."
+      }
+    },
+    "news": {
+      "meta": {
+        "list": "News",
+        "edit": "Edit post",
+        "new": "New post"
+      },
+      "list": {
+        "title": "News & press releases",
+        "description": "Each article is edited in Tetun, Portuguese, Indonesian and English.",
+        "newArticle": "New article",
+        "search": "Search",
+        "searchPlaceholder": "Search title or slug",
+        "status": "Status",
+        "allStatuses": "All statuses",
+        "filter": "Filter",
+        "caption": "News articles",
+        "colTitle": "Title (Tetun)",
+        "colCategory": "Category",
+        "colLanguages": "Languages",
+        "colPublished": "Published",
+        "colUpdated": "Updated",
+        "colStatus": "Status",
+        "featured": "Featured",
+        "empty": "No articles found."
+      },
+      "edit": {
+        "back": "News & articles",
+        "newTitle": "New post",
+        "savedNotice": "Draft saved. You can now publish or schedule it.",
+        "readOnly": "Read-only: your role can view content but not edit it."
+      },
+      "categories": {
+        "ORGANIZATION": "Organisation",
+        "CIVIC_EDUCATION": "Civic education",
+        "YOUTH": "Youth",
+        "COMMEMORATION": "Commemoration",
+        "PRESS_RELEASE": "Press release"
+      },
+      "languages": {
+        "TET": "Tetun",
+        "PT": "Portuguese",
+        "ID": "Indonesian",
+        "EN": "English"
+      },
+      "fields": {
+        "title": "Title",
+        "excerpt": "Summary",
+        "excerptHint": "One or two sentences shown on cards and in search results.",
+        "body": "Content",
+        "coverImageAlt": "Cover image description (alt text)",
+        "coverImageAltHint": "Describe the cover image for people who cannot see it.",
+        "slug": "Address (slug)",
+        "slugHint": "Optional — generated from the title. Letters, numbers and dashes only. Shared by all languages.",
+        "category": "Type",
+        "municipality": "Municipality",
+        "municipalityHint": "Optional — for news about a specific municipality.",
+        "municipalityNone": "National (no municipality)",
+        "document": "PDF attachment",
+        "documentHint": "A published document from the Documents section.",
+        "documentNone": "— None —",
+        "documentUnpublished": " — unpublished, hidden on the site",
+        "byline": "Byline",
+        "bylineHint": "Optional — e.g. the author's name for opinion articles.",
+        "tags": "Tags",
+        "tagsHint": "Separate with commas.",
+        "isFeatured": "Feature on the home page",
+        "coverImage": "Cover image"
+      },
+      "editor": {
+        "contentSection": "Content",
+        "contentLanguage": "Content language",
+        "localeState": {
+          "complete": "filled in",
+          "partial": "incomplete",
+          "error": "has errors",
+          "empty": "empty"
+        },
+        "primaryHint": "Tetun is the primary language. Others are optional — empty ones fall back to Tetun.",
+        "coverReplace": "Replace",
+        "coverRemove": "Remove",
+        "coverUploading": "Uploading…",
+        "coverChoose": "Choose…",
+        "coverHint": "JPEG, PNG or WebP up to {mb} MB. Resized and compressed automatically; hidden in Low-Data Mode.",
+        "publishing": "Publishing",
+        "scheduled": "Scheduled",
+        "publishedLabel": "Published:",
+        "publishLabel": "Publish:",
+        "immediately": "immediately",
+        "editDate": "Edit",
+        "doneDate": "Done",
+        "dateLabel": "Date and time in Díli (UTC+9). A future time schedules the article.",
+        "keepOriginalDate": "Keep original date",
+        "publishImmediately": "Publish immediately",
+        "saveDraft": "Save draft",
+        "update": "Update",
+        "saveFirst": "Save the draft first; publishing options appear afterwards.",
+        "unpublish": "Unpublish",
+        "schedule": "Schedule",
+        "publish": "Publish",
+        "cannotPublish": "Your role cannot publish.",
+        "viewOnSite": "View on site",
+        "deleteArticle": "Delete article",
+        "details": "Details"
+      },
+      "toast": {
+        "saved": "Article saved.",
+        "unpublished": "Article unpublished — it is a draft again.",
+        "scheduled": "Article scheduled.",
+        "published": "Article published."
+      },
+      "validation": {
+        "checkAllTabs": "Please correct the highlighted fields (check every language tab).",
+        "categoryRequired": "Choose a type.",
+        "tagsMax": "At most {max} tags.",
+        "checkDate": "Check the publication date.",
+        "invalidDate": "Invalid date and time.",
+        "slugNoFree": "Could not generate a free address; enter one manually.",
+        "slugDifferent": "Enter a different address.",
+        "slugRequired": "Enter an address (slug).",
+        "slugTitleTooShort": "The title is too short to generate an address; enter one manually.",
+        "documentNotPublished": "Only published documents can be attached.",
+        "documentChoosePublished": "Choose a published document."
+      },
+      "errors": {
+        "cannotPublish": "Your role cannot publish content.",
+        "notFound": "Article not found."
+      }
+    },
+    "richText": {
+      "placeholder": "Start writing…",
+      "toolbar": {
+        "label": "Formatting",
+        "heading2": "Heading 2",
+        "heading3": "Heading 3",
+        "bold": "Bold",
+        "italic": "Italic",
+        "underline": "Underline",
+        "strike": "Strikethrough",
+        "alignLeft": "Align left",
+        "alignCenter": "Align centre",
+        "alignRight": "Align right",
+        "justify": "Justify",
+        "bulletList": "Bulleted list",
+        "orderedList": "Numbered list",
+        "quote": "Quote",
+        "horizontalRule": "Horizontal line",
+        "link": "Link",
+        "insertImage": "Insert image",
+        "uploadingImage": "Uploading image…",
+        "embedVideo": "Embed video (YouTube or Vimeo)",
+        "undo": "Undo",
+        "redo": "Redo"
+      },
+      "prompt": {
+        "link": "Link address",
+        "video": "YouTube or Vimeo URL",
+        "alt": "Describe the image (alt text)",
+        "insert": "Insert",
+        "apply": "Apply",
+        "removeLink": "Remove link",
+        "skip": "Skip"
+      },
+      "errors": {
+        "linkInvalid": "Use a full address starting with https:// (or mailto:).",
+        "videoInvalid": "Only YouTube and Vimeo links can be embedded."
+      },
+      "upload": {
+        "notImage": "Choose an image file (JPEG, PNG, WebP, GIF or AVIF).",
+        "tooLarge": "The image is larger than {mb} MB.",
+        "failed": "Upload failed. Please try again.",
+        "network": "Upload failed. Check your connection and try again.",
+        "unreadable": "Upload could not be read. Is the file too large?",
+        "noFile": "Choose an image to upload.",
+        "invalidSize": "The image is empty or larger than {mb} MB.",
+        "invalidType": "This file is not a supported image (JPEG, PNG, WebP, GIF or AVIF)."
+      }
+    },
+    "documents": {
+      "metaTitle": "Documents",
+      "metaTitleOne": "Document",
+      "title": "Documents",
+      "description": "PDF library: statutes, reports, statements. Published documents can be downloaded publicly and attached to news articles.",
+      "upload": "Upload document",
+      "search": "Search",
+      "searchPlaceholder": "Search title, slug or file name",
+      "statusLabel": "Status",
+      "allStatuses": "All statuses",
+      "filter": "Filter",
+      "table": {
+        "caption": "Documents",
+        "title": "Title (Tetun)",
+        "file": "File",
+        "languages": "Languages",
+        "usedIn": "Used in",
+        "updated": "Updated",
+        "status": "Status"
+      },
+      "usedInArticles": "{count, plural, one {# article} other {# articles}}",
+      "empty": "No documents yet.",
+      "allDocuments": "All documents",
+      "newTitle": "New document",
+      "uploadedDraft": "Document uploaded as a draft.",
+      "editDescription": "PDF documents can be published for download and attached to news articles.",
+      "readOnly": "Read-only: your role can view documents but not edit them.",
+      "editor": {
+        "chooseFileToUpload": "Choose a PDF file to upload.",
+        "uploadFailed": "Upload failed. Check your connection and the file size, then try again.",
+        "saved": "Document saved.",
+        "checkTabs": "Please correct the highlighted fields (check every language tab).",
+        "fileLabel": "PDF file",
+        "fileHint": "PDF only, up to {size}.",
+        "chooseReplacement": "Choose a new PDF to replace the current file…",
+        "choosePdf": "Choose a PDF…",
+        "currentFile": "Current file:",
+        "open": "Open",
+        "publishing": "Publishing",
+        "slugLabel": "Address (slug)",
+        "slugHint": "Letters, numbers and dashes only.",
+        "generateSlugTitle": "Generate from the Tetun title",
+        "generateSlugSr": "Generate slug from Tetun title",
+        "uploadAndSave": "Upload & save draft",
+        "saveDraftFirst": "Save the draft first; publishing options appear afterwards.",
+        "publish": "Publish",
+        "unpublish": "Unpublish",
+        "publishedToast": "Document published.",
+        "unpublishedToast": "Document unpublished.",
+        "publicLink": "Public download link",
+        "deleteTitle": "Delete this document?",
+        "deleteAttached": "{count, plural, one {It is attached to # article; it will lose the attachment.} other {It is attached to # articles; they will lose the attachment.}} This cannot be undone and is recorded in the audit log.",
+        "deleteUnattached": "The PDF file is removed permanently. This cannot be undone and is recorded in the audit log."
+      },
+      "fields": {
+        "title": "Title",
+        "description": "Description",
+        "descriptionHint": "Optional. One or two sentences about the document."
+      },
+      "validation": {
+        "chooseFile": "Choose a PDF file.",
+        "tooLarge": "The PDF is larger than {size}.",
+        "fileEmpty": "The file is empty.",
+        "notPdf": "This is not a valid PDF file.",
+        "notFound": "Document not found.",
+        "crossOrigin": "Cross-origin request rejected.",
+        "unreadable": "Upload could not be read. Is the file too large?",
+        "malformed": "Malformed request."
+      }
+    },
+    "events": {
+      "metaTitle": "Events",
+      "metaEdit": "Edit event",
+      "metaAttendees": "Attendees",
+      "title": "Youth events",
+      "description": "Seminars, debates and workshops with attendee rosters. Times shown in Díli time (OTL).",
+      "newEvent": "New event",
+      "periodNav": "Event period",
+      "upcoming": "Upcoming",
+      "past": "Past",
+      "all": "All",
+      "table": {
+        "caption": "Events",
+        "event": "Event",
+        "type": "Type",
+        "starts": "Starts",
+        "seats": "Seats",
+        "status": "Status",
+        "attendees": "Attendees"
+      },
+      "online": "Online",
+      "ended": "ended",
+      "attendeesLink": "Attendees",
+      "empty": "No events in this period.",
+      "types": {
+        "SEMINAR": "Seminar",
+        "DEBATE": "Public debate",
+        "WORKSHOP": "Workshop"
+      },
+      "allEvents": "All events",
+      "attendeesCount": "Attendees ({count})",
+      "readOnly": "Read-only: your role can view events but not edit them.",
+      "editor": {
+        "saved": "Event saved.",
+        "checkTabs": "Please correct the highlighted fields (check every language tab).",
+        "whenWhere": "When & where — all times are Díli time (Asia/Dili, UTC+09:00)",
+        "starts": "Starts",
+        "ends": "Ends",
+        "venue": "Venue",
+        "municipality": "Municipality",
+        "municipalityNone": "— none / online —",
+        "onlineEvent": "Online event",
+        "meetingLink": "Meeting link",
+        "meetingLinkHint": "Sent to registered attendees; never shown publicly.",
+        "status": "Status",
+        "type": "Type",
+        "slugLabel": "URL slug",
+        "slugHint": "/edukasaun/acara/your-slug",
+        "generateSlugTitle": "Generate from the Tetun title",
+        "generateSlugSr": "Generate slug from Tetun title",
+        "capacity": "Capacity (seats)",
+        "capacityHint": "{count} currently registered.",
+        "registrationOpen": "Registration open",
+        "deadline": "Registration deadline",
+        "deadlineHint": "Empty = until the event starts.",
+        "coverImage": "Cover image URL",
+        "create": "Create event",
+        "coverImagePlaceholder": "/uploads/… or https://…"
+      },
+      "attendees": {
+        "backToEvent": "Event details",
+        "title": "Attendees · {title}",
+        "summary": "{date} · {active} of {capacity} seats taken · {attended} checked in · {cancelled} cancelled",
+        "exportCsv": "Export CSV",
+        "searchLabel": "Search attendees",
+        "searchPlaceholder": "Name, email or ticket code",
+        "statusLabel": "Status",
+        "allStatuses": "All statuses",
+        "filter": "Filter",
+        "caption": "Event attendees",
+        "ticket": "Ticket",
+        "attendee": "Attendee",
+        "institution": "Institution",
+        "registered": "Registered",
+        "attendance": "Attendance",
+        "empty": "No attendees match.",
+        "attendanceFor": "Attendance for {name}"
+      },
+      "fields": {
+        "title": "Title",
+        "summary": "Summary",
+        "description": "Description",
+        "descriptionHint": "Markdown supported (agenda lists, **bold**).",
+        "locationDetails": "Directions / location details",
+        "locationDetailsHint": "e.g. “2nd floor, next to the library”."
+      },
+      "validation": {
+        "startInvalid": "Start: choose a valid date and time.",
+        "endInvalid": "End: choose a valid date and time.",
+        "venueMin": "Enter the venue or “Online”.",
+        "httpsLink": "Use an https:// link.",
+        "number": "Enter a number.",
+        "wholeNumber": "Enter a whole number.",
+        "minSeat": "At least 1 seat.",
+        "maxSeats": "At most {max} seats.",
+        "deadlineInvalid": "Choose a valid date and time, or leave empty.",
+        "endAfterStart": "The event must end after it starts.",
+        "meetingLinkRequired": "Online events need a meeting link.",
+        "deadlineBeforeStart": "The deadline must be before the start.",
+        "cannotPublish": "Your role cannot publish events.",
+        "notFound": "Event not found.",
+        "capacityBelow": "Capacity is below the number of registered attendees.",
+        "capacityAtLeast": "At least {count} — that many people are already registered.",
+        "hasRegistrations": "{count, plural, one {This event has # registration.} other {This event has # registrations.}} Set its status to Cancelled instead of deleting it.",
+        "registrationNotFound": "Registration not found.",
+        "eventFull": "The event is full ({taken}/{capacity}). Raise the capacity first."
+      }
+    },
+    "content": {
+      "readOnly": "Read-only: your role can view content but not edit it.",
+      "checkEveryTab": "Please correct the highlighted fields (check every language tab).",
+      "status": "Status",
+      "displayOrder": "Display order",
+      "displayOrderHint": "Lower numbers appear first.",
+      "validation": {
+        "number": "Enter a number.",
+        "wholeNumber": "Enter a whole number.",
+        "numberMin": "Must be at least {min}.",
+        "numberMax": "Must be at most {max}."
+      },
+      "errors": {
+        "publishForbidden": "Your role cannot publish content.",
+        "slugConflict": "That slug is already used.",
+        "slugConflictField": "That slug is already used by another item."
+      }
+    },
+    "timeline": {
+      "metaTitle": "Timeline",
+      "editMetaTitle": "Edit milestone",
+      "heading": "History timeline",
+      "description": "Narrative milestones shown on /istoria. Highlighted milestones (1980–1999) also appear on the home page.",
+      "newMilestone": "New milestone",
+      "create": "Create milestone",
+      "tableCaption": "Timeline milestones",
+      "columns": {
+        "order": "Order",
+        "date": "Date",
+        "titleTetun": "Title (Tetun)",
+        "languages": "Languages",
+        "status": "Status"
+      },
+      "highlighted": "Highlighted",
+      "empty": "No milestones yet.",
+      "decade": "{year}s",
+      "saved": "Milestone saved.",
+      "datePrecision": "Date precision",
+      "datePrecisionHint": "Only claim the precision the sources support.",
+      "precision": {
+        "DECADE": "Decade (“1980s”)",
+        "YEAR": "Year",
+        "MONTH": "Month & year",
+        "DAY": "Exact date"
+      },
+      "year": "Year",
+      "month": "Month",
+      "day": "Day",
+      "months": {
+        "1": "Jan",
+        "2": "Feb",
+        "3": "Mar",
+        "4": "Apr",
+        "5": "May",
+        "6": "Jun",
+        "7": "Jul",
+        "8": "Aug",
+        "9": "Sep",
+        "10": "Oct",
+        "11": "Nov",
+        "12": "Dec"
+      },
+      "anchorSlug": "Anchor slug",
+      "anchorSlugHint": "/istoria#your-slug",
+      "highlight": "Highlight (home page teaser)",
+      "imageUrl": "Image URL",
+      "fields": {
+        "title": "Title",
+        "summary": "Summary",
+        "body": "Full story",
+        "bodyHint": "Markdown. Shown when the reader expands the milestone.",
+        "imageAlt": "Image description (alt text)"
+      },
+      "validation": {
+        "monthRequired": "Choose the month for this precision.",
+        "dayInvalid": "Enter a valid day for this month."
+      },
+      "errors": {
+        "notFound": "Milestone not found."
+      }
+    },
+    "leadership": {
+      "metaTitle": "Leadership",
+      "editMetaTitle": "Edit leader",
+      "heading": "Leadership directory",
+      "description": "National Directorate and municipal coordinators shown on the About page.",
+      "addLeader": "Add leader",
+      "columns": {
+        "name": "Name",
+        "positionTetun": "Position (Tetun)",
+        "level": "Level",
+        "term": "Term",
+        "status": "Status"
+      },
+      "levelShort": {
+        "NATIONAL": "National",
+        "MUNICIPAL": "Municipal · {municipality}"
+      },
+      "present": "present",
+      "empty": "No leaders yet.",
+      "saved": "Leader saved.",
+      "fullName": "Full name",
+      "level": "Level",
+      "levels": {
+        "NATIONAL": "National Directorate",
+        "MUNICIPAL": "Municipal coordinator"
+      },
+      "municipality": "Municipality",
+      "termStart": "Term from",
+      "termEnd": "Term to",
+      "termEndPlaceholder": "ongoing",
+      "photoUrl": "Photo URL",
+      "fields": {
+        "title": "Position title",
+        "bio": "Short biography"
+      },
+      "validation": {
+        "fullNameRequired": "Enter the full name.",
+        "municipalityRequired": "Municipal coordinators need a municipality.",
+        "termEndRange": "Term end must be a year between the start year and 2100."
+      },
+      "errors": {
+        "notFound": "Leader not found."
+      }
+    },
+    "profile": {
+      "metaTitle": "Profile pages",
+      "editMetaTitle": "Edit profile section",
+      "heading": "Institutional profile",
+      "description": "Fixed sections of the About and History pages, in four languages.",
+      "tableCaption": "Profile sections",
+      "columns": {
+        "section": "Section",
+        "shownOn": "Shown on",
+        "languages": "Languages",
+        "updated": "Updated",
+        "status": "Status"
+      },
+      "sections": {
+        "PROFILE": {
+          "label": "Institutional profile",
+          "where": "About page — introduction"
+        },
+        "VISION": {
+          "label": "Vision",
+          "where": "About page"
+        },
+        "MISSION": {
+          "label": "Mission",
+          "where": "About page — one point per “- ” line"
+        },
+        "VALUES": {
+          "label": "Values & motto",
+          "where": "About page"
+        },
+        "HISTORY_INTRO": {
+          "label": "History introduction",
+          "where": "History page header"
+        }
+      },
+      "notCreated": "Not created",
+      "saved": "Section saved.",
+      "fields": {
+        "title": "Title",
+        "body": "Text",
+        "bodyHint": "Markdown supported."
+      }
+    }
   }
 }

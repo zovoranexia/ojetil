@@ -4,6 +4,7 @@ import { Prisma, type PrismaClient, type Role } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { ActionError, authorizedAction } from "@/lib/actions";
 import { db } from "@/lib/db";
+import { msg } from "@/lib/i18n-message";
 import { hashPassword } from "@/lib/security/password";
 import { generateTemporaryPassword } from "@/lib/security/password-generator";
 import { recordAudit } from "@/modules/audit/service";
@@ -40,7 +41,7 @@ export const createStaffUser = authorizedAction("users:manage", createUserSchema
     return { id: user.id, email: input.email, temporaryPassword };
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
-      throw new ActionError("CONFLICT", "An account with this email already exists.", { email: ["Already in use."] });
+      throw new ActionError("CONFLICT", msg("admin.users.errors.emailExists"), { email: [msg("admin.users.errors.emailInUse")] });
     }
     throw error;
   }
@@ -48,12 +49,12 @@ export const createStaffUser = authorizedAction("users:manage", createUserSchema
 
 /** Role change bumps sessionVersion, so the user's open sessions end immediately. */
 export const changeStaffRole = authorizedAction("users:manage", changeRoleSchema, async ({ id, role }, actor) => {
-  if (id === actor.id) throw new ActionError("FORBIDDEN", "You cannot change your own role.");
+  if (id === actor.id) throw new ActionError("FORBIDDEN", msg("admin.users.errors.ownRole"));
   const result = await db.$transaction(async (tx) => {
     const user = await tx.user.findUnique({ where: { id }, select: { email: true, role: true } });
-    if (!user) throw new ActionError("NOT_FOUND", "User not found.");
+    if (!user) throw new ActionError("NOT_FOUND", msg("admin.users.errors.notFound"));
     if (user.role === role) return { role };
-    if (role !== "SUPER_ADMIN") await assertNotLastSuperAdmin(tx, id, "This is the last active Super Admin; promote someone else first.");
+    if (role !== "SUPER_ADMIN") await assertNotLastSuperAdmin(tx, id, msg("admin.users.errors.lastSuperAdminRole"));
     await tx.user.update({ where: { id }, data: { role, sessionVersion: { increment: 1 } } });
     await recordAudit({ action: "USER_ROLE_CHANGED", actor, target: { type: "User", id }, metadata: { email: user.email, from: user.role, to: role } }, tx);
     return { role: role as Role };
@@ -63,12 +64,12 @@ export const changeStaffRole = authorizedAction("users:manage", changeRoleSchema
 });
 
 export const setStaffActive = authorizedAction("users:manage", setActiveSchema, async ({ id, active }, actor) => {
-  if (id === actor.id) throw new ActionError("FORBIDDEN", "You cannot deactivate your own account.");
+  if (id === actor.id) throw new ActionError("FORBIDDEN", msg("admin.users.errors.ownDeactivate"));
   await db.$transaction(async (tx) => {
     const user = await tx.user.findUnique({ where: { id }, select: { email: true, isActive: true } });
-    if (!user) throw new ActionError("NOT_FOUND", "User not found.");
+    if (!user) throw new ActionError("NOT_FOUND", msg("admin.users.errors.notFound"));
     if (user.isActive === active) return;
-    if (!active) await assertNotLastSuperAdmin(tx, id, "This is the last active Super Admin and cannot be deactivated.");
+    if (!active) await assertNotLastSuperAdmin(tx, id, msg("admin.users.errors.lastSuperAdminDeactivate"));
     await tx.user.update({
       where: { id },
       data: { isActive: active, sessionVersion: { increment: 1 }, ...(active ? { failedLoginCount: 0, lockedUntil: null } : {}) },
@@ -81,12 +82,12 @@ export const setStaffActive = authorizedAction("users:manage", setActiveSchema, 
 
 /** Issues a new temporary password (shown once), unlocks the account and signs out all sessions. The user must replace it at next sign-in. */
 export const resetStaffPassword = authorizedAction("users:manage", userIdSchema, async ({ id }, actor) => {
-  if (id === actor.id) throw new ActionError("FORBIDDEN", "Use “Change my password” for your own account.");
+  if (id === actor.id) throw new ActionError("FORBIDDEN", msg("admin.users.errors.ownReset"));
   const temporaryPassword = generateTemporaryPassword();
   const passwordHash = await hashPassword(temporaryPassword);
   const email = await db.$transaction(async (tx) => {
     const user = await tx.user.findUnique({ where: { id }, select: { email: true } });
-    if (!user) throw new ActionError("NOT_FOUND", "User not found.");
+    if (!user) throw new ActionError("NOT_FOUND", msg("admin.users.errors.notFound"));
     await tx.user.update({
       where: { id },
       data: { passwordHash, mustChangePassword: true, passwordChangedAt: new Date(), sessionVersion: { increment: 1 }, failedLoginCount: 0, lockedUntil: null },

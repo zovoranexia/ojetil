@@ -15,7 +15,7 @@ export const badgeVariants = cva(
         /** Ochre text on paper — the accessible gold for light surfaces. */
         heritage: "border border-gold-text/30 bg-paper text-gold-text",
         /** Gold on ink — for dark surfaces only. */
-        heritageDark: "bg-ink text-gold-accent",
+        heritageDark: "ink-chrome bg-ink text-gold-accent",
       },
     },
     defaultVariants: { tone: "neutral" },

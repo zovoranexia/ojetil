@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { KeyRound, Loader2, UserPlus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -9,16 +10,17 @@ import type { Role } from "@prisma/client";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
 import { applyFieldErrors, FormFeedback, type Feedback } from "@/components/admin/form-feedback";
 import { SecretReveal } from "@/components/admin/secret-reveal";
+import { useMessageText } from "@/components/i18n/message-text";
 import { Field, fieldAria, selectClassName } from "@/components/forms/field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ROLES, ROLE_LABELS } from "@/config/rbac";
+import { ROLES } from "@/config/rbac";
 import { changeStaffRole, createStaffUser, resetStaffPassword, setStaffActive } from "@/modules/users/actions";
 import { createUserSchema, type CreateUserInput } from "@/modules/users/schema";
 
-const ONE_TIME_NOTE = "Shown only once. Give it to the person through a secure channel; they should keep it private.";
-
 export function CreateUserForm() {
+  const t = useTranslations("admin.users");
+  const tRoles = useTranslations("admin.roles");
   const router = useRouter();
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [secret, setSecret] = useState<{ email: string; password: string } | null>(null);
@@ -36,7 +38,7 @@ export function CreateUserForm() {
       applyFieldErrors(r.error.fieldErrors, setError as never);
       setFeedback({ kind: "error", message: r.error.message });
     } else {
-      setFeedback({ kind: "success", message: `Account created for ${r.data.email}.` });
+      setFeedback({ kind: "success", message: t("created", { email: r.data.email }) });
       setSecret({ email: r.data.email, password: r.data.temporaryPassword });
       reset();
       router.refresh();
@@ -47,26 +49,26 @@ export function CreateUserForm() {
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-4">
       <FormFeedback ref={ref} feedback={feedback} />
-      {secret ? <SecretReveal label={`Temporary password for ${secret.email}`} value={secret.password} note={ONE_TIME_NOTE} /> : null}
+      {secret ? <SecretReveal label={t("temporaryPasswordFor", { email: secret.email })} value={secret.password} note={t("oneTimeNote")} /> : null}
       <div className="grid gap-4 md:grid-cols-[1fr_1fr_14rem_auto] md:items-end">
-        <Field id="new-name" label="Full name" required error={errors.name?.message}>
+        <Field id="new-name" label={t("fields.name")} required error={errors.name?.message}>
           <Input autoComplete="off" {...fieldAria("new-name", { error: errors.name?.message })} {...register("name")} />
         </Field>
-        <Field id="new-email" label="Email" required error={errors.email?.message}>
+        <Field id="new-email" label={t("fields.email")} required error={errors.email?.message}>
           <Input type="email" autoComplete="off" {...fieldAria("new-email", { error: errors.email?.message })} {...register("email")} />
         </Field>
-        <Field id="new-role" label="Role" required error={errors.role?.message}>
+        <Field id="new-role" label={t("fields.role")} required error={errors.role?.message}>
           <select className={selectClassName} {...fieldAria("new-role", { error: errors.role?.message })} {...register("role")}>
             {ROLES.map((r) => (
               <option key={r} value={r}>
-                {ROLE_LABELS[r].label}
+                {tRoles(`${r}.label`)}
               </option>
             ))}
           </select>
         </Field>
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? <Loader2 aria-hidden="true" className="animate-spin" /> : <UserPlus aria-hidden="true" />}
-          Create
+          {t("create")}
         </Button>
       </div>
     </form>
@@ -74,6 +76,11 @@ export function CreateUserForm() {
 }
 
 export function UserRowControls({ id, name, role, isActive, isSelf }: { id: string; name: string; role: Role; isActive: boolean; isSelf: boolean }) {
+  const t = useTranslations("admin.users");
+  const tRoles = useTranslations("admin.roles");
+  const tCommon = useTranslations("admin.common");
+  const tErrors = useTranslations("admin.errors");
+  const resolve = useMessageText();
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -86,17 +93,17 @@ export function UserRowControls({ id, name, role, isActive, isSelf }: { id: stri
     startTransition(async () => {
       setError(null);
       const r = await fn();
-      if (!r.ok) setError(r.error?.message ?? "Failed.");
+      if (!r.ok) setError(r.error?.message ?? tErrors("internal"));
       router.refresh();
     });
 
-  if (isSelf) return <p className="text-xs text-ink-secondary">This is you — another Super Admin must change your account.</p>;
+  if (isSelf) return <p className="text-xs text-ink-secondary">{t("self")}</p>;
 
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap items-center gap-2">
         <label className="sr-only" htmlFor={`role-${id}`}>
-          Role for {name}
+          {t("roleFor", { name })}
         </label>
         <select
           id={`role-${id}`}
@@ -119,26 +126,26 @@ export function UserRowControls({ id, name, role, isActive, isSelf }: { id: stri
         >
           {ROLES.map((r) => (
             <option key={r} value={r}>
-              {ROLE_LABELS[r].label}
+              {tRoles(`${r}.label`)}
             </option>
           ))}
         </select>
         <ConfirmDialog
-          title={isActive ? `Deactivate ${name}?` : `Reactivate ${name}?`}
-          description={isActive ? "They are signed out immediately and cannot sign in until reactivated. Their audit history is kept." : "They can sign in again with their current password."}
-          confirmLabel={isActive ? "Deactivate" : "Reactivate"}
+          title={isActive ? t("deactivateTitle", { name }) : t("reactivateTitle", { name })}
+          description={isActive ? t("deactivateDescription") : t("reactivateDescription")}
+          confirmLabel={isActive ? t("deactivate") : t("reactivate")}
           tone={isActive ? "destructive" : "primary"}
           onConfirm={() => run(() => setStaffActive({ id, active: !isActive }))}
           trigger={
             <Button type="button" size="sm" variant={isActive ? "ghost" : "outline"} disabled={pending} className={isActive ? "text-status-rejected hover:bg-status-rejected-bg" : undefined}>
-              {isActive ? "Deactivate" : "Reactivate"}
+              {isActive ? t("deactivate") : t("reactivate")}
             </Button>
           }
         />
         <ConfirmDialog
-          title={`Reset password for ${name}?`}
-          description="A new temporary password is generated, the account is unlocked and all their sessions end."
-          confirmLabel="Reset password"
+          title={t("resetTitle", { name })}
+          description={t("resetDescription")}
+          confirmLabel={t("resetPassword")}
           onConfirm={() =>
             startTransition(async () => {
               setError(null);
@@ -150,18 +157,18 @@ export function UserRowControls({ id, name, role, isActive, isSelf }: { id: stri
           }
           trigger={
             <Button type="button" size="sm" variant="ghost" disabled={pending}>
-              <KeyRound aria-hidden="true" /> Reset password
+              <KeyRound aria-hidden="true" /> {t("resetPassword")}
             </Button>
           }
         />
-        {pending ? <Loader2 aria-label="Saving" className="size-4 animate-spin text-ink-secondary" /> : null}
+        {pending ? <Loader2 aria-label={tCommon("saving")} className="size-4 animate-spin text-ink-secondary" /> : null}
       </div>
       {error ? (
         <p role="alert" className="text-xs text-status-rejected">
-          {error}
+          {resolve(error)}
         </p>
       ) : null}
-      {secret ? <SecretReveal label="New temporary password" value={secret} note={ONE_TIME_NOTE} /> : null}
+      {secret ? <SecretReveal label={t("newTemporaryPassword")} value={secret} note={t("oneTimeNote")} /> : null}
     </div>
   );
 }

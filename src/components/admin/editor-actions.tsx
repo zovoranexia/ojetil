@@ -1,6 +1,7 @@
 "use client";
 
 import { Loader2, Save, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
 import { Button } from "@/components/ui/button";
 
@@ -10,7 +11,7 @@ export function EditorActions({
   canDelete,
   onDelete,
   deleteDescription,
-  saveLabel = "Save changes",
+  saveLabel,
 }: {
   saving: boolean;
   canDelete: boolean;
@@ -18,18 +19,19 @@ export function EditorActions({
   deleteDescription?: string;
   saveLabel?: string;
 }) {
+  const t = useTranslations("admin.common");
   return (
     <div className="sticky bottom-0 z-10 -mx-4 flex flex-col-reverse gap-2 border-t border-border-subtle bg-surface-card/95 px-4 py-3 backdrop-blur sm:flex-row sm:justify-between md:-mx-8 md:px-8">
       {canDelete && onDelete ? (
         <ConfirmDialog
-          title="Delete permanently?"
-          description={deleteDescription ?? "This cannot be undone. The deletion is recorded in the audit log."}
-          confirmLabel="Delete"
+          title={t("deletePermanentlyTitle")}
+          description={deleteDescription ?? t("deletePermanentlyDescription")}
+          confirmLabel={t("delete")}
           tone="destructive"
           onConfirm={onDelete}
           trigger={
             <Button type="button" variant="ghost" className="text-status-rejected hover:bg-status-rejected-bg" disabled={saving}>
-              <Trash2 aria-hidden="true" /> Delete
+              <Trash2 aria-hidden="true" /> {t("delete")}
             </Button>
           }
         />
@@ -38,7 +40,7 @@ export function EditorActions({
       )}
       <Button type="submit" disabled={saving} aria-busy={saving}>
         {saving ? <Loader2 aria-hidden="true" className="animate-spin" /> : <Save aria-hidden="true" />}
-        {saving ? "Saving…" : saveLabel}
+        {saving ? t("saving") : (saveLabel ?? t("saveChanges"))}
       </Button>
     </div>
   );

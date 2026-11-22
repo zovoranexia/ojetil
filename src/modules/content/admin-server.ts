@@ -1,6 +1,7 @@
 import "server-only";
 import { Prisma, type AuditAction, type ContentStatus, type EventStatus } from "@prisma/client";
 import { ActionError } from "@/lib/actions";
+import { msg } from "@/lib/i18n-message";
 
 /**
  * Which audit actions a save represents: creation, publication changes,
@@ -24,7 +25,7 @@ export function eventAuditActions(previous: EventStatus | null, next: EventStatu
 /** Maps a unique-constraint violation on `slug` to a friendly field error. */
 export function rethrowSlugConflict(error: unknown): never {
   if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002" && String(error.meta?.target ?? "").includes("slug")) {
-    throw new ActionError("CONFLICT", "That slug is already used.", { slug: ["That slug is already used by another item."] });
+    throw new ActionError("CONFLICT", msg("admin.content.errors.slugConflict"), { slug: [msg("admin.content.errors.slugConflictField")] });
   }
   throw error;
 }

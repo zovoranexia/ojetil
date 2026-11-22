@@ -2,6 +2,7 @@ import { z } from "zod";
 import { MUNICIPALITY_VALUES } from "@/config/municipalities";
 import { CONTENT_STATUSES, imageUrlField, slugField } from "@/modules/content/admin-common";
 import { translationsSchema, type TranslationFieldSpec } from "@/modules/content/admin-schema";
+import { msg } from "@/lib/i18n-message";
 import { NEWS_CATEGORY_VALUES } from "./categories";
 
 /**
@@ -10,10 +11,10 @@ import { NEWS_CATEGORY_VALUES } from "./categories";
  * derives it from the first sentences of the content.
  */
 export const NEWS_TRANSLATION_FIELDS: readonly TranslationFieldSpec[] = [
-  { name: "title", label: "Title", required: true, max: 200 },
-  { name: "excerpt", label: "Summary", required: false, max: 400, multiline: true, rows: 3, hint: "One or two sentences shown on cards and in search results." },
-  { name: "body", label: "Content", required: true, max: 300_000 },
-  { name: "coverImageAlt", label: "Cover image description (alt text)", required: false, max: 200 },
+  { name: "title", label: msg("admin.news.fields.title"), required: true, max: 200 },
+  { name: "excerpt", label: msg("admin.news.fields.excerpt"), required: false, max: 400, multiline: true, rows: 3, hint: msg("admin.news.fields.excerptHint") },
+  { name: "body", label: msg("admin.news.fields.body"), required: true, max: 300_000 },
+  { name: "coverImageAlt", label: msg("admin.news.fields.coverImageAlt"), required: false, max: 200 },
 ];
 
 export const NEWS_TAG_MAX = 12;
@@ -37,7 +38,7 @@ export const newsFormSchema = z.object({
   id: z.string().optional(),
   /** Empty = generated from the Tetun title. */
   slug: z.union([z.literal(""), slugField]),
-  category: z.enum(NEWS_CATEGORY_VALUES, { error: "Choose a type." }),
+  category: z.enum(NEWS_CATEGORY_VALUES, { error: msg("admin.news.validation.categoryRequired") }),
   status: z.enum(CONTENT_STATUSES),
   /** Díli wall-clock "YYYY-MM-DDTHH:mm"; empty = the moment it is published. */
   publishedAt: z.string().trim(),
@@ -45,13 +46,13 @@ export const newsFormSchema = z.object({
   coverImageUrl: imageUrlField,
   /** "" = national scope. */
   municipality: z.union([z.literal(""), z.enum(MUNICIPALITY_VALUES)]),
-  byline: z.string().trim().max(120, "Byline: at most 120 characters."),
+  byline: z.string().trim().max(120, msg("admin.validation.maxChars", { max: 120 })),
   tags: z
     .string()
-    .max(600)
-    .refine((v) => parseTags(v).length <= NEWS_TAG_MAX, `At most ${NEWS_TAG_MAX} tags.`),
+    .max(600, msg("admin.validation.maxChars", { max: 600 }))
+    .refine((v) => parseTags(v).length <= NEWS_TAG_MAX, msg("admin.news.validation.tagsMax", { max: NEWS_TAG_MAX })),
   /** "" = no attachment. */
-  documentId: z.string().trim().max(40),
+  documentId: z.string().trim().max(40, msg("admin.validation.maxChars", { max: 40 })),
   translations: translationsSchema(NEWS_TRANSLATION_FIELDS),
 });
 

@@ -1,5 +1,5 @@
 import "server-only";
-import type { AuditAction, Municipality, Role } from "@prisma/client";
+import type { AuditAction, ContentStatus, EventStatus, Municipality, Role } from "@prisma/client";
 import { hasPermission } from "@/config/rbac";
 import { MUNICIPALITIES } from "@/config/municipalities";
 import { db } from "@/lib/db";
@@ -46,41 +46,6 @@ export async function getCategoryBreakdown() {
   return groups.map((g) => ({ category: g.category, status: g.status, count: g._count._all }));
 }
 
-const ACTION_LABELS: Record<AuditAction, string> = {
-  LOGIN_SUCCEEDED: "signed in",
-  LOGIN_FAILED: "failed sign-in",
-  LOGOUT: "signed out",
-  ACCOUNT_LOCKED: "account locked",
-  MEMBER_PII_VIEWED: "viewed personal data of",
-  MEMBER_STATUS_CHANGED: "changed status of",
-  MEMBER_EXPORTED: "exported verified members",
-  CONTENT_CREATED: "created",
-  CONTENT_UPDATED: "updated",
-  CONTENT_PUBLISHED: "published",
-  CONTENT_UNPUBLISHED: "unpublished",
-  CONTENT_DELETED: "deleted",
-  MEDIA_UPLOADED: "uploaded image",
-  EVENT_CREATED: "created event",
-  EVENT_UPDATED: "updated event",
-  EVENT_PUBLISHED: "published event",
-  EVENT_UNPUBLISHED: "unpublished event",
-  EVENT_CANCELLED: "cancelled event",
-  EVENT_DELETED: "deleted event",
-  EVENT_ATTENDEES_EXPORTED: "exported attendees of",
-  EVENT_ATTENDANCE_UPDATED: "updated attendance for",
-  USER_CREATED: "created user",
-  USER_ROLE_CHANGED: "changed role of",
-  USER_DEACTIVATED: "deactivated user",
-  USER_REACTIVATED: "reactivated user",
-  USER_PASSWORD_RESET: "reset password of",
-  USER_PASSWORD_CHANGED: "changed own password",
-  SEED_EXECUTED: "database seeded",
-};
-
-export function describeAuditAction(action: AuditAction): string {
-  return ACTION_LABELS[action];
-}
-
 /** Human-readable subject from audit metadata (never PII: tracking codes, slugs, roles). */
 export function auditSubject(metadata: unknown, targetType: string | null): string {
   const m = (metadata ?? {}) as Record<string, unknown>;
@@ -88,7 +53,13 @@ export function auditSubject(metadata: unknown, targetType: string | null): stri
   return s("trackingCode") ?? s("slug") ?? s("email") ?? s("title") ?? targetType ?? "";
 }
 
-export type ActivityItem = { id: string; at: Date; actor: string; text: string; subject: string };
+/**
+ * Structured activity entries; the page renders the labels in the UI language
+ * (`admin.audit.actions.<AuditAction>`, `admin.status.content.<status>`).
+ */
+export type ActivityItem =
+  | { kind: "audit"; id: string; at: Date; actorEmail: string | null; action: AuditAction; subject: string }
+  | { kind: "content"; id: string; at: Date; contentType: "news" | "event"; status: ContentStatus | EventStatus; subject: string };
 
 /**
  * Recent activity, scoped by role: audit readers see the (filtered) audit trail;
@@ -100,10 +71,11 @@ export async function getRecentActivity(role: Role, take = 8): Promise<{ source:
     return {
       source: "audit",
       items: items.map((a) => ({
+        kind: "audit" as const,
         id: a.id,
         at: a.createdAt,
-        actor: a.actorEmail ?? "System / public",
-        text: describeAuditAction(a.action),
+        actorEmail: a.actorEmail,
+        action: a.action,
         subject: auditSubject(a.metadata, a.targetType),
       })),
     };
@@ -112,9 +84,9 @@ export async function getRecentActivity(role: Role, take = 8): Promise<{ source:
     db.newsArticle.findMany({ orderBy: { updatedAt: "desc" }, take, select: { id: true, slug: true, status: true, updatedAt: true } }),
     db.event.findMany({ orderBy: { updatedAt: "desc" }, take, select: { id: true, slug: true, status: true, updatedAt: true } }),
   ]);
-  const items = [
-    ...news.map((n) => ({ id: `n-${n.id}`, at: n.updatedAt, actor: "News", text: `${n.status.toLowerCase()} ·`, subject: n.slug })),
-    ...events.map((e) => ({ id: `e-${e.id}`, at: e.updatedAt, actor: "Event", text: `${e.status.toLowerCase()} ·`, subject: e.slug })),
+  const items: ActivityItem[] = [
+    ...news.map((n) => ({ kind: "content" as const, id: `n-${n.id}`, at: n.updatedAt, contentType: "news" as const, status: n.status, subject: n.slug })),
+    ...events.map((e) => ({ kind: "content" as const, id: `e-${e.id}`, at: e.updatedAt, contentType: "event" as const, status: e.status, subject: e.slug })),
   ]
     .sort((a, b) => b.at.getTime() - a.at.getTime())
     .slice(0, take);

@@ -58,6 +58,21 @@ The seed refuses to run with `NODE_ENV=production` unless `ALLOW_PRODUCTION_SEED
 Personal data is decrypted only on an explicit “Reveal”, and every reveal, export, decision,
 publication and account change is written to the append-only audit log.
 
+### Backoffice language & theme
+
+The top bar holds the language picker (Tetun · Português · Bahasa Indonesia · English), a
+light/dark toggle and the account menu (change password, sign out).
+
+- **Language** is per user: stored in the `ojetil_admin_locale` cookie (read on every request,
+  so the first paint is already translated) and in `User.uiLocale`, which re-seeds the cookie at
+  sign-in on another device. Default: English. Admin strings live under `admin.*` in
+  `messages/*.json`. Zod schemas and server actions cannot know the reader's language, so they
+  return `msg("admin.…")`-encoded keys (`src/lib/i18n-message.ts`) that `<Field>`,
+  `<FormFeedback>` and `useMessageText()` decode on display.
+- **Theme** is per device: `ojetil_admin_theme` cookie (`light` / `dark`); without it the OS
+  `prefers-color-scheme` is applied by an inline script before first paint. Dark tokens are in
+  `src/app/globals.css` (`html.dark`); always-dark chrome (sidebar) uses the `ink-chrome` class.
+
 ## Scripts
 
 | Script | Purpose |

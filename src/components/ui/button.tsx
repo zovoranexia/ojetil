@@ -24,7 +24,7 @@ export const buttonVariants = cva(
           "border border-border-subtle bg-surface-card text-ink hover:border-border-strong hover:bg-paper",
         ghost: "text-ink hover:bg-surface-muted",
         link: "text-ojetil-red underline-offset-4 hover:underline hover:text-ojetil-red-hover",
-        destructive: "bg-status-rejected text-white hover:bg-status-rejected/90",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
       },
       size: {
         default: "min-h-tap px-5 text-[0.9375rem] md:min-h-10",

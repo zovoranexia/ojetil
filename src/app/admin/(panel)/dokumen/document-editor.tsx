@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ExternalLink, FileText, Loader2, Save, Trash2, Upload, Wand2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import type { ContentStatus } from "@prisma/client";
@@ -40,6 +41,10 @@ export function DocumentEditor({
   maxBytes: number;
 }) {
   const router = useRouter();
+  const t = useTranslations("admin.documents.editor");
+  const tv = useTranslations("admin.documents.validation");
+  const tc = useTranslations("admin.common");
+  const tStatus = useTranslations("admin.status.content");
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [file, setFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | undefined>();
@@ -65,8 +70,8 @@ export function DocumentEditor({
   function pickFile(f: File | null) {
     setFileError(undefined);
     if (!f) return setFile(null);
-    if (f.type && f.type !== "application/pdf") return setFileError("Choose a PDF file.");
-    if (f.size > maxBytes) return setFileError(`The PDF is larger than ${formatFileSize(maxBytes)}.`);
+    if (f.type && f.type !== "application/pdf") return setFileError(tv("chooseFile"));
+    if (f.size > maxBytes) return setFileError(tv("tooLarge", { size: formatFileSize(maxBytes) }));
     setFile(f);
     if (!getValues("slug")) setValue("slug", slugify(f.name.replace(/\.pdf$/i, "")));
   }
@@ -74,8 +79,8 @@ export function DocumentEditor({
   const onSubmit = handleSubmit(
     async (values) => {
       if (!existing && !file) {
-        setFileError("Choose a PDF file.");
-        return announce({ kind: "error", message: "Choose a PDF file to upload." });
+        setFileError(tv("chooseFile"));
+        return announce({ kind: "error", message: t("chooseFileToUpload") });
       }
       const body = new FormData();
       body.set("data", JSON.stringify(values));
@@ -86,7 +91,7 @@ export function DocumentEditor({
         r = (await res.json()) as ActionResult<{ id: string }>;
         if (!("ok" in r)) throw new Error();
       } catch {
-        return announce({ kind: "error", message: "Upload failed. Check your connection and the file size, then try again." });
+        return announce({ kind: "error", message: t("uploadFailed") });
       }
       if (!r.ok) {
         applyFieldErrors(r.error.fieldErrors, setError as never);
@@ -96,10 +101,10 @@ export function DocumentEditor({
       setFile(null);
       if (fileInput.current) fileInput.current.value = "";
       if (!existing) return router.push(`/admin/dokumen/${r.data.id}?saved=1`);
-      announce({ kind: "success", message: "Document saved." });
+      announce({ kind: "success", message: t("saved") });
       router.refresh();
     },
-    () => announce({ kind: "error", message: "Please correct the highlighted fields (check every language tab)." }),
+    () => announce({ kind: "error", message: t("checkTabs") }),
   );
 
   function run(action: () => Promise<ActionResult<{ id: string }>>, success: string, after?: () => void) {
@@ -122,7 +127,7 @@ export function DocumentEditor({
         <div className="space-y-6">
           <TranslationTabs fields={DOCUMENT_TRANSLATION_FIELDS} register={register} watch={watch} errors={errors} disabled={readOnly} />
           <div className="space-y-5 rounded-card border border-border-subtle bg-surface-card p-5">
-            <Field id="file" label="PDF file" required={!existing} hint={`PDF only, up to ${formatFileSize(maxBytes)}.`} error={fileError}>
+            <Field id="file" label={t("fileLabel")} required={!existing} hint={t("fileHint", { size: formatFileSize(maxBytes) })} error={fileError}>
               <label
                 htmlFor="file"
                 className="flex min-h-24 cursor-pointer flex-col items-center justify-center gap-2 rounded-card border-2 border-dashed border-border-subtle p-4 text-center text-sm text-ink-secondary hover:border-border-strong"
@@ -133,9 +138,9 @@ export function DocumentEditor({
                     {file.name} · {formatFileSize(file.size)}
                   </span>
                 ) : existing ? (
-                  "Choose a new PDF to replace the current file…"
+                  t("chooseReplacement")
                 ) : (
-                  "Choose a PDF…"
+                  t("choosePdf")
                 )}
               </label>
               <input
@@ -150,9 +155,9 @@ export function DocumentEditor({
             {existing ? (
               <p className="flex flex-wrap items-center gap-2 text-sm">
                 <FileText aria-hidden="true" className="size-4 text-ink-secondary" />
-                Current file: <span className="font-medium">{existing.fileName}</span> · {formatFileSize(existing.fileSize)}
+                {t("currentFile")} <span className="font-medium">{existing.fileName}</span> · {formatFileSize(existing.fileSize)}
                 <a href={`/api/admin/documents/${existing.id}/file`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-ojetil-red hover:underline">
-                  Open <ExternalLink aria-hidden="true" className="size-3.5" />
+                  {t("open")} <ExternalLink aria-hidden="true" className="size-3.5" />
                 </a>
               </p>
             ) : null}
@@ -161,59 +166,59 @@ export function DocumentEditor({
 
         <div className="space-y-5 xl:self-start">
           <section className="space-y-4 rounded-card border border-border-subtle bg-surface-card p-5">
-            <h2 className="font-serif text-lg font-semibold">Publishing</h2>
-            <Badge tone={published ? "verified" : "neutral"}>{published ? "Published" : "Draft"}</Badge>
-            <Field id="slug" label="Address (slug)" required hint={existing && published ? documentDownloadPath(watch("slug") || "…") : "Letters, numbers and dashes only."} error={errors.slug?.message}>
+            <h2 className="font-serif text-lg font-semibold">{t("publishing")}</h2>
+            <Badge tone={published ? "verified" : "neutral"}>{tStatus(published ? "PUBLISHED" : "DRAFT")}</Badge>
+            <Field id="slug" label={t("slugLabel")} required hint={existing && published ? documentDownloadPath(watch("slug") || "…") : t("slugHint")} error={errors.slug?.message}>
               <div className="flex gap-2">
                 <Input className="font-mono text-sm" {...fieldAria("slug", { hint: true, error: errors.slug?.message })} {...register("slug")} />
                 <button
                   type="button"
-                  title="Generate from the Tetun title"
+                  title={t("generateSlugTitle")}
                   onClick={() => setValue("slug", slugify(getValues("translations.TET.title") ?? ""), { shouldValidate: true })}
                   className="inline-flex size-tap shrink-0 items-center justify-center rounded-control border border-border-subtle hover:border-border-strong md:size-10"
                 >
                   <Wand2 aria-hidden="true" className="size-4" />
-                  <span className="sr-only">Generate slug from Tetun title</span>
+                  <span className="sr-only">{t("generateSlugSr")}</span>
                 </button>
               </div>
             </Field>
             {!readOnly ? (
               <Button type="submit" className="w-full" aria-busy={isSubmitting}>
                 {isSubmitting ? <Loader2 aria-hidden="true" className="animate-spin" /> : <Save aria-hidden="true" />}
-                {isSubmitting ? "Saving…" : existing ? "Save changes" : "Upload & save draft"}
+                {isSubmitting ? tc("saving") : existing ? tc("saveChanges") : t("uploadAndSave")}
               </Button>
             ) : null}
-            {!existing ? <p className="text-sm text-ink-secondary">Save the draft first; publishing options appear afterwards.</p> : null}
+            {!existing ? <p className="text-sm text-ink-secondary">{t("saveDraftFirst")}</p> : null}
             {existing && canPublish && !readOnly ? (
               published ? (
-                <Button type="button" variant="outline" className="w-full" onClick={() => run(() => unpublishDocument({ id: existing.id }), "Document unpublished.")}>
-                  Unpublish
+                <Button type="button" variant="outline" className="w-full" onClick={() => run(() => unpublishDocument({ id: existing.id }), t("unpublishedToast"))}>
+                  {t("unpublish")}
                 </Button>
               ) : (
-                <Button type="button" variant="editorial" className="w-full" onClick={() => run(() => publishDocument({ id: existing.id }), "Document published.")}>
-                  Publish
+                <Button type="button" variant="editorial" className="w-full" onClick={() => run(() => publishDocument({ id: existing.id }), t("publishedToast"))}>
+                  {t("publish")}
                 </Button>
               )
             ) : null}
             {existing && published ? (
               <a href={documentDownloadPath(initial.slug)} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-tap items-center gap-1.5 text-sm font-semibold text-ojetil-red hover:underline">
-                Public download link <ExternalLink aria-hidden="true" className="size-4" />
+                {t("publicLink")} <ExternalLink aria-hidden="true" className="size-4" />
               </a>
             ) : null}
             {existing && !readOnly ? (
               <ConfirmDialog
-                title="Delete this document?"
+                title={t("deleteTitle")}
                 description={
                   existing.articleCount
-                    ? `It is attached to ${existing.articleCount} article(s); they will lose the attachment. This cannot be undone and is recorded in the audit log.`
-                    : "The PDF file is removed permanently. This cannot be undone and is recorded in the audit log."
+                    ? t("deleteAttached", { count: existing.articleCount })
+                    : t("deleteUnattached")
                 }
-                confirmLabel="Delete"
+                confirmLabel={tc("delete")}
                 tone="destructive"
                 onConfirm={() => run(() => deleteDocument({ id: existing.id }), "", () => router.push("/admin/dokumen"))}
                 trigger={
                   <Button type="button" variant="ghost" size="sm" className="text-status-rejected hover:bg-status-rejected-bg">
-                    <Trash2 aria-hidden="true" /> Delete
+                    <Trash2 aria-hidden="true" /> {tc("delete")}
                   </Button>
                 }
               />

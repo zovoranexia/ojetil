@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { msg } from "@/lib/i18n-message";
 
 /** Verification decisions. A reason note is always required — it is part of the record. */
 export const DECISIONS = ["VERIFIED", "NEEDS_REVISION", "REJECTED"] as const;
@@ -9,7 +10,7 @@ export const decisionSchema = z.object({
   decision: z.enum(DECISIONS),
   /** Status the verifier saw; prevents two verifiers overwriting each other's decision. */
   expectedStatus: z.enum(["PENDING_VERIFICATION", "NEEDS_REVISION", "VERIFIED", "REJECTED"]),
-  note: z.string().trim().min(5, "Write a short reason (at least 5 characters).").max(1000, "Keep the note under 1000 characters."),
+  note: z.string().trim().min(5, msg("admin.members.validation.noteMin")).max(1000, msg("admin.validation.maxChars", { max: 1000 })),
 });
 
 export type DecisionInput = z.input<typeof decisionSchema>;

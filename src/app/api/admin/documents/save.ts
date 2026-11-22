@@ -1,5 +1,6 @@
 import "server-only";
 import { ActionError, fieldErrorsFrom, type ActionResult } from "@/lib/actions";
+import { msg } from "@/lib/i18n-message";
 import type { SessionUser } from "@/lib/security/guards";
 import { isSameOrigin } from "@/lib/security/origin";
 import { documentFormSchema } from "@/modules/documents/schema";
@@ -13,24 +14,24 @@ const STATUS: Record<string, number> = { VALIDATION: 400, NOT_FOUND: 404, CONFLI
  * same ActionResult shape as Server Actions so the editor treats both alike.
  */
 export async function handleDocumentSave(request: Request, user: SessionUser, id: string | undefined): Promise<{ status: number; body: ActionResult<{ id: string }> }> {
-  if (!isSameOrigin(request)) return { status: 403, body: { ok: false, error: { code: "FORBIDDEN", message: "Cross-origin request rejected." } } };
+  if (!isSameOrigin(request)) return { status: 403, body: { ok: false, error: { code: "FORBIDDEN", message: msg("admin.documents.validation.crossOrigin") } } };
 
   let form: FormData;
   try {
     form = await request.formData();
   } catch {
-    return { status: 400, body: { ok: false, error: { code: "VALIDATION", message: "Upload could not be read. Is the file too large?" } } };
+    return { status: 400, body: { ok: false, error: { code: "VALIDATION", message: msg("admin.documents.validation.unreadable") } } };
   }
 
   let data: unknown;
   try {
     data = JSON.parse(String(form.get("data") ?? ""));
   } catch {
-    return { status: 400, body: { ok: false, error: { code: "VALIDATION", message: "Malformed request." } } };
+    return { status: 400, body: { ok: false, error: { code: "VALIDATION", message: msg("admin.documents.validation.malformed") } } };
   }
   const parsed = documentFormSchema.safeParse(data);
   if (!parsed.success) {
-    return { status: 400, body: { ok: false, error: { code: "VALIDATION", message: "Please correct the highlighted fields.", fieldErrors: fieldErrorsFrom(parsed.error) } } };
+    return { status: 400, body: { ok: false, error: { code: "VALIDATION", message: msg("admin.errors.validation"), fieldErrors: fieldErrorsFrom(parsed.error) } } };
   }
   const rawFile = form.get("file");
   const file = rawFile instanceof File && rawFile.size > 0 ? rawFile : null;

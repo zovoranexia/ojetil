@@ -6,6 +6,7 @@ import { hasPermission } from "@/config/rbac";
 import { ActionError, authorizedAction } from "@/lib/actions";
 import { db } from "@/lib/db";
 import { fromDiliLocalInput } from "@/lib/dates";
+import { msg } from "@/lib/i18n-message";
 import { recordAudit } from "@/modules/audit/service";
 import { eventAuditActions, rethrowSlugConflict } from "@/modules/content/admin-server";
 import { filledLocales, toTranslationRows } from "@/modules/content/admin-schema";
@@ -15,7 +16,7 @@ type EventRow = { title: string; summary: string; description: string; locationD
 
 export const saveEvent = authorizedAction("events:write", eventFormSchema, async (input, user) => {
   if (input.status === "PUBLISHED" && !hasPermission(user.role, "events:publish")) {
-    throw new ActionError("FORBIDDEN", "Your role cannot publish events.");
+    throw new ActionError("FORBIDDEN", msg("admin.events.validation.cannotPublish"));
   }
   const startAt = fromDiliLocalInput(input.startAt)!;
   const endAt = fromDiliLocalInput(input.endAt)!;
@@ -32,10 +33,10 @@ export const saveEvent = authorizedAction("events:write", eventFormSchema, async
             select: { status: true, publishedAt: true, _count: { select: { registrations: { where: { status: { not: "CANCELLED" } } } } } },
           })
         : null;
-      if (input.id && !previous) throw new ActionError("NOT_FOUND", "Event not found.");
+      if (input.id && !previous) throw new ActionError("NOT_FOUND", msg("admin.events.validation.notFound"));
       if (previous && input.capacity < previous._count.registrations) {
-        throw new ActionError("VALIDATION", "Capacity is below the number of registered attendees.", {
-          capacity: [`At least ${previous._count.registrations} — that many people are already registered.`],
+        throw new ActionError("VALIDATION", msg("admin.events.validation.capacityBelow"), {
+          capacity: [msg("admin.events.validation.capacityAtLeast", { count: previous._count.registrations })],
         });
       }
 
@@ -84,9 +85,9 @@ export const saveEvent = authorizedAction("events:write", eventFormSchema, async
 export const deleteEvent = authorizedAction("events:write", z.object({ id: z.string().min(1) }), async ({ id }, user) => {
   await db.$transaction(async (tx) => {
     const event = await tx.event.findUnique({ where: { id }, select: { slug: true, _count: { select: { registrations: true } } } });
-    if (!event) throw new ActionError("NOT_FOUND", "Event not found.");
+    if (!event) throw new ActionError("NOT_FOUND", msg("admin.events.validation.notFound"));
     if (event._count.registrations > 0) {
-      throw new ActionError("CONFLICT", `This event has ${event._count.registrations} registrations. Set its status to Cancelled instead of deleting it.`);
+      throw new ActionError("CONFLICT", msg("admin.events.validation.hasRegistrations", { count: event._count.registrations }));
     }
     await tx.event.delete({ where: { id } });
     await recordAudit({ action: "EVENT_DELETED", actor: user, target: { type: "Event", id }, metadata: { slug: event.slug } }, tx);
@@ -99,7 +100,7 @@ export const deleteEvent = authorizedAction("events:write", z.object({ id: z.str
 export const updateAttendance = authorizedAction("events:write", attendanceSchema, async ({ registrationId, status }, user) => {
   const result = await db.$transaction(async (tx) => {
     const reg = await tx.eventRegistration.findUnique({ where: { id: registrationId }, select: { status: true, ticketCode: true, eventId: true } });
-    if (!reg) throw new ActionError("NOT_FOUND", "Registration not found.");
+    if (!reg) throw new ActionError("NOT_FOUND", msg("admin.events.validation.registrationNotFound"));
     if (reg.status === status) return { eventId: reg.eventId, status };
 
     // Re-activating a cancelled registration takes a seat: enforce capacity under the event row lock.
@@ -108,7 +109,7 @@ export const updateAttendance = authorizedAction("events:write", attendanceSchem
         SELECT "capacity" FROM "events" WHERE "id" = ${reg.eventId} FOR UPDATE`;
       const taken = await tx.eventRegistration.count({ where: { eventId: reg.eventId, status: { not: "CANCELLED" } } });
       if (event && taken >= event.capacity) {
-        throw new ActionError("CONFLICT", `The event is full (${taken}/${event.capacity}). Raise the capacity first.`);
+        throw new ActionError("CONFLICT", msg("admin.events.validation.eventFull", { taken, capacity: event.capacity }));
       }
     }
     await tx.eventRegistration.update({

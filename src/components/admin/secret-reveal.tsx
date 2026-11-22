@@ -1,10 +1,12 @@
 "use client";
 
 import { Check, Copy } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 /** One-time display of a generated secret (e.g. a temporary password) with copy. */
 export function SecretReveal({ label, value, note }: { label: string; value: string; note: string }) {
+  const t = useTranslations("admin.common");
   const [copied, setCopied] = useState(false);
   return (
     <div role="status" className="space-y-2 rounded-card border-2 border-dashed border-ojetil-red/40 bg-paper p-4">
@@ -24,7 +26,7 @@ export function SecretReveal({ label, value, note }: { label: string; value: str
           className="inline-flex min-h-tap items-center gap-1.5 rounded-control bg-ink px-3 text-sm font-semibold text-paper md:min-h-9"
         >
           {copied ? <Check aria-hidden="true" className="size-4" /> : <Copy aria-hidden="true" className="size-4" />}
-          {copied ? "Copied" : "Copy"}
+          {copied ? t("copied") : t("copy")}
         </button>
       </div>
       <p className="text-xs text-ink-secondary">{note}</p>

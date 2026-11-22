@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { AdminPageHeading, ReadOnlyNotice } from "@/components/admin/ui";
 import { satisfies } from "@/config/rbac";
 import { getServerEnv } from "@/lib/env";
@@ -9,7 +10,10 @@ import { NEWS_TRANSLATION_FIELDS, type NewsFormValues } from "@/modules/news/adm
 import { documentOptionsFor, getNewsForEdit } from "@/modules/news/admin-queries";
 import { NewsEditor } from "../news-editor";
 
-export const metadata: Metadata = { title: "Edit post" };
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const [{ id }, t] = await Promise.all([params, getTranslations("admin.news.meta")]);
+  return { title: id === "baru" ? t("new") : t("edit") };
+}
 
 /** /admin/berita/baru creates; /admin/berita/:id edits (read-only for roles without content:write). */
 export default async function NewsEditPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ saved?: string }> }) {
@@ -17,6 +21,7 @@ export default async function NewsEditPage({ params, searchParams }: { params: P
   const isNew = id === "baru";
   const user = await requirePageAccess(isNew ? "content:write" : "content:read", `/admin/berita/${id}`);
   const canWrite = satisfies(user.role, "content:write");
+  const t = await getTranslations("admin.news.edit");
 
   const initial: NewsFormValues | null = isNew
     ? {
@@ -39,11 +44,11 @@ export default async function NewsEditPage({ params, searchParams }: { params: P
   return (
     <>
       <AdminPageHeading
-        back={{ href: "/admin/berita", label: "News & articles" }}
-        title={isNew ? "New post" : initial.translations.TET.title || initial.slug}
-        description={saved ? "Draft saved. You can now publish or schedule it." : undefined}
+        back={{ href: "/admin/berita", label: t("back") }}
+        title={isNew ? t("newTitle") : initial.translations.TET.title || initial.slug}
+        description={saved ? t("savedNotice") : undefined}
       />
-      {!canWrite ? <ReadOnlyNotice>Read-only: your role can view content but not edit it.</ReadOnlyNotice> : null}
+      {!canWrite ? <ReadOnlyNotice>{t("readOnly")}</ReadOnlyNotice> : null}
       <NewsEditor
         key={initial.id ?? "new"}
         initial={initial}

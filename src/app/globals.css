@@ -71,6 +71,62 @@
   --ring: var(--ojetil-red-primary);
 }
 
+/* ── Dark theme (backoffice only) ───────────────────────────────────────────
+   app/admin/layout.tsx puts `.dark` on <html> (cookie choice, else the OS
+   preference via an inline pre-paint script). The public site never sets it.
+   Only the raw tokens change, so every utility and shadcn alias follows.
+     ink-primary   on paper ≈ 17.0:1   ink-secondary on paper ≈ 9.1:1
+     ink-secondary on muted ≈  7.3:1   gold-text     on paper ≈ 8.8:1
+     white         on red   ≈  5.0:1   red-text      on paper ≈ 6.2:1
+     status fg on status bg ≥  8.4:1                                          */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html.dark {
+  color-scheme: dark;
+
+  --ojetil-red-primary: #d32f2f;
+  --ojetil-red-hover: #b71c1c;
+  --ojetil-red-text: #f07a7a; /* red used as text on dark surfaces (links, hover states) */
+  --ojetil-ink-primary: #f4f4f5;
+  --ojetil-ink-secondary: #b4b4bc;
+  --ojetil-gold-text: #e0a93a;
+
+  --ojetil-surface-paper: #121214;
+  --ojetil-surface-card: #1b1b1f;
+  --ojetil-surface-muted: #26262b;
+  --ojetil-border-subtle: #303036;
+  --ojetil-border-strong: #6b6b75;
+
+  --ojetil-status-verified-fg: #86efac;
+  --ojetil-status-verified-bg: #0f2e1c;
+  --ojetil-status-pending-fg: #fdba74;
+  --ojetil-status-pending-bg: #3a1f0b;
+  --ojetil-status-rejected-fg: #fca5a5;
+  --ojetil-status-rejected-bg: #3d1414;
+  --ojetil-status-info-fg: #93c5fd;
+  --ojetil-status-info-bg: #14234a;
+
+  /* Filled destructive buttons need a dark red, not the light status text colour. */
+  --destructive: #b91c1c;
+}
+
+/* The brand red is one token for fills and text; on dark surfaces text needs a lighter tint. */
+html.dark .text-ojetil-red,
+html.dark .hover\:text-ojetil-red:hover,
+html.dark .rich-content a {
+  color: var(--ojetil-red-text);
+}
+
+/* Always-dark chrome (sidebar, login panel, "heritage dark" badge): pins the
+   light-theme ink/paper pair so `bg-ink text-paper` keeps meaning
+   "dark surface, light text" in both themes. No-op in light mode. */
+.ink-chrome {
+  --ojetil-ink-primary: #18181b;
+  --ojetil-ink-secondary: #52525b;
+  --ojetil-surface-paper: #f8f5ef;
+  --ojetil-red-primary: #a61c1c;
+}
+
 /* Low-Bandwidth Mode: drop web fonts entirely. Because next/font is configured
    with `preload: false`, unused @font-face files are never downloaded. */
 [data-bandwidth="low"] {

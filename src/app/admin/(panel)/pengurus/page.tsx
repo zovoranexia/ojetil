@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { AdminPageHeading, ContentStatusBadge, DataTable, EmptyRow, Td, Th } from "@/components/admin/ui";
 import { Button } from "@/components/ui/button";
 import { municipalityLabel } from "@/config/municipalities";
@@ -8,34 +9,37 @@ import { satisfies } from "@/config/rbac";
 import { requirePageAccess } from "@/lib/security/guards";
 import { listLeadersAdmin } from "@/modules/content/institutional-queries";
 
-export const metadata: Metadata = { title: "Leadership" };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("admin.leadership");
+  return { title: t("metaTitle") };
+}
 
 export default async function LeadershipAdminPage() {
   const user = await requirePageAccess("content:read", "/admin/pengurus");
-  const rows = await listLeadersAdmin();
+  const [rows, t] = await Promise.all([listLeadersAdmin(), getTranslations("admin.leadership")]);
   return (
     <>
       <AdminPageHeading
-        title="Leadership directory"
-        description="National Directorate and municipal coordinators shown on the About page."
+        title={t("heading")}
+        description={t("description")}
         actions={
           satisfies(user.role, "content:write") ? (
             <Button asChild>
               <Link href="/admin/pengurus/baru">
-                <Plus aria-hidden="true" /> Add leader
+                <Plus aria-hidden="true" /> {t("addLeader")}
               </Link>
             </Button>
           ) : null
         }
       />
-      <DataTable caption="Leadership">
+      <DataTable caption={t("metaTitle")}>
         <thead>
           <tr>
-            <Th>Name</Th>
-            <Th>Position (Tetun)</Th>
-            <Th>Level</Th>
-            <Th>Term</Th>
-            <Th>Status</Th>
+            <Th>{t("columns.name")}</Th>
+            <Th>{t("columns.positionTetun")}</Th>
+            <Th>{t("columns.level")}</Th>
+            <Th>{t("columns.term")}</Th>
+            <Th>{t("columns.status")}</Th>
           </tr>
         </thead>
         <tbody>
@@ -48,9 +52,13 @@ export default async function LeadershipAdminPage() {
                   </Link>
                 </Td>
                 <Td>{l.title}</Td>
-                <Td>{l.level === "NATIONAL" ? "National" : `Municipal · ${l.municipality ? municipalityLabel(l.municipality) : "—"}`}</Td>
+                <Td>
+                  {l.level === "NATIONAL"
+                    ? t("levelShort.NATIONAL")
+                    : t("levelShort.MUNICIPAL", { municipality: l.municipality ? municipalityLabel(l.municipality) : "—" })}
+                </Td>
                 <Td className="tabular-nums">
-                  {l.termStart}–{l.termEnd ?? "present"}
+                  {l.termStart}–{l.termEnd ?? t("present")}
                 </Td>
                 <Td>
                   <ContentStatusBadge status={l.status} />
@@ -58,7 +66,7 @@ export default async function LeadershipAdminPage() {
               </tr>
             ))
           ) : (
-            <EmptyRow colSpan={5}>No leaders yet.</EmptyRow>
+            <EmptyRow colSpan={5}>{t("empty")}</EmptyRow>
           )}
         </tbody>
       </DataTable>
