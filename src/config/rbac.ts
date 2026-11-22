@@ -7,7 +7,7 @@ import type { Role } from "@prisma/client";
  * | Capability                       | SUPER_ADMIN | VERIFIER | EDITOR | VIEWER |
  * | -------------------------------- | ----------- | -------- | ------ | ------ |
  * | Dashboard KPIs                   | ✔           | ✔        | ✔      | ✔      |
- * | News / Profile / Timeline / Lead.| CRUD+Publish| Read     | CRUD+P | Read   |
+ * | News / Docs / Profile / Timeline | CRUD+Publish| Read     | CRUD+P | Read   |
  * | Events & attendees               | CRUD+Export | Read     | CRUD+E | Read   |
  * | Member records                   | PII         | PII      | 403    | Aggreg.|
  * | Approve / reject / revision      | ✔           | ✔        | ✗      | ✗      |
@@ -103,6 +103,7 @@ const ROUTE_RULES: ReadonlyArray<{ prefix: string; requirement: PermissionRequir
   { prefix: "/admin/anggota/", requirement: "members:read" }, // record detail pages
   { prefix: "/admin/anggota", requirement: "members:aggregate" },
   { prefix: "/admin/berita", requirement: "content:read" },
+  { prefix: "/admin/dokumen", requirement: "content:read" },
   { prefix: "/admin/profil", requirement: "content:read" },
   { prefix: "/admin/linimasa", requirement: "content:read" },
   { prefix: "/admin/pengurus", requirement: "content:read" },
@@ -112,6 +113,8 @@ const ROUTE_RULES: ReadonlyArray<{ prefix: string; requirement: PermissionRequir
   { prefix: "/api/admin/exports/members", requirement: "members:export" },
   { prefix: "/api/admin/exports/events", requirement: "events:export" },
   { prefix: "/api/admin/members", requirement: "members:read" },
+  { prefix: "/api/admin/documents", requirement: "content:read" }, // writes re-checked by withApiAuth("content:write")
+  { prefix: "/api/admin/uploads", requirement: "content:write" },
   { prefix: "/admin", requirement: "dashboard:view" },
   { prefix: "/api/admin", requirement: "dashboard:view" },
 ];

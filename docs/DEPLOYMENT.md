@@ -18,7 +18,10 @@ Internet ──443/80──▶ Nginx (TLS, reverse proxy)
 ├── current ──▶ releases/…    symlink ke versi aktif (dipakai systemd)
 └── shared/
     ├── .env                  konfigurasi + kunci enkripsi (chmod 600)
-    └── storage/uploads/      foto anggota (terenkripsi)
+    └── storage/
+        ├── uploads/          foto anggota (terenkripsi, privat)
+        ├── public-uploads/   gambar berita (publik, WebP) → /uploads/…
+        └── documents/        PDF modul Dokumen (hanya PUBLISHED yang bisa diunduh)
 ```
 
 > **Konvensi:** perintah dengan `sudo` dijalankan oleh admin server. Ganti `ojetil.tl`,
@@ -177,7 +180,13 @@ Aplikasi berjalan sebagai pengguna sistem `ojetil` tanpa shell login:
 sudo adduser --system --group --home /srv/ojetil --shell /usr/sbin/nologin ojetil
 sudo install -d -o ojetil -g ojetil -m 750 /srv/ojetil/releases /srv/ojetil/shared
 sudo install -d -o ojetil -g ojetil -m 700 /srv/ojetil/shared/storage /srv/ojetil/shared/storage/uploads
+sudo install -d -o ojetil -g ojetil -m 750 /srv/ojetil/shared/storage/documents
+# Gambar berita bersifat publik: Nginx (www-data) harus bisa membacanya langsung.
+sudo install -d -o ojetil -g www-data -m 2750 /srv/ojetil/shared/storage/public-uploads
+sudo chmod 711 /srv/ojetil/shared/storage   # Nginx boleh melintas, tidak boleh membaca isi folder
 ```
+
+> `uploads/` (foto anggota) tetap `700`: hanya aplikasi yang membaca dan mendekripsinya.
 
 ---
 
@@ -230,6 +239,12 @@ PII_BLIND_INDEX_KEY="$(openssl rand -base64 32)"
 # Foto anggota (terenkripsi), di luar folder rilis
 UPLOAD_DIR="/srv/ojetil/shared/storage/uploads"
 MAX_PROFILE_PHOTO_BYTES="1048576"
+
+# Gambar berita (publik, dikompres ke WebP) dan PDF modul Dokumen
+PUBLIC_UPLOAD_DIR="/srv/ojetil/shared/storage/public-uploads"
+MAX_IMAGE_UPLOAD_BYTES="5242880"
+DOCUMENT_DIR="/srv/ojetil/shared/storage/documents"
+MAX_DOCUMENT_BYTES="10485760"
 EOF
 sudo chmod 600 /srv/ojetil/shared/.env
 ```
@@ -348,11 +363,26 @@ server {
     listen [::]:80;
     server_name ojetil.tl www.ojetil.tl;
 
-    # Foto profil maks. 1 MB + data formulir; aplikasi sendiri menolak > 1,4 MB.
-    client_max_body_size 2m;
+    # Batas terbesar = PDF modul Dokumen (MAX_DOCUMENT_BYTES, default 10 MB) + overhead
+    # multipart. Aplikasi sendiri tetap memvalidasi setiap batas (foto 1 MB, gambar 5 MB,
+    # PDF 10 MB). Jika MAX_DOCUMENT_BYTES dinaikkan (maks. 20 MB), naikkan nilai ini juga.
+    client_max_body_size 12m;
 
     gzip on;
     gzip_types text/css application/javascript application/json image/svg+xml text/plain;
+
+    # Gambar berita publik: dilayani langsung dari disk (nama file acak, tidak pernah
+    # ditimpa → cache permanen). Tanpa blok ini aplikasi tetap melayaninya sendiri.
+    location /uploads/ {
+        alias /srv/ojetil/shared/storage/public-uploads/;
+        expires 1y;
+        add_header Cache-Control "public, immutable" always;
+        add_header X-Content-Type-Options nosniff always;
+        add_header Content-Security-Policy "default-src 'none'" always;
+        types { image/webp webp; }
+        default_type application/octet-stream;
+        try_files $uri =404;
+    }
 
     location / {
         proxy_pass http://ojetil_app;
@@ -435,7 +465,8 @@ Tinjau teksnya bersama Sekretariat dan sejarawan OJETIL di **/admin/profil** dan
 
 ## 13. Backup & pemulihan
 
-Yang perlu dibackup: **(1)** database, **(2)** folder foto `shared/storage/uploads`,
+Yang perlu dibackup: **(1)** database, **(2)** folder `shared/storage` (foto anggota
+`uploads/`, gambar berita `public-uploads/`, PDF `documents/`),
 **(3)** file `.env` (kunci enkripsi). Simpan (3) **terpisah** dari (1) dan (2), misalnya di
 password manager, agar pencuri backup tidak sekaligus memegang kuncinya.
 
@@ -493,6 +524,7 @@ cd "$REL"
 ln -s /srv/ojetil/shared/.env .env
 npm ci
 npx prisma migrate deploy
+npm run news:md-to-html                  # idempoten: isi berita Markdown lama → HTML
 npm run build || npm run build          # satu kali ulang untuk gangguan unduhan font
 ln -sfn "/srv/ojetil/$REL" /srv/ojetil/current
 # simpan 5 rilis terakhir
@@ -569,7 +601,8 @@ Akun staf tidak pernah dihapus, hanya dinonaktifkan.
 | `P1001: Can't reach database server` | PostgreSQL mati atau `DATABASE_URL` salah | `sudo systemctl status postgresql`; cek user, password, port |
 | Migrasi gagal: `permission denied to create extension "unaccent"` | Role `ojetil` bukan pemilik database | `sudo -u postgres psql -c 'ALTER DATABASE ojetil OWNER TO ojetil;'` |
 | Login admin kembali ke halaman login terus | Situs diakses lewat HTTP atau header proxy hilang | Gunakan HTTPS; pastikan `X-Forwarded-Proto` dan `Host` diteruskan Nginx |
-| Upload foto gagal `413` | `client_max_body_size` Nginx terlalu kecil | Set `2m` seperti contoh |
+| Upload foto/gambar/PDF gagal `413` | `client_max_body_size` Nginx terlalu kecil | Set `12m` seperti contoh (di atas `MAX_DOCUMENT_BYTES`) |
+| Gambar berita `403`/`404` lewat Nginx | Izin folder `public-uploads` | `www-data` perlu baca: lihat bagian 5 (`chmod 711` storage, grup `www-data`) |
 | Semua pengunjung terkena rate limit bersamaan | IP klien terbaca sebagai IP proxy | Periksa `TRUSTED_PROXY_HOPS` sesuai jumlah proxy di depan aplikasi |
 | Build gagal di `next/font` | Gangguan unduhan Google Fonts | Ulangi `npm run build`; pastikan akses keluar ke `fonts.googleapis.com` |
 | Foto anggota tidak tampil di backoffice (404) | File hilang dari `uploads` atau kunci PII berubah | Pulihkan folder uploads dari backup; gunakan `.env` asli |

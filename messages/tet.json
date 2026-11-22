@@ -145,7 +145,18 @@
     "empty": "La iha artigu ne'ebé tuir ita-nia buka.",
     "publishedOn": "Publika iha {date}",
     "back": "Fila ba notísia",
-    "more": "Notísia seluk"
+    "more": "Notísia seluk",
+    "byline": "Hakerek husi {name}",
+    "attachment": "Anexu",
+    "downloadPdf": "Download PDF",
+    "pdfSize": "PDF · {size}",
+    "municipalityLabel": "Munisípiu",
+    "allMunicipalities": "Munisípiu hotu",
+    "national": "Nasionál",
+    "tagsLabel": "Etiketa",
+    "tagFilter": "Etiketa: {tag}",
+    "watchVideo": "Haree vídeo",
+    "applyFilter": "Filtra"
   },
   "events": {
     "metaTitle": "Eventu juventude",

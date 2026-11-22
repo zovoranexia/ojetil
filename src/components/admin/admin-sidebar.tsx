@@ -2,6 +2,7 @@
 
 import {
   CalendarDays,
+  FileDown,
   FileText,
   History,
   LayoutDashboard,
@@ -26,6 +27,7 @@ const ICONS: Record<AdminNavIcon, LucideIcon> = {
   dashboard: LayoutDashboard,
   members: Users,
   news: Newspaper,
+  documents: FileDown,
   events: CalendarDays,
   timeline: History,
   leadership: ShieldCheck,

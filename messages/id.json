@@ -145,7 +145,18 @@
     "empty": "Tidak ada artikel yang cocok dengan pencarian Anda.",
     "publishedOn": "Diterbitkan {date}",
     "back": "Kembali ke berita",
-    "more": "Berita lainnya"
+    "more": "Berita lainnya",
+    "byline": "Oleh {name}",
+    "attachment": "Lampiran",
+    "downloadPdf": "Unduh PDF",
+    "pdfSize": "PDF · {size}",
+    "municipalityLabel": "Munisipalitas",
+    "allMunicipalities": "Semua munisipalitas",
+    "national": "Nasional",
+    "tagsLabel": "Tag",
+    "tagFilter": "Tag: {tag}",
+    "watchVideo": "Tonton video",
+    "applyFilter": "Terapkan"
   },
   "events": {
     "metaTitle": "Acara pemuda",

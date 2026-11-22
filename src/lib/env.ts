@@ -23,6 +23,12 @@ const serverEnvSchema = z.object({
   PII_BLIND_INDEX_KEY: base64Key("PII_BLIND_INDEX_KEY"),
   UPLOAD_DIR: z.string().default("./storage/uploads"),
   MAX_PROFILE_PHOTO_BYTES: z.coerce.number().int().positive().default(1_048_576),
+  /** Public editorial images (news covers, inline images): served at /uploads/…, never member data. */
+  PUBLIC_UPLOAD_DIR: z.string().default("./storage/public-uploads"),
+  MAX_IMAGE_UPLOAD_BYTES: z.coerce.number().int().positive().max(20_971_520).default(5_242_880),
+  /** PDF library (Documents module). Outside /public: drafts must not be reachable. */
+  DOCUMENT_DIR: z.string().default("./storage/documents"),
+  MAX_DOCUMENT_BYTES: z.coerce.number().int().positive().max(20_971_520).default(10_485_760),
   TRUSTED_PROXY_HOPS: z.coerce.number().int().min(1).max(10).default(1),
 });
 

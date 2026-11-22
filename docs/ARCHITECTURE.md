@@ -40,11 +40,11 @@ registration portal, and an RBAC-protected backoffice. Legend in the tree:
     │   │   ├── page.tsx               Home: hero, impact strip, 1980–1999 teaser, events, news, CTA
     │   │   ├── kona-ba/               About: profile, vision & mission, leadership, contact
     │   │   ├── istoria/               Interactive narrative timeline
-    │   │   ├── notisia/ · [slug]/     News list (search + category filter) and detail
+    │   │   ├── notisia/ · [slug]/     News list (search, category, município, tag filters) and detail (rich text, PDF attachment)
     │   │   ├── edukasaun/acara/ · [slug]/   Events + self-service registration → ticket code
     │   │   └── ● komunidade/registrasi/ · cek-status/   3-step wizard + status lookup (code + DOB)
     │   ├── ● admin/                   Backoffice root layout (en), login, 403, akun/password (forced change of temporary passwords)
-│   │   └── ● (panel)/             Shell + KPI overview · anggota · berita · acara(+peserta) · linimasa · pengurus · profil · users · audit-logs · design-system
+│   │   └── ● (panel)/             Shell + KPI overview · anggota · berita (TipTap editor) · dokumen · acara(+peserta) · linimasa · pengurus · profil · users · audit-logs · design-system
     │   └── ● api/
     │       ├── ● auth/[...nextauth]/          Auth.js handlers
     │       ├── ● members/ · members/status/   multipart registration (encrypted) · status lookup; rate-limited, same-origin
@@ -54,7 +54,8 @@ registration portal, and an RBAC-protected backoffice. Legend in the tree:
     │   ├── ● ui/                      button · badge · card · input · label (shadcn, re-skinned)
     │   ├── ● brand/                   emblem · tais-ribbon
     │   ├── ● public/                  header, nav, TET|PT|ID|EN switcher, Low-Data toggle, footer, cards
-    │   ├── ● content/markdown.tsx     Dependency-free, XSS-safe Markdown renderer
+    │   ├── ● content/markdown.tsx     Dependency-free, XSS-safe Markdown renderer (profile, timeline, events)
+    │   ├── ● content/rich-content.tsx News bodies: sanitised HTML (sanitize-html allowlist, Low-Data aware)
     │   ├── ● forms/                   Field, PhotoField (in-browser downscale), WizardProgress
     │   └── ● admin/                   sidebar, tables/badges, TranslationTabs, ConfirmDialog, EditorActions
     ├── config/
@@ -106,7 +107,8 @@ app/ (routes, RSC pages, route handlers)
 | --- | --- | --- |
 | Staff | `users` | `role` (SUPER_ADMIN · VERIFIER · EDITOR · VIEWER), `isActive`, `sessionVersion` for session revocation, lockout counters |
 | Members | `member_registrations`, `member_status_changes`, `code_sequences` | PII = 3 × (ciphertext, 12-byte IV, 16-byte tag) + `piiKeyVersion`; `nationalIdHash` HMAC blind index; full verification history |
-| News | `news_articles`, `news_article_translations` | slug, category, DRAFT/PUBLISHED/ARCHIVED, `publishedAt`, author |
+| News | `news_articles`, `news_article_translations` | slug, category, DRAFT/PUBLISHED/ARCHIVED, `publishedAt` (future = scheduled), município, byline, tags, PDF attachment, author; body = sanitised HTML |
+| Documents | `documents`, `document_translations` | slug, DRAFT/PUBLISHED, PDF under `DOCUMENT_DIR` (magic-byte checked, SHA-256), public download `/documents/<slug>.pdf` when published |
 | Events | `events`, `event_translations`, `event_registrations` | timestamptz + explicit `timezone`, capacity, online flag, unique ticket codes, one registration per email per event |
 | History | `timeline_milestones`, `…_translations` | year + optional month/day with `datePrecision`; `isHighlighted` drives Home teaser |
 | Leadership | `leadership_members`, `…_translations` | NATIONAL / MUNICIPAL, term years |

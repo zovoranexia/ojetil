@@ -1,4 +1,5 @@
-import type { ContentStatus, NewsCategory, PrismaClient } from "@prisma/client";
+import type { ContentStatus, Municipality, NewsCategory, PrismaClient } from "@prisma/client";
+import { markdownToHtml } from "../../src/lib/content/markdown-to-html";
 import { diliDateTime } from "../../src/lib/dates";
 import { type L10n, log, translationRows } from "./helpers";
 
@@ -8,6 +9,13 @@ type Article = {
   status: ContentStatus;
   isFeatured: boolean;
   publishedAt: Date | null;
+  municipality?: Municipality;
+  byline?: string;
+  tags?: string[];
+  /** Slug of a seeded document to attach. */
+  document?: string;
+  /** Bodies already written as rich-text HTML (otherwise Markdown, converted on seed). */
+  html?: boolean;
   content: L10n<{ title: string; excerpt: string; body: string }>;
 };
 
@@ -16,6 +24,8 @@ const ARTICLES: Article[] = [
     slug: "loron-nasional-juventude-santa-cruz-35-tinan",
     category: "COMMEMORATION",
     status: "PUBLISHED",
+    municipality: "DILI",
+    tags: ["Santa Cruz", "12 Novembru", "memória"],
     isFeatured: true,
     publishedAt: diliDateTime(2026, 11, 12, 18, 0),
     content: {
@@ -61,6 +71,8 @@ const ARTICLES: Article[] = [
     slug: "komunikadu-portal-rejistu-membru",
     category: "PRESS_RELEASE",
     status: "PUBLISHED",
+    tags: ["rejistu", "veteranu"],
+    document: "guia-rejistu-membru-2026",
     isFeatured: false,
     publishedAt: diliDateTime(2026, 11, 18, 10, 0),
     content: {
@@ -106,6 +118,7 @@ const ARTICLES: Article[] = [
     slug: "edukasaun-sivika-to-o-munisipiu-neen",
     category: "CIVIC_EDUCATION",
     status: "PUBLISHED",
+    tags: ["edukasaun sívika"],
     isFeatured: false,
     publishedAt: diliDateTime(2026, 10, 28, 9, 30),
     content: {
@@ -151,6 +164,8 @@ const ARTICLES: Article[] = [
     slug: "debate-joven-orsamentu-jeral-estadu",
     category: "YOUTH",
     status: "PUBLISHED",
+    municipality: "DILI",
+    tags: ["debate", "OJE 2027"],
     isFeatured: false,
     publishedAt: diliDateTime(2026, 9, 30, 16, 0),
     content: {
@@ -219,14 +234,75 @@ const ARTICLES: Article[] = [
   },
 ];
 
-export async function seedNews(db: PrismaClient, authorId: string): Promise<void> {
-  for (const a of ARTICLES) {
-    const translations = translationRows(a.content);
+/** Opinion piece written directly in rich-text HTML (headings, quote, list, alignment). */
+const OPINION: Article = {
+  slug: "opiniaun-joven-no-memoria-rezistensia",
+  category: "YOUTH",
+  status: "PUBLISHED",
+  isFeatured: false,
+  publishedAt: diliDateTime(2026, 11, 20, 9, 0),
+  municipality: "BAUCAU",
+  byline: "Maria da Costa",
+  tags: ["opiniaun", "memória", "juventude"],
+  document: "estatutu-ojetil",
+  html: true,
+  content: {
+    TET: {
+      title: "Opiniaun: Joven sira no memória rezisténsia",
+      excerpt: "Saida mak signifika memória rezisténsia ba jerasaun ne'ebé moris hafoin independénsia?",
+      body:
+        "<p>Jerasaun foun moris iha nasaun ida ne'ebé livre ona. Maibé <strong>liberdade</strong> ne'e mai husi sakrifísiu.</p>" +
+        "<h2>Tanba saida memória importante</h2>" +
+        "<blockquote><p>Memória la'ós de'it hanoin, maibé responsabilidade.</p></blockquote>" +
+        "<ul><li><p>Rona testemuña husi veteranu sira</p></li><li><p>Vizita fatin istóriku sira</p></li><li><p>Hakerek no fahe istória lokál</p></li></ul>" +
+        "<p style=\"text-align: center\"><em>Hanoin hikas, hamriik hamutuk.</em></p>",
+    },
+    PT: {
+      title: "Opinião: Os jovens e a memória da resistência",
+      excerpt: "O que significa a memória da resistência para a geração nascida depois da independência?",
+      body:
+        "<p>A nova geração nasceu num país já livre. Mas essa <strong>liberdade</strong> resultou de sacrifício.</p>" +
+        "<h2>Porque é que a memória importa</h2>" +
+        "<blockquote><p>A memória não é apenas recordação, é responsabilidade.</p></blockquote>" +
+        "<ul><li><p>Ouvir os testemunhos dos veteranos</p></li><li><p>Visitar locais históricos</p></li><li><p>Escrever e partilhar histórias locais</p></li></ul>" +
+        "<p style=\"text-align: center\"><em>Lembrar, e caminhar juntos.</em></p>",
+    },
+    ID: {
+      title: "Opini: Pemuda dan ingatan perlawanan",
+      excerpt: "Apa arti ingatan perlawanan bagi generasi yang lahir setelah kemerdekaan?",
+      body:
+        "<p>Generasi baru lahir di negara yang sudah merdeka. Namun <strong>kemerdekaan</strong> itu lahir dari pengorbanan.</p>" +
+        "<h2>Mengapa ingatan penting</h2>" +
+        "<blockquote><p>Ingatan bukan sekadar kenangan, melainkan tanggung jawab.</p></blockquote>" +
+        "<ul><li><p>Mendengarkan kesaksian para veteran</p></li><li><p>Mengunjungi situs bersejarah</p></li><li><p>Menulis dan berbagi kisah lokal</p></li></ul>" +
+        "<p style=\"text-align: center\"><em>Mengingat, dan melangkah bersama.</em></p>",
+    },
+    EN: {
+      title: "Opinion: Young people and the memory of the resistance",
+      excerpt: "What does the memory of the resistance mean for the generation born after independence?",
+      body:
+        "<p>The new generation was born in a country that is already free. But that <strong>freedom</strong> came from sacrifice.</p>" +
+        "<h2>Why memory matters</h2>" +
+        "<blockquote><p>Memory is not only remembrance — it is responsibility.</p></blockquote>" +
+        "<ul><li><p>Listen to the testimonies of veterans</p></li><li><p>Visit historic sites</p></li><li><p>Write down and share local stories</p></li></ul>" +
+        "<p style=\"text-align: center\"><em>Remember, and walk together.</em></p>",
+    },
+  },
+};
+
+export async function seedNews(db: PrismaClient, authorId: string, documentIds: Record<string, string> = {}): Promise<void> {
+  for (const a of [...ARTICLES, OPINION]) {
+    // Bodies are stored as rich-text HTML, like the editor produces.
+    const translations = translationRows(a.content).map((t) => ({ ...t, body: a.html ? t.body : markdownToHtml(t.body) }));
     const data = {
       category: a.category,
       status: a.status,
       isFeatured: a.isFeatured,
       publishedAt: a.publishedAt,
+      municipality: a.municipality ?? null,
+      byline: a.byline ?? null,
+      tags: a.tags ?? [],
+      documentId: a.document ? (documentIds[a.document] ?? null) : null,
       authorId,
     };
     await db.newsArticle.upsert({
@@ -235,6 +311,7 @@ export async function seedNews(db: PrismaClient, authorId: string): Promise<void
       update: { ...data, translations: { deleteMany: {}, create: translations } },
     });
   }
-  const published = ARTICLES.filter((a) => a.status === "PUBLISHED").length;
-  log("News articles", `${ARTICLES.length} articles (${published} published, ${ARTICLES.length - published} draft) × 4 locales`);
+  const all = [...ARTICLES, OPINION];
+  const published = all.filter((a) => a.status === "PUBLISHED").length;
+  log("News articles", `${all.length} articles (${published} published, ${all.length - published} draft) × 4 locales, HTML bodies`);
 }

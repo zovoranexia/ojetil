@@ -59,6 +59,7 @@ const ACTION_LABELS: Record<AuditAction, string> = {
   CONTENT_PUBLISHED: "published",
   CONTENT_UNPUBLISHED: "unpublished",
   CONTENT_DELETED: "deleted",
+  MEDIA_UPLOADED: "uploaded image",
   EVENT_CREATED: "created event",
   EVENT_UPDATED: "updated event",
   EVENT_PUBLISHED: "published event",
