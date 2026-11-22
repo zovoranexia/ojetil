@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { LOCALES } from "@/config/locales";
-import { PRIMARY_NAV, CONTACT_PATH, REGISTER_PATH } from "@/config/navigation";
+import { PRIMARY_NAV, REGISTER_PATH } from "@/config/navigation";
 import { getPathname } from "@/i18n/navigation";
 import { absoluteUrl } from "@/lib/seo";
 import { publicEventsForSitemap } from "@/modules/events/queries";
@@ -25,7 +25,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...PRIMARY_NAV.map((item) => entry(item.href, { changeFrequency: item.href === "/" || item.href === "/notisia" ? "daily" : "weekly", priority: item.href === "/" ? 1 : 0.8 })),
-    entry(CONTACT_PATH, { changeFrequency: "yearly", priority: 0.5 }),
     entry(REGISTER_PATH, { changeFrequency: "yearly", priority: 0.6 }),
     ...news.map((a) => entry(`/notisia/${a.slug}`, { lastModified: a.updatedAt, changeFrequency: "monthly", priority: 0.7 })),
     ...events.map((e) => entry(`/edukasaun/acara/${e.slug}`, { lastModified: e.updatedAt, changeFrequency: "weekly", priority: 0.6 })),
