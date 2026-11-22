@@ -1,0 +1,400 @@
+{
+  "meta": {
+    "siteTitle": "OJETIL — Organizasaun Juventude no Estudante Timor-Leste",
+    "siteDescription": "Sentru nasionál ba edukasaun sívika, diskursu públiku no partisipasaun foin-sa'e. Husi rede klandestina tinan 1980 to'o sidadaun joven ohin loron."
+  },
+  "common": {
+    "skipToContent": "Ba kedas konteúdu prinsipál",
+    "readMore": "Lee liu tan",
+    "viewAll": "Haree hotu",
+    "loading": "Karrega hela…",
+    "copy": "Kopia",
+    "copied": "Kopia ona",
+    "copyFailed": "La konsege kopia — hili kódigu no kopia rasik.",
+    "required": "obrigatóriu",
+    "optional": "opsionál",
+    "previous": "Molok",
+    "next": "Tuir mai",
+    "pageOf": "Pájina {page} husi {count}",
+    "pagination": "Navegasaun pájina",
+    "imagePlaceholder": "Imajen subar iha Modu Dadus Ki'ik",
+    "tryAgain": "Koko fali",
+    "backHome": "Fila ba inísiu"
+  },
+  "nav": {
+    "primary": "Navegasaun prinsipál",
+    "home": "Inísiu",
+    "about": "Kona-ba",
+    "history": "Istória",
+    "news": "Notísia",
+    "events": "Eventu",
+    "register": "Rejista",
+    "checkStatus": "Haree status",
+    "openMenu": "Loke menu",
+    "closeMenu": "Taka menu",
+    "language": "Lian",
+    "homeLink": "OJETIL — pájina inísiu"
+  },
+  "lowData": {
+    "label": "Modu Dadus Ki'ik",
+    "short": "Dadus ki'ik",
+    "on": "Ativu",
+    "off": "La ativu",
+    "description": "Subar foto no uza letra sistema nian atu poupa dadus telemóvel."
+  },
+  "footer": {
+    "tagline": "Sentru nasionál ba edukasaun sívika, diskursu públiku no partisipasaun foin-sa'e.",
+    "explore": "Esplora",
+    "community": "Komunidade",
+    "contact": "Kontaktu",
+    "headquarters": "Sede",
+    "rights": "© {year} OJETIL. Direitu hotu rezervadu.",
+    "staff": "Tama ba ekipa",
+    "timezone": "Oras hotu tuir oras Timor-Leste ({zone})."
+  },
+  "home": {
+    "metaTitle": "Inísiu",
+    "hero": {
+      "eyebrow": "Hahú husi rede klandestina tinan 1980 sira",
+      "title": "Matenek atu serbí Pátria no Povu",
+      "lead": "OJETIL hamutuk veteranu rezisténsia no jerasaun foun ba edukasaun sívika, debate nakloke no serbisu ba komunidade iha munisípiu hotu.",
+      "ctaRegister": "Sai membru",
+      "ctaHistory": "Lee ami-nia istória"
+    },
+    "impact": {
+      "title": "OJETIL iha númeru",
+      "verifiedMembers": "Membru no veteranu verifikadu",
+      "eventsHeld": "Eventu edukasaun sívika",
+      "participants": "Partisipante eventu",
+      "municipalities": "Munisípiu ne'ebé to'o ona"
+    },
+    "timeline": {
+      "title": "Istória ida ne'ebé joven sira hakerek",
+      "lead": "Husi selula estudante segredu to'o Konsulta Populár 1999.",
+      "cta": "Esplora kronolojia kompletu"
+    },
+    "events": {
+      "title": "Eventu juventude sei mai",
+      "lead": "Semináriu, debate públiku no workshop — loke ba joven timoroan hotu.",
+      "empty": "Agora seidauk iha eventu foun. Fila mai fali lalais.",
+      "cta": "Eventu hotu"
+    },
+    "news": {
+      "title": "Notísia foun",
+      "empty": "Seidauk iha notísia.",
+      "cta": "Notísia hotu"
+    },
+    "cta": {
+      "title": "Ita parte husi frente klandestina? Ita prontu atu serbí?",
+      "body": "Rejista nu'udar veteranu tempu klandestina ka nu'udar membru joven no voluntáriu. Ita-nia dadus enkriptadu no so Sekretariadu OJETIL mak haree.",
+      "button": "Hahú rejistu",
+      "checkStatus": "Rejista tiha ona? Haree ita-nia status"
+    }
+  },
+  "about": {
+    "metaTitle": "Kona-ba OJETIL",
+    "eyebrow": "Kona-ba ami",
+    "leadership": {
+      "title": "Lideransa",
+      "lead": "Diresaun Nasionál no koordenadór munisipál sira ba mandatu atuál.",
+      "national": "Diresaun Nasionál",
+      "municipal": "Koordenadór munisipál",
+      "term": "Mandatu {start}–{end}",
+      "termOngoing": "Hahú {start}",
+      "empty": "Diretóriu lideransa iha atualizasaun hela."
+    },
+    "contact": {
+      "title": "Kontaktu",
+      "lead": "Vizita ami iha sede iha Díli ka kontaktu ami.",
+      "address": "Enderesu",
+      "email": "Email",
+      "phone": "Telefone",
+      "map": "Loke iha mapa",
+      "hours": "Segunda to'o Sesta, 08:30–17:00"
+    }
+  },
+  "history": {
+    "metaTitle": "Istória",
+    "eyebrow": "Istória 1980–2002",
+    "filterLabel": "Ba períodu ida",
+    "showMore": "Lee istória kompletu",
+    "showLess": "Hatudu menus",
+    "empty": "Kronolojia iha preparasaun hela.",
+    "note": "Istória narrativa ida. Testemuña no dokumentu sira sei publika iha Arkivu Dijitál OJETIL."
+  },
+  "news": {
+    "metaTitle": "Notísia no komunikadu",
+    "eyebrow": "Notísia",
+    "title": "Notísia no komunikadu",
+    "lead": "Anúnsiu, informasaun programa no komunikadu imprensa husi OJETIL.",
+    "searchLabel": "Buka notísia",
+    "searchPlaceholder": "Buka ho liafuan…",
+    "searchButton": "Buka",
+    "clear": "Hamoos",
+    "categoryLabel": "Kategoria",
+    "allCategories": "Hotu",
+    "categories": {
+      "ORGANIZATION": "Organizasaun",
+      "CIVIC_EDUCATION": "Edukasaun sívika",
+      "YOUTH": "Juventude",
+      "COMMEMORATION": "Komemorasaun",
+      "PRESS_RELEASE": "Komunikadu imprensa"
+    },
+    "results": "{count, plural, =0 {La iha artigu} other {Artigu #}}",
+    "resultsFor": "ba “{query}”",
+    "empty": "La iha artigu ne'ebé tuir ita-nia buka.",
+    "publishedOn": "Publika iha {date}",
+    "back": "Fila ba notísia",
+    "more": "Notísia seluk"
+  },
+  "events": {
+    "metaTitle": "Eventu juventude",
+    "eyebrow": "Edukasaun sívika",
+    "title": "Eventu juventude",
+    "lead": "Semináriu, debate públiku no workshop. Rejistu gratuitu; ita simu kódigu bilhete kedas.",
+    "upcoming": "Sei mai",
+    "past": "Eventu liu ona",
+    "typeLabel": "Tipu eventu",
+    "allTypes": "Hotu",
+    "types": {
+      "SEMINAR": "Semináriu",
+      "DEBATE": "Debate públiku",
+      "WORKSHOP": "Workshop"
+    },
+    "online": "Online",
+    "emptyUpcoming": "Seidauk iha eventu sei mai ba tipu ida-ne'e.",
+    "emptyPast": "Seidauk iha eventu liu ona.",
+    "when": "Bainhira",
+    "where": "Iha ne'ebé",
+    "capacityLabel": "Fatin",
+    "registered": "{count} husi {capacity} rejistadu",
+    "seatsLeft": "{count, plural, other {Fatin # mak sei mamuk}}",
+    "almostFull": "Besik nakonu",
+    "full": "Nakonu ona",
+    "cancelled": "Kansela ona",
+    "ended": "Remata ona",
+    "registrationClosed": "Rejistu ba eventu ida-ne'e taka ona.",
+    "registrationClosedShort": "Rejistu taka ona",
+    "deadline": "Rejista molok {date}",
+    "about": "Kona-ba eventu ida-ne'e",
+    "back": "Fila ba eventu",
+    "details": "Detalle no rejistu"
+  },
+  "eventRegistration": {
+    "title": "Rejista ba eventu ida-ne'e",
+    "lead": "Minutu ida de'it. Kódigu bilhete mosu kedas.",
+    "fullName": "Naran kompletu",
+    "email": "Email",
+    "emailHint": "Ami haruka informasaun eventu ba ne'e.",
+    "phone": "Telefone / WhatsApp",
+    "institution": "Eskola, universidade ka servisu",
+    "municipality": "Munisípiu",
+    "municipalityNone": "Hili…",
+    "consent": "Hau konkorda katak OJETIL rai dadus sira-ne'e atu organiza eventu ida-ne'e, tuir nota privasidade.",
+    "submit": "Rejista",
+    "submitting": "Rejista hela…",
+    "success": {
+      "title": "Ita rejista ona!",
+      "body": "Hatudu kódigu bilhete ida-ne'e iha odamatan. Rai di'ak — ita presiza ida-ne'e bainhira tama.",
+      "ticket": "Ita-nia kódigu bilhete",
+      "onlineNote": "Link online sei haruka ba ita-nia email molok eventu."
+    },
+    "errors": {
+      "nameMin": "Hakerek ita-nia naran kompletu (letra 3 ka liu).",
+      "nameMax": "Naran naruk liu.",
+      "email": "Hakerek enderesu email ne'ebé loos.",
+      "phone": "Hakerek númeru telefone ne'ebé loos, ezemplu +670 7723 4512.",
+      "textMax": "Testu ida-ne'e naruk liu.",
+      "consent": "Ita tenke konkorda molok rejista.",
+      "full": "Deskulpa — eventu ida-ne'e nakonu ona.",
+      "closed": "Rejistu ba eventu ida-ne'e taka ona.",
+      "duplicate": "Email ida-ne'e rejista tiha ona ba eventu ida-ne'e.",
+      "notFound": "Eventu ida-ne'e la disponível ona.",
+      "generic": "Iha problema ruma. Favór koko fali.",
+      "form": "Favór hadia kampu sira ne'ebé marka.",
+      "rateLimited": "Rejistu barak liu husi ita-nia ligasaun. Favór hein minutu balun no koko fali."
+    }
+  },
+  "dates": {
+    "decade": "Tinan {year} sira",
+    "timezone": "Oras Díli"
+  },
+  "notFound": {
+    "title": "Pájina la hetan",
+    "body": "Pájina ne'ebé ita buka la iha ka muda ona."
+  },
+  "error": {
+    "title": "Iha problema ruma",
+    "body": "La konsege karrega pájina ida-ne'e. Haree ita-nia ligasaun no koko fali."
+  },
+  "memberRegistration": {
+    "metaTitle": "Rejistu membru no veteranu",
+    "eyebrow": "Komunidade",
+    "title": "Tama ba OJETIL",
+    "lead": "Rejista nu'udar veteranu husi frente klandestina ka nu'udar membru joven no voluntáriu. Presiza minutu lima de'it.",
+    "privacyNote": "Ita-nia númeru Bilhete de Identidade, telefone no hela-fatin enkriptadu kedas bainhira to'o ami-nia servidór. So ekipa verifikasaun OJETIL mak bele lee.",
+    "progress": "Pasu {current} husi {total}",
+    "steps": {
+      "one": "Kategoria no identidade",
+      "two": "Hela-fatin no kontaktu",
+      "three": "Istória no konsentimentu"
+    },
+    "track": {
+      "legend": "Hau rejista nu'udar",
+      "veteran": {
+        "title": "Veteranu tempu klandestina",
+        "description": "Ita partisipa iha rede klandestina joven ka estudante entre 1975 no 1999."
+      },
+      "youth": {
+        "title": "Membru joven / voluntáriu",
+        "description": "Ita hakarak tuir edukasaun sívika, debate no serbisu ba komunidade ohin loron."
+      }
+    },
+    "fields": {
+      "fullName": "Naran kompletu",
+      "clandestineAlias": "Naran Klandestin",
+      "clandestineAliasHint": "Naran kódigu ne'ebé ita uza iha rezisténsia, se iha.",
+      "dateOfBirth": "Data moris",
+      "gender": "Jéneru",
+      "genders": {
+        "MALE": "Mane",
+        "FEMALE": "Feto",
+        "PREFER_NOT_TO_SAY": "Prefere la temi"
+      },
+      "photo": "Foto perfíl",
+      "photoHint": "JPG, PNG ka WebP. Foto boot sei hakiik automatikamente ba menus husi 1 MB.",
+      "photoChoose": "Hili foto",
+      "photoChange": "Troka foto",
+      "photoRemove": "Hasai",
+      "photoProcessing": "Prepara hela foto…",
+      "photoPreview": "Foto perfíl ne'ebé hili ona",
+      "municipality": "Munisípiu",
+      "municipalityPlaceholder": "Hili ita-nia munisípiu…",
+      "administrativePost": "Postu Administrativu",
+      "administrativePostHint": "Ba Diáspora, hakerek sidade no nasaun.",
+      "address": "Enderesu hela-fatin",
+      "phone": "Telefone / WhatsApp",
+      "email": "Email",
+      "nationalId": "Númeru Bilhete de Identidade (BI)",
+      "nationalIdHint": "Uza de'it atu verifika ita-nia identidade no evita rejistu dobradu.",
+      "encrypted": "Enkriptadu",
+      "yearJoined": "Tinan ne'ebé ita tama movimentu klandestina",
+      "clandestineCell": "Selula ka rede klandestina",
+      "clandestineCellHint": "Ezemplu: selula estudante iha ita-nia eskola, ka naran ita-nia rede.",
+      "clandestineRegion": "Rejiaun ne'ebé ita ativu",
+      "witnessReference": "Kamarada ne'ebé bele konfirma ita-nia partisipasaun",
+      "witnessReferenceHint": "Naran ida ajuda Sekretariadu verifika ita-nia rejistu lalais liu.",
+      "institution": "Eskola, universidade ka servisu",
+      "interests": "Área ne'ebé ita hakarak kontribui",
+      "interestAreas": {
+        "EDUCATION": "Edukasaun",
+        "ADVOCACY": "Advokasia",
+        "MEDIA": "Média",
+        "COMMUNITY_SERVICE": "Serbisu komunitáriu"
+      },
+      "motivation": "Tanba sá mak ita hakarak tama OJETIL?",
+      "motivationCount": "{count} / 1000",
+      "consent": "Hau konfirma katak informasaun hotu loos no hau konkorda katak OJETIL prosesa hau-nia dadus pesoál atu verifika no jere hau-nia membru, tuir nota privasidade. Dadus sensível enkriptadu no sei la fahe sein hau-nia autorizasaun.",
+      "optional": "opsionál"
+    },
+    "actions": {
+      "back": "Fila",
+      "next": "Kontinua",
+      "submit": "Haruka rejistu",
+      "submitting": "Haruka ho seguru…"
+    },
+    "success": {
+      "title": "Ami simu ona ita-nia rejistu",
+      "body": "Obrigadu. Sekretariadu OJETIL sei haree ita-nia kandidatura.",
+      "codeLabel": "Ita-nia kódigu rejistu",
+      "save": "Rai kódigu ida-ne'e — ita presiza ida-ne'e ho ita-nia data moris atu haree status.",
+      "statusLabel": "Status agora",
+      "nextTitle": "Saida mak sei akontese",
+      "next1": "Sekretariadu verifika ita-nia dadus. Veteranu sira bele hetan kontaktu atu konfirma sira-nia istória.",
+      "next2": "Haree ita-nia status bainhira de'it ho kódigu rejistu no data moris.",
+      "next3": "Se iha buat ruma atu hadia, pájina status sei hatete saida mak atu halo.",
+      "checkStatus": "Haree status"
+    },
+    "errors": {
+      "category": "Hili oinsá ita rejista.",
+      "nameMin": "Hakerek ita-nia naran kompletu (letra 3 ka liu).",
+      "nameMax": "Naran naruk liu.",
+      "aliasMax": "Naran klandestin naruk liu.",
+      "dobInvalid": "Hakerek data moris ne'ebé loos.",
+      "dobRange": "Haree fali data moris — aplikante tenke iha tinan 13 ka liu.",
+      "gender": "Hili opsaun ida.",
+      "municipality": "Hili ita-nia munisípiu.",
+      "postRequired": "Hakerek ita-nia postu administrativu.",
+      "addressMin": "Hakerek ita-nia enderesu hela-fatin.",
+      "textMax": "Testu ida-ne'e naruk liu.",
+      "phone": "Hakerek númeru telefone ne'ebé loos, ezemplu +670 7723 4512.",
+      "email": "Hakerek email ne'ebé loos, ka husik mamuk.",
+      "nationalId": "Hakerek númeru BI ne'ebé loos (letra, númeru ka hífen 5–30).",
+      "yearJoined": "Hakerek tinan ida entre 1975 no 1999.",
+      "yearJoinedAge": "Tinan ida-ne'e molok ita iha tinan 8 — favór haree fali.",
+      "cellRequired": "Hakerek naran ita-nia selula ka rede.",
+      "institutionRequired": "Hakerek ita-nia eskola, universidade ka servisu.",
+      "interests": "Hili área ida ka liu.",
+      "motivationMin": "Konta mai ami uitoan tan (letra 20 ka liu).",
+      "consent": "Ita tenke konkorda molok haruka.",
+      "photoSize": "Foto tenke menus husi 1 MB.",
+      "photoType": "Uza imajen JPG, PNG ka WebP.",
+      "rateLimited": "Koko barak liu. Favór hein minutu balun no koko fali.",
+      "generic": "Iha problema ruma. Ita-nia dadus seidauk rai — favór koko fali.",
+      "form": "Favór hadia kampu sira ne'ebé marka.",
+      "network": "Problema ligasaun. Haree ita-nia internet no koko fali — ita-nia resposta sei iha ne'e."
+    }
+  },
+  "statusLookup": {
+    "metaTitle": "Haree status rejistu",
+    "eyebrow": "Komunidade",
+    "title": "Haree ita-nia status rejistu",
+    "lead": "Hatama ita-nia kódigu rejistu no data moris.",
+    "privacyNote": "Atu proteje ita-nia privasidade, ami la hatudu ita-nia naran ka dadus pesoál iha ne'e.",
+    "code": "Kódigu rejistu",
+    "codeHint": "Ezemplu: OJT-2026-0042",
+    "dateOfBirth": "Data moris",
+    "submit": "Haree status",
+    "submitting": "Verifika hela…",
+    "categories": {
+      "VETERAN_KLANDESTIN": "Veteranu tempu klandestina",
+      "ANGGOTA_PEMUDA": "Membru joven / voluntáriu"
+    },
+    "result": {
+      "category": "Kategoria",
+      "submitted": "Haruka iha",
+      "updated": "Atualiza ikus",
+      "verifiedOn": "Verifika iha",
+      "message": "Mensajen husi Sekretariadu",
+      "contact": "Iha pergunta? Kontaktu Sekretariadu iha {email}.",
+      "another": "Haree kódigu seluk"
+    },
+    "statuses": {
+      "PENDING_VERIFICATION": {
+        "label": "Hein verifikasaun",
+        "body": "Ita-nia kandidatura iha lista verifikasaun nia laran. La presiza halo buat ida."
+      },
+      "NEEDS_REVISION": {
+        "label": "Presiza revizaun",
+        "body": "Sekretariadu presiza informasaun tan. Favór lee mensajen iha okos no kontaktu ami."
+      },
+      "VERIFIED": {
+        "label": "Verifikadu",
+        "body": "Benvindu ba OJETIL! Ita-nia membru verifikadu ona."
+      },
+      "REJECTED": {
+        "label": "La aprova",
+        "body": "Ita-nia kandidatura la bele aprova. Haree razaun iha mensajen iha okos."
+      }
+    },
+    "errors": {
+      "code": "Hatama kódigu hanesan OJT-2026-0042.",
+      "dobInvalid": "Hakerek data moris ne'ebé loos.",
+      "notFound": "Ami la hetan kandidatura ho kódigu no data moris ida-ne'e. Haree fali rua ne'e no koko fali.",
+      "rateLimited": "Koko barak liu. Favór hein minutu balun no koko fali.",
+      "generic": "Iha problema ruma. Favór koko fali.",
+      "form": "Favór hadia kampu sira ne'ebé marka.",
+      "network": "Problema ligasaun. Haree ita-nia internet no koko fali."
+    }
+  }
+}

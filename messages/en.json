@@ -1,0 +1,400 @@
+{
+  "meta": {
+    "siteTitle": "OJETIL — Organisation of Youth and Students of Timor-Leste",
+    "siteDescription": "National centre for civic education, public discourse and youth engagement. From the clandestine networks of the 1980s to today's young citizens."
+  },
+  "common": {
+    "skipToContent": "Skip to main content",
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "loading": "Loading…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Could not copy — please select the code and copy it manually.",
+    "required": "required",
+    "optional": "optional",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {count}",
+    "pagination": "Pagination",
+    "imagePlaceholder": "Image hidden in Low-Data Mode",
+    "tryAgain": "Try again",
+    "backHome": "Back to home"
+  },
+  "nav": {
+    "primary": "Main navigation",
+    "home": "Home",
+    "about": "About",
+    "history": "History",
+    "news": "News",
+    "events": "Events",
+    "register": "Register",
+    "checkStatus": "Check status",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "homeLink": "OJETIL — home page"
+  },
+  "lowData": {
+    "label": "Low-Data Mode",
+    "short": "Low data",
+    "on": "On",
+    "off": "Off",
+    "description": "Hides photos and uses system fonts to save mobile data."
+  },
+  "footer": {
+    "tagline": "National centre for civic education, public discourse and youth engagement.",
+    "explore": "Explore",
+    "community": "Community",
+    "contact": "Contact",
+    "headquarters": "Headquarters",
+    "rights": "© {year} OJETIL. All rights reserved.",
+    "staff": "Staff sign-in",
+    "timezone": "All times are Timor-Leste time ({zone})."
+  },
+  "home": {
+    "metaTitle": "Home",
+    "hero": {
+      "eyebrow": "Since the clandestine networks of the 1980s",
+      "title": "Knowledge to serve the Homeland and the People",
+      "lead": "OJETIL brings veterans of the resistance and a new generation together for civic education, open debate and service in every municipality.",
+      "ctaRegister": "Become a member",
+      "ctaHistory": "Read our history"
+    },
+    "impact": {
+      "title": "OJETIL in numbers",
+      "verifiedMembers": "Verified members & veterans",
+      "eventsHeld": "Civic education events",
+      "participants": "Event participants",
+      "municipalities": "Municipalities reached"
+    },
+    "timeline": {
+      "title": "A history written by the young",
+      "lead": "From secret student cells to the 1999 Popular Consultation.",
+      "cta": "Explore the full timeline"
+    },
+    "events": {
+      "title": "Upcoming youth events",
+      "lead": "Seminars, public debates and workshops — open to every young Timorese.",
+      "empty": "No upcoming events right now. Check back soon.",
+      "cta": "All events"
+    },
+    "news": {
+      "title": "Latest news",
+      "empty": "No news yet.",
+      "cta": "All news"
+    },
+    "cta": {
+      "title": "Were you part of the clandestine front? Are you ready to serve?",
+      "body": "Register as a clandestine-era veteran or as a youth member and volunteer. Your data is encrypted and reviewed only by the OJETIL Secretariat.",
+      "button": "Start registration",
+      "checkStatus": "Already registered? Check your status"
+    }
+  },
+  "about": {
+    "metaTitle": "About OJETIL",
+    "eyebrow": "About us",
+    "leadership": {
+      "title": "Leadership",
+      "lead": "The National Directorate and municipal coordinators serving the current term.",
+      "national": "National Directorate",
+      "municipal": "Municipal coordinators",
+      "term": "Term {start}–{end}",
+      "termOngoing": "Since {start}",
+      "empty": "The leadership directory is being updated."
+    },
+    "contact": {
+      "title": "Contact",
+      "lead": "Visit us at our headquarters in Díli or get in touch.",
+      "address": "Address",
+      "email": "Email",
+      "phone": "Phone",
+      "map": "Open in map",
+      "hours": "Monday to Friday, 08:30–17:00"
+    }
+  },
+  "history": {
+    "metaTitle": "History",
+    "eyebrow": "History 1980–2002",
+    "filterLabel": "Jump to a period",
+    "showMore": "Read the full story",
+    "showLess": "Show less",
+    "empty": "The timeline is being prepared.",
+    "note": "A narrative history. Testimonies and documents will be published in the OJETIL Digital Archive."
+  },
+  "news": {
+    "metaTitle": "News & press releases",
+    "eyebrow": "News",
+    "title": "News & press releases",
+    "lead": "Announcements, programme updates and press releases from OJETIL.",
+    "searchLabel": "Search news",
+    "searchPlaceholder": "Search by keyword…",
+    "searchButton": "Search",
+    "clear": "Clear",
+    "categoryLabel": "Category",
+    "allCategories": "All",
+    "categories": {
+      "ORGANIZATION": "Organisation",
+      "CIVIC_EDUCATION": "Civic education",
+      "YOUTH": "Youth",
+      "COMMEMORATION": "Commemoration",
+      "PRESS_RELEASE": "Press release"
+    },
+    "results": "{count, plural, =0 {No articles} one {# article} other {# articles}}",
+    "resultsFor": "for “{query}”",
+    "empty": "No articles match your search.",
+    "publishedOn": "Published {date}",
+    "back": "Back to news",
+    "more": "More news"
+  },
+  "events": {
+    "metaTitle": "Youth events",
+    "eyebrow": "Civic education",
+    "title": "Youth events",
+    "lead": "Seminars, public debates and workshops. Registration is free; you receive a ticket code instantly.",
+    "upcoming": "Upcoming",
+    "past": "Past events",
+    "typeLabel": "Event type",
+    "allTypes": "All",
+    "types": {
+      "SEMINAR": "Seminar",
+      "DEBATE": "Public debate",
+      "WORKSHOP": "Workshop"
+    },
+    "online": "Online",
+    "emptyUpcoming": "No upcoming events of this type.",
+    "emptyPast": "No past events yet.",
+    "when": "When",
+    "where": "Where",
+    "capacityLabel": "Seats",
+    "registered": "{count} of {capacity} registered",
+    "seatsLeft": "{count, plural, one {# seat left} other {# seats left}}",
+    "almostFull": "Almost full",
+    "full": "Fully booked",
+    "cancelled": "Cancelled",
+    "ended": "Ended",
+    "registrationClosed": "Registration is closed for this event.",
+    "registrationClosedShort": "Registration closed",
+    "deadline": "Register by {date}",
+    "about": "About this event",
+    "back": "Back to events",
+    "details": "Details & registration"
+  },
+  "eventRegistration": {
+    "title": "Register for this event",
+    "lead": "Takes one minute. Your ticket code appears immediately.",
+    "fullName": "Full name",
+    "email": "Email",
+    "emailHint": "We send event updates here.",
+    "phone": "Phone / WhatsApp",
+    "institution": "School, university or occupation",
+    "municipality": "Municipality",
+    "municipalityNone": "Select…",
+    "consent": "I agree that OJETIL stores these details to organise this event, as described in the privacy notice.",
+    "submit": "Register",
+    "submitting": "Registering…",
+    "success": {
+      "title": "You're registered!",
+      "body": "Show this ticket code at the entrance. Keep it safe — you will need it to check in.",
+      "ticket": "Your ticket code",
+      "onlineNote": "The online link will be sent to your email before the event."
+    },
+    "errors": {
+      "nameMin": "Enter your full name (at least 3 characters).",
+      "nameMax": "Name is too long.",
+      "email": "Enter a valid email address.",
+      "phone": "Enter a valid phone number, e.g. +670 7723 4512.",
+      "textMax": "This text is too long.",
+      "consent": "You must agree before registering.",
+      "full": "Sorry — this event is now fully booked.",
+      "closed": "Registration for this event is closed.",
+      "duplicate": "This email is already registered for this event.",
+      "notFound": "This event is no longer available.",
+      "generic": "Something went wrong. Please try again.",
+      "form": "Please correct the highlighted fields.",
+      "rateLimited": "Too many registrations from your connection. Please wait a few minutes and try again."
+    }
+  },
+  "dates": {
+    "decade": "{year}s",
+    "timezone": "Díli time"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you were looking for does not exist or has moved."
+  },
+  "error": {
+    "title": "Something went wrong",
+    "body": "We could not load this page. Please check your connection and try again."
+  },
+  "memberRegistration": {
+    "metaTitle": "Member & veteran registration",
+    "eyebrow": "Community",
+    "title": "Join OJETIL",
+    "lead": "Register as a veteran of the clandestine front or as a youth member and volunteer. It takes about five minutes.",
+    "privacyNote": "Your Bilhete de Identidade number, phone and address are encrypted as soon as they reach our server. Only the OJETIL verification team can read them.",
+    "progress": "Step {current} of {total}",
+    "steps": {
+      "one": "Category & identity",
+      "two": "Residence & contact",
+      "three": "Background & consent"
+    },
+    "track": {
+      "legend": "I am registering as",
+      "veteran": {
+        "title": "Clandestine-era veteran",
+        "description": "You took part in the youth or student clandestine networks between 1975 and 1999."
+      },
+      "youth": {
+        "title": "Youth member / volunteer",
+        "description": "You want to join civic education, debates and community service today."
+      }
+    },
+    "fields": {
+      "fullName": "Full name",
+      "clandestineAlias": "Clandestine name (Naran Klandestin)",
+      "clandestineAliasHint": "The code name you used in the resistance, if any.",
+      "dateOfBirth": "Date of birth",
+      "gender": "Gender",
+      "genders": {
+        "MALE": "Male",
+        "FEMALE": "Female",
+        "PREFER_NOT_TO_SAY": "Prefer not to say"
+      },
+      "photo": "Profile photo",
+      "photoHint": "JPG, PNG or WebP. Large photos are reduced automatically to under 1 MB.",
+      "photoChoose": "Choose photo",
+      "photoChange": "Change photo",
+      "photoRemove": "Remove",
+      "photoProcessing": "Preparing photo…",
+      "photoPreview": "Selected profile photo",
+      "municipality": "Municipality",
+      "municipalityPlaceholder": "Select your municipality…",
+      "administrativePost": "Administrative post (Postu Administrativu)",
+      "administrativePostHint": "For Diaspora, write your city and country.",
+      "address": "Residential address",
+      "phone": "Phone / WhatsApp",
+      "email": "Email",
+      "nationalId": "Bilhete de Identidade (BI) number",
+      "nationalIdHint": "Used only to verify your identity and avoid duplicate registrations.",
+      "encrypted": "Encrypted",
+      "yearJoined": "Year you joined the clandestine movement",
+      "clandestineCell": "Clandestine cell or network",
+      "clandestineCellHint": "For example: the student cell at your school, or your network's name.",
+      "clandestineRegion": "Region where you were active",
+      "witnessReference": "Comrade who can confirm your participation",
+      "witnessReferenceHint": "A name helps the Secretariat verify your record faster.",
+      "institution": "School, university or occupation",
+      "interests": "Areas you want to contribute to",
+      "interestAreas": {
+        "EDUCATION": "Education",
+        "ADVOCACY": "Advocacy",
+        "MEDIA": "Media",
+        "COMMUNITY_SERVICE": "Community service"
+      },
+      "motivation": "Why do you want to join OJETIL?",
+      "motivationCount": "{count} / 1000",
+      "consent": "I confirm the information is true and I agree that OJETIL processes my personal data to verify and manage my membership, as described in the privacy notice. Sensitive data is encrypted and never shared without my permission.",
+      "optional": "optional"
+    },
+    "actions": {
+      "back": "Back",
+      "next": "Continue",
+      "submit": "Submit registration",
+      "submitting": "Submitting securely…"
+    },
+    "success": {
+      "title": "Registration received",
+      "body": "Thank you. The OJETIL Secretariat will review your application.",
+      "codeLabel": "Your tracking code",
+      "save": "Save this code — you need it, together with your date of birth, to check your status.",
+      "statusLabel": "Current status",
+      "nextTitle": "What happens next",
+      "next1": "The Secretariat verifies your details. Veterans may be contacted to confirm their history.",
+      "next2": "Check your status at any time with your tracking code and date of birth.",
+      "next3": "If anything needs correcting, your status page will tell you what to do.",
+      "checkStatus": "Check status"
+    },
+    "errors": {
+      "category": "Choose how you are registering.",
+      "nameMin": "Enter your full name (at least 3 characters).",
+      "nameMax": "Name is too long.",
+      "aliasMax": "Clandestine name is too long.",
+      "dobInvalid": "Enter a valid date of birth.",
+      "dobRange": "Check your date of birth — applicants must be at least 13 years old.",
+      "gender": "Select an option.",
+      "municipality": "Select your municipality.",
+      "postRequired": "Enter your administrative post.",
+      "addressMin": "Enter your residential address.",
+      "textMax": "This text is too long.",
+      "phone": "Enter a valid phone number, e.g. +670 7723 4512.",
+      "email": "Enter a valid email address, or leave it empty.",
+      "nationalId": "Enter a valid BI number (5–30 letters, numbers or dashes).",
+      "yearJoined": "Enter a year between 1975 and 1999.",
+      "yearJoinedAge": "This year is before you were 8 years old — please check it.",
+      "cellRequired": "Enter the name of your cell or network.",
+      "institutionRequired": "Enter your school, university or occupation.",
+      "interests": "Choose at least one area.",
+      "motivationMin": "Tell us a little more (at least 20 characters).",
+      "consent": "You must agree before submitting.",
+      "photoSize": "The photo must be smaller than 1 MB.",
+      "photoType": "Use a JPG, PNG or WebP image.",
+      "rateLimited": "Too many attempts. Please wait a few minutes and try again.",
+      "generic": "Something went wrong. Your data was not saved — please try again.",
+      "form": "Please correct the highlighted fields.",
+      "network": "Connection problem. Check your internet and try again — your answers are still here."
+    }
+  },
+  "statusLookup": {
+    "metaTitle": "Check registration status",
+    "eyebrow": "Community",
+    "title": "Check your registration status",
+    "lead": "Enter your tracking code and date of birth.",
+    "privacyNote": "For your privacy, we never show your name or personal details here.",
+    "code": "Tracking code",
+    "codeHint": "Example: OJT-2026-0042",
+    "dateOfBirth": "Date of birth",
+    "submit": "Check status",
+    "submitting": "Checking…",
+    "categories": {
+      "VETERAN_KLANDESTIN": "Clandestine-era veteran",
+      "ANGGOTA_PEMUDA": "Youth member / volunteer"
+    },
+    "result": {
+      "category": "Track",
+      "submitted": "Submitted",
+      "updated": "Last updated",
+      "verifiedOn": "Verified on",
+      "message": "Message from the Secretariat",
+      "contact": "Questions? Contact the Secretariat at {email}.",
+      "another": "Check another code"
+    },
+    "statuses": {
+      "PENDING_VERIFICATION": {
+        "label": "Pending verification",
+        "body": "Your application is in the verification queue. No action is needed."
+      },
+      "NEEDS_REVISION": {
+        "label": "Needs revision",
+        "body": "The Secretariat needs more information. Please read the message below and contact us."
+      },
+      "VERIFIED": {
+        "label": "Verified",
+        "body": "Welcome to OJETIL! Your membership has been verified."
+      },
+      "REJECTED": {
+        "label": "Not approved",
+        "body": "Your application could not be approved. See the message below for the reason."
+      }
+    },
+    "errors": {
+      "code": "Enter a tracking code like OJT-2026-0042.",
+      "dobInvalid": "Enter a valid date of birth.",
+      "notFound": "We could not find an application with this code and date of birth. Check both and try again.",
+      "rateLimited": "Too many attempts. Please wait a few minutes and try again.",
+      "generic": "Something went wrong. Please try again.",
+      "form": "Please correct the highlighted fields.",
+      "network": "Connection problem. Check your internet and try again."
+    }
+  }
+}

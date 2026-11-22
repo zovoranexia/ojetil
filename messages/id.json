@@ -1,0 +1,400 @@
+{
+  "meta": {
+    "siteTitle": "OJETIL — Organisasi Pemuda dan Pelajar Timor-Leste",
+    "siteDescription": "Pusat nasional pendidikan kewarganegaraan, diskursus publik, dan partisipasi pemuda. Dari jaringan klandestin 1980-an hingga warga muda masa kini."
+  },
+  "common": {
+    "skipToContent": "Langsung ke konten utama",
+    "readMore": "Baca selengkapnya",
+    "viewAll": "Lihat semua",
+    "loading": "Memuat…",
+    "copy": "Salin",
+    "copied": "Tersalin",
+    "copyFailed": "Gagal menyalin — pilih kode lalu salin secara manual.",
+    "required": "wajib",
+    "optional": "opsional",
+    "previous": "Sebelumnya",
+    "next": "Berikutnya",
+    "pageOf": "Halaman {page} dari {count}",
+    "pagination": "Navigasi halaman",
+    "imagePlaceholder": "Gambar disembunyikan dalam Mode Hemat Data",
+    "tryAgain": "Coba lagi",
+    "backHome": "Kembali ke beranda"
+  },
+  "nav": {
+    "primary": "Navigasi utama",
+    "home": "Beranda",
+    "about": "Tentang",
+    "history": "Sejarah",
+    "news": "Berita",
+    "events": "Acara",
+    "register": "Daftar",
+    "checkStatus": "Cek status",
+    "openMenu": "Buka menu",
+    "closeMenu": "Tutup menu",
+    "language": "Bahasa",
+    "homeLink": "OJETIL — beranda"
+  },
+  "lowData": {
+    "label": "Mode Hemat Data",
+    "short": "Hemat data",
+    "on": "Aktif",
+    "off": "Nonaktif",
+    "description": "Menyembunyikan foto dan memakai huruf bawaan perangkat untuk menghemat kuota."
+  },
+  "footer": {
+    "tagline": "Pusat nasional pendidikan kewarganegaraan, diskursus publik, dan partisipasi pemuda.",
+    "explore": "Jelajahi",
+    "community": "Komunitas",
+    "contact": "Kontak",
+    "headquarters": "Kantor pusat",
+    "rights": "© {year} OJETIL. Hak cipta dilindungi.",
+    "staff": "Masuk staf",
+    "timezone": "Semua waktu adalah waktu Timor-Leste ({zone})."
+  },
+  "home": {
+    "metaTitle": "Beranda",
+    "hero": {
+      "eyebrow": "Sejak jaringan klandestin tahun 1980-an",
+      "title": "Pengetahuan untuk mengabdi kepada Tanah Air dan Rakyat",
+      "lead": "OJETIL mempertemukan veteran perlawanan dengan generasi baru untuk pendidikan kewarganegaraan, debat terbuka, dan pengabdian di setiap munisipalitas.",
+      "ctaRegister": "Menjadi anggota",
+      "ctaHistory": "Baca sejarah kami"
+    },
+    "impact": {
+      "title": "OJETIL dalam angka",
+      "verifiedMembers": "Anggota & veteran terverifikasi",
+      "eventsHeld": "Acara pendidikan kewarganegaraan",
+      "participants": "Peserta acara",
+      "municipalities": "Munisipalitas terjangkau"
+    },
+    "timeline": {
+      "title": "Sejarah yang ditulis oleh kaum muda",
+      "lead": "Dari sel-sel pelajar rahasia hingga Jajak Pendapat 1999.",
+      "cta": "Jelajahi linimasa lengkap"
+    },
+    "events": {
+      "title": "Acara pemuda mendatang",
+      "lead": "Seminar, debat publik, dan lokakarya — terbuka bagi semua pemuda Timor.",
+      "empty": "Belum ada acara mendatang. Silakan kembali lagi nanti.",
+      "cta": "Semua acara"
+    },
+    "news": {
+      "title": "Berita terbaru",
+      "empty": "Belum ada berita.",
+      "cta": "Semua berita"
+    },
+    "cta": {
+      "title": "Anda bagian dari front klandestin? Siap mengabdi?",
+      "body": "Daftar sebagai veteran era klandestin atau sebagai anggota muda dan relawan. Data Anda dienkripsi dan hanya diperiksa oleh Sekretariat OJETIL.",
+      "button": "Mulai pendaftaran",
+      "checkStatus": "Sudah mendaftar? Cek status Anda"
+    }
+  },
+  "about": {
+    "metaTitle": "Tentang OJETIL",
+    "eyebrow": "Tentang kami",
+    "leadership": {
+      "title": "Kepengurusan",
+      "lead": "Direktorat Nasional dan koordinator munisipal periode berjalan.",
+      "national": "Direktorat Nasional",
+      "municipal": "Koordinator munisipal",
+      "term": "Periode {start}–{end}",
+      "termOngoing": "Sejak {start}",
+      "empty": "Direktori kepengurusan sedang diperbarui."
+    },
+    "contact": {
+      "title": "Kontak",
+      "lead": "Kunjungi kantor pusat kami di Díli atau hubungi kami.",
+      "address": "Alamat",
+      "email": "Email",
+      "phone": "Telepon",
+      "map": "Buka di peta",
+      "hours": "Senin–Jumat, 08.30–17.00"
+    }
+  },
+  "history": {
+    "metaTitle": "Sejarah",
+    "eyebrow": "Sejarah 1980–2002",
+    "filterLabel": "Lompat ke periode",
+    "showMore": "Baca kisah lengkapnya",
+    "showLess": "Tampilkan lebih sedikit",
+    "empty": "Linimasa sedang disiapkan.",
+    "note": "Sejarah naratif. Kesaksian dan dokumen akan diterbitkan di Arsip Digital OJETIL."
+  },
+  "news": {
+    "metaTitle": "Berita & siaran pers",
+    "eyebrow": "Berita",
+    "title": "Berita & siaran pers",
+    "lead": "Pengumuman, kabar program, dan siaran pers dari OJETIL.",
+    "searchLabel": "Cari berita",
+    "searchPlaceholder": "Cari kata kunci…",
+    "searchButton": "Cari",
+    "clear": "Hapus",
+    "categoryLabel": "Kategori",
+    "allCategories": "Semua",
+    "categories": {
+      "ORGANIZATION": "Organisasi",
+      "CIVIC_EDUCATION": "Pendidikan kewarganegaraan",
+      "YOUTH": "Pemuda",
+      "COMMEMORATION": "Peringatan",
+      "PRESS_RELEASE": "Siaran pers"
+    },
+    "results": "{count, plural, =0 {Tidak ada artikel} other {# artikel}}",
+    "resultsFor": "untuk “{query}”",
+    "empty": "Tidak ada artikel yang cocok dengan pencarian Anda.",
+    "publishedOn": "Diterbitkan {date}",
+    "back": "Kembali ke berita",
+    "more": "Berita lainnya"
+  },
+  "events": {
+    "metaTitle": "Acara pemuda",
+    "eyebrow": "Pendidikan kewarganegaraan",
+    "title": "Acara pemuda",
+    "lead": "Seminar, debat publik, dan lokakarya. Pendaftaran gratis dan kode tiket langsung Anda terima.",
+    "upcoming": "Mendatang",
+    "past": "Acara sebelumnya",
+    "typeLabel": "Jenis acara",
+    "allTypes": "Semua",
+    "types": {
+      "SEMINAR": "Seminar",
+      "DEBATE": "Debat publik",
+      "WORKSHOP": "Lokakarya"
+    },
+    "online": "Daring",
+    "emptyUpcoming": "Belum ada acara mendatang untuk jenis ini.",
+    "emptyPast": "Belum ada acara sebelumnya.",
+    "when": "Waktu",
+    "where": "Tempat",
+    "capacityLabel": "Kursi",
+    "registered": "{count} dari {capacity} terdaftar",
+    "seatsLeft": "{count, plural, other {Sisa # kursi}}",
+    "almostFull": "Hampir penuh",
+    "full": "Penuh",
+    "cancelled": "Dibatalkan",
+    "ended": "Selesai",
+    "registrationClosed": "Pendaftaran acara ini sudah ditutup.",
+    "registrationClosedShort": "Pendaftaran ditutup",
+    "deadline": "Daftar paling lambat {date}",
+    "about": "Tentang acara ini",
+    "back": "Kembali ke acara",
+    "details": "Detail & pendaftaran"
+  },
+  "eventRegistration": {
+    "title": "Daftar acara ini",
+    "lead": "Hanya satu menit. Kode tiket langsung muncul.",
+    "fullName": "Nama lengkap",
+    "email": "Email",
+    "emailHint": "Kabar terbaru acara dikirim ke sini.",
+    "phone": "Telepon / WhatsApp",
+    "institution": "Sekolah, universitas, atau pekerjaan",
+    "municipality": "Munisipalitas",
+    "municipalityNone": "Pilih…",
+    "consent": "Saya setuju OJETIL menyimpan data ini untuk penyelenggaraan acara, sebagaimana dijelaskan dalam pemberitahuan privasi.",
+    "submit": "Daftar",
+    "submitting": "Mendaftarkan…",
+    "success": {
+      "title": "Pendaftaran berhasil!",
+      "body": "Tunjukkan kode tiket ini di pintu masuk. Simpan baik-baik — Anda memerlukannya saat registrasi ulang.",
+      "ticket": "Kode tiket Anda",
+      "onlineNote": "Tautan daring akan dikirim ke email Anda sebelum acara."
+    },
+    "errors": {
+      "nameMin": "Masukkan nama lengkap (minimal 3 karakter).",
+      "nameMax": "Nama terlalu panjang.",
+      "email": "Masukkan alamat email yang valid.",
+      "phone": "Masukkan nomor telepon yang valid, misalnya +670 7723 4512.",
+      "textMax": "Teks ini terlalu panjang.",
+      "consent": "Anda harus menyetujui sebelum mendaftar.",
+      "full": "Maaf — kuota acara ini sudah penuh.",
+      "closed": "Pendaftaran acara ini sudah ditutup.",
+      "duplicate": "Email ini sudah terdaftar untuk acara ini.",
+      "notFound": "Acara ini sudah tidak tersedia.",
+      "generic": "Terjadi kesalahan. Silakan coba lagi.",
+      "form": "Perbaiki kolom yang ditandai.",
+      "rateLimited": "Terlalu banyak pendaftaran dari koneksi Anda. Tunggu beberapa menit lalu coba lagi."
+    }
+  },
+  "dates": {
+    "decade": "{year}-an",
+    "timezone": "Waktu Díli"
+  },
+  "notFound": {
+    "title": "Halaman tidak ditemukan",
+    "body": "Halaman yang Anda cari tidak ada atau telah dipindahkan."
+  },
+  "error": {
+    "title": "Terjadi kesalahan",
+    "body": "Halaman ini gagal dimuat. Periksa koneksi Anda lalu coba lagi."
+  },
+  "memberRegistration": {
+    "metaTitle": "Pendaftaran anggota & veteran",
+    "eyebrow": "Komunitas",
+    "title": "Bergabung dengan OJETIL",
+    "lead": "Daftar sebagai veteran front klandestin atau sebagai anggota muda dan relawan. Hanya sekitar lima menit.",
+    "privacyNote": "Nomor Bilhete de Identidade, telepon, dan alamat Anda dienkripsi begitu sampai di server kami. Hanya tim verifikasi OJETIL yang dapat membacanya.",
+    "progress": "Langkah {current} dari {total}",
+    "steps": {
+      "one": "Kategori & identitas",
+      "two": "Domisili & kontak",
+      "three": "Latar belakang & persetujuan"
+    },
+    "track": {
+      "legend": "Saya mendaftar sebagai",
+      "veteran": {
+        "title": "Veteran era klandestin",
+        "description": "Anda pernah aktif dalam jaringan klandestin pemuda atau pelajar antara 1975 dan 1999."
+      },
+      "youth": {
+        "title": "Anggota muda / relawan",
+        "description": "Anda ingin terlibat dalam pendidikan kewarganegaraan, debat, dan pengabdian masyarakat."
+      }
+    },
+    "fields": {
+      "fullName": "Nama lengkap",
+      "clandestineAlias": "Nama klandestin (Naran Klandestin)",
+      "clandestineAliasHint": "Nama sandi yang Anda pakai dalam perlawanan, jika ada.",
+      "dateOfBirth": "Tanggal lahir",
+      "gender": "Jenis kelamin",
+      "genders": {
+        "MALE": "Laki-laki",
+        "FEMALE": "Perempuan",
+        "PREFER_NOT_TO_SAY": "Tidak ingin menyebutkan"
+      },
+      "photo": "Foto profil",
+      "photoHint": "JPG, PNG, atau WebP. Foto besar otomatis diperkecil hingga di bawah 1 MB.",
+      "photoChoose": "Pilih foto",
+      "photoChange": "Ganti foto",
+      "photoRemove": "Hapus",
+      "photoProcessing": "Menyiapkan foto…",
+      "photoPreview": "Foto profil yang dipilih",
+      "municipality": "Munisipalitas",
+      "municipalityPlaceholder": "Pilih munisipalitas Anda…",
+      "administrativePost": "Pos administratif (Postu Administrativu)",
+      "administrativePostHint": "Untuk Diaspora, tulis kota dan negara Anda.",
+      "address": "Alamat tempat tinggal",
+      "phone": "Telepon / WhatsApp",
+      "email": "Email",
+      "nationalId": "Nomor Bilhete de Identidade (BI)",
+      "nationalIdHint": "Hanya dipakai untuk memverifikasi identitas dan mencegah pendaftaran ganda.",
+      "encrypted": "Terenkripsi",
+      "yearJoined": "Tahun bergabung dengan gerakan klandestin",
+      "clandestineCell": "Sel atau jaringan klandestin",
+      "clandestineCellHint": "Misalnya: sel pelajar di sekolah Anda atau nama jaringan Anda.",
+      "clandestineRegion": "Wilayah tempat Anda aktif",
+      "witnessReference": "Rekan yang dapat mengonfirmasi keterlibatan Anda",
+      "witnessReferenceHint": "Sebuah nama membantu Sekretariat memverifikasi data Anda lebih cepat.",
+      "institution": "Sekolah, universitas, atau pekerjaan",
+      "interests": "Bidang yang ingin Anda dukung",
+      "interestAreas": {
+        "EDUCATION": "Pendidikan",
+        "ADVOCACY": "Advokasi",
+        "MEDIA": "Media",
+        "COMMUNITY_SERVICE": "Pengabdian masyarakat"
+      },
+      "motivation": "Mengapa Anda ingin bergabung dengan OJETIL?",
+      "motivationCount": "{count} / 1000",
+      "consent": "Saya menyatakan informasi ini benar dan menyetujui OJETIL memproses data pribadi saya untuk memverifikasi dan mengelola keanggotaan, sebagaimana dijelaskan dalam pemberitahuan privasi. Data sensitif dienkripsi dan tidak pernah dibagikan tanpa izin saya.",
+      "optional": "opsional"
+    },
+    "actions": {
+      "back": "Kembali",
+      "next": "Lanjut",
+      "submit": "Kirim pendaftaran",
+      "submitting": "Mengirim dengan aman…"
+    },
+    "success": {
+      "title": "Pendaftaran diterima",
+      "body": "Terima kasih. Sekretariat OJETIL akan memeriksa pendaftaran Anda.",
+      "codeLabel": "Kode pelacakan Anda",
+      "save": "Simpan kode ini — bersama tanggal lahir, Anda memerlukannya untuk mengecek status.",
+      "statusLabel": "Status saat ini",
+      "nextTitle": "Langkah selanjutnya",
+      "next1": "Sekretariat memverifikasi data Anda. Veteran mungkin dihubungi untuk mengonfirmasi riwayatnya.",
+      "next2": "Cek status kapan saja dengan kode pelacakan dan tanggal lahir.",
+      "next3": "Jika ada yang perlu diperbaiki, halaman status akan memberi tahu langkahnya.",
+      "checkStatus": "Cek status"
+    },
+    "errors": {
+      "category": "Pilih kategori pendaftaran Anda.",
+      "nameMin": "Masukkan nama lengkap (minimal 3 karakter).",
+      "nameMax": "Nama terlalu panjang.",
+      "aliasMax": "Nama klandestin terlalu panjang.",
+      "dobInvalid": "Masukkan tanggal lahir yang valid.",
+      "dobRange": "Periksa tanggal lahir — pendaftar minimal berusia 13 tahun.",
+      "gender": "Pilih salah satu.",
+      "municipality": "Pilih munisipalitas Anda.",
+      "postRequired": "Masukkan pos administratif Anda.",
+      "addressMin": "Masukkan alamat tempat tinggal Anda.",
+      "textMax": "Teks ini terlalu panjang.",
+      "phone": "Masukkan nomor telepon yang valid, misalnya +670 7723 4512.",
+      "email": "Masukkan email yang valid, atau biarkan kosong.",
+      "nationalId": "Masukkan nomor BI yang valid (5–30 huruf, angka, atau tanda hubung).",
+      "yearJoined": "Masukkan tahun antara 1975 dan 1999.",
+      "yearJoinedAge": "Tahun ini sebelum Anda berusia 8 tahun — mohon periksa kembali.",
+      "cellRequired": "Masukkan nama sel atau jaringan Anda.",
+      "institutionRequired": "Masukkan sekolah, universitas, atau pekerjaan Anda.",
+      "interests": "Pilih minimal satu bidang.",
+      "motivationMin": "Ceritakan sedikit lebih banyak (minimal 20 karakter).",
+      "consent": "Anda harus menyetujui sebelum mengirim.",
+      "photoSize": "Ukuran foto harus kurang dari 1 MB.",
+      "photoType": "Gunakan gambar JPG, PNG, atau WebP.",
+      "rateLimited": "Terlalu banyak percobaan. Tunggu beberapa menit lalu coba lagi.",
+      "generic": "Terjadi kesalahan. Data Anda belum tersimpan — silakan coba lagi.",
+      "form": "Perbaiki kolom yang ditandai.",
+      "network": "Masalah koneksi. Periksa internet lalu coba lagi — jawaban Anda masih tersimpan di sini."
+    }
+  },
+  "statusLookup": {
+    "metaTitle": "Cek status pendaftaran",
+    "eyebrow": "Komunitas",
+    "title": "Cek status pendaftaran Anda",
+    "lead": "Masukkan kode pelacakan dan tanggal lahir Anda.",
+    "privacyNote": "Demi privasi Anda, nama dan data pribadi tidak pernah ditampilkan di sini.",
+    "code": "Kode pelacakan",
+    "codeHint": "Contoh: OJT-2026-0042",
+    "dateOfBirth": "Tanggal lahir",
+    "submit": "Cek status",
+    "submitting": "Memeriksa…",
+    "categories": {
+      "VETERAN_KLANDESTIN": "Veteran era klandestin",
+      "ANGGOTA_PEMUDA": "Anggota muda / relawan"
+    },
+    "result": {
+      "category": "Kategori",
+      "submitted": "Dikirim",
+      "updated": "Terakhir diperbarui",
+      "verifiedOn": "Diverifikasi pada",
+      "message": "Pesan dari Sekretariat",
+      "contact": "Ada pertanyaan? Hubungi Sekretariat di {email}.",
+      "another": "Cek kode lain"
+    },
+    "statuses": {
+      "PENDING_VERIFICATION": {
+        "label": "Menunggu verifikasi",
+        "body": "Pendaftaran Anda sedang dalam antrean verifikasi. Tidak ada yang perlu Anda lakukan."
+      },
+      "NEEDS_REVISION": {
+        "label": "Perlu perbaikan",
+        "body": "Sekretariat memerlukan informasi tambahan. Baca pesan di bawah lalu hubungi kami."
+      },
+      "VERIFIED": {
+        "label": "Terverifikasi",
+        "body": "Selamat bergabung di OJETIL! Keanggotaan Anda telah diverifikasi."
+      },
+      "REJECTED": {
+        "label": "Tidak disetujui",
+        "body": "Pendaftaran Anda tidak dapat disetujui. Lihat alasannya pada pesan di bawah."
+      }
+    },
+    "errors": {
+      "code": "Masukkan kode seperti OJT-2026-0042.",
+      "dobInvalid": "Masukkan tanggal lahir yang valid.",
+      "notFound": "Kami tidak menemukan pendaftaran dengan kode dan tanggal lahir ini. Periksa keduanya lalu coba lagi.",
+      "rateLimited": "Terlalu banyak percobaan. Tunggu beberapa menit lalu coba lagi.",
+      "generic": "Terjadi kesalahan. Silakan coba lagi.",
+      "form": "Perbaiki kolom yang ditandai.",
+      "network": "Masalah koneksi. Periksa internet lalu coba lagi."
+    }
+  }
+}

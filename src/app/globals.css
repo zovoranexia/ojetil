@@ -1,0 +1,254 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   OJETIL Design System — "Dignified Archive, Next-Generation Energy"
+   All foreground/background pairings below are WCAG 2.1 AA compliant:
+     ink-primary   on paper  ≈ 16.9:1   ink-secondary on paper ≈ 7.1:1
+     white         on red    ≈  7.5:1   gold-text     on paper ≈ 5.7:1
+     gold-accent   on ink    ≈  6.0:1   (gold-accent is NEVER used on light surfaces)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* `low-bw:` variant → styles that apply when Low-Bandwidth Mode is on. */
+@custom-variant low-bw (&:where([data-bandwidth="low"], [data-bandwidth="low"] *));
+
+:root {
+  /* ── Brand ─────────────────────────────────────────────────────────────── */
+  --ojetil-red-primary: #a61c1c;
+  --ojetil-red-hover: #7f1313;
+  --ojetil-ink-primary: #18181b;
+  --ojetil-ink-secondary: #52525b;
+  --ojetil-gold-accent: #c98a12; /* dark surfaces only */
+  --ojetil-gold-text: #855806; /* light surfaces */
+
+  /* ── Surfaces ──────────────────────────────────────────────────────────── */
+  --ojetil-surface-paper: #f8f5ef;
+  --ojetil-surface-card: #ffffff;
+  --ojetil-surface-muted: #efe9df; /* derived: zebra rows, skeletons, placeholders */
+  --ojetil-border-subtle: #e4ddd2;
+  --ojetil-border-strong: #b9ae9c; /* derived: input hover, 3:1 non-text contrast on paper */
+
+  /* ── Semantic status (text on background) ──────────────────────────────── */
+  --ojetil-status-verified-fg: #166534;
+  --ojetil-status-verified-bg: #dcfce7;
+  --ojetil-status-pending-fg: #9a3412;
+  --ojetil-status-pending-bg: #ffedd5;
+  --ojetil-status-rejected-fg: #991b1b;
+  --ojetil-status-rejected-bg: #fee2e2;
+  --ojetil-status-info-fg: #1e40af;
+  --ojetil-status-info-bg: #dbeafe;
+
+  /* ── Shape ─────────────────────────────────────────────────────────────── */
+  --ojetil-radius-control: 4px; /* buttons, inputs, badges */
+  --ojetil-radius-card: 8px; /* cards, modals, panels */
+
+  /* ── Typography stacks (next/font variables are injected on <html>) ────── */
+  --ojetil-font-serif: var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --ojetil-font-sans: var(--font-plus-jakarta), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --ojetil-font-mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
+
+  /* ── Tais ribbon: 24×4 px rhythmic geometric tile (red · ink · gold) ───── */
+  --ojetil-tais-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='4' viewBox='0 0 24 4' shape-rendering='crispEdges'%3E%3Crect width='9' height='4' fill='%23A61C1C'/%3E%3Crect x='9' width='15' height='4' fill='%2318181B'/%3E%3Cpath d='M11 4 13 0 15 4Z' fill='%23C98A12'/%3E%3Cpath d='M17 0 19 4 21 0Z' fill='%23C98A12'/%3E%3C/svg%3E");
+
+  /* ── shadcn/ui semantic aliases mapped onto OJETIL tokens ──────────────── */
+  --background: var(--ojetil-surface-paper);
+  --foreground: var(--ojetil-ink-primary);
+  --card: var(--ojetil-surface-card);
+  --card-foreground: var(--ojetil-ink-primary);
+  --popover: var(--ojetil-surface-card);
+  --popover-foreground: var(--ojetil-ink-primary);
+  --primary: var(--ojetil-red-primary);
+  --primary-foreground: #ffffff;
+  --secondary: var(--ojetil-ink-primary);
+  --secondary-foreground: var(--ojetil-surface-paper);
+  --muted: var(--ojetil-surface-muted);
+  --muted-foreground: var(--ojetil-ink-secondary);
+  --accent: var(--ojetil-surface-muted);
+  --accent-foreground: var(--ojetil-ink-primary);
+  --destructive: var(--ojetil-status-rejected-fg);
+  --destructive-foreground: #ffffff;
+  --border: var(--ojetil-border-subtle);
+  --input: var(--ojetil-border-subtle);
+  --ring: var(--ojetil-red-primary);
+}
+
+/* Low-Bandwidth Mode: drop web fonts entirely. Because next/font is configured
+   with `preload: false`, unused @font-face files are never downloaded. */
+[data-bandwidth="low"] {
+  --ojetil-font-serif: Georgia, "Times New Roman", serif;
+  --ojetil-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@theme inline {
+  /* Brand colours → bg-ojetil-red, text-ink, text-gold-text, border-border-subtle … */
+  --color-ojetil-red: var(--ojetil-red-primary);
+  --color-ojetil-red-hover: var(--ojetil-red-hover);
+  --color-ink: var(--ojetil-ink-primary);
+  --color-ink-secondary: var(--ojetil-ink-secondary);
+  --color-gold-accent: var(--ojetil-gold-accent);
+  --color-gold-text: var(--ojetil-gold-text);
+  --color-paper: var(--ojetil-surface-paper);
+  --color-surface-card: var(--ojetil-surface-card);
+  --color-surface-muted: var(--ojetil-surface-muted);
+  --color-border-subtle: var(--ojetil-border-subtle);
+  --color-border-strong: var(--ojetil-border-strong);
+
+  --color-status-verified: var(--ojetil-status-verified-fg);
+  --color-status-verified-bg: var(--ojetil-status-verified-bg);
+  --color-status-pending: var(--ojetil-status-pending-fg);
+  --color-status-pending-bg: var(--ojetil-status-pending-bg);
+  --color-status-rejected: var(--ojetil-status-rejected-fg);
+  --color-status-rejected-bg: var(--ojetil-status-rejected-bg);
+  --color-status-info: var(--ojetil-status-info-fg);
+  --color-status-info-bg: var(--ojetil-status-info-bg);
+
+  /* shadcn/ui colour slots */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Type */
+  --font-serif: var(--ojetil-font-serif);
+  --font-sans: var(--ojetil-font-sans);
+  --font-mono: var(--ojetil-font-mono);
+
+  /* Shape: rounded-control (4px) for controls, rounded-card (8px) for cards.
+     shadcn's rounded-md / rounded-lg resolve to the same values. */
+  --radius-control: var(--ojetil-radius-control);
+  --radius-card: var(--ojetil-radius-card);
+  --radius-sm: var(--ojetil-radius-control);
+  --radius-md: var(--ojetil-radius-control);
+  --radius-lg: var(--ojetil-radius-card);
+  --radius-xl: var(--ojetil-radius-card);
+
+  /* Mobile ergonomics: spacing-tap = 44px minimum touch target */
+  --spacing-tap: 2.75rem;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--ojetil-surface-paper);
+    color: var(--ojetil-ink-primary);
+    font-family: var(--ojetil-font-sans);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--ojetil-font-serif);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  h3,
+  h4 {
+    font-weight: 600;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  time,
+  data,
+  .numeric {
+    font-variant-numeric: tabular-nums;
+  }
+
+  code,
+  kbd,
+  samp,
+  .code {
+    font-family: var(--ojetil-font-mono);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ojetil-red-primary);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--ojetil-red-primary);
+    color: #ffffff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ── Components & utilities ──────────────────────────────────────────────── */
+@utility tais-ribbon {
+  display: block;
+  height: 4px;
+  width: 100%;
+  background-image: var(--ojetil-tais-pattern);
+  background-repeat: repeat-x;
+  background-size: 24px 4px;
+  image-rendering: pixelated;
+}
+
+@utility tracking-code {
+  font-family: var(--ojetil-font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+/* Decorative/hero imagery is removed in Low-Bandwidth Mode; pair it with a
+   sibling `.low-bw-placeholder` that only appears in that mode. */
+@utility decorative-media {
+  [data-bandwidth="low"] & {
+    display: none !important;
+  }
+}
+
+@utility low-bw-placeholder {
+  display: none;
+  [data-bandwidth="low"] & {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--ojetil-surface-muted);
+    background-image: repeating-linear-gradient(
+      135deg,
+      transparent 0 12px,
+      color-mix(in srgb, var(--ojetil-border-subtle) 60%, transparent) 12px 13px
+    );
+    color: var(--ojetil-ink-secondary);
+    font-size: 0.875rem;
+  }
+}

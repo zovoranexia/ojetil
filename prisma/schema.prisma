@@ -1,0 +1,550 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// OJETIL — Phase 1 (MVP) data model
+//
+// Conventions
+//  • Table names are snake_case plurals (@@map); columns stay camelCase.
+//  • Every timestamp is UTC `timestamptz`; display converts to Asia/Dili.
+//  • Multilingual content uses one translation row per locale (TET/PT/ID/EN),
+//    enforced by @@unique([parentId, locale]).
+//  • Member PII (address, phone, national ID) is AES-256-GCM encrypted in the
+//    application layer: ciphertext + 12-byte IV + 16-byte auth tag per field,
+//    plus `piiKeyVersion` for key rotation. Plaintext never reaches the DB.
+//  • `audit_logs` is append-only: a trigger (see migrations) rejects UPDATE,
+//    DELETE and TRUNCATE.
+//  • Phase 2 (Digital Archive) adds its own models; nothing here needs to change.
+// ═══════════════════════════════════════════════════════════════════════════
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Shared enums ──────────────────────────────────────────────────────────
+
+enum Role {
+  SUPER_ADMIN
+  VERIFIER
+  EDITOR
+  VIEWER
+}
+
+enum Locale {
+  TET @map("tet")
+  PT  @map("pt")
+  ID  @map("id")
+  EN  @map("en")
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum Municipality {
+  AILEU
+  AINARO
+  ATAURO
+  BAUCAU
+  BOBONARO
+  COVA_LIMA
+  DILI
+  ERMERA
+  LAUTEM
+  LIQUICA
+  MANATUTO
+  MANUFAHI
+  OECUSSE
+  VIQUEQUE
+  DIASPORA
+}
+
+// ─── Admin users ───────────────────────────────────────────────────────────
+
+model User {
+  id                 String    @id @default(cuid())
+  email              String    @unique // stored lower-cased
+  name               String
+  passwordHash       String // argon2id
+  role               Role      @default(VIEWER)
+  isActive           Boolean   @default(true)
+  /// Bumped on role change, deactivation or password reset → invalidates issued sessions.
+  sessionVersion     Int       @default(1)
+  failedLoginCount   Int       @default(0)
+  lockedUntil        DateTime? @db.Timestamptz(3)
+  lastLoginAt        DateTime? @db.Timestamptz(3)
+  passwordChangedAt  DateTime  @default(now()) @db.Timestamptz(3)
+  /// Set when an admin issues a temporary password; the user must choose their own before using the backoffice.
+  mustChangePassword Boolean   @default(false)
+
+  createdById String?
+  createdBy   User?    @relation("UserCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+
+  createdUsers        User[]               @relation("UserCreatedBy")
+  newsArticles        NewsArticle[]        @relation("NewsAuthor")
+  events              Event[]              @relation("EventCreatedBy")
+  verifiedMembers     MemberRegistration[] @relation("MemberVerifiedBy")
+  memberStatusChanges MemberStatusChange[]
+  auditLogs           AuditLog[]
+
+  @@index([role, isActive])
+  @@map("users")
+}
+
+// ─── Member & veteran registration ─────────────────────────────────────────
+
+enum MemberCategory {
+  VETERAN_KLANDESTIN
+  ANGGOTA_PEMUDA
+}
+
+enum RegistrationStatus {
+  PENDING_VERIFICATION
+  NEEDS_REVISION
+  VERIFIED
+  REJECTED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  PREFER_NOT_TO_SAY
+}
+
+enum InterestArea {
+  EDUCATION
+  ADVOCACY
+  MEDIA
+  COMMUNITY_SERVICE
+}
+
+model MemberRegistration {
+  id           String             @id @default(cuid())
+  /// Public tracking code, e.g. OJT-2026-0042. Safe to show to the applicant.
+  trackingCode String             @unique
+  category     MemberCategory
+  status       RegistrationStatus @default(PENDING_VERIFICATION)
+
+  // Step 1 — identity
+  fullName         String
+  clandestineAlias String? // "Naran Klandestin" (veterans)
+  dateOfBirth      DateTime @db.Date
+  gender           Gender
+  /// Storage key under UPLOAD_DIR; served only through an authorised route.
+  profilePhotoKey  String?
+
+  // Step 2 — residence & contact
+  municipality       Municipality
+  administrativePost String
+  email              String?
+
+  // Encrypted PII (AES-256-GCM)
+  addressCiphertext    Bytes
+  addressIv            Bytes
+  addressAuthTag       Bytes
+  phoneCiphertext      Bytes
+  phoneIv              Bytes
+  phoneAuthTag         Bytes
+  nationalIdCiphertext Bytes
+  nationalIdIv         Bytes
+  nationalIdAuthTag    Bytes
+  /// HMAC-SHA256 blind index of the normalised national ID (duplicate detection).
+  nationalIdHash       String
+  piiKeyVersion        Int
+
+  // Step 3a — veteran background
+  yearJoined        Int?
+  clandestineCell   String?
+  clandestineRegion String?
+  witnessReference  String?
+
+  // Step 3b — youth background
+  institution String? // school / university / occupation
+  interests   InterestArea[]
+  motivation  String?
+
+  // Consent
+  consentGiven   Boolean
+  consentVersion String
+  consentAt      DateTime @db.Timestamptz(3)
+
+  submittedLocale Locale @default(TET)
+
+  // Verification
+  verifiedById      String?
+  verifiedBy        User?     @relation("MemberVerifiedBy", fields: [verifiedById], references: [id], onDelete: SetNull)
+  verifiedAt        DateTime? @db.Timestamptz(3)
+  verificationNotes String?
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  statusChanges MemberStatusChange[]
+
+  @@index([status, category])
+  @@index([municipality])
+  @@index([nationalIdHash])
+  @@index([createdAt])
+  @@map("member_registrations")
+}
+
+/// Verification history shown on the member detail view.
+model MemberStatusChange {
+  id             String              @id @default(cuid())
+  registrationId String
+  registration   MemberRegistration  @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+  fromStatus     RegistrationStatus?
+  toStatus       RegistrationStatus
+  note           String?
+  actorId        String?
+  actor          User?               @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  createdAt      DateTime            @default(now()) @db.Timestamptz(3)
+
+  @@index([registrationId, createdAt])
+  @@map("member_status_changes")
+}
+
+/// Atomic counters for human-readable sequential codes (e.g. scope "MEMBER:2026").
+model CodeSequence {
+  scope     String   @id
+  value     Int      @default(0)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  @@map("code_sequences")
+}
+
+// ─── News & press releases ─────────────────────────────────────────────────
+
+enum NewsCategory {
+  ORGANIZATION
+  CIVIC_EDUCATION
+  YOUTH
+  COMMEMORATION
+  PRESS_RELEASE
+}
+
+model NewsArticle {
+  id            String        @id @default(cuid())
+  slug          String        @unique
+  category      NewsCategory
+  status        ContentStatus @default(DRAFT)
+  coverImageUrl String?
+  isFeatured    Boolean       @default(false)
+  publishedAt   DateTime?     @db.Timestamptz(3)
+  authorId      String?
+  author        User?         @relation("NewsAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+  createdAt     DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime      @updatedAt @db.Timestamptz(3)
+
+  translations NewsArticleTranslation[]
+
+  @@index([status, publishedAt(sort: Desc)])
+  @@index([category, status])
+  @@map("news_articles")
+}
+
+model NewsArticleTranslation {
+  id            String      @id @default(cuid())
+  articleId     String
+  article       NewsArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  locale        Locale
+  title         String
+  excerpt       String
+  /// Markdown body.
+  body          String
+  coverImageAlt String?
+
+  @@unique([articleId, locale])
+  @@index([locale])
+  @@map("news_article_translations")
+}
+
+// ─── Youth events & attendee registration ──────────────────────────────────
+
+enum EventType {
+  SEMINAR
+  DEBATE
+  WORKSHOP
+}
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+  CANCELLED
+}
+
+enum AttendeeStatus {
+  REGISTERED
+  CANCELLED
+  ATTENDED
+}
+
+model Event {
+  id                   String        @id @default(cuid())
+  slug                 String        @unique
+  type                 EventType
+  status               EventStatus   @default(DRAFT)
+  startAt              DateTime      @db.Timestamptz(3)
+  endAt                DateTime      @db.Timestamptz(3)
+  /// IANA zone the event is held in; displayed explicitly ("Asia/Dili · OTL").
+  timezone             String        @default("Asia/Dili")
+  /// Venue name / address (proper noun, not translated).
+  location             String
+  municipality         Municipality?
+  isOnline             Boolean       @default(false)
+  onlineUrl            String?
+  capacity             Int
+  registrationOpen     Boolean       @default(true)
+  registrationDeadline DateTime?     @db.Timestamptz(3)
+  coverImageUrl        String?
+  publishedAt          DateTime?     @db.Timestamptz(3)
+  createdById          String?
+  createdBy            User?         @relation("EventCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt            DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt            DateTime      @updatedAt @db.Timestamptz(3)
+
+  translations  EventTranslation[]
+  registrations EventRegistration[]
+
+  @@index([status, startAt])
+  @@map("events")
+}
+
+model EventTranslation {
+  id              String  @id @default(cuid())
+  eventId         String
+  event           Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  locale          Locale
+  title           String
+  summary         String
+  /// Markdown description.
+  description     String
+  /// Localised directions, e.g. "2nd floor, next to the library".
+  locationDetails String?
+
+  @@unique([eventId, locale])
+  @@map("event_translations")
+}
+
+model EventRegistration {
+  id           String         @id @default(cuid())
+  eventId      String
+  event        Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  /// Non-sequential ticket code, e.g. TKT-7KQ2-M9XD.
+  ticketCode   String         @unique
+  fullName     String
+  email        String // lower-cased
+  phone        String?
+  institution  String?
+  municipality Municipality?
+  status       AttendeeStatus @default(REGISTERED)
+  checkedInAt  DateTime?      @db.Timestamptz(3)
+  locale       Locale         @default(TET)
+  createdAt    DateTime       @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime       @updatedAt @db.Timestamptz(3)
+
+  @@unique([eventId, email])
+  @@index([eventId, status])
+  @@map("event_registrations")
+}
+
+// ─── History timeline ──────────────────────────────────────────────────────
+
+enum DatePrecision {
+  DECADE
+  YEAR
+  MONTH
+  DAY
+}
+
+model TimelineMilestone {
+  id            String        @id @default(cuid())
+  /// Stable anchor, e.g. "santa-cruz-1991" → /istoria#santa-cruz-1991
+  slug          String        @unique
+  year          Int
+  month         Int?
+  day           Int?
+  datePrecision DatePrecision @default(YEAR)
+  displayOrder  Int
+  /// Shown in the Home page teaser.
+  isHighlighted Boolean       @default(false)
+  imageUrl      String?
+  status        ContentStatus @default(DRAFT)
+  createdAt     DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime      @updatedAt @db.Timestamptz(3)
+
+  translations TimelineMilestoneTranslation[]
+
+  @@index([status, displayOrder])
+  @@map("timeline_milestones")
+}
+
+model TimelineMilestoneTranslation {
+  id          String            @id @default(cuid())
+  milestoneId String
+  milestone   TimelineMilestone @relation(fields: [milestoneId], references: [id], onDelete: Cascade)
+  locale      Locale
+  title       String
+  summary     String
+  /// Markdown narrative.
+  body        String?
+  imageAlt    String?
+
+  @@unique([milestoneId, locale])
+  @@map("timeline_milestone_translations")
+}
+
+// ─── Leadership directory ──────────────────────────────────────────────────
+
+enum LeadershipLevel {
+  NATIONAL
+  MUNICIPAL
+}
+
+model LeadershipMember {
+  id           String          @id @default(cuid())
+  fullName     String
+  photoUrl     String?
+  level        LeadershipLevel
+  /// Required when level = MUNICIPAL (enforced in the Zod schema).
+  municipality Municipality?
+  termStart    Int
+  termEnd      Int?
+  displayOrder Int             @default(0)
+  status       ContentStatus   @default(DRAFT)
+  createdAt    DateTime        @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime        @updatedAt @db.Timestamptz(3)
+
+  translations LeadershipMemberTranslation[]
+
+  @@index([level, status, displayOrder])
+  @@map("leadership_members")
+}
+
+model LeadershipMemberTranslation {
+  id       String           @id @default(cuid())
+  memberId String
+  member   LeadershipMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  locale   Locale
+  /// Position title, e.g. "Sekretáriu-Jerál".
+  title    String
+  bio      String?
+
+  @@unique([memberId, locale])
+  @@map("leadership_member_translations")
+}
+
+// ─── Institutional profile (About page) ────────────────────────────────────
+
+enum ProfileSectionKey {
+  PROFILE
+  VISION
+  MISSION
+  VALUES
+  HISTORY_INTRO
+}
+
+model ProfileSection {
+  id           String            @id @default(cuid())
+  key          ProfileSectionKey @unique
+  displayOrder Int
+  status       ContentStatus     @default(PUBLISHED)
+  createdAt    DateTime          @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime          @updatedAt @db.Timestamptz(3)
+
+  translations ProfileSectionTranslation[]
+
+  @@map("profile_sections")
+}
+
+model ProfileSectionTranslation {
+  id        String         @id @default(cuid())
+  sectionId String
+  section   ProfileSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  locale    Locale
+  title     String
+  /// Markdown body.
+  body      String
+
+  @@unique([sectionId, locale])
+  @@map("profile_section_translations")
+}
+
+// ─── Immutable audit trail ─────────────────────────────────────────────────
+
+enum AuditCategory {
+  AUTH
+  VERIFICATION
+  CONTENT
+  EVENTS
+  USERS
+  SYSTEM
+}
+
+enum AuditAction {
+  // AUTH
+  LOGIN_SUCCEEDED
+  LOGIN_FAILED
+  LOGOUT
+  ACCOUNT_LOCKED
+  // VERIFICATION
+  MEMBER_PII_VIEWED
+  MEMBER_STATUS_CHANGED
+  MEMBER_EXPORTED
+  // CONTENT
+  CONTENT_CREATED
+  CONTENT_UPDATED
+  CONTENT_PUBLISHED
+  CONTENT_UNPUBLISHED
+  CONTENT_DELETED
+  // EVENTS
+  EVENT_CREATED
+  EVENT_UPDATED
+  EVENT_PUBLISHED
+  EVENT_UNPUBLISHED
+  EVENT_CANCELLED
+  EVENT_DELETED
+  EVENT_ATTENDEES_EXPORTED
+  EVENT_ATTENDANCE_UPDATED
+  // USERS
+  USER_CREATED
+  USER_ROLE_CHANGED
+  USER_DEACTIVATED
+  USER_REACTIVATED
+  USER_PASSWORD_RESET
+  USER_PASSWORD_CHANGED
+  // SYSTEM
+  SEED_EXECUTED
+}
+
+model AuditLog {
+  id         String        @id @default(cuid())
+  /// Null for public/system actions. Restrict: users with history are deactivated, never deleted.
+  actorId    String?
+  actor      User?         @relation(fields: [actorId], references: [id], onDelete: Restrict)
+  /// Snapshots so the entry stays meaningful if the account later changes.
+  actorEmail String?
+  actorRole  Role?
+  action     AuditAction
+  category   AuditCategory
+  /// e.g. "MemberRegistration", "NewsArticle", "User"
+  targetType String?
+  targetId   String?
+  /// Structured context. Must never contain decrypted PII.
+  metadata   Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime      @default(now()) @db.Timestamptz(3)
+
+  @@index([category, createdAt(sort: Desc)])
+  @@index([actorId, createdAt(sort: Desc)])
+  @@index([targetType, targetId])
+  @@index([createdAt(sort: Desc)])
+  @@map("audit_logs")
+}
