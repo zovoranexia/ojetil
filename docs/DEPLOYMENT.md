@@ -438,8 +438,7 @@ Cookie sesi admin otomatis memakai atribut `Secure` (prefix `__Secure-`) karena 
 Database produksi kosong; akun demo dari seed **tidak** dipakai di produksi.
 
 ```bash
-cd /srv/ojetil/current
-sudo -u ojetil -H npm run admin:create -- --email admin@ojetil.tl --name "Nama Lengkap Admin"
+sudo -u ojetil -H bash -c 'cd /srv/ojetil/current && npm run admin:create -- --email admin@ojetil.tl --name "Nama Lengkap Admin"'
 ```
 
 Perintah ini mencetak **password sementara sekali saja**. Buka `https://ojetil.tl/admin/login`,
@@ -451,8 +450,7 @@ Muat profil lembaga dan timeline sejarah dalam 4 bahasa sebagai **DRAFT**. Mode 
 akun, berita, event, atau data anggota demo, dan tidak pernah menimpa baris yang sudah ada.
 
 ```bash
-cd /srv/ojetil/current
-sudo -u ojetil -H env SEED_SCOPE=content npm run db:seed
+sudo -u ojetil -H bash -c 'cd /srv/ojetil/current && SEED_SCOPE=content npm run db:seed'
 ```
 
 Tinjau teksnya bersama Sekretariat dan sejarawan OJETIL di **/admin/profil** dan
@@ -561,7 +559,7 @@ sudo systemctl restart ojetil
 | Log langsung | `sudo journalctl -u ojetil -f` |
 | Restart (juga mereset rate limit di memori) | `sudo systemctl restart ojetil` |
 | Log Nginx | `sudo tail -f /var/log/nginx/access.log /var/log/nginx/error.log` |
-| Status migrasi | `cd /srv/ojetil/current && sudo -u ojetil -H npx prisma migrate status` |
+| Status migrasi | `sudo -u ojetil -H bash -c 'cd /srv/ojetil/current && npx prisma migrate status'` |
 | Masuk ke database | `sudo -u postgres psql ojetil` |
 
 **Rotasi kunci PII** (misalnya jika kunci diduga bocor):
