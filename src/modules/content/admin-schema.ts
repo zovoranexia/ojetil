@@ -1,5 +1,6 @@
 import type { Locale } from "@prisma/client";
 import { z } from "zod";
+import { looksLikeHtml, markdownToHtml } from "@/lib/content/markdown-to-html";
 import { msg } from "@/lib/i18n-message";
 
 /** Client-safe helpers shared by every multilingual CMS editor. */
@@ -18,6 +19,8 @@ export interface TranslationFieldSpec {
   rows?: number;
   /** `msg()`-encoded message key. */
   hint?: string;
+  /** Rich-text (TipTap) field: value is HTML, sanitised on the server. */
+  rich?: boolean;
 }
 
 export type TranslationValues = Record<ContentLocale, Record<string, string>>;
@@ -87,7 +90,9 @@ export function fromTranslationRows(
   for (const row of rows) {
     for (const f of fields) {
       const v = row[f.name];
-      out[row.locale as ContentLocale][f.name] = typeof v === "string" ? v : "";
+      const s = typeof v === "string" ? v : "";
+      // Rich-text fields: legacy Markdown opens in the editor as equivalent HTML.
+      out[row.locale as ContentLocale][f.name] = f.rich && s && !looksLikeHtml(s) ? markdownToHtml(s) : s;
     }
   }
   return out;

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { AdminPageHeading, ReadOnlyNotice } from "@/components/admin/ui";
 import { satisfies } from "@/config/rbac";
+import { getServerEnv } from "@/lib/env";
 import { requirePageAccess } from "@/lib/security/guards";
 import { getProfileSectionForEdit } from "@/modules/content/institutional-queries";
 import { PROFILE_SECTION_KEYS } from "@/modules/content/institutional-schema";
@@ -24,7 +25,9 @@ export default async function ProfileSectionPage({ params }: { params: Promise<{
     <>
       <AdminPageHeading back={{ href: "/admin/profil", label: t("metaTitle") }} title={t(`sections.${sectionKey}.label`)} description={t(`sections.${sectionKey}.where`)} />
       {!canWrite ? <ReadOnlyNotice>{tc("readOnly")}</ReadOnlyNotice> : null}
-      <ProfileEditor initial={initial} readOnly={!canWrite} canPublish={satisfies(user.role, "content:publish")} />
+      <ProfileEditor initial={initial} readOnly={!canWrite} canPublish={satisfies(user.role, "content:publish")}
+        mediaLimits={{ imageBytes: getServerEnv().MAX_IMAGE_UPLOAD_BYTES, mediaBytes: getServerEnv().MAX_MEDIA_FILE_BYTES }}
+      />
     </>
   );
 }

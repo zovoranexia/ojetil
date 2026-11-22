@@ -2,7 +2,8 @@
 
 import * as Tabs from "@radix-ui/react-tabs";
 import { AlertCircle, Check } from "lucide-react";
-import type { FieldErrors, FieldValues, UseFormRegister, UseFormWatch } from "react-hook-form";
+import { Controller, type Control, type FieldErrors, type FieldValues, type UseFormRegister, type UseFormWatch } from "react-hook-form";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
 import { Field, fieldAria, textareaClassName } from "@/components/forms/field";
 import { useTranslations } from "next-intl";
 import { useMessageText } from "@/components/i18n/message-text";
@@ -14,6 +15,7 @@ import { cn } from "@/lib/utils";
  * TET | PT | ID | EN tabbed editor for translated fields. Each tab shows whether
  * that language is complete, empty (falls back to Tetun publicly) or has errors.
  * Tetun is required; other languages are optional but must be complete if started.
+ * Fields flagged `rich` use the rich-text editor (pass `control` and `mediaLimits`).
  */
 export function TranslationTabs<T extends FieldValues>({
   fields,
@@ -21,12 +23,18 @@ export function TranslationTabs<T extends FieldValues>({
   watch,
   errors,
   disabled,
+  control,
+  mediaLimits,
 }: {
   fields: readonly TranslationFieldSpec[];
   register: UseFormRegister<T>;
   watch: UseFormWatch<T>;
   errors: FieldErrors<T>;
   disabled?: boolean;
+  /** Required when any field is `rich`. */
+  control?: Control<T>;
+  /** Upload limits shown in the rich editor's media picker (bytes). */
+  mediaLimits?: { imageBytes: number; mediaBytes: number };
 }) {
   const t = useTranslations("admin.translationTabs");
   const text = useMessageText();
@@ -71,6 +79,39 @@ export function TranslationTabs<T extends FieldValues>({
             const name = `translations.${locale}.${f.name}`;
             const error = tErrors[locale]?.[f.name]?.message;
             const hint = f.hint ? text(f.hint) : undefined;
+            if (f.rich && control) {
+              return (
+                <div key={f.name} className="space-y-1.5">
+                  <span id={`${id}-label`} className="text-sm font-medium text-ink">
+                    {text(f.label)}
+                    {f.required && locale === "TET" ? <span aria-hidden="true" className="ml-0.5 text-ojetil-red">*</span> : null}
+                  </span>
+                  <Controller
+                    control={control}
+                    name={name as never}
+                    render={({ field }) => (
+                      <RichTextEditor
+                        id={id}
+                        labelledBy={`${id}-label`}
+                        value={(field.value as string | undefined) ?? ""}
+                        onChange={field.onChange}
+                        disabled={disabled}
+                        invalid={Boolean(error)}
+                        describedBy={error ? `${id}-error` : undefined}
+                        maxImageBytes={mediaLimits?.imageBytes ?? 5_242_880}
+                        maxMediaBytes={mediaLimits?.mediaBytes ?? 20_971_520}
+                        lang={locale.toLowerCase()}
+                      />
+                    )}
+                  />
+                  {error ? (
+                    <p id={`${id}-error`} className="text-sm text-status-rejected">
+                      {text(error)}
+                    </p>
+                  ) : null}
+                </div>
+              );
+            }
             return (
               <Field key={f.name} id={id} label={text(f.label)} required={f.required && locale === "TET"} hint={hint} error={error}>
                 {f.multiline ? (

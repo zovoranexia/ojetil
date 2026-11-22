@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 import { fromDiliLocalInput } from "@/lib/dates";
 import { msg } from "@/lib/i18n-message";
 import { recordAudit } from "@/modules/audit/service";
-import { eventAuditActions, rethrowSlugConflict } from "@/modules/content/admin-server";
+import { eventAuditActions, rethrowSlugConflict, sanitizeRichTranslations } from "@/modules/content/admin-server";
 import { filledLocales, toTranslationRows } from "@/modules/content/admin-schema";
 import { EVENT_TRANSLATION_FIELDS, attendanceSchema, eventFormSchema } from "./admin-schema";
 
@@ -21,7 +21,10 @@ export const saveEvent = authorizedAction("events:write", eventFormSchema, async
   const startAt = fromDiliLocalInput(input.startAt)!;
   const endAt = fromDiliLocalInput(input.endAt)!;
   const registrationDeadline = input.registrationDeadline ? fromDiliLocalInput(input.registrationDeadline) : null;
-  const translations = toTranslationRows<keyof EventRow>(input.translations, EVENT_TRANSLATION_FIELDS) as Array<{ locale: "TET" | "PT" | "ID" | "EN" } & EventRow>;
+  const translations = sanitizeRichTranslations(
+    toTranslationRows<keyof EventRow>(input.translations, EVENT_TRANSLATION_FIELDS) as Array<{ locale: "TET" | "PT" | "ID" | "EN" } & EventRow>,
+    EVENT_TRANSLATION_FIELDS,
+  );
 
   try {
     const saved = await db.$transaction(async (tx) => {

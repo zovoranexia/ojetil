@@ -1207,7 +1207,6 @@
         "title": "Judul",
         "summary": "Ringkasan",
         "description": "Deskripsi",
-        "descriptionHint": "Mendukung Markdown (daftar agenda, **tebal**).",
         "locationDetails": "Petunjuk / detail lokasi",
         "locationDetailsHint": "mis. “lantai 2, di samping perpustakaan”."
       },
@@ -1303,7 +1302,6 @@
         "title": "Judul",
         "summary": "Ringkasan",
         "body": "Kisah lengkap",
-        "bodyHint": "Markdown. Ditampilkan saat pembaca membuka tonggak.",
         "imageAlt": "Deskripsi gambar (teks alternatif)"
       },
       "validation": {
@@ -1397,8 +1395,7 @@
       "saved": "Bagian disimpan.",
       "fields": {
         "title": "Judul",
-        "body": "Teks",
-        "bodyHint": "Mendukung Markdown."
+        "body": "Teks"
       }
     },
     "media": {

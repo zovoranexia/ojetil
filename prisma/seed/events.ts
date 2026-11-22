@@ -2,6 +2,7 @@ import type { AttendeeStatus, EventStatus, EventType, Municipality, PrismaClient
 import { generateTicketCode } from "../../src/lib/codes";
 import { diliDaysFromNow } from "../../src/lib/dates";
 import { type L10n, log, translationRows } from "./helpers";
+import { markdownToHtml } from "../../src/lib/content/markdown-to-html";
 
 type SeedEvent = {
   slug: string;
@@ -227,7 +228,8 @@ export async function seedEvents(db: PrismaClient, createdById: string): Promise
   for (const e of EVENTS) {
     const startAt = diliDaysFromNow(e.dayOffset, e.startHour, 0, seedDate);
     const endAt = new Date(startAt.getTime() + e.durationHours * 3_600_000);
-    const translations = translationRows(e.content);
+    // Descriptions are stored as rich-text HTML, like the editor produces.
+    const translations = translationRows(e.content).map((t) => ({ ...t, description: markdownToHtml(t.description) }));
     const data = {
       type: e.type,
       status: e.status,

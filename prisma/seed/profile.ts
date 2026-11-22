@@ -1,5 +1,6 @@
 import type { PrismaClient, ProfileSectionKey } from "@prisma/client";
 import { type L10n, log, translationRows } from "./helpers";
+import { markdownToHtml } from "../../src/lib/content/markdown-to-html";
 
 type Section = { key: ProfileSectionKey; displayOrder: number; content: L10n<{ title: string; body: string }> };
 
@@ -156,7 +157,8 @@ export async function seedProfile(db: PrismaClient, opts: { contentOnly?: boolea
       skipped++;
       continue;
     }
-    const translations = translationRows(s.content);
+    // Stored as rich-text HTML, like the editor produces.
+    const translations = translationRows(s.content).map((t) => ({ ...t, body: markdownToHtml(t.body) }));
     await db.profileSection.upsert({
       where: { key: s.key },
       create: { key: s.key, displayOrder: s.displayOrder, status, translations: { create: translations } },

@@ -3,7 +3,6 @@
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { Markdown } from "@/components/content/markdown";
 import { cn } from "@/lib/utils";
 
 export interface TimelineEntry {
@@ -14,7 +13,8 @@ export interface TimelineEntry {
   isHighlighted: boolean;
   title: string;
   summary: string;
-  body: string | null;
+  /** Narrative as sanitised HTML (rendered on the server), or null. */
+  bodyHtml: string | null;
 }
 
 /**
@@ -131,10 +131,11 @@ export function TimelineExplorer({ entries }: { entries: TimelineEntry[] }) {
                 <h2 className={cn("mt-4 text-3xl", e.isHighlighted && "text-paper")}>{e.title}</h2>
                 <p className={cn("mt-4 text-lg", e.isHighlighted ? "text-paper/90" : "text-ink-secondary")}>{e.summary}</p>
 
-                {e.body ? (
+                {e.bodyHtml ? (
                   <>
                     <div id={panelId} hidden={!expanded} className="mt-6">
-                      <Markdown source={e.body} className={cn(e.isHighlighted && "text-paper/90")} />
+                      {/* Sanitised by renderArticleHtml on the server (strict allowlist). */}
+                      <div className={cn("rich-content", e.isHighlighted && "text-paper/90")} dangerouslySetInnerHTML={{ __html: e.bodyHtml }} />
                     </div>
                     <button
                       type="button"

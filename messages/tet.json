@@ -1207,7 +1207,6 @@
         "title": "Títulu",
         "summary": "Rezumu",
         "description": "Deskrisaun",
-        "descriptionHint": "Bele uza Markdown (lista ajenda, **negritu**).",
         "locationDetails": "Dalan / detalle fatin",
         "locationDetailsHint": "ezemplu “andar 2, besik biblioteka”."
       },
@@ -1303,7 +1302,6 @@
         "title": "Títulu",
         "summary": "Rezumu",
         "body": "Istória kompletu",
-        "bodyHint": "Markdown. Mosu bainhira leitór loke marku.",
         "imageAlt": "Deskrisaun imajen (testu alternativu)"
       },
       "validation": {
@@ -1397,8 +1395,7 @@
       "saved": "Seksaun rai ona.",
       "fields": {
         "title": "Títulu",
-        "body": "Testu",
-        "bodyHint": "Markdown bele uza."
+        "body": "Testu"
       }
     },
     "media": {

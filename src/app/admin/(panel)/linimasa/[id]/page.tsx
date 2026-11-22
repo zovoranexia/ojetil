@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { AdminPageHeading, ReadOnlyNotice } from "@/components/admin/ui";
 import { satisfies } from "@/config/rbac";
+import { getServerEnv } from "@/lib/env";
 import { requirePageAccess } from "@/lib/security/guards";
 import { emptyTranslations } from "@/modules/content/admin-schema";
 import { getMilestoneForEdit, nextMilestoneOrder } from "@/modules/content/institutional-queries";
@@ -39,7 +40,9 @@ export default async function MilestoneEditPage({ params }: { params: Promise<{ 
     <>
       <AdminPageHeading back={{ href: "/admin/linimasa", label: t("metaTitle") }} title={isNew ? t("newMilestone") : initial.translations.TET.title || initial.slug} />
       {!canWrite ? <ReadOnlyNotice>{tc("readOnly")}</ReadOnlyNotice> : null}
-      <MilestoneEditor initial={initial} readOnly={!canWrite} canPublish={satisfies(user.role, "content:publish")} />
+      <MilestoneEditor initial={initial} readOnly={!canWrite} canPublish={satisfies(user.role, "content:publish")}
+        mediaLimits={{ imageBytes: getServerEnv().MAX_IMAGE_UPLOAD_BYTES, mediaBytes: getServerEnv().MAX_MEDIA_FILE_BYTES }}
+      />
     </>
   );
 }

@@ -155,3 +155,24 @@ export function renderArticleHtml(body: string, opts: { lowData: boolean; videoL
     },
   }));
 }
+
+/**
+ * Items of a body as plain text: its list items (<li>) if it has any,
+ * otherwise its paragraphs. Used where content is laid out as cards
+ * (e.g. the Mission section) rather than rendered as running text.
+ */
+export function richListItems(body: string): string[] {
+  if (!looksLikeHtml(body)) {
+    // Legacy Markdown: one item per line ("- " bullets optional), as before.
+    return body
+      .split("\n")
+      .map((l) => l.replace(/^\s*(?:[-*]|\d+[.)])\s+/, "").trim())
+      .filter(Boolean)
+      .map((l) => articlePlainText(l));
+  }
+  const items = [...body.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map((m) => m[1]!);
+  const source = items.length
+    ? items
+    : [...body.matchAll(/<(?:p|h2|h3)[^>]*>([\s\S]*?)<\/(?:p|h2|h3)>/gi)].flatMap((m) => m[1]!.split(/<br\s*\/?>/i));
+  return source.map((b) => articlePlainText(`<p>${b}</p>`)).filter(Boolean);
+}

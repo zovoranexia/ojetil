@@ -11,7 +11,7 @@ export const EVENT_STATUS_VALUES = ["DRAFT", "PUBLISHED", "CANCELLED"] as const;
 export const EVENT_TRANSLATION_FIELDS: readonly TranslationFieldSpec[] = [
   { name: "title", label: msg("admin.events.fields.title"), required: true, max: 200 },
   { name: "summary", label: msg("admin.events.fields.summary"), required: true, max: 400, multiline: true, rows: 3 },
-  { name: "description", label: msg("admin.events.fields.description"), required: true, max: 20000, multiline: true, rows: 10, hint: msg("admin.events.fields.descriptionHint") },
+  { name: "description", label: msg("admin.events.fields.description"), required: true, max: 200_000, rich: true },
   { name: "locationDetails", label: msg("admin.events.fields.locationDetails"), required: false, max: 300, hint: msg("admin.events.fields.locationDetailsHint") },
 ];
 
