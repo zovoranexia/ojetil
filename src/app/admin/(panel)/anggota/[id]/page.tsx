@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, CreditCard } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -43,9 +43,17 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
         title={m.fullName}
         description={t("detail.subtitle", { code: m.trackingCode, date: adminDateTime(m.createdAt, locale) })}
         actions={
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <CategoryBadge category={m.category} />
             <MemberStatusBadge status={m.status} />
+            {m.status === "VERIFIED" ? (
+              <Link
+                href={`/admin/anggota/${m.id}/kartaun`}
+                className="inline-flex min-h-tap items-center gap-1.5 rounded-control border border-border-subtle bg-surface-card px-3 text-sm font-semibold hover:border-border-strong md:min-h-9"
+              >
+                <CreditCard aria-hidden="true" className="size-4" /> {t("detail.memberCard")}
+              </Link>
+            ) : null}
           </div>
         }
       />

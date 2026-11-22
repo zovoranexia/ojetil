@@ -391,7 +391,10 @@
       "verifiedOn": "Verificado a",
       "message": "Mensagem do Secretariado",
       "contact": "Dúvidas? Contacte o Secretariado através de {email}.",
-      "another": "Ver outro código"
+      "another": "Ver outro código",
+      "cardTitle": "Cartão de membro digital",
+      "cardBody": "Veja, guarde ou imprima o seu cartão com código QR de verificação.",
+      "cardOpen": "Abrir cartão"
     },
     "statuses": {
       "PENDING_VERIFICATION": {
@@ -828,7 +831,10 @@
         "currentStatus": "Estado atual: {status}",
         "byActor": "por {name}",
         "submittedByApplicant": "Submetida pelo candidato",
-        "consentGiven": "Dado em {date} (nota {version})"
+        "consentGiven": "Dado em {date} (nota {version})",
+        "memberCard": "Cartão de membro",
+        "memberCardHint": "Imprima o cartão para entregar ao membro. O código QR verifica o estado ativo.",
+        "printCard": "Imprimir cartão"
       },
       "fields": {
         "fullName": "Nome completo",
@@ -1622,7 +1628,7 @@
       "VERIFIED": {
         "subject": "Parabéns! O seu registo foi verificado ({code})",
         "heading": "Bem-vindo(a) à OJETIL",
-        "body": "O Secretariado verificou o seu registo. Agora é membro oficial da OJETIL."
+        "body": "O Secretariado verificou o seu registo. Agora é membro oficial da OJETIL. Consulte o estado com o seu código para abrir o cartão de membro digital."
       },
       "NEEDS_REVISION": {
         "subject": "O seu registo precisa de correção ({code})",
@@ -1681,5 +1687,44 @@
       "body": "Lamentamos, o evento \"{title}\" foi cancelado. Não precisa de fazer nada. Veja outros eventos no site.",
       "button": "Ver outros eventos"
     }
+  },
+  "memberCard": {
+    "metaTitle": "Cartão de membro",
+    "eyebrow": "Comunidade",
+    "title": "O seu cartão de membro",
+    "lead": "Mostre este cartão nos eventos e atividades da OJETIL. O código QR comprova que é membro verificado.",
+    "cardLabel": "Cartão de membro OJETIL — {name}",
+    "photoAlt": "Fotografia de {name}",
+    "name": "Nome",
+    "category": "Categoria",
+    "municipality": "Município",
+    "since": "Membro desde",
+    "number": "N.º de membro",
+    "qrAlt": "Código QR para verificar o cartão",
+    "scan": "Leia para verificar",
+    "print": "Imprimir ou guardar em PDF",
+    "tipVerify": "Quem ler o código QR vê se o seu registo é válido — se o estado mudar, o cartão deixa de ser válido.",
+    "tipSave": "No telemóvel: escolha \"Imprimir\" e depois \"Guardar como PDF\", ou faça uma captura de ecrã.",
+    "tipExpiry": "Esta ligação é válida por 30 minutos. Para voltar a abrir, consulte o estado com o seu código e data de nascimento.",
+    "expiredTitle": "Ligação inválida ou expirada",
+    "expiredBody": "Por segurança, a ligação do cartão é válida por 30 minutos. Consulte o estado de novo para abrir o cartão.",
+    "checkAgain": "Consultar estado",
+    "cardTitle": "Cartão de membro"
+  },
+  "memberVerify": {
+    "metaTitle": "Verificação de membro",
+    "eyebrow": "Verificação do cartão de membro",
+    "validTitle": "Membro verificado",
+    "validBody": "Esta pessoa é membro oficial da {org}.",
+    "name": "Nome",
+    "number": "N.º de membro",
+    "category": "Categoria",
+    "municipality": "Município",
+    "since": "Membro desde",
+    "checkedAt": "Verificado em {date} — compare o nome com um documento de identidade.",
+    "invalidTitle": "Cartão inválido",
+    "invalidBody": "Este código não é reconhecido. O cartão pode ser falso ou estar danificado.",
+    "revokedBody": "Este cartão é da OJETIL, mas este registo já não está ativo.",
+    "contact": "Dúvidas? Contacte o Secretariado: {email}"
   }
 }

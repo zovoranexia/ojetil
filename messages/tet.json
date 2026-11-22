@@ -391,7 +391,10 @@
       "verifiedOn": "Verifika iha",
       "message": "Mensajen husi Sekretariadu",
       "contact": "Iha pergunta? Kontaktu Sekretariadu iha {email}.",
-      "another": "Haree kódigu seluk"
+      "another": "Haree kódigu seluk",
+      "cardTitle": "Kartaun membru dijitál",
+      "cardBody": "Haree, rai ka imprime ita-nia kartaun ho kódigu QR ba verifikasaun.",
+      "cardOpen": "Loke kartaun"
     },
     "statuses": {
       "PENDING_VERIFICATION": {
@@ -828,7 +831,10 @@
         "currentStatus": "Status agora: {status}",
         "byActor": "husi {name}",
         "submittedByApplicant": "Kandidatu mak haruka",
-        "consentGiven": "Fó iha {date} (nota {version})"
+        "consentGiven": "Fó iha {date} (nota {version})",
+        "memberCard": "Kartaun membru",
+        "memberCardHint": "Imprime kartaun atu entrega ba membru. Kódigu QR verifika status ativu.",
+        "printCard": "Imprime kartaun"
       },
       "fields": {
         "fullName": "Naran kompletu",
@@ -1622,7 +1628,7 @@
       "VERIFIED": {
         "subject": "Parabéns! Ita-nia rejistu verifika ona ({code})",
         "heading": "Benvindu ba OJETIL",
-        "body": "Sekretariadu verifika ona ita-nia rejistu. Agora ita membru ofisiál OJETIL nian."
+        "body": "Sekretariadu verifika ona ita-nia rejistu. Agora ita membru ofisiál OJETIL nian. Haree status ho ita-nia kódigu atu loke kartaun membru dijitál."
       },
       "NEEDS_REVISION": {
         "subject": "Ita-nia rejistu presiza hadia ({code})",
@@ -1681,5 +1687,44 @@
       "body": "Ho sentimentu, eventu \"{title}\" kansela ona. Ita-nia inskrisaun la presiza halo buat ida. Haree eventu seluk iha website.",
       "button": "Haree eventu seluk"
     }
+  },
+  "memberCard": {
+    "metaTitle": "Kartaun membru",
+    "eyebrow": "Komunidade",
+    "title": "Ita-nia kartaun membru",
+    "lead": "Hatudu kartaun ne'e iha eventu no atividade OJETIL nian. Kódigu QR hatudu katak ita membru verifika.",
+    "cardLabel": "Kartaun membru OJETIL — {name}",
+    "photoAlt": "Foto {name}",
+    "name": "Naran",
+    "category": "Kategoria",
+    "municipality": "Munisípiu",
+    "since": "Membru dezde",
+    "number": "Nú. membru",
+    "qrAlt": "Kódigu QR atu verifika kartaun",
+    "scan": "Scan atu verifika",
+    "print": "Imprime ka rai hanesan PDF",
+    "tipVerify": "Ema ne'ebé scan kódigu QR sei haree katak ita-nia membru válidu — se status muda, kartaun la válidu ona.",
+    "tipSave": "Iha telemóvel: hili \"Imprime\" depois \"Rai hanesan PDF\", ka foti screenshot.",
+    "tipExpiry": "Link ba pájina ne'e válidu minutu 30 de'it. Atu loke fali, haree status ho ita-nia kódigu no data moris.",
+    "expiredTitle": "Link la válidu ka liu ona",
+    "expiredBody": "Atu seguransa, link kartaun válidu minutu 30 de'it. Haree status fali atu loke kartaun.",
+    "checkAgain": "Haree status",
+    "cardTitle": "Kartaun membru"
+  },
+  "memberVerify": {
+    "metaTitle": "Verifikasaun membru",
+    "eyebrow": "Verifikasaun kartaun membru",
+    "validTitle": "Membru verifika",
+    "validBody": "Ema ne'e membru ofisiál {org} nian.",
+    "name": "Naran",
+    "number": "Nú. membru",
+    "category": "Kategoria",
+    "municipality": "Munisípiu",
+    "since": "Membru dezde",
+    "checkedAt": "Verifika iha {date} — kompara naran ho dokumentu identidade.",
+    "invalidTitle": "Kartaun la válidu",
+    "invalidBody": "Kódigu ne'e la rekoñese. Kartaun bele falsu ka la kompletu.",
+    "revokedBody": "Kartaun ne'e OJETIL nian, maibé membru ne'e la ativu ona.",
+    "contact": "Pergunta? Kontaktu Sekretariadu: {email}"
   }
 }
