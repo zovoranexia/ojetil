@@ -39,6 +39,7 @@ export const viewport: Viewport = {
 /** Client components only receive the namespaces they use, keeping the RSC payload small. */
 const CLIENT_NAMESPACES = [
   "common",
+  "share",
   "nav",
   "lowData",
   "history",

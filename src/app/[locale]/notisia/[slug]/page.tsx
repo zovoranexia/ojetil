@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
 import { RichContent } from "@/components/content/rich-content";
-import { ContentImage } from "@/components/public/content-image";
 import { NewsCard } from "@/components/public/news-card";
+import { ShareButtons } from "@/components/public/share-buttons";
 import { Badge } from "@/components/ui/badge";
 import { fromDbLocale } from "@/config/locales";
 import { municipalityLabel } from "@/config/municipalities";
@@ -14,6 +14,7 @@ import { formatDate, isoDate } from "@/lib/format";
 import { localizedAlternates } from "@/lib/seo";
 import { getPublishedDocumentSummary } from "@/modules/documents/queries";
 import { documentDownloadPath, formatFileSize } from "@/modules/documents/schema";
+import { getServerEnv } from "@/lib/env";
 import { getPublishedArticle } from "@/modules/news/queries";
 
 type Params = Promise<{ locale: string; slug: string }>;
@@ -28,7 +29,15 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     title: article.title,
     description: article.excerpt,
     alternates: localizedAlternates(`/notisia/${slug}`, locale),
-    openGraph: { type: "article", title: article.title, description: article.excerpt, publishedTime: article.publishedAt.toISOString() },
+    openGraph: {
+      type: "article",
+      title: article.title,
+      description: article.excerpt,
+      publishedTime: article.publishedAt.toISOString(),
+      // The cover is no longer shown on the article page, but it is the preview image when the link is shared.
+      ...(article.coverImageUrl ? { images: [{ url: article.coverImageUrl, alt: article.coverImageAlt || article.title }] } : {}),
+    },
+    twitter: { card: article.coverImageUrl ? "summary_large_image" : "summary", title: article.title, description: article.excerpt },
   };
 }
 
@@ -40,6 +49,8 @@ export default async function NewsArticlePage({ params }: { params: Params }) {
   if (!article) notFound();
 
   const servedLocale = fromDbLocale(article.servedLocale);
+  // Absolute link to this page in the reader's language (Tetun has no prefix).
+  const shareUrl = new URL(`${locale === "tet" ? "" : `/${locale}`}/notisia/${article.slug}`, getServerEnv().APP_URL).toString();
   // Only a PUBLISHED document is shown; an unpublished attachment silently disappears.
   const attachment = article.documentId ? await getPublishedDocumentSummary(article.documentId, locale) : null;
 
@@ -70,20 +81,10 @@ export default async function NewsArticlePage({ params }: { params: Params }) {
             {article.excerpt}
           </p>
           {article.byline ? <p className="mt-5 text-sm font-semibold text-ink">{t("byline", { name: article.byline })}</p> : null}
+          <ShareButtons className="mt-6" url={shareUrl} title={article.title} />
         </div>
       </header>
 
-      {article.coverImageUrl ? (
-        <div className="mx-auto max-w-4xl px-4 pt-8 md:px-8">
-          <ContentImage
-            src={article.coverImageUrl}
-            alt={article.coverImageAlt || article.title}
-            sizes="(min-width: 896px) 896px, 100vw"
-            className="aspect-[16/9] w-full rounded-card"
-            priority
-          />
-        </div>
-      ) : null}
 
       <div lang={servedLocale} className="mx-auto max-w-3xl px-4 py-10 md:px-8">
         <RichContent body={article.body} />

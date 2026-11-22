@@ -22,6 +22,13 @@
     "tryAgain": "Koko fali",
     "backHome": "Fila ba inísiu"
   },
+  "share": {
+    "label": "Fahe:",
+    "on": "Fahe iha {network}",
+    "copyLink": "Kopia ligasaun",
+    "copied": "Ligasaun kopia ona",
+    "more": "Seluk…"
+  },
   "nav": {
     "primary": "Navegasaun prinsipál",
     "home": "Inísiu",
