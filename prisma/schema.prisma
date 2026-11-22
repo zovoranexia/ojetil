@@ -304,17 +304,17 @@ model Document {
   status      ContentStatus    @default(DRAFT)
   category    DocumentCategory @default(OTHER)
   /// Storage key relative to DOCUMENT_DIR, e.g. "2026/9f…c1.pdf".
-  fileKey     String        @unique
+  fileKey     String           @unique
   /// Original file name, kept for the admin list.
   fileName    String
   fileSize    Int
   /// Hex SHA-256 of the stored bytes (integrity + ETag).
   sha256      String
-  publishedAt DateTime?     @db.Timestamptz(3)
+  publishedAt DateTime?        @db.Timestamptz(3)
   createdById String?
-  createdBy   User?         @relation("DocumentCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
-  createdAt   DateTime      @default(now()) @db.Timestamptz(3)
-  updatedAt   DateTime      @updatedAt @db.Timestamptz(3)
+  createdBy   User?            @relation("DocumentCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime         @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime         @updatedAt @db.Timestamptz(3)
 
   translations DocumentTranslation[]
   newsArticles NewsArticle[]
@@ -447,21 +447,23 @@ model EventTranslation {
 }
 
 model EventRegistration {
-  id           String         @id @default(cuid())
-  eventId      String
-  event        Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  id             String         @id @default(cuid())
+  eventId        String
+  event          Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)
   /// Non-sequential ticket code, e.g. TKT-7KQ2-M9XD.
-  ticketCode   String         @unique
-  fullName     String
-  email        String // lower-cased
-  phone        String?
-  institution  String?
-  municipality Municipality?
-  status       AttendeeStatus @default(REGISTERED)
-  checkedInAt  DateTime?      @db.Timestamptz(3)
-  locale       Locale         @default(TET)
-  createdAt    DateTime       @default(now()) @db.Timestamptz(3)
-  updatedAt    DateTime       @updatedAt @db.Timestamptz(3)
+  ticketCode     String         @unique
+  fullName       String
+  email          String // lower-cased
+  phone          String?
+  institution    String?
+  municipality   Municipality?
+  status         AttendeeStatus @default(REGISTERED)
+  checkedInAt    DateTime?      @db.Timestamptz(3)
+  /// Set when the "event is tomorrow" email (with the online link) was sent.
+  reminderSentAt DateTime?      @db.Timestamptz(3)
+  locale         Locale         @default(TET)
+  createdAt      DateTime       @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime       @updatedAt @db.Timestamptz(3)
 
   @@unique([eventId, email])
   @@index([eventId, status])

@@ -1,11 +1,13 @@
 "use server";
 
+import { after } from "next/server";
 import { getTranslations } from "next-intl/server";
 import { isAppLocale } from "@/config/locales";
 import { fieldErrorsFrom, type ActionResult } from "@/lib/actions";
 import { getRequestContext } from "@/lib/request-context";
 import { rateLimit } from "@/lib/security/rate-limit";
 import { createEventRegistrationSchema, type EventRegistrationInput } from "./registration-schema";
+import { sendEventRegistrationConfirmation } from "@/modules/notifications/emails";
 import { EventRegistrationError, registerForEvent } from "./registration-service";
 
 /** Public self-service event registration. Returns a ticket code or a localised error. */
@@ -28,7 +30,9 @@ export async function registerForEventAction(
   }
 
   try {
-    return { ok: true, data: await registerForEvent(parsed.data, lang) };
+    const result = await registerForEvent(parsed.data, lang);
+    after(() => sendEventRegistrationConfirmation(result.ticketCode));
+    return { ok: true, data: result };
   } catch (error) {
     if (error instanceof EventRegistrationError) {
       const code = error.reason === "notFound" ? "NOT_FOUND" : "CONFLICT";

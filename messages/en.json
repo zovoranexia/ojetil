@@ -1603,5 +1603,83 @@
       "form": "Please fix the highlighted fields.",
       "network": "Connection problem. Check your internet and try again."
     }
+  },
+  "emails": {
+    "footer": "Automatic email from {org}. To reply, just hit \"Reply\" — the Secretariat will receive it.",
+    "adminFooter": "Notification for the OJETIL team. Full details are in the backoffice (login required).",
+    "greeting": "Hello {name},",
+    "memberReceived": {
+      "subject": "We received your registration ({code})",
+      "preheader": "Keep your code to check your status.",
+      "heading": "Registration received",
+      "body": "Thank you for registering with OJETIL. The Secretariat will verify your details and we will email you again once there is a decision.",
+      "keepCode": "Keep the code below: you need it, with your date of birth, to check your status.",
+      "code": "Tracking code",
+      "category": "Category",
+      "button": "Check status"
+    },
+    "memberDecision": {
+      "VERIFIED": {
+        "subject": "Congratulations! Your registration is verified ({code})",
+        "heading": "Welcome to OJETIL",
+        "body": "The Secretariat has verified your registration. You are now an official member of OJETIL."
+      },
+      "NEEDS_REVISION": {
+        "subject": "Your registration needs a correction ({code})",
+        "heading": "We need a little more information",
+        "body": "The Secretariat needs you to correct or complete some information. Read the note below and contact the Secretariat."
+      },
+      "REJECTED": {
+        "subject": "Decision on your registration ({code})",
+        "heading": "Registration not approved",
+        "body": "We are sorry — the Secretariat could not approve your registration. The reason is below. If you have questions, reply to this email."
+      },
+      "noteLabel": "Note from the Secretariat",
+      "button": "Check status"
+    },
+    "adminMember": {
+      "subject": "New member registration: {code}",
+      "heading": "New registration awaiting verification",
+      "body": "A new member registration has arrived. Open the backoffice to verify it.",
+      "municipality": "Municipality",
+      "button": "Open in backoffice"
+    },
+    "adminContact": {
+      "subject": "New message: {topic}",
+      "heading": "New message from the website",
+      "body": "Someone sent a message through the contact form. Read and reply in the backoffice.",
+      "topic": "Topic",
+      "language": "Language",
+      "button": "Read message"
+    },
+    "event": {
+      "ticket": "Ticket code",
+      "when": "When",
+      "where": "Where",
+      "online": "Online",
+      "button": "View event details"
+    },
+    "eventRegistered": {
+      "subject": "You're registered: {title}",
+      "preheader": "Your ticket: {ticket}",
+      "heading": "Registration confirmed",
+      "body": "Your place at \"{title}\" is reserved.",
+      "onlineNote": "We will email you the online link one day before the event.",
+      "inPersonNote": "Show your ticket code at the entrance. We will send a reminder the day before."
+    },
+    "eventReminder": {
+      "subject": "Tomorrow: {title}",
+      "preheader": "A reminder about your event.",
+      "heading": "See you soon: {title}",
+      "bodyOnline": "The event starts within 24 hours. Use the button below to join the online session.",
+      "bodyInPerson": "The event starts within 24 hours. Remember your ticket code.",
+      "join": "Join online"
+    },
+    "eventCancelled": {
+      "subject": "Cancelled: {title}",
+      "heading": "Event cancelled",
+      "body": "We are sorry — \"{title}\" has been cancelled. You do not need to do anything. See other events on the website.",
+      "button": "See other events"
+    }
   }
 }

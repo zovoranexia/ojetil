@@ -248,6 +248,17 @@ DOCUMENT_DIR="/srv/ojetil/shared/storage/documents"
 MAX_DOCUMENT_BYTES="10485760"
 # Pustaka media: PDF / MP4 / MP3 (publik, di public-uploads/media). Maks. 20 MB.
 MAX_MEDIA_FILE_BYTES="20971520"
+
+# Email keluar (lihat langkah 9.1). Kosongkan SMTP_HOST bila belum siap: email dilewati.
+SMTP_HOST="smtp.example.org"
+SMTP_PORT="587"
+SMTP_SECURE="false"
+SMTP_USER="no-reply@ojetil.tl"
+SMTP_PASS="isi-password-smtp"
+MAIL_FROM="OJETIL <no-reply@ojetil.tl>"
+MAIL_REPLY_TO="sekretariadu@ojetil.tl"
+# Staf yang diberi tahu tentang pendaftaran anggota & pesan kontak baru (pisahkan dengan koma)
+ADMIN_NOTIFY_EMAILS="sekretariadu@ojetil.tl"
 EOF
 sudo chmod 600 /srv/ojetil/shared/.env
 ```
@@ -313,8 +324,8 @@ TimeoutStopSec=20
 # Port 3000 terikat ke semua interface, jadi koneksi dibatasi di level kernel: layanan ini
 # hanya boleh berkomunikasi lewat loopback. Semua lalu lintas WAJIB lewat Nginx (penting
 # agar IP klien di X-Forwarded-For dapat dipercaya untuk rate limit dan audit log).
-# Catatan: ini juga memblokir koneksi KELUAR. Aplikasi saat ini tidak membutuhkannya
-# (database di localhost). Jika kelak menambah fitur seperti email SMTP, longgarkan aturan ini.
+# Catatan: ini juga memblokir koneksi KELUAR, termasuk email SMTP. Jika email diaktifkan
+# (langkah 9.1), tambahkan alamat IP server SMTP, mis. `IPAddressAllow=localhost 203.0.113.25`.
 IPAddressAllow=localhost
 IPAddressDeny=any
 
@@ -343,6 +354,94 @@ curl -sI http://127.0.0.1:3000/ | head -1      # HTTP/1.1 200 OK
 > memori proses; beberapa instance (mis. PM2 cluster) masing-masing punya hitungan sendiri.
 
 Log aplikasi: `sudo journalctl -u ojetil -f`
+
+### 9.1 Email (SMTP) dan pengingat acara
+
+Aplikasi mengirim email otomatis dalam bahasa penerima:
+
+| Email | Penerima | Kapan |
+| --- | --- | --- |
+| Pendaftaran diterima + kode pelacakan | Pendaftar anggota (jika mengisi email) | Setelah mendaftar |
+| Hasil verifikasi (diterima / perlu perbaikan / ditolak + catatan) | Pendaftar anggota | Saat verifikator memutuskan |
+| Tiket acara | Peserta acara | Setelah mendaftar acara |
+| Pengingat H-1 (acara online: **berisi link Zoom/Meet**) | Peserta acara | ±24 jam sebelum acara (timer) |
+| Acara dibatalkan | Peserta acara | Saat status acara diubah ke *Dibatalkan* |
+| Pendaftaran anggota baru / pesan kontak baru | `ADMIN_NOTIFY_EMAILS` | Langsung (tanpa data pribadi) |
+
+**1. Isi pengaturan SMTP** di `/srv/ojetil/shared/.env` (lihat langkah 7). Bisa memakai akun email
+organisasi (Google Workspace, Microsoft 365, Zoho) atau layanan transaksional (Brevo, Mailgun, Amazon SES).
+Port 587 + `SMTP_SECURE="false"` (STARTTLS, wajib) atau port 465 + `SMTP_SECURE="true"`.
+Agar email tidak masuk spam, atur SPF, DKIM dan DMARC domain sesuai petunjuk penyedia SMTP.
+
+**2. Izinkan koneksi keluar ke server SMTP.** Layanan `ojetil` memblokir semua koneksi keluar
+(`IPAddressDeny=any`). Cari IP server SMTP dan tambahkan ke `IPAddressAllow`:
+
+```bash
+getent ahostsv4 smtp.example.org | awk '{print $1}' | sort -u
+sudo systemctl edit ojetil        # tambahkan dua baris di bawah, lalu simpan
+```
+
+```ini
+[Service]
+IPAddressAllow=localhost 203.0.113.25
+```
+
+Jika penyedia memakai banyak IP yang sering berubah, Anda boleh menghapus pembatasan ini
+(`IPAddressDeny=`) asalkan `ufw` tetap menutup port 3000 dari luar (lihat checklist langkah 16).
+
+**3. Restart dan uji:**
+
+```bash
+sudo systemctl daemon-reload && sudo systemctl restart ojetil
+cd /srv/ojetil/current && sudo -u ojetil -H npm run mail:test -- alamat-anda@example.org
+```
+
+**4. Timer pengingat acara** (setiap 15 menit; aman bila tumpang tindih, tiap peserta hanya sekali):
+
+`/etc/systemd/system/ojetil-reminders.service`
+
+```ini
+[Unit]
+Description=OJETIL event reminder emails
+After=network-online.target postgresql.service
+
+[Service]
+Type=oneshot
+User=ojetil
+Group=ojetil
+WorkingDirectory=/srv/ojetil/current
+Environment=NODE_ENV=production
+# tsx is installed with the app (deploy.sh runs npm ci); no npm cache writes needed.
+ExecStart=/srv/ojetil/current/node_modules/.bin/tsx --conditions=react-server scripts/send-event-reminders.ts
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+```
+
+`/etc/systemd/system/ojetil-reminders.timer`
+
+```ini
+[Unit]
+Description=Run OJETIL event reminders every 15 minutes
+
+[Timer]
+OnCalendar=*:0/15
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now ojetil-reminders.timer
+sudo systemctl start ojetil-reminders.service && sudo journalctl -u ojetil-reminders -n 5 --no-pager
+# → "Event reminders: N due, N sent."
+```
+
+Tanpa `SMTP_HOST`, semua email dilewati (tercatat `[mail] SMTP not configured` di log) dan
+pendaftaran tetap berjalan normal. Gagal kirim tidak pernah membatalkan pendaftaran atau keputusan.
 
 ---
 
@@ -599,6 +698,7 @@ Akun staf tidak pernah dihapus, hanya dinonaktifkan.
 - [ ] Super Admin pertama sudah login dan mengganti password sementaranya.
 - [ ] Teks profil dan timeline sudah ditinjau Sekretariat/sejarawan, dan teks Tetun sudah diperiksa penutur asli.
 - [ ] Email dan telepon kontak di `src/config/site.ts` sudah benar.
+- [ ] `npm run mail:test` berhasil (email masuk, bukan di spam) dan `ojetil-reminders.timer` aktif (`systemctl list-timers | grep ojetil`).
 - [ ] Uji akhir: pendaftaran event, wizard anggota (dengan foto), cek status, dan login setiap peran.
 
 ---
@@ -619,6 +719,9 @@ Akun staf tidak pernah dihapus, hanya dinonaktifkan.
 | Upload foto/gambar/PDF/video gagal `413` | `client_max_body_size` Nginx terlalu kecil | Set `21m` seperti contoh (di atas `MAX_MEDIA_FILE_BYTES`) |
 | Gambar berita `403`/`404` lewat Nginx | Izin folder `public-uploads` | `www-data` perlu baca: lihat bagian 5 (`chmod 711` storage, grup `www-data`) |
 | Gambar/PDF hilang setelah deploy (kartu berita hanya menampilkan judul, `/uploads/...` `404`) | `PUBLIC_UPLOAD_DIR`/`DOCUMENT_DIR` tidak di-set → file tersimpan di dalam folder rilis lama. Log aplikasi menampilkan `[storage] ⚠ … is relative` | Set path absolut di `.env` (bagian 7), lalu salin file dari rilis lama: `sudo rsync -a /srv/ojetil/releases/*/storage/public-uploads/ /srv/ojetil/shared/storage/public-uploads/` (dan `documents/`), restart |
+| Email tidak terkirim; log: `[mail] send failed … ETIMEDOUT` / `ECONNREFUSED` | Koneksi keluar diblokir `IPAddressDeny=any` | Tambahkan IP server SMTP ke `IPAddressAllow` (langkah 9.1), lalu restart |
+| Log: `[mail] SMTP not configured` | `SMTP_HOST` kosong | Isi pengaturan SMTP di `.env` (langkah 7) |
+| Email masuk folder spam | SPF/DKIM/DMARC domain belum diatur | Atur sesuai petunjuk penyedia SMTP; `MAIL_FROM` harus memakai domain itu |
 | Semua pengunjung terkena rate limit bersamaan | IP klien terbaca sebagai IP proxy | Periksa `TRUSTED_PROXY_HOPS` sesuai jumlah proxy di depan aplikasi |
 | Build gagal di `next/font` | Gangguan unduhan Google Fonts | Ulangi `npm run build`; pastikan akses keluar ke `fonts.googleapis.com` |
 | Foto anggota tidak tampil di backoffice (404) | File hilang dari `uploads` atau kunci PII berubah | Pulihkan folder uploads dari backup; gunakan `.env` asli |

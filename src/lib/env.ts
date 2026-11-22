@@ -32,6 +32,20 @@ const serverEnvSchema = z.object({
   DOCUMENT_DIR: z.string().default("./storage/documents"),
   MAX_DOCUMENT_BYTES: z.coerce.number().int().positive().max(20_971_520).default(10_485_760),
   TRUSTED_PROXY_HOPS: z.coerce.number().int().min(1).max(10).default(1),
+
+  /* ── Outgoing email (optional: without SMTP_HOST, emails are logged, not sent) ── */
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.coerce.number().int().positive().default(587),
+  /** "true" = implicit TLS (port 465); otherwise STARTTLS is required. */
+  SMTP_SECURE: z.enum(["true", "false"]).default("false"),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  /** Sender shown to recipients, e.g. "OJETIL <sekretariadu@ojetil.tl>". */
+  MAIL_FROM: z.string().default("OJETIL <no-reply@localhost>"),
+  /** Replies go here (the Secretariat), not to the no-reply sender. */
+  MAIL_REPLY_TO: z.string().optional(),
+  /** Comma-separated staff addresses told about new registrations and contact messages. */
+  ADMIN_NOTIFY_EMAILS: z.string().optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;

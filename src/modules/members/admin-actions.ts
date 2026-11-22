@@ -1,10 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { ActionError, authorizedAction } from "@/lib/actions";
 import { db } from "@/lib/db";
 import { msg } from "@/lib/i18n-message";
 import { recordAudit } from "@/modules/audit/service";
+import { sendMemberDecision } from "@/modules/notifications/emails";
 import { decisionSchema, memberIdSchema } from "./admin-schema";
 import { decryptMemberPii } from "./pii";
 
@@ -87,5 +89,7 @@ export const decideMemberRegistration = authorizedAction("members:verify", decis
   revalidatePath("/admin/anggota");
   revalidatePath(`/admin/anggota/${input.id}`);
   revalidatePath("/admin");
+  // Tell the applicant (if they gave an email) once the decision is committed.
+  after(() => sendMemberDecision(input.id));
   return result;
 });

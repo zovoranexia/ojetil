@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import { getTranslations } from "next-intl/server";
 import { isAppLocale } from "@/config/locales";
 import { fieldErrorsFrom } from "@/lib/actions";
@@ -7,6 +8,7 @@ import { isSameOrigin } from "@/lib/security/origin";
 import { rateLimit } from "@/lib/security/rate-limit";
 import { contactSchema, type ContactErrorKey } from "@/modules/contact/schema";
 import { createContactMessage } from "@/modules/contact/service";
+import { sendAdminNewContactMessage } from "@/modules/notifications/emails";
 
 export const runtime = "nodejs";
 
@@ -51,7 +53,8 @@ export async function POST(request: Request) {
   if (!parsed.success) return jsonError(422, "VALIDATION", t("form"), { fieldErrors: fieldErrorsFrom(parsed.error) });
 
   try {
-    await createContactMessage(parsed.data, locale);
+    const { id } = await createContactMessage(parsed.data, locale);
+    after(() => sendAdminNewContactMessage({ id, topic: parsed.data.topic, locale }));
     return jsonOk({ received: true }, 201);
   } catch (error) {
     console.error("[contact] could not store message", error);

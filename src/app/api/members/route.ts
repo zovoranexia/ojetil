@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import { getTranslations } from "next-intl/server";
 import { isAppLocale } from "@/config/locales";
 import { INTEREST_AREAS } from "@/config/municipalities";
@@ -9,6 +10,7 @@ import { rateLimit } from "@/lib/security/rate-limit";
 import { PhotoValidationError, processProfilePhoto } from "@/modules/members/photo-storage";
 import { parseMemberSubmission } from "@/modules/members/registration-schema";
 import { submitMemberRegistration } from "@/modules/members/registration-service";
+import { sendAdminNewMember, sendMemberRegistrationReceived } from "@/modules/notifications/emails";
 
 export const runtime = "nodejs";
 
@@ -120,6 +122,13 @@ export async function POST(request: Request) {
 
   try {
     const result = await submitMemberRegistration(parsed.data, photo, locale);
+    // Emails go out after the response: a slow or failing mail server never delays or breaks the registration.
+    after(() =>
+      Promise.all([
+        sendMemberRegistrationReceived({ email: parsed.data.email || null, fullName: parsed.data.fullName, trackingCode: result.trackingCode, category: parsed.data.category, locale }),
+        sendAdminNewMember({ trackingCode: result.trackingCode, category: parsed.data.category, municipality: parsed.data.municipality }),
+      ]),
+    );
     return jsonOk(result, 201);
   } catch (error) {
     console.error("[members] registration failed", error);
