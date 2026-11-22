@@ -52,9 +52,24 @@ export async function ContentImage({
     );
   }
 
+  // External images (an https:// URL pasted by an editor) cannot go through the
+  // Next.js optimizer: no remote hosts are allowlisted, so it answers 400 and the
+  // browser shows an empty box with the alt text. Load them as-is instead; our
+  // own /uploads images (already resized WebP) and static assets stay optimized.
+  const external = /^https?:\/\//i.test(src);
+
   return (
     <div className={cn("relative overflow-hidden bg-surface-muted", className)}>
-      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover" />
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        priority={priority}
+        unoptimized={external}
+        referrerPolicy={external ? "no-referrer" : undefined}
+        className="object-cover"
+      />
     </div>
   );
 }
