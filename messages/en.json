@@ -172,7 +172,8 @@
     "types": {
       "SEMINAR": "Seminar",
       "DEBATE": "Public debate",
-      "WORKSHOP": "Workshop"
+      "WORKSHOP": "Workshop",
+      "NATIONAL_DAY": "National Day"
     },
     "online": "Online",
     "emptyUpcoming": "No upcoming events of this type.",
@@ -953,11 +954,6 @@
           "empty": "empty"
         },
         "primaryHint": "Write in at least one language — Tetun is recommended. Readers see their own language, otherwise Tetun, otherwise another available version.",
-        "coverReplace": "Replace",
-        "coverRemove": "Remove",
-        "coverUploading": "Uploading…",
-        "coverChoose": "Choose…",
-        "coverHint": "JPEG, PNG or WebP up to {mb} MB. Resized and compressed automatically; hidden in Low-Data Mode.",
         "publishing": "Publishing",
         "scheduled": "Scheduled",
         "publishedLabel": "Published:",
@@ -1149,7 +1145,8 @@
       "types": {
         "SEMINAR": "Seminar",
         "DEBATE": "Public debate",
-        "WORKSHOP": "Workshop"
+        "WORKSHOP": "Workshop",
+        "NATIONAL_DAY": "National Day"
       },
       "allEvents": "All events",
       "attendeesCount": "Attendees ({count})",
@@ -1178,8 +1175,7 @@
         "deadline": "Registration deadline",
         "deadlineHint": "Empty = until the event starts.",
         "coverImage": "Cover image URL",
-        "create": "Create event",
-        "coverImagePlaceholder": "/uploads/… or https://…"
+        "create": "Create event"
       },
       "attendees": {
         "backToEvent": "Event details",
@@ -1475,6 +1471,12 @@
         "unreadable": "The upload could not be read. Is the file too large?",
         "noFile": "Choose a file to upload.",
         "network": "Upload failed. Check your connection and try again."
+      },
+      "cover": {
+        "choose": "Choose…",
+        "replace": "Replace",
+        "remove": "Remove",
+        "hint": "JPEG, PNG or WebP up to {mb} MB. Resized and compressed automatically; hidden in Low-Data Mode."
       }
     }
   }

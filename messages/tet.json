@@ -172,7 +172,8 @@
     "types": {
       "SEMINAR": "Semináriu",
       "DEBATE": "Debate públiku",
-      "WORKSHOP": "Workshop"
+      "WORKSHOP": "Workshop",
+      "NATIONAL_DAY": "Loron Nasionál"
     },
     "online": "Online",
     "emptyUpcoming": "Seidauk iha eventu sei mai ba tipu ida-ne'e.",
@@ -953,11 +954,6 @@
           "empty": "mamuk"
         },
         "primaryHint": "Hakerek iha lian ida ka liu — rekomenda Tetun. Leitór sira haree sira-nia lian rasik, se la iha Tetun, se la iha lian seluk ne'ebé iha.",
-        "coverReplace": "Troka",
-        "coverRemove": "Hasai",
-        "coverUploading": "Haruka hela…",
-        "coverChoose": "Hili…",
-        "coverHint": "JPEG, PNG ka WebP to'o {mb} MB. Muda tamañu no kompresa automátiku; subar iha Modu Dadus Uitoan.",
         "publishing": "Publikasaun",
         "scheduled": "Programa ona",
         "publishedLabel": "Publika:",
@@ -1149,7 +1145,8 @@
       "types": {
         "SEMINAR": "Semináriu",
         "DEBATE": "Debate públiku",
-        "WORKSHOP": "Workshop"
+        "WORKSHOP": "Workshop",
+        "NATIONAL_DAY": "Loron Nasionál"
       },
       "allEvents": "Eventu hotu",
       "attendeesCount": "Partisipante ({count})",
@@ -1178,8 +1175,7 @@
         "deadline": "Prazu rejistu",
         "deadlineHint": "Mamuk = to'o eventu hahú.",
         "coverImage": "URL imajen kapa",
-        "create": "Kria eventu",
-        "coverImagePlaceholder": "/uploads/… ka https://…"
+        "create": "Kria eventu"
       },
       "attendees": {
         "backToEvent": "Detalle eventu",
@@ -1475,6 +1471,12 @@
         "unreadable": "Labele lee arkivu ne'ebé haruka. Arkivu boot liu ka?",
         "noFile": "Hili arkivu ida atu haruka.",
         "network": "Haruka la susesu. Haree koneksaun no koko fali."
+      },
+      "cover": {
+        "choose": "Hili…",
+        "replace": "Troka",
+        "remove": "Hasai",
+        "hint": "JPEG, PNG ka WebP to'o {mb} MB. Muda tamañu no kompresa automátiku; subar iha Modu Dadus Uitoan."
       }
     }
   }

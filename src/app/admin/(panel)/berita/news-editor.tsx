@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarClock, ExternalLink, ImageIcon, Loader2, RefreshCw, Save, Send, Trash2, Undo2, X } from "lucide-react";
+import { CalendarClock, ExternalLink, Loader2, Save, Send, Trash2, Undo2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useRef, useState } from "react";
@@ -10,7 +10,7 @@ import type { ContentStatus } from "@prisma/client";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
 import { applyFieldErrors, FormFeedback, type Feedback } from "@/components/admin/form-feedback";
 import { RichTextEditor } from "@/components/admin/rich-text-editor";
-import { MediaPicker } from "@/components/admin/media/media-picker";
+import { CoverImageField } from "@/components/admin/media/cover-image-field";
 import { useMessageText } from "@/components/i18n/message-text";
 import { DateTime24Input } from "@/components/forms/date-time-24";
 import { Field, fieldAria, selectClassName, textareaClassName } from "@/components/forms/field";
@@ -34,71 +34,6 @@ export interface DocumentOption {
   title: string;
   fileSize: number;
   unpublished?: boolean;
-}
-
-/** Cover image: chosen from (or uploaded into) the Media library. */
-function CoverImageField({
-  value,
-  onChange,
-  disabled,
-  maxBytes,
-  maxMediaBytes,
-}: {
-  value: string;
-  onChange: (url: string) => void;
-  disabled: boolean;
-  maxBytes: number;
-  maxMediaBytes: number;
-}) {
-  const [picking, setPicking] = useState(false);
-  const t = useTranslations("admin.news");
-  const tMedia = useTranslations("admin.media");
-
-  return (
-    <div className="space-y-1.5">
-      <span id="cover-label" className="text-sm font-medium text-ink">
-        {t("fields.coverImage")}
-      </span>
-      {value ? (
-        <div className="overflow-hidden rounded-card border border-border-subtle">
-          {/* eslint-disable-next-line @next/next/no-img-element -- admin preview of an arbitrary uploaded/https image */}
-          <img src={value} alt="" className="aspect-[16/9] w-full bg-surface-muted object-cover" />
-          <div className="flex gap-1 border-t border-border-subtle p-1.5">
-            <Button type="button" variant="ghost" size="sm" disabled={disabled} onClick={() => setPicking(true)}>
-              <RefreshCw aria-hidden="true" /> {t("editor.coverReplace")}
-            </Button>
-            <Button type="button" variant="ghost" size="sm" disabled={disabled} onClick={() => onChange("")} className="text-status-rejected">
-              <X aria-hidden="true" /> {t("editor.coverRemove")}
-            </Button>
-          </div>
-        </div>
-      ) : (
-        <button
-          type="button"
-          aria-labelledby="cover-label"
-          aria-describedby="cover-hint"
-          disabled={disabled}
-          onClick={() => setPicking(true)}
-          className="flex aspect-[16/10] w-full flex-col items-center justify-center gap-2 rounded-card border-2 border-dashed border-border-subtle text-sm text-ink-secondary transition-colors hover:border-border-strong hover:text-ink disabled:opacity-60"
-        >
-          <ImageIcon aria-hidden="true" className="size-6" />
-          {t("editor.coverChoose")}
-        </button>
-      )}
-      <p id="cover-hint" className="text-xs text-ink-secondary">
-        {t("editor.coverHint", { mb: Math.round(maxBytes / 1_048_576) })}
-      </p>
-      <MediaPicker
-        open={picking}
-        onOpenChange={setPicking}
-        kinds={["IMAGE"]}
-        title={tMedia("picker.titleImages")}
-        canUpload={!disabled}
-        limits={{ imageMb: Math.round(maxBytes / 1_048_576), fileMb: Math.round(maxMediaBytes / 1_048_576) }}
-        onSelect={(asset) => onChange(asset.url)}
-      />
-    </div>
-  );
 }
 
 export function NewsEditor({
@@ -452,9 +387,18 @@ export function NewsEditor({
             <Controller
               control={control}
               name="coverImageUrl"
-              render={({ field }) => <CoverImageField value={field.value} onChange={(url) => field.onChange(url)} disabled={readOnly} maxBytes={maxImageBytes} maxMediaBytes={maxMediaBytes} />}
+              render={({ field }) => (
+                <CoverImageField
+                  label={t("fields.coverImage")}
+                  value={field.value}
+                  onChange={(url) => field.onChange(url)}
+                  disabled={readOnly}
+                  maxImageBytes={maxImageBytes}
+                  maxMediaBytes={maxMediaBytes}
+                  error={errors.coverImageUrl?.message}
+                />
+              )}
             />
-            {errors.coverImageUrl?.message ? <p className="text-sm text-status-rejected">{text(errors.coverImageUrl.message)}</p> : null}
             <Field id="documentId" label={t("fields.document")} hint={t("fields.documentHint")} error={errors.documentId?.message}>
               <select className={selectClassName} {...fieldAria("documentId", { hint: true, error: errors.documentId?.message })} {...register("documentId")}>
                 <option value="">{t("fields.documentNone")}</option>

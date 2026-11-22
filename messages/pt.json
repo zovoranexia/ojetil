@@ -172,7 +172,8 @@
     "types": {
       "SEMINAR": "Seminário",
       "DEBATE": "Debate público",
-      "WORKSHOP": "Workshop"
+      "WORKSHOP": "Workshop",
+      "NATIONAL_DAY": "Dia Nacional"
     },
     "online": "Online",
     "emptyUpcoming": "Não há próximos eventos deste tipo.",
@@ -953,11 +954,6 @@
           "empty": "vazio"
         },
         "primaryHint": "Escreva em pelo menos uma língua — recomenda-se o Tetun. Os leitores veem a sua língua; se não existir, o Tetun; senão, outra versão disponível.",
-        "coverReplace": "Substituir",
-        "coverRemove": "Remover",
-        "coverUploading": "A carregar…",
-        "coverChoose": "Escolher…",
-        "coverHint": "JPEG, PNG ou WebP até {mb} MB. Redimensionada e comprimida automaticamente; oculta no Modo de Poupança de Dados.",
         "publishing": "Publicação",
         "scheduled": "Agendado",
         "publishedLabel": "Publicado:",
@@ -1149,7 +1145,8 @@
       "types": {
         "SEMINAR": "Seminário",
         "DEBATE": "Debate público",
-        "WORKSHOP": "Workshop"
+        "WORKSHOP": "Workshop",
+        "NATIONAL_DAY": "Dia Nacional"
       },
       "allEvents": "Todos os eventos",
       "attendeesCount": "Participantes ({count})",
@@ -1178,8 +1175,7 @@
         "deadline": "Prazo de inscrição",
         "deadlineHint": "Vazio = até ao início do evento.",
         "coverImage": "URL da imagem de capa",
-        "create": "Criar evento",
-        "coverImagePlaceholder": "/uploads/… ou https://…"
+        "create": "Criar evento"
       },
       "attendees": {
         "backToEvent": "Detalhes do evento",
@@ -1475,6 +1471,12 @@
         "unreadable": "Não foi possível ler o ficheiro. Será demasiado grande?",
         "noFile": "Escolha um ficheiro para carregar.",
         "network": "O carregamento falhou. Verifique a ligação e tente novamente."
+      },
+      "cover": {
+        "choose": "Escolher…",
+        "replace": "Substituir",
+        "remove": "Remover",
+        "hint": "JPEG, PNG ou WebP até {mb} MB. Redimensionada e comprimida automaticamente; oculta no Modo de Poupança de Dados."
       }
     }
   }

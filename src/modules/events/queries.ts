@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 import { pickTranslation, translationLocales } from "@/modules/content/translation";
 import { eventAvailability, type Availability } from "./availability";
 
-export const EVENT_TYPES = ["SEMINAR", "DEBATE", "WORKSHOP"] as const satisfies readonly EventType[];
+export const EVENT_TYPES = ["SEMINAR", "DEBATE", "WORKSHOP", "NATIONAL_DAY"] as const satisfies readonly EventType[];
 
 export function isEventType(value: unknown): value is EventType {
   return typeof value === "string" && (EVENT_TYPES as readonly string[]).includes(value);

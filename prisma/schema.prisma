@@ -372,6 +372,8 @@ enum EventType {
   SEMINAR
   DEBATE
   WORKSHOP
+  /// National days and commemorations (e.g. 12 November, 20 May).
+  NATIONAL_DAY
 }
 
 enum EventStatus {
