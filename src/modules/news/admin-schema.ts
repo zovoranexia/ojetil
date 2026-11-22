@@ -14,7 +14,6 @@ export const NEWS_TRANSLATION_FIELDS: readonly TranslationFieldSpec[] = [
   { name: "title", label: msg("admin.news.fields.title"), required: true, max: 200 },
   { name: "excerpt", label: msg("admin.news.fields.excerpt"), required: false, max: 400, multiline: true, rows: 3, hint: msg("admin.news.fields.excerptHint") },
   { name: "body", label: msg("admin.news.fields.body"), required: true, max: 300_000 },
-  { name: "coverImageAlt", label: msg("admin.news.fields.coverImageAlt"), required: false, max: 200 },
 ];
 
 export const NEWS_TAG_MAX = 12;

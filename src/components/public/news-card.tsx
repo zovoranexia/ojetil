@@ -16,7 +16,7 @@ export async function NewsCard({ article, showImage = true }: { article: NewsLis
       {showImage && article.coverImageUrl ? (
         <ContentImage
           src={article.coverImageUrl}
-          alt={article.coverImageAlt ?? ""}
+          alt={article.coverImageAlt || article.title}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="aspect-[16/9] w-full"
         />

@@ -77,7 +77,7 @@ export default async function NewsArticlePage({ params }: { params: Params }) {
         <div className="mx-auto max-w-4xl px-4 pt-8 md:px-8">
           <ContentImage
             src={article.coverImageUrl}
-            alt={article.coverImageAlt ?? ""}
+            alt={article.coverImageAlt || article.title}
             sizes="(min-width: 896px) 896px, 100vw"
             className="aspect-[16/9] w-full rounded-card"
             priority

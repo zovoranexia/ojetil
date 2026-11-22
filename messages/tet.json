@@ -135,6 +135,7 @@
     "categoryLabel": "Kategoria",
     "allCategories": "Hotu",
     "categories": {
+      "NEWS": "Notísia",
       "ORGANIZATION": "Organizasaun",
       "CIVIC_EDUCATION": "Edukasaun sívika",
       "YOUTH": "Juventude",
@@ -476,7 +477,10 @@
       "pagination": "Paginasaun",
       "resultsPage": "{total, plural, one {rezultadu #} other {rezultadu #}} · pájina {page} husi {pageCount}",
       "deletePermanentlyTitle": "Hamoos ba nafatin?",
-      "deletePermanentlyDescription": "La bele fila fali. Hamoos ne'e rejista iha rejistu auditoria."
+      "deletePermanentlyDescription": "La bele fila fali. Hamoos ne'e rejista iha rejistu auditoria.",
+      "dateField": "Data (LL/FF/TTTT)",
+      "timeField": "Oras (24 oras, OO:MM)",
+      "openCalendar": "Loke kalendáriu"
     },
     "translationTabs": {
       "contentLanguage": "Lian konteúdu",
@@ -901,6 +905,7 @@
         "readOnly": "Lee de'it: ita-nia papél bele haree konteúdu maibé labele edita."
       },
       "categories": {
+        "NEWS": "Notísia",
         "ORGANIZATION": "Organizasaun",
         "CIVIC_EDUCATION": "Edukasaun sívika",
         "YOUTH": "Juventude",
@@ -918,8 +923,6 @@
         "excerpt": "Rezumu",
         "excerptHint": "Fraze ida ka rua ne'ebé hatudu iha kartaun no rezultadu buka.",
         "body": "Konteúdu",
-        "coverImageAlt": "Deskrisaun imajen kapa (testu alternativu)",
-        "coverImageAltHint": "Deskreve imajen kapa ba ema ne'ebé labele haree.",
         "slug": "Enderesu (slug)",
         "slugHint": "Opsionál — kria husi títulu. Letra, númeru no hífen de'it. Lian hotu uza hanesan.",
         "category": "Tipu",

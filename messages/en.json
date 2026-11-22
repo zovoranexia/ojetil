@@ -135,6 +135,7 @@
     "categoryLabel": "Category",
     "allCategories": "All",
     "categories": {
+      "NEWS": "News",
       "ORGANIZATION": "Organisation",
       "CIVIC_EDUCATION": "Civic education",
       "YOUTH": "Youth",
@@ -476,7 +477,10 @@
       "pagination": "Pagination",
       "resultsPage": "{total, plural, one {# result} other {# results}} · page {page} of {pageCount}",
       "deletePermanentlyTitle": "Delete permanently?",
-      "deletePermanentlyDescription": "This cannot be undone. The deletion is recorded in the audit log."
+      "deletePermanentlyDescription": "This cannot be undone. The deletion is recorded in the audit log.",
+      "dateField": "Date (DD/MM/YYYY)",
+      "timeField": "Time (24-hour, HH:MM)",
+      "openCalendar": "Open calendar"
     },
     "translationTabs": {
       "contentLanguage": "Content language",
@@ -901,6 +905,7 @@
         "readOnly": "Read-only: your role can view content but not edit it."
       },
       "categories": {
+        "NEWS": "News",
         "ORGANIZATION": "Organisation",
         "CIVIC_EDUCATION": "Civic education",
         "YOUTH": "Youth",
@@ -918,8 +923,6 @@
         "excerpt": "Summary",
         "excerptHint": "One or two sentences shown on cards and in search results.",
         "body": "Content",
-        "coverImageAlt": "Cover image description (alt text)",
-        "coverImageAltHint": "Describe the cover image for people who cannot see it.",
         "slug": "Address (slug)",
         "slugHint": "Optional — generated from the title. Letters, numbers and dashes only. Shared by all languages.",
         "category": "Type",

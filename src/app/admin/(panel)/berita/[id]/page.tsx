@@ -26,7 +26,7 @@ export default async function NewsEditPage({ params, searchParams }: { params: P
   const initial: NewsFormValues | null = isNew
     ? {
         slug: "",
-        category: "ORGANIZATION",
+        category: "NEWS",
         status: "DRAFT",
         publishedAt: "",
         isFeatured: false,

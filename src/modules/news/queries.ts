@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { pickTranslation } from "@/modules/content/translation";
 
 export const NEWS_CATEGORIES = [
+  "NEWS",
   "ORGANIZATION",
   "CIVIC_EDUCATION",
   "YOUTH",

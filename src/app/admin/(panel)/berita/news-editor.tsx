@@ -12,6 +12,7 @@ import { applyFieldErrors, FormFeedback, type Feedback } from "@/components/admi
 import { RichTextEditor } from "@/components/admin/rich-text-editor";
 import { ACCEPTED_IMAGE_TYPES, uploadEditorialImage } from "@/components/admin/upload-image";
 import { useMessageText } from "@/components/i18n/message-text";
+import { DateTime24Input } from "@/components/forms/date-time-24";
 import { Field, fieldAria, selectClassName, textareaClassName } from "@/components/forms/field";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -194,7 +195,6 @@ export function NewsEditor({
   const translations = watch("translations");
   const tErrors = (errors.translations ?? {}) as Partial<Record<ContentLocale, Record<string, { message?: string }>>>;
   const publishedAtInput = watch("publishedAt");
-  const coverImageUrl = watch("coverImageUrl");
   // Slug placeholder: Tetun title, else the first title written in any language.
   const tetTitle = translations.TET.title?.trim() || CONTENT_LOCALES.map((l) => translations[l].title?.trim()).find(Boolean) || "";
   const scheduleDate = publishedAtInput ? fromDiliLocalInput(publishedAtInput) : null;
@@ -328,11 +328,6 @@ export function NewsEditor({
                       </p>
                     ) : null}
                   </div>
-                  {coverImageUrl ? (
-                    <Field id={id("coverImageAlt")} label={t("fields.coverImageAlt")} hint={t("fields.coverImageAltHint")} error={err("coverImageAlt")}>
-                      <Input disabled={readOnly} {...fieldAria(id("coverImageAlt"), { hint: true, error: err("coverImageAlt") })} {...register(`translations.${l}.coverImageAlt`)} />
-                    </Field>
-                  ) : null}
                 </div>
               );
             })}
@@ -363,7 +358,21 @@ export function NewsEditor({
                   <label htmlFor="publishedAt" className="text-xs font-medium text-ink-secondary">
                     {t("editor.dateLabel")}
                   </label>
-                  <Input type="datetime-local" {...fieldAria("publishedAt", { error: errors.publishedAt?.message })} {...register("publishedAt")} />
+                  <Controller
+                    control={control}
+                    name="publishedAt"
+                    render={({ field }) => (
+                      <DateTime24Input
+                        id="publishedAt"
+                        value={field.value}
+                        onChange={field.onChange}
+                        invalid={Boolean(errors.publishedAt?.message)}
+                        dateLabel={tCommon("dateField")}
+                        timeLabel={tCommon("timeField")}
+                        calendarLabel={tCommon("openCalendar")}
+                      />
+                    )}
+                  />
                   {publishedAtInput ? (
                     <button type="button" onClick={() => setValue("publishedAt", "", { shouldDirty: true })} className="inline-flex items-center gap-1 text-sm font-semibold text-ink-secondary hover:text-ink">
                       <Undo2 aria-hidden="true" className="size-3.5" /> {alreadyOut ? t("editor.keepOriginalDate") : t("editor.publishImmediately")}

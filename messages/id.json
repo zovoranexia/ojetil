@@ -135,6 +135,7 @@
     "categoryLabel": "Kategori",
     "allCategories": "Semua",
     "categories": {
+      "NEWS": "Berita",
       "ORGANIZATION": "Organisasi",
       "CIVIC_EDUCATION": "Pendidikan kewarganegaraan",
       "YOUTH": "Pemuda",
@@ -476,7 +477,10 @@
       "pagination": "Paginasi",
       "resultsPage": "{total} hasil · halaman {page} dari {pageCount}",
       "deletePermanentlyTitle": "Hapus permanen?",
-      "deletePermanentlyDescription": "Tindakan ini tidak dapat dibatalkan. Penghapusan dicatat di log audit."
+      "deletePermanentlyDescription": "Tindakan ini tidak dapat dibatalkan. Penghapusan dicatat di log audit.",
+      "dateField": "Tanggal (HH/BB/TTTT)",
+      "timeField": "Jam (24 jam, JJ:MM)",
+      "openCalendar": "Buka kalender"
     },
     "translationTabs": {
       "contentLanguage": "Bahasa konten",
@@ -901,6 +905,7 @@
         "readOnly": "Hanya baca: peran Anda dapat melihat konten tetapi tidak dapat menyuntingnya."
       },
       "categories": {
+        "NEWS": "Berita",
         "ORGANIZATION": "Organisasi",
         "CIVIC_EDUCATION": "Pendidikan kewarganegaraan",
         "YOUTH": "Pemuda",
@@ -918,8 +923,6 @@
         "excerpt": "Ringkasan",
         "excerptHint": "Satu atau dua kalimat yang ditampilkan pada kartu dan hasil pencarian.",
         "body": "Konten",
-        "coverImageAlt": "Deskripsi gambar sampul (teks alternatif)",
-        "coverImageAltHint": "Jelaskan gambar sampul bagi orang yang tidak dapat melihatnya.",
         "slug": "Alamat (slug)",
         "slugHint": "Opsional — dibuat dari judul. Hanya huruf, angka, dan tanda hubung. Digunakan bersama oleh semua bahasa.",
         "category": "Jenis",

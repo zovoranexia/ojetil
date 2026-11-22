@@ -225,6 +225,8 @@ model CodeSequence {
 // ─── News & press releases ─────────────────────────────────────────────────
 
 enum NewsCategory {
+  /// General news ("Berita"); the default for new articles.
+  NEWS
   ORGANIZATION
   CIVIC_EDUCATION
   YOUTH

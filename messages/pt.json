@@ -135,6 +135,7 @@
     "categoryLabel": "Categoria",
     "allCategories": "Todas",
     "categories": {
+      "NEWS": "Notícia",
       "ORGANIZATION": "Organização",
       "CIVIC_EDUCATION": "Educação cívica",
       "YOUTH": "Juventude",
@@ -476,7 +477,10 @@
       "pagination": "Paginação",
       "resultsPage": "{total, plural, one {# resultado} other {# resultados}} · página {page} de {pageCount}",
       "deletePermanentlyTitle": "Eliminar definitivamente?",
-      "deletePermanentlyDescription": "Esta ação não pode ser desfeita. A eliminação fica registada no registo de auditoria."
+      "deletePermanentlyDescription": "Esta ação não pode ser desfeita. A eliminação fica registada no registo de auditoria.",
+      "dateField": "Data (DD/MM/AAAA)",
+      "timeField": "Hora (24 horas, HH:MM)",
+      "openCalendar": "Abrir calendário"
     },
     "translationTabs": {
       "contentLanguage": "Idioma do conteúdo",
@@ -901,6 +905,7 @@
         "readOnly": "Só leitura: a sua função pode ver o conteúdo, mas não editá-lo."
       },
       "categories": {
+        "NEWS": "Notícia",
         "ORGANIZATION": "Organização",
         "CIVIC_EDUCATION": "Educação cívica",
         "YOUTH": "Juventude",
@@ -918,8 +923,6 @@
         "excerpt": "Resumo",
         "excerptHint": "Uma ou duas frases mostradas nos cartões e nos resultados de pesquisa.",
         "body": "Conteúdo",
-        "coverImageAlt": "Descrição da imagem de capa (texto alternativo)",
-        "coverImageAltHint": "Descreva a imagem de capa para quem não a pode ver.",
         "slug": "Endereço (slug)",
         "slugHint": "Opcional — gerado a partir do título. Apenas letras, números e hífenes. Comum a todas as línguas.",
         "category": "Tipo",
