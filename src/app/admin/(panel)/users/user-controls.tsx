@@ -14,6 +14,7 @@ import { useMessageText } from "@/components/i18n/message-text";
 import { Field, fieldAria, selectClassName } from "@/components/forms/field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { ROLES } from "@/config/rbac";
 import { changeStaffRole, createStaffUser, resetStaffPassword, setStaffActive } from "@/modules/users/actions";
 import { createUserSchema, type CreateUserInput } from "@/modules/users/schema";
@@ -50,7 +51,8 @@ export function CreateUserForm() {
     <form onSubmit={onSubmit} noValidate className="space-y-4">
       <FormFeedback ref={ref} feedback={feedback} />
       {secret ? <SecretReveal label={t("temporaryPasswordFor", { email: secret.email })} value={secret.password} note={t("oneTimeNote")} /> : null}
-      <div className="grid gap-4 md:grid-cols-[1fr_1fr_14rem_auto] md:items-end">
+      {/* Top-aligned: an error under one field must not push the other controls down. */}
+      <div className="grid gap-4 md:grid-cols-[1fr_1fr_14rem_auto] md:items-start">
         <Field id="new-name" label={t("fields.name")} required error={errors.name?.message}>
           <Input autoComplete="off" {...fieldAria("new-name", { error: errors.name?.message })} {...register("name")} />
         </Field>
@@ -66,10 +68,16 @@ export function CreateUserForm() {
             ))}
           </select>
         </Field>
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? <Loader2 aria-hidden="true" className="animate-spin" /> : <UserPlus aria-hidden="true" />}
-          {t("create")}
-        </Button>
+        <div className="space-y-1.5">
+          {/* Invisible label-height spacer so the button lines up with the inputs, not the labels. */}
+          <div aria-hidden="true" className="invisible hidden md:flex">
+            <Label>{t("create")}</Label>
+          </div>
+          <Button type="submit" disabled={isSubmitting} className="w-full md:w-auto">
+            {isSubmitting ? <Loader2 aria-hidden="true" className="animate-spin" /> : <UserPlus aria-hidden="true" />}
+            {t("create")}
+          </Button>
+        </div>
       </div>
     </form>
   );
