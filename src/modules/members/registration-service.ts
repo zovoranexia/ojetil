@@ -3,6 +3,7 @@ import type { MemberCategory, RegistrationStatus } from "@prisma/client";
 import { toDbLocale, type AppLocale } from "@/config/locales";
 import { issueTrackingCode, normalizeTrackingCode } from "@/lib/codes";
 import { db } from "@/lib/db";
+import { issueCardAccessToken } from "./card";
 import { encryptMemberPii } from "./pii";
 import { deleteProfilePhoto, storeProfilePhoto } from "./photo-storage";
 import { CONSENT_VERSION, parseIsoDate, type MemberSubmission } from "./registration-schema";
@@ -75,6 +76,8 @@ export interface PublicRegistrationStatus {
   verifiedAt: Date | null;
   /** The Secretariat's reason — shown only for NEEDS_REVISION and REJECTED. */
   message: string | null;
+  /** VERIFIED only: short-lived token that opens the digital member card. */
+  cardToken: string | null;
 }
 
 /**
@@ -90,6 +93,7 @@ export async function lookupRegistrationStatus(code: string, dateOfBirth: string
   const row = await db.memberRegistration.findUnique({
     where: { trackingCode },
     select: {
+      id: true,
       trackingCode: true,
       status: true,
       category: true,
@@ -110,5 +114,6 @@ export async function lookupRegistrationStatus(code: string, dateOfBirth: string
     updatedAt: row.updatedAt,
     verifiedAt: row.verifiedAt,
     message: row.status === "NEEDS_REVISION" || row.status === "REJECTED" ? row.verificationNotes : null,
+    cardToken: row.status === "VERIFIED" ? issueCardAccessToken(row.id) : null,
   };
 }

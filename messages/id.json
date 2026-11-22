@@ -391,7 +391,10 @@
       "verifiedOn": "Diverifikasi pada",
       "message": "Pesan dari Sekretariat",
       "contact": "Ada pertanyaan? Hubungi Sekretariat di {email}.",
-      "another": "Cek kode lain"
+      "another": "Cek kode lain",
+      "cardTitle": "Kartu anggota digital",
+      "cardBody": "Lihat, simpan, atau cetak kartu Anda dengan kode QR verifikasi.",
+      "cardOpen": "Buka kartu"
     },
     "statuses": {
       "PENDING_VERIFICATION": {
@@ -828,7 +831,10 @@
         "currentStatus": "Status saat ini: {status}",
         "byActor": "oleh {name}",
         "submittedByApplicant": "Dikirim oleh pendaftar",
-        "consentGiven": "Diberikan {date} (pemberitahuan {version})"
+        "consentGiven": "Diberikan {date} (pemberitahuan {version})",
+        "memberCard": "Kartu anggota",
+        "memberCardHint": "Cetak kartu untuk diserahkan kepada anggota. Kode QR memverifikasi status aktif.",
+        "printCard": "Cetak kartu"
       },
       "fields": {
         "fullName": "Nama lengkap",
@@ -1622,7 +1628,7 @@
       "VERIFIED": {
         "subject": "Selamat! Pendaftaran Anda telah diverifikasi ({code})",
         "heading": "Selamat bergabung di OJETIL",
-        "body": "Sekretariat telah memverifikasi pendaftaran Anda. Kini Anda resmi menjadi anggota OJETIL."
+        "body": "Sekretariat telah memverifikasi pendaftaran Anda. Kini Anda resmi menjadi anggota OJETIL. Cek status dengan kode Anda untuk membuka kartu anggota digital."
       },
       "NEEDS_REVISION": {
         "subject": "Pendaftaran Anda perlu diperbaiki ({code})",
@@ -1681,5 +1687,44 @@
       "body": "Mohon maaf, acara \"{title}\" dibatalkan. Anda tidak perlu melakukan apa pun. Lihat acara lain di situs.",
       "button": "Lihat acara lain"
     }
+  },
+  "memberCard": {
+    "metaTitle": "Kartu anggota",
+    "eyebrow": "Komunitas",
+    "title": "Kartu anggota Anda",
+    "lead": "Tunjukkan kartu ini di acara dan kegiatan OJETIL. Kode QR membuktikan Anda anggota terverifikasi.",
+    "cardLabel": "Kartu anggota OJETIL — {name}",
+    "photoAlt": "Foto {name}",
+    "name": "Nama",
+    "category": "Kategori",
+    "municipality": "Munisipalitas",
+    "since": "Anggota sejak",
+    "number": "No. anggota",
+    "qrAlt": "Kode QR untuk memverifikasi kartu",
+    "scan": "Pindai untuk verifikasi",
+    "print": "Cetak atau simpan sebagai PDF",
+    "tipVerify": "Siapa pun yang memindai kode QR akan melihat keanggotaan Anda masih berlaku — jika status berubah, kartu tidak berlaku lagi.",
+    "tipSave": "Di ponsel: pilih \"Cetak\" lalu \"Simpan sebagai PDF\", atau ambil tangkapan layar.",
+    "tipExpiry": "Tautan halaman ini berlaku 30 menit. Untuk membuka lagi, cek status dengan kode dan tanggal lahir Anda.",
+    "expiredTitle": "Tautan tidak valid atau kedaluwarsa",
+    "expiredBody": "Demi keamanan, tautan kartu hanya berlaku 30 menit. Cek status lagi untuk membuka kartu.",
+    "checkAgain": "Cek status",
+    "cardTitle": "Kartu anggota"
+  },
+  "memberVerify": {
+    "metaTitle": "Verifikasi anggota",
+    "eyebrow": "Verifikasi kartu anggota",
+    "validTitle": "Anggota terverifikasi",
+    "validBody": "Orang ini adalah anggota resmi {org}.",
+    "name": "Nama",
+    "number": "No. anggota",
+    "category": "Kategori",
+    "municipality": "Munisipalitas",
+    "since": "Anggota sejak",
+    "checkedAt": "Diverifikasi pada {date} — cocokkan nama dengan kartu identitas.",
+    "invalidTitle": "Kartu tidak valid",
+    "invalidBody": "Kode ini tidak dikenali. Kartu mungkin palsu atau rusak.",
+    "revokedBody": "Kartu ini milik OJETIL, tetapi keanggotaan ini tidak aktif lagi.",
+    "contact": "Ada pertanyaan? Hubungi Sekretariat: {email}"
   }
 }
