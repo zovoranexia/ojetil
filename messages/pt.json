@@ -135,6 +135,7 @@
     "categoryLabel": "Categoria",
     "allCategories": "Todas",
     "categories": {
+      "NEWS": "Notícia",
       "ORGANIZATION": "Organização",
       "CIVIC_EDUCATION": "Educação cívica",
       "YOUTH": "Juventude",
@@ -424,6 +425,7 @@
       "members": "Membros e veteranos",
       "news": "Notícias",
       "documents": "Documentos",
+      "media": "Biblioteca de média",
       "events": "Eventos",
       "timeline": "Cronologia",
       "leadership": "Liderança",
@@ -476,7 +478,10 @@
       "pagination": "Paginação",
       "resultsPage": "{total, plural, one {# resultado} other {# resultados}} · página {page} de {pageCount}",
       "deletePermanentlyTitle": "Eliminar definitivamente?",
-      "deletePermanentlyDescription": "Esta ação não pode ser desfeita. A eliminação fica registada no registo de auditoria."
+      "deletePermanentlyDescription": "Esta ação não pode ser desfeita. A eliminação fica registada no registo de auditoria.",
+      "dateField": "Data (DD/MM/AAAA)",
+      "timeField": "Hora (24 horas, HH:MM)",
+      "openCalendar": "Abrir calendário"
     },
     "translationTabs": {
       "contentLanguage": "Idioma do conteúdo",
@@ -715,7 +720,7 @@
         "CONTENT_PUBLISHED": "Conteúdo publicado",
         "CONTENT_UNPUBLISHED": "Publicação de conteúdo anulada",
         "CONTENT_DELETED": "Conteúdo eliminado",
-        "MEDIA_UPLOADED": "Imagem carregada",
+        "MEDIA_UPLOADED": "Média carregada",
         "EVENT_CREATED": "Evento criado",
         "EVENT_UPDATED": "Evento atualizado",
         "EVENT_PUBLISHED": "Evento publicado",
@@ -730,7 +735,9 @@
         "USER_REACTIVATED": "Utilizador reativado",
         "USER_PASSWORD_RESET": "Palavra-passe de utilizador reposta",
         "USER_PASSWORD_CHANGED": "Palavra-passe própria alterada",
-        "SEED_EXECUTED": "Base de dados inicializada"
+        "SEED_EXECUTED": "Base de dados inicializada",
+        "MEDIA_UPDATED": "Média editada",
+        "MEDIA_DELETED": "Média eliminada"
       }
     },
     "designSystem": {
@@ -885,7 +892,7 @@
         "allStatuses": "Todos os estados",
         "filter": "Filtrar",
         "caption": "Artigos de notícias",
-        "colTitle": "Título (Tetun)",
+        "colTitle": "Título",
         "colCategory": "Categoria",
         "colLanguages": "Línguas",
         "colPublished": "Publicado",
@@ -901,6 +908,7 @@
         "readOnly": "Só leitura: a sua função pode ver o conteúdo, mas não editá-lo."
       },
       "categories": {
+        "NEWS": "Notícia",
         "ORGANIZATION": "Organização",
         "CIVIC_EDUCATION": "Educação cívica",
         "YOUTH": "Juventude",
@@ -918,8 +926,6 @@
         "excerpt": "Resumo",
         "excerptHint": "Uma ou duas frases mostradas nos cartões e nos resultados de pesquisa.",
         "body": "Conteúdo",
-        "coverImageAlt": "Descrição da imagem de capa (texto alternativo)",
-        "coverImageAltHint": "Descreva a imagem de capa para quem não a pode ver.",
         "slug": "Endereço (slug)",
         "slugHint": "Opcional — gerado a partir do título. Apenas letras, números e hífenes. Comum a todas as línguas.",
         "category": "Tipo",
@@ -1390,6 +1396,85 @@
         "title": "Título",
         "body": "Texto",
         "bodyHint": "Suporta Markdown."
+      }
+    },
+    "media": {
+      "metaTitle": "Biblioteca de média",
+      "title": "Biblioteca de média",
+      "description": "Fotografias, PDF, vídeos e áudio usados em todo o website.",
+      "searchLabel": "Pesquisar",
+      "searchPlaceholder": "Nome do ficheiro ou crédito…",
+      "typeLabel": "Tipo",
+      "allTypes": "Todos",
+      "filter": "Filtrar",
+      "results": "{count, plural, =0 {Nenhum ficheiro} one {# ficheiro} other {# ficheiros}}",
+      "kinds": {
+        "IMAGE": "Imagem",
+        "PDF": "Documento PDF",
+        "VIDEO": "Vídeo",
+        "AUDIO": "Áudio",
+        "VIDEO_LINK": "Ligação de vídeo"
+      },
+      "dropTitle": "Arraste e largue ficheiros aqui",
+      "dropHint": "JPG, PNG, WebP, PDF, MP4, MP3 — as imagens são otimizadas e os dados de localização removidos.",
+      "limits": "Até {imageMb} MB por imagem e {fileMb} MB por PDF, vídeo ou áudio. Para vídeos longos, adicione uma ligação do YouTube ou Vimeo.",
+      "chooseFiles": "Escolher ficheiros",
+      "addLink": "Adicionar vídeo por ligação",
+      "uploading": "A carregar {current} de {total}…",
+      "uploaded": "{count, plural, one {# ficheiro adicionado} other {# ficheiros adicionados}}",
+      "uploadFailed": "{name}: {error}",
+      "empty": "Ainda não há média. Carregue o primeiro ficheiro acima.",
+      "noResults": "Nada corresponde a esta pesquisa.",
+      "readOnly": "Só leitura: o seu perfil pode ver a biblioteca, mas não alterá-la.",
+      "link": {
+        "title": "Adicionar vídeo por ligação",
+        "urlLabel": "Ligação do YouTube ou Vimeo",
+        "titleLabel": "Título (opcional)",
+        "add": "Adicionar vídeo",
+        "added": "Vídeo adicionado."
+      },
+      "details": {
+        "title": "Detalhes do ficheiro",
+        "fileName": "Nome",
+        "credit": "Crédito / fonte",
+        "creditHint": "Fotógrafo ou fonte, visível para os editores.",
+        "altText": "Descrição (texto alternativo)",
+        "altHint": "Usada quando a imagem é inserida num artigo.",
+        "link": "Ligação",
+        "copyLink": "Copiar ligação",
+        "copied": "Ligação copiada",
+        "open": "Abrir",
+        "save": "Guardar",
+        "saved": "Alterações guardadas.",
+        "delete": "Eliminar",
+        "deleteTitle": "Eliminar este ficheiro?",
+        "deleteDescription": "Desaparece do website e não pode ser recuperado. A eliminação fica registada no registo de auditoria.",
+        "deleted": "Ficheiro eliminado.",
+        "addedBy": "Adicionado por {name} · {date}",
+        "addedOn": "Adicionado em {date}",
+        "dimensions": "{width} × {height} px",
+        "close": "Fechar"
+      },
+      "picker": {
+        "title": "Biblioteca de média",
+        "titleImages": "Escolher uma imagem",
+        "titleVideos": "Escolher um vídeo",
+        "upload": "Carregar novo",
+        "insert": "Inserir",
+        "loadMore": "Ver mais",
+        "selected": "Selecionado"
+      },
+      "errors": {
+        "empty": "O ficheiro está vazio.",
+        "tooLarge": "O ficheiro tem mais de {mb} MB.",
+        "badImage": "Imagem não suportada ou danificada. Use JPG, PNG, WebP, GIF ou AVIF.",
+        "unsupported": "Tipo de ficheiro não suportado. Use JPG, PNG, WebP, PDF, MP4 ou MP3.",
+        "badLink": "Só é possível adicionar ligações do YouTube e do Vimeo.",
+        "notFound": "Ficheiro não encontrado.",
+        "inUse": "Ainda usado em {count, plural, one {# artigo} other {# artigos}} ({slugs}). Retire-o primeiro.",
+        "unreadable": "Não foi possível ler o ficheiro. Será demasiado grande?",
+        "noFile": "Escolha um ficheiro para carregar.",
+        "network": "O carregamento falhou. Verifique a ligação e tente novamente."
       }
     }
   }

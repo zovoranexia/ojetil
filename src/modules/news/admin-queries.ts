@@ -34,6 +34,7 @@ export async function listNewsAdmin(params: { q?: string; status?: ContentStatus
       category: true,
       status: true,
       isFeatured: true,
+      coverImageUrl: true,
       publishedAt: true,
       updatedAt: true,
       author: { select: { name: true } },

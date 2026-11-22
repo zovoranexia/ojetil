@@ -5,10 +5,11 @@ import { Wand2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { EditorActions } from "@/components/admin/editor-actions";
 import { applyFieldErrors, FormFeedback, type Feedback } from "@/components/admin/form-feedback";
 import { TranslationTabs } from "@/components/admin/translation-tabs";
+import { DateTime24Input } from "@/components/forms/date-time-24";
 import { Field, fieldAria, selectClassName } from "@/components/forms/field";
 import { Input } from "@/components/ui/input";
 import { MUNICIPALITIES } from "@/config/municipalities";
@@ -45,6 +46,7 @@ export function EventEditor({
   const isNew = !initial.id;
 
   const {
+    control,
     register,
     handleSubmit,
     watch,
@@ -93,10 +95,14 @@ export function EventEditor({
           <div className="grid gap-5 rounded-card border border-border-subtle bg-surface-card p-5 sm:grid-cols-2">
             <p className="text-sm font-semibold sm:col-span-2">{t("whenWhere")}</p>
             <Field id="startAt" label={t("starts")} required error={err("startAt")}>
-              <Input type="datetime-local" {...fieldAria("startAt", { error: err("startAt") })} {...register("startAt")} />
+              <Controller control={control} name="startAt" render={({ field }) => (
+                <DateTime24Input id="startAt" value={field.value ?? ""} onChange={field.onChange} invalid={Boolean(err("startAt"))} describedBy={undefined} dateLabel={tc("dateField")} timeLabel={tc("timeField")} calendarLabel={tc("openCalendar")} />
+              )} />
             </Field>
             <Field id="endAt" label={t("ends")} required error={err("endAt")}>
-              <Input type="datetime-local" {...fieldAria("endAt", { error: err("endAt") })} {...register("endAt")} />
+              <Controller control={control} name="endAt" render={({ field }) => (
+                <DateTime24Input id="endAt" value={field.value ?? ""} onChange={field.onChange} invalid={Boolean(err("endAt"))} describedBy={undefined} dateLabel={tc("dateField")} timeLabel={tc("timeField")} calendarLabel={tc("openCalendar")} />
+              )} />
             </Field>
             <Field id="location" label={t("venue")} required className="sm:col-span-2" error={err("location")}>
               <Input placeholder="Auditóriu UNTL, Kampus Caicoli, Díli" {...fieldAria("location", { error: err("location") })} {...register("location")} />
@@ -162,7 +168,9 @@ export function EventEditor({
             <input type="checkbox" className="size-5 accent-ojetil-red" {...register("registrationOpen")} /> {t("registrationOpen")}
           </label>
           <Field id="registrationDeadline" label={t("deadline")} hint={t("deadlineHint")} error={err("registrationDeadline")}>
-            <Input type="datetime-local" {...fieldAria("registrationDeadline", { hint: true, error: err("registrationDeadline") })} {...register("registrationDeadline")} />
+            <Controller control={control} name="registrationDeadline" render={({ field }) => (
+                <DateTime24Input id="registrationDeadline" value={field.value ?? ""} onChange={field.onChange} invalid={Boolean(err("registrationDeadline"))} describedBy={`registrationDeadline-hint`} dateLabel={tc("dateField")} timeLabel={tc("timeField")} calendarLabel={tc("openCalendar")} />
+              )} />
           </Field>
           <Field id="coverImageUrl" label={t("coverImage")} error={err("coverImageUrl")}>
             <Input placeholder={t("coverImagePlaceholder")} {...fieldAria("coverImageUrl", { error: err("coverImageUrl") })} {...register("coverImageUrl")} />

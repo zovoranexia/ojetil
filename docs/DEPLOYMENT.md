@@ -245,6 +245,8 @@ PUBLIC_UPLOAD_DIR="/srv/ojetil/shared/storage/public-uploads"
 MAX_IMAGE_UPLOAD_BYTES="5242880"
 DOCUMENT_DIR="/srv/ojetil/shared/storage/documents"
 MAX_DOCUMENT_BYTES="10485760"
+# Pustaka media: PDF / MP4 / MP3 (publik, di public-uploads/media). Maks. 20 MB.
+MAX_MEDIA_FILE_BYTES="20971520"
 EOF
 sudo chmod 600 /srv/ojetil/shared/.env
 ```
@@ -363,10 +365,10 @@ server {
     listen [::]:80;
     server_name ojetil.tl www.ojetil.tl;
 
-    # Batas terbesar = PDF modul Dokumen (MAX_DOCUMENT_BYTES, default 10 MB) + overhead
+    # Batas terbesar = file pustaka media (MAX_MEDIA_FILE_BYTES, default 20 MB) + overhead
     # multipart. Aplikasi sendiri tetap memvalidasi setiap batas (foto 1 MB, gambar 5 MB,
-    # PDF 10 MB). Jika MAX_DOCUMENT_BYTES dinaikkan (maks. 20 MB), naikkan nilai ini juga.
-    client_max_body_size 12m;
+    # PDF Dokumen 10 MB, PDF/MP4/MP3 media 20 MB). Batas maksimum aplikasi adalah 20 MB.
+    client_max_body_size 21m;
 
     gzip on;
     gzip_types text/css application/javascript application/json image/svg+xml text/plain;
@@ -379,7 +381,7 @@ server {
         add_header Cache-Control "public, immutable" always;
         add_header X-Content-Type-Options nosniff always;
         add_header Content-Security-Policy "default-src 'none'" always;
-        types { image/webp webp; }
+        types { image/webp webp; application/pdf pdf; video/mp4 mp4; audio/mpeg mp3; }
         default_type application/octet-stream;
         try_files $uri =404;
     }
@@ -528,6 +530,7 @@ ln -s /srv/ojetil/shared/.env .env
 npm ci
 npx prisma migrate deploy
 npm run news:md-to-html                  # idempoten: isi berita Markdown lama → HTML
+npm run media:backfill                   # idempoten: daftarkan gambar lama ke pustaka media
 npm run build || npm run build          # satu kali ulang untuk gangguan unduhan font
 ln -sfn "/srv/ojetil/$REL" /srv/ojetil/current
 # simpan 5 rilis terakhir
@@ -612,7 +615,7 @@ Akun staf tidak pernah dihapus, hanya dinonaktifkan.
 | `P1001: Can't reach database server` | PostgreSQL mati atau `DATABASE_URL` salah | `sudo systemctl status postgresql`; cek user, password, port |
 | Migrasi gagal: `permission denied to create extension "unaccent"` | Role `ojetil` bukan pemilik database | `sudo -u postgres psql -c 'ALTER DATABASE ojetil OWNER TO ojetil;'` |
 | Login admin kembali ke halaman login terus | Situs diakses lewat HTTP atau header proxy hilang | Gunakan HTTPS; pastikan `X-Forwarded-Proto` dan `Host` diteruskan Nginx |
-| Upload foto/gambar/PDF gagal `413` | `client_max_body_size` Nginx terlalu kecil | Set `12m` seperti contoh (di atas `MAX_DOCUMENT_BYTES`) |
+| Upload foto/gambar/PDF/video gagal `413` | `client_max_body_size` Nginx terlalu kecil | Set `21m` seperti contoh (di atas `MAX_MEDIA_FILE_BYTES`) |
 | Gambar berita `403`/`404` lewat Nginx | Izin folder `public-uploads` | `www-data` perlu baca: lihat bagian 5 (`chmod 711` storage, grup `www-data`) |
 | Semua pengunjung terkena rate limit bersamaan | IP klien terbaca sebagai IP proxy | Periksa `TRUSTED_PROXY_HOPS` sesuai jumlah proxy di depan aplikasi |
 | Build gagal di `next/font` | Gangguan unduhan Google Fonts | Ulangi `npm run build`; pastikan akses keluar ke `fonts.googleapis.com` |

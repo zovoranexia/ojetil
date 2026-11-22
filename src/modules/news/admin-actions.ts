@@ -15,7 +15,7 @@ import { contentAuditActions, rethrowSlugConflict } from "@/modules/content/admi
 import { filledLocales, toTranslationRows, type ContentLocale } from "@/modules/content/admin-schema";
 import { NEWS_TRANSLATION_FIELDS, newsFormSchema, parseTags } from "./admin-schema";
 
-type NewsRow = { locale: ContentLocale; title: string; excerpt: string | null; body: string; coverImageAlt: string | null };
+type NewsRow = { locale: ContentLocale; title: string; excerpt: string | null; body: string };
 
 /** First sentences of the content, cut at a word boundary — used when Summary is left empty. */
 function deriveExcerpt(body: string): string {

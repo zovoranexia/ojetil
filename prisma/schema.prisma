@@ -91,6 +91,7 @@ model User {
   createdUsers        User[]               @relation("UserCreatedBy")
   newsArticles        NewsArticle[]        @relation("NewsAuthor")
   documents           Document[]           @relation("DocumentCreatedBy")
+  mediaAssets         MediaAsset[]         @relation("MediaCreatedBy")
   events              Event[]              @relation("EventCreatedBy")
   verifiedMembers     MemberRegistration[] @relation("MemberVerifiedBy")
   memberStatusChanges MemberStatusChange[]
@@ -225,6 +226,8 @@ model CodeSequence {
 // ─── News & press releases ─────────────────────────────────────────────────
 
 enum NewsCategory {
+  /// General news ("Berita"); the default for new articles.
+  NEWS
   ORGANIZATION
   CIVIC_EDUCATION
   YOUTH
@@ -320,6 +323,47 @@ model DocumentTranslation {
 
   @@unique([documentId, locale])
   @@map("document_translations")
+}
+
+// ─── Media library ─────────────────────────────────────────────────────────
+
+enum MediaKind {
+  IMAGE
+  PDF
+  VIDEO
+  AUDIO
+  /// YouTube / Vimeo embed (no file stored).
+  VIDEO_LINK
+}
+
+/// Public media used across the website. Files live under PUBLIC_UPLOAD_DIR
+/// and are served at /uploads/<fileKey>; VIDEO_LINK rows hold an embed URL.
+/// Unlike Documents there is no draft state: everything here is public.
+model MediaAsset {
+  id          String    @id @default(cuid())
+  kind        MediaKind
+  /// Public URL: "/uploads/media/2026/<uuid>.webp" or a canonical embed URL.
+  url         String    @unique
+  /// Relative to PUBLIC_UPLOAD_DIR; null for VIDEO_LINK.
+  fileKey     String?   @unique
+  /// Original file name (or the video title for links); searchable.
+  fileName    String
+  mimeType    String?
+  fileSize    Int?
+  width       Int?
+  height      Int?
+  /// Photographer / source, shown in the library and searchable.
+  credit      String?
+  /// Default description used when the image is inserted into an article.
+  altText     String?
+  createdById String?
+  createdBy   User?     @relation("MediaCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime  @updatedAt @db.Timestamptz(3)
+
+  @@index([kind, createdAt(sort: Desc)])
+  @@index([createdAt(sort: Desc)])
+  @@map("media_assets")
 }
 
 // ─── Youth events & attendee registration ──────────────────────────────────
@@ -561,6 +605,8 @@ enum AuditAction {
   CONTENT_UNPUBLISHED
   CONTENT_DELETED
   MEDIA_UPLOADED
+  MEDIA_UPDATED
+  MEDIA_DELETED
   // EVENTS
   EVENT_CREATED
   EVENT_UPDATED

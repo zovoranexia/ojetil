@@ -34,7 +34,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useMessageText } from "@/components/i18n/message-text";
 import { isAllowedEmbedSrc, toVideoEmbedUrl } from "@/lib/content/video-embed";
 import { cn } from "@/lib/utils";
-import { ACCEPTED_IMAGE_TYPES, uploadEditorialImage } from "./upload-image";
+import { MediaPicker } from "./media/media-picker";
+import { uploadEditorialImage } from "./upload-image";
 
 /**
  * Rich-text editor for article bodies (TipTap). Output is HTML limited to what
@@ -128,7 +129,19 @@ const Group = ({ children }: { children: ReactNode }) => (
   </div>
 );
 
-function Toolbar({ editor, onImage, uploading, onPrompt }: { editor: Editor; onImage: () => void; uploading: boolean; onPrompt: (p: PromptState) => void }) {
+function Toolbar({
+  editor,
+  onImage,
+  onVideo,
+  uploading,
+  onPrompt,
+}: {
+  editor: Editor;
+  onImage: () => void;
+  onVideo: () => void;
+  uploading: boolean;
+  onPrompt: (p: PromptState) => void;
+}) {
   const s = useEditorState({
     editor,
     selector: ({ editor: e }) => ({
@@ -213,7 +226,7 @@ function Toolbar({ editor, onImage, uploading, onPrompt }: { editor: Editor; onI
             onClick={() => onPrompt({ kind: "link", value: (editor.getAttributes("link").href as string | undefined) ?? "https://" })}
           />
           <ToolbarButton label={uploading ? t("uploadingImage") : t("insertImage")} icon={uploading ? Loader2 : ImagePlus} disabled={off || uploading} onClick={onImage} />
-          <ToolbarButton label={t("embedVideo")} icon={MonitorPlay} disabled={off} onClick={() => onPrompt({ kind: "video", value: "" })} />
+          <ToolbarButton label={t("embedVideo")} icon={MonitorPlay} disabled={off} onClick={onVideo} />
         </Group>
         <Group>
           <ToolbarButton label={t("undo")} icon={Undo2} disabled={off || !s.canUndo} onClick={() => c().undo().run()} />
@@ -235,6 +248,7 @@ export function RichTextEditor({
   labelledBy,
   placeholder,
   maxImageBytes,
+  maxMediaBytes,
   lang,
   fill = false,
 }: {
@@ -247,6 +261,8 @@ export function RichTextEditor({
   labelledBy: string;
   placeholder?: string;
   maxImageBytes: number;
+  /** Media library limit for PDF/MP4/MP3 (shown in the picker's upload zone). */
+  maxMediaBytes: number;
   lang?: string;
   /** Stretch to the parent's height (parent must be a flex column); still grows with long content. */
   fill?: boolean;
@@ -257,7 +273,9 @@ export function RichTextEditor({
   const [prompt, setPrompt] = useState<PromptState>(null);
   const [promptError, setPromptError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
-  const fileRef = useRef<HTMLInputElement>(null);
+  /** Media library picker for images or videos (toolbar buttons). */
+  const [picker, setPicker] = useState<"image" | "video" | null>(null);
+  const tMedia = useTranslations("admin.media");
   const promptRef = useRef<HTMLInputElement>(null);
 
   const editor = useEditor({
@@ -442,7 +460,11 @@ export function RichTextEditor({
         disabled && "opacity-70",
       )}
     >
-      {editor ? <Toolbar editor={editor} onImage={() => fileRef.current?.click()} uploading={uploading} onPrompt={setPrompt} /> : <div className="h-12 border-b border-border-subtle bg-paper/60" />}
+      {editor ? (
+        <Toolbar editor={editor} onImage={() => setPicker("image")} onVideo={() => setPicker("video")} uploading={uploading} onPrompt={setPrompt} />
+      ) : (
+        <div className="h-12 border-b border-border-subtle bg-paper/60" />
+      )}
       {promptBar}
       {promptError ? (
         <p role="alert" className="border-b border-border-subtle bg-status-rejected-bg px-3 py-2 text-sm text-status-rejected">
@@ -451,17 +473,17 @@ export function RichTextEditor({
       ) : null}
       {/* The ProseMirror element fills the frame, so a click anywhere in it places the caret. */}
       <EditorContent editor={editor} className="flex flex-1 flex-col" />
-      <input
-        ref={fileRef}
-        type="file"
-        accept={ACCEPTED_IMAGE_TYPES}
-        className="hidden"
-        tabIndex={-1}
-        aria-hidden="true"
-        onChange={(e) => {
-          const f = e.target.files?.[0];
-          e.target.value = "";
-          if (f) void upload(f);
+      <MediaPicker
+        open={picker !== null}
+        onOpenChange={(o) => (!o ? setPicker(null) : undefined)}
+        kinds={picker === "video" ? ["VIDEO_LINK"] : ["IMAGE"]}
+        title={picker === "video" ? tMedia("picker.titleVideos") : tMedia("picker.titleImages")}
+        canUpload={!disabled}
+        limits={{ imageMb: Math.round(maxImageBytes / 1_048_576), fileMb: Math.round(maxMediaBytes / 1_048_576) }}
+        onSelect={(asset) => {
+          // Images: confirm/adjust the description (prefilled from the library) before inserting.
+          if (asset.kind === "IMAGE") setPrompt({ kind: "alt", value: asset.altText ?? "", src: asset.url });
+          else if (asset.kind === "VIDEO_LINK") insertBlock({ type: "videoEmbed", attrs: { src: asset.url } });
         }}
       />
     </div>

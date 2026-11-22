@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus, Star } from "lucide-react";
+import { ImageIcon, Plus, Star } from "lucide-react";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ContentStatus } from "@prisma/client";
@@ -81,11 +81,26 @@ export default async function NewsAdminPage({ searchParams }: { searchParams: SP
             result.items.map((a) => (
               <tr key={a.id} className="hover:bg-paper">
                 <Td>
-                  <Link href={`/admin/berita/${a.id}`} className="font-medium text-ink hover:text-ojetil-red hover:underline">
-                    {a.title}
-                  </Link>
-                  {a.isFeatured ? <Star aria-label={t("list.featured")} className="ml-1.5 inline size-3.5 fill-gold-text text-gold-text" /> : null}
-                  <span className="block font-mono text-xs text-ink-secondary">{a.slug}</span>
+                  <div className="flex items-start gap-3">
+                    {/* Cover thumbnail (decorative: the title next to it is the link). */}
+                    <Link href={`/admin/berita/${a.id}`} tabIndex={-1} aria-hidden="true" className="block h-12 w-20 shrink-0 overflow-hidden rounded-control border border-border-subtle bg-surface-muted">
+                      {a.coverImageUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element -- small admin thumbnail of an uploaded/https image
+                        <img src={a.coverImageUrl} alt="" loading="lazy" decoding="async" className="size-full object-cover" />
+                      ) : (
+                        <span className="flex size-full items-center justify-center text-ink-secondary/60">
+                          <ImageIcon className="size-5" />
+                        </span>
+                      )}
+                    </Link>
+                    <div className="min-w-0">
+                      <Link href={`/admin/berita/${a.id}`} className="font-medium text-ink hover:text-ojetil-red hover:underline">
+                        {a.title}
+                      </Link>
+                      {a.isFeatured ? <Star aria-label={t("list.featured")} className="ml-1.5 inline size-3.5 fill-gold-text text-gold-text" /> : null}
+                      <span className="block font-mono text-xs text-ink-secondary">{a.slug}</span>
+                    </div>
+                  </div>
                 </Td>
                 <Td>{t(`categories.${a.category}`)}</Td>
                 <Td className="font-mono text-xs">{a.locales.join(" · ")}</Td>

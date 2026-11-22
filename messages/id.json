@@ -135,6 +135,7 @@
     "categoryLabel": "Kategori",
     "allCategories": "Semua",
     "categories": {
+      "NEWS": "Berita",
       "ORGANIZATION": "Organisasi",
       "CIVIC_EDUCATION": "Pendidikan kewarganegaraan",
       "YOUTH": "Pemuda",
@@ -424,6 +425,7 @@
       "members": "Anggota & veteran",
       "news": "Berita",
       "documents": "Dokumen",
+      "media": "Pustaka media",
       "events": "Acara",
       "timeline": "Linimasa",
       "leadership": "Kepengurusan",
@@ -476,7 +478,10 @@
       "pagination": "Paginasi",
       "resultsPage": "{total} hasil · halaman {page} dari {pageCount}",
       "deletePermanentlyTitle": "Hapus permanen?",
-      "deletePermanentlyDescription": "Tindakan ini tidak dapat dibatalkan. Penghapusan dicatat di log audit."
+      "deletePermanentlyDescription": "Tindakan ini tidak dapat dibatalkan. Penghapusan dicatat di log audit.",
+      "dateField": "Tanggal (HH/BB/TTTT)",
+      "timeField": "Jam (24 jam, JJ:MM)",
+      "openCalendar": "Buka kalender"
     },
     "translationTabs": {
       "contentLanguage": "Bahasa konten",
@@ -715,7 +720,7 @@
         "CONTENT_PUBLISHED": "Menerbitkan konten",
         "CONTENT_UNPUBLISHED": "Membatalkan terbitan konten",
         "CONTENT_DELETED": "Menghapus konten",
-        "MEDIA_UPLOADED": "Mengunggah gambar",
+        "MEDIA_UPLOADED": "Mengunggah media",
         "EVENT_CREATED": "Membuat acara",
         "EVENT_UPDATED": "Memperbarui acara",
         "EVENT_PUBLISHED": "Menerbitkan acara",
@@ -730,7 +735,9 @@
         "USER_REACTIVATED": "Mengaktifkan kembali pengguna",
         "USER_PASSWORD_RESET": "Mengatur ulang kata sandi pengguna",
         "USER_PASSWORD_CHANGED": "Mengubah kata sandi sendiri",
-        "SEED_EXECUTED": "Basis data diisi data awal"
+        "SEED_EXECUTED": "Basis data diisi data awal",
+        "MEDIA_UPDATED": "Mengubah media",
+        "MEDIA_DELETED": "Menghapus media"
       }
     },
     "designSystem": {
@@ -885,7 +892,7 @@
         "allStatuses": "Semua status",
         "filter": "Saring",
         "caption": "Artikel berita",
-        "colTitle": "Judul (Tetun)",
+        "colTitle": "Judul",
         "colCategory": "Kategori",
         "colLanguages": "Bahasa",
         "colPublished": "Diterbitkan",
@@ -901,6 +908,7 @@
         "readOnly": "Hanya baca: peran Anda dapat melihat konten tetapi tidak dapat menyuntingnya."
       },
       "categories": {
+        "NEWS": "Berita",
         "ORGANIZATION": "Organisasi",
         "CIVIC_EDUCATION": "Pendidikan kewarganegaraan",
         "YOUTH": "Pemuda",
@@ -918,8 +926,6 @@
         "excerpt": "Ringkasan",
         "excerptHint": "Satu atau dua kalimat yang ditampilkan pada kartu dan hasil pencarian.",
         "body": "Konten",
-        "coverImageAlt": "Deskripsi gambar sampul (teks alternatif)",
-        "coverImageAltHint": "Jelaskan gambar sampul bagi orang yang tidak dapat melihatnya.",
         "slug": "Alamat (slug)",
         "slugHint": "Opsional — dibuat dari judul. Hanya huruf, angka, dan tanda hubung. Digunakan bersama oleh semua bahasa.",
         "category": "Jenis",
@@ -1390,6 +1396,85 @@
         "title": "Judul",
         "body": "Teks",
         "bodyHint": "Mendukung Markdown."
+      }
+    },
+    "media": {
+      "metaTitle": "Pustaka media",
+      "title": "Pustaka media",
+      "description": "Foto, PDF, video, dan audio yang dipakai di seluruh situs.",
+      "searchLabel": "Cari",
+      "searchPlaceholder": "Nama file atau kredit…",
+      "typeLabel": "Jenis",
+      "allTypes": "Semua",
+      "filter": "Filter",
+      "results": "{count, plural, =0 {Tidak ada file} other {# file}}",
+      "kinds": {
+        "IMAGE": "Gambar",
+        "PDF": "Dokumen PDF",
+        "VIDEO": "Video",
+        "AUDIO": "Audio",
+        "VIDEO_LINK": "Tautan video"
+      },
+      "dropTitle": "Seret & lepas file di sini",
+      "dropHint": "JPG, PNG, WebP, PDF, MP4, MP3 — gambar dioptimalkan dan data lokasinya dihapus.",
+      "limits": "Maks. {imageMb} MB per gambar dan {fileMb} MB per file PDF, video, atau audio. Untuk video panjang, tambahkan tautan YouTube atau Vimeo.",
+      "chooseFiles": "Pilih file",
+      "addLink": "Tambah video lewat tautan",
+      "uploading": "Mengunggah {current} dari {total}…",
+      "uploaded": "{count, plural, other {# file ditambahkan}}",
+      "uploadFailed": "{name}: {error}",
+      "empty": "Belum ada media. Unggah file pertama di atas.",
+      "noResults": "Tidak ada yang cocok dengan pencarian ini.",
+      "readOnly": "Hanya baca: peran Anda bisa melihat pustaka tetapi tidak bisa mengubahnya.",
+      "link": {
+        "title": "Tambah video lewat tautan",
+        "urlLabel": "Tautan YouTube atau Vimeo",
+        "titleLabel": "Judul (opsional)",
+        "add": "Tambah video",
+        "added": "Video ditambahkan."
+      },
+      "details": {
+        "title": "Detail media",
+        "fileName": "Nama",
+        "credit": "Kredit / sumber",
+        "creditHint": "Fotografer atau sumber, terlihat oleh editor.",
+        "altText": "Deskripsi (teks alternatif)",
+        "altHint": "Dipakai saat gambar disisipkan ke artikel.",
+        "link": "Tautan",
+        "copyLink": "Salin tautan",
+        "copied": "Tautan disalin",
+        "open": "Buka",
+        "save": "Simpan",
+        "saved": "Perubahan disimpan.",
+        "delete": "Hapus",
+        "deleteTitle": "Hapus file ini?",
+        "deleteDescription": "File hilang dari situs dan tidak bisa dipulihkan. Penghapusan dicatat di log audit.",
+        "deleted": "File dihapus.",
+        "addedBy": "Ditambahkan oleh {name} · {date}",
+        "addedOn": "Ditambahkan {date}",
+        "dimensions": "{width} × {height} px",
+        "close": "Tutup"
+      },
+      "picker": {
+        "title": "Pustaka media",
+        "titleImages": "Pilih gambar",
+        "titleVideos": "Pilih video",
+        "upload": "Unggah baru",
+        "insert": "Sisipkan",
+        "loadMore": "Muat lagi",
+        "selected": "Dipilih"
+      },
+      "errors": {
+        "empty": "File kosong.",
+        "tooLarge": "File lebih besar dari {mb} MB.",
+        "badImage": "Gambar tidak didukung atau rusak. Gunakan JPG, PNG, WebP, GIF, atau AVIF.",
+        "unsupported": "Jenis file tidak didukung. Gunakan JPG, PNG, WebP, PDF, MP4, atau MP3.",
+        "badLink": "Hanya tautan YouTube dan Vimeo yang bisa ditambahkan.",
+        "notFound": "Media tidak ditemukan.",
+        "inUse": "Masih dipakai di {count, plural, other {# artikel}} ({slugs}). Hapus dari sana terlebih dahulu.",
+        "unreadable": "File unggahan tidak bisa dibaca. Apakah terlalu besar?",
+        "noFile": "Pilih file untuk diunggah.",
+        "network": "Unggahan gagal. Periksa koneksi lalu coba lagi."
       }
     }
   }
