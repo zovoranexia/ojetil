@@ -153,13 +153,23 @@ ekstensi `unaccent` (ekstensi *trusted*, cukup hak pemilik), trigger, dan fungsi
 
 ```bash
 DB_PASS="$(openssl rand -base64 32 | tr -d '/+=' | cut -c1-32)"
-echo "Simpan password database ini: $DB_PASS"
+# Disimpan di file khusus root agar langkah 7 membacanya persis (tanpa salin-tempel).
+sudo install -m 600 -o root -g root /dev/null /root/ojetil-db-pass
+printf '%s' "$DB_PASS" | sudo tee /root/ojetil-db-pass > /dev/null
 
-sudo -u postgres psql <<SQL
-CREATE ROLE ojetil WITH LOGIN PASSWORD '${DB_PASS}';
-CREATE DATABASE ojetil OWNER ojetil ENCODING 'UTF8' TEMPLATE template0;
+# Aman dijalankan ulang: role/database dibuat jika belum ada, password SELALU diset ulang
+# ke nilai di atas — sehingga file /root/ojetil-db-pass dan PostgreSQL selalu sama.
+sudo -u postgres psql -v ON_ERROR_STOP=1 -v pass="$DB_PASS" <<'SQL'
+SELECT 'CREATE ROLE ojetil LOGIN' WHERE NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'ojetil')\gexec
+ALTER ROLE ojetil WITH LOGIN PASSWORD :'pass';
+SELECT 'CREATE DATABASE ojetil OWNER ojetil ENCODING ''UTF8'' TEMPLATE template0'
+ WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'ojetil')\gexec
 SQL
+unset DB_PASS
 ```
+
+> Jika langkah ini dijalankan ulang, password lama tidak berlaku lagi: ulangi juga langkah 7
+> (atau perbarui baris `DATABASE_URL` seperti di bagian Pemecahan masalah, error `P1000`).
 
 Secara bawaan PostgreSQL di Ubuntu hanya mendengarkan `localhost`. Pastikan tetap begitu:
 
@@ -207,7 +217,8 @@ File ini menyimpan **kunci enkripsi data pribadi anggota**. Buat sekali, simpan 
 dan jangan pernah mengubah kuncinya sembarangan.
 
 ```bash
-DB_PASS='isi-password-database-dari-langkah-4'
+DB_PASS="$(sudo cat /root/ojetil-db-pass)"     # dibuat di langkah 4
+test -n "$DB_PASS" || { echo "Password DB kosong — jalankan langkah 4 dulu"; exit 1; }
 sudo -u ojetil tee /srv/ojetil/shared/.env > /dev/null <<EOF
 # URL publik situs (tanpa garis miring di akhir)
 APP_URL="https://ojetil.tl"
@@ -232,6 +243,14 @@ UPLOAD_DIR="/srv/ojetil/shared/storage/uploads"
 MAX_PROFILE_PHOTO_BYTES="1048576"
 EOF
 sudo chmod 600 /srv/ojetil/shared/.env
+unset DB_PASS
+```
+
+Uji koneksi database **sebelum** lanjut ke langkah 8:
+
+```bash
+sudo -u ojetil -H bash -c 'set -a; . /srv/ojetil/shared/.env; psql "${DATABASE_URL%%\?*}" -tAc "SELECT current_user"'
+# harus mencetak: ojetil
 ```
 
 > ⚠️ **Simpan salinan `.env` sekarang** (minimal `PII_ENCRYPTION_KEYS` dan `PII_BLIND_INDEX_KEY`)
@@ -265,6 +284,10 @@ BASH
 
 Jika `npm run build` gagal dengan error `next/font` atau *Failed to fetch … from Google Fonts*,
 itu biasanya gangguan jaringan sesaat: jalankan ulang perintah build.
+
+Jika blok ini berhenti di tengah (mis. error `P1000` saat migrasi), perbaiki penyebabnya, hapus
+folder rilis yang gagal (`sudo rm -rf /srv/ojetil/releases/<tanggal-jam>` — yang **bukan** target
+symlink `current`), lalu jalankan ulang seluruh blok.
 
 ---
 
@@ -566,6 +589,7 @@ Akun staf tidak pernah dihapus, hanya dinonaktifkan.
 | `502 Bad Gateway` | Layanan Next.js mati | `sudo systemctl status ojetil`, lalu `journalctl -u ojetil -n 50` |
 | Layanan gagal start: `Invalid server environment` | Nilai `.env` salah atau hilang | Perbaiki variabel yang disebut di log, lalu restart |
 | Layanan gagal start: `PII_… must be a base64-encoded 32-byte key` | Kunci terpotong atau salah tempel | Pastikan nilainya utuh 44 karakter base64 |
+| `P1000: Authentication failed … credentials for ojetil are not valid` | Password di `DATABASE_URL` berbeda dengan password role `ojetil` (mis. langkah 4 dijalankan dua kali, salah tempel, atau placeholder belum diganti) | Set ulang keduanya sekaligus — lihat perintah di bawah tabel |
 | `P1001: Can't reach database server` | PostgreSQL mati atau `DATABASE_URL` salah | `sudo systemctl status postgresql`; cek user, password, port |
 | Migrasi gagal: `permission denied to create extension "unaccent"` | Role `ojetil` bukan pemilik database | `sudo -u postgres psql -c 'ALTER DATABASE ojetil OWNER TO ojetil;'` |
 | Login admin kembali ke halaman login terus | Situs diakses lewat HTTP atau header proxy hilang | Gunakan HTTPS; pastikan `X-Forwarded-Proto` dan `Host` diteruskan Nginx |
@@ -574,3 +598,24 @@ Akun staf tidak pernah dihapus, hanya dinonaktifkan.
 | Build gagal di `next/font` | Gangguan unduhan Google Fonts | Ulangi `npm run build`; pastikan akses keluar ke `fonts.googleapis.com` |
 | Foto anggota tidak tampil di backoffice (404) | File hilang dari `uploads` atau kunci PII berubah | Pulihkan folder uploads dari backup; gunakan `.env` asli |
 | Build berhenti karena kehabisan memori (`Killed`) | RAM kurang | Aktifkan swap (langkah 2.4) |
+
+**Memperbaiki `P1000` (password database tidak cocok).** Perintah ini membuat password baru,
+memasangnya di PostgreSQL dan di `.env` sekaligus, lalu menguji koneksinya:
+
+```bash
+DB_PASS="$(openssl rand -base64 32 | tr -d '/+=' | cut -c1-32)"
+printf '%s' "$DB_PASS" | sudo tee /root/ojetil-db-pass > /dev/null && sudo chmod 600 /root/ojetil-db-pass
+sudo -u postgres psql -v ON_ERROR_STOP=1 -v pass="$DB_PASS" -c "ALTER ROLE ojetil WITH LOGIN PASSWORD :'pass';"
+sudo sed -i "s|^DATABASE_URL=.*|DATABASE_URL=\"postgresql://ojetil:${DB_PASS}@localhost:5432/ojetil?schema=public\"|" /srv/ojetil/shared/.env
+sudo chown ojetil:ojetil /srv/ojetil/shared/.env && sudo chmod 600 /srv/ojetil/shared/.env
+unset DB_PASS
+sudo -u ojetil -H bash -c 'set -a; . /srv/ojetil/shared/.env; psql "${DATABASE_URL%%\?*}" -tAc "SELECT current_user"'   # → ojetil
+```
+
+Jika pesan errornya `role "ojetil" does not exist`, jalankan ulang seluruh blok di langkah 4, lalu
+perintah `sed` dan uji koneksi di atas dengan `DB_PASS="$(sudo cat /root/ojetil-db-pass)"`.
+Jika layanan sudah berjalan, `sudo systemctl restart ojetil` setelahnya.
+
+**Peringatan `npm warn install-scripts … @swc/core … @parcel/watcher`** saat `npm ci` aman
+diabaikan: kedua paket itu opsional (punya binary siap pakai). Skrip yang dibutuhkan
+(Prisma, esbuild) sudah diizinkan lewat `allowScripts` di `package.json`.
