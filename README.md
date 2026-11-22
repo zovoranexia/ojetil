@@ -48,7 +48,7 @@ The seed refuses to run with `NODE_ENV=production` unless `ALLOW_PRODUCTION_SEED
 | Capability | SUPER_ADMIN | VERIFIER | EDITOR | VIEWER |
 | --- | :---: | :---: | :---: | :---: |
 | KPI overview | ✓ | ✓ | ✓ | ✓ |
-| News, profile, timeline, leadership | edit + publish | read | edit + publish | read |
+| News, documents (PDF), profile, timeline, leadership | edit + publish | read | edit + publish | read |
 | Events & attendees | edit + export | read | edit + export | read |
 | Member records | full + decrypt | full + decrypt | — | aggregates only |
 | Approve / revise / reject | ✓ | ✓ | — | — |

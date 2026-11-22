@@ -88,6 +88,7 @@ model User {
 
   createdUsers        User[]               @relation("UserCreatedBy")
   newsArticles        NewsArticle[]        @relation("NewsAuthor")
+  documents           Document[]           @relation("DocumentCreatedBy")
   events              Event[]              @relation("EventCreatedBy")
   verifiedMembers     MemberRegistration[] @relation("MemberVerifiedBy")
   memberStatusChanges MemberStatusChange[]
@@ -236,7 +237,17 @@ model NewsArticle {
   status        ContentStatus @default(DRAFT)
   coverImageUrl String?
   isFeatured    Boolean       @default(false)
+  /// Publication moment; a future value with status PUBLISHED = scheduled.
   publishedAt   DateTime?     @db.Timestamptz(3)
+  /// Null = national scope (no specific município).
+  municipality  Municipality?
+  /// Optional author credit shown on the article, e.g. for opinion pieces.
+  byline        String?
+  /// Free-form tags, trimmed and de-duplicated (case-insensitive) on save.
+  tags          String[]      @default([])
+  /// Optional PDF attachment (must be a PUBLISHED Document to be shown publicly).
+  documentId    String?
+  document      Document?     @relation(fields: [documentId], references: [id], onDelete: SetNull)
   authorId      String?
   author        User?         @relation("NewsAuthor", fields: [authorId], references: [id], onDelete: SetNull)
   createdAt     DateTime      @default(now()) @db.Timestamptz(3)
@@ -246,6 +257,9 @@ model NewsArticle {
 
   @@index([status, publishedAt(sort: Desc)])
   @@index([category, status])
+  @@index([municipality, status])
+  @@index([tags], type: Gin)
+  @@index([documentId])
   @@map("news_articles")
 }
 
@@ -256,13 +270,54 @@ model NewsArticleTranslation {
   locale        Locale
   title         String
   excerpt       String
-  /// Markdown body.
+  /// Sanitised HTML (rich-text editor). Legacy Markdown rows are converted by
+  /// `npm run news:md-to-html` and rendered safely until then.
   body          String
   coverImageAlt String?
 
   @@unique([articleId, locale])
   @@index([locale])
   @@map("news_article_translations")
+}
+
+// ─── Documents (PDF library) ───────────────────────────────────────────────
+
+/// A PDF stored under DOCUMENT_DIR (outside /public). Only PUBLISHED documents
+/// are downloadable publicly, at /documents/<slug>.pdf.
+model Document {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  status      ContentStatus @default(DRAFT)
+  /// Storage key relative to DOCUMENT_DIR, e.g. "2026/9f…c1.pdf".
+  fileKey     String        @unique
+  /// Original file name, kept for the admin list.
+  fileName    String
+  fileSize    Int
+  /// Hex SHA-256 of the stored bytes (integrity + ETag).
+  sha256      String
+  publishedAt DateTime?     @db.Timestamptz(3)
+  createdById String?
+  createdBy   User?         @relation("DocumentCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime      @updatedAt @db.Timestamptz(3)
+
+  translations DocumentTranslation[]
+  newsArticles NewsArticle[]
+
+  @@index([status, updatedAt(sort: Desc)])
+  @@map("documents")
+}
+
+model DocumentTranslation {
+  id          String   @id @default(cuid())
+  documentId  String
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  locale      Locale
+  title       String
+  description String?
+
+  @@unique([documentId, locale])
+  @@map("document_translations")
 }
 
 // ─── Youth events & attendee registration ──────────────────────────────────
@@ -503,6 +558,7 @@ enum AuditAction {
   CONTENT_PUBLISHED
   CONTENT_UNPUBLISHED
   CONTENT_DELETED
+  MEDIA_UPLOADED
   // EVENTS
   EVENT_CREATED
   EVENT_UPDATED

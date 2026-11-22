@@ -145,7 +145,18 @@
     "empty": "Nenhum artigo corresponde à sua pesquisa.",
     "publishedOn": "Publicado a {date}",
     "back": "Voltar às notícias",
-    "more": "Mais notícias"
+    "more": "Mais notícias",
+    "byline": "Por {name}",
+    "attachment": "Anexo",
+    "downloadPdf": "Descarregar PDF",
+    "pdfSize": "PDF · {size}",
+    "municipalityLabel": "Município",
+    "allMunicipalities": "Todos os municípios",
+    "national": "Nacional",
+    "tagsLabel": "Etiquetas",
+    "tagFilter": "Etiqueta: {tag}",
+    "watchVideo": "Ver o vídeo",
+    "applyFilter": "Aplicar"
   },
   "events": {
     "metaTitle": "Eventos juvenis",

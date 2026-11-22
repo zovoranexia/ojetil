@@ -5,12 +5,13 @@
  *
  * Creates 4 demo admin accounts (one per RBAC role) and realistic multilingual
  * content (TET / PT / ID / EN): institutional profile, history timeline,
- * leadership, news, events with attendees, member applications with
+ * leadership, documents (generated PDFs), news (HTML bodies), events with attendees, member applications with
  * AES-256-GCM encrypted PII, and sample audit activity.
  */
 import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import { seedAuditLogs } from "./seed/audit";
+import { seedDocuments } from "./seed/documents";
 import { seedEvents } from "./seed/events";
 import { seedLeadership } from "./seed/leadership";
 import { seedMembers } from "./seed/members";
@@ -57,7 +58,8 @@ async function main(): Promise<void> {
     await seedProfile(db);
     await seedTimeline(db);
     await seedLeadership(db);
-    await seedNews(db, users.EDITOR.id);
+    const documentIds = await seedDocuments(db, users.EDITOR.id);
+    await seedNews(db, users.EDITOR.id, documentIds);
     await seedEvents(db, users.EDITOR.id);
     await seedMembers(db, users);
     await seedAuditLogs(db, users);

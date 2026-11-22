@@ -23,9 +23,13 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     serverActions: {
-      // Profile photos are capped at 1 MB; leave headroom for multipart overhead.
+      // Profile photos are capped at 1 MB; news saves carry up to 4 rich-text bodies.
       bodySizeLimit: "2mb",
     },
+    // Image/PDF uploads go to route handlers under /api/admin/*, which pass
+    // through the middleware: it must not truncate bodies below the
+    // MAX_DOCUMENT_BYTES ceiling (20 MB) plus multipart overhead.
+    middlewareClientMaxBodySize: "21mb",
   },
   async headers() {
     const privateHeaders = [

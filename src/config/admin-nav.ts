@@ -5,6 +5,7 @@ export const ADMIN_NAV = [
   { href: "/admin", label: "Overview", icon: "dashboard", requires: "dashboard:view" },
   { href: "/admin/anggota", label: "Members & veterans", icon: "members", requires: "members:aggregate" },
   { href: "/admin/berita", label: "News", icon: "news", requires: "content:read" },
+  { href: "/admin/dokumen", label: "Documents", icon: "documents", requires: "content:read" },
   { href: "/admin/acara", label: "Events", icon: "events", requires: "events:read" },
   { href: "/admin/linimasa", label: "Timeline", icon: "timeline", requires: "content:read" },
   { href: "/admin/pengurus", label: "Leadership", icon: "leadership", requires: "content:read" },

@@ -1,6 +1,7 @@
 import "server-only";
-import type { Locale, NewsCategory, Prisma } from "@prisma/client";
+import type { Locale, Municipality, NewsCategory, Prisma } from "@prisma/client";
 import { toDbLocale, type AppLocale } from "@/config/locales";
+import { MUNICIPALITY_VALUES } from "@/config/municipalities";
 import { db } from "@/lib/db";
 import { pickTranslation, translationLocales } from "@/modules/content/translation";
 
@@ -21,6 +22,7 @@ export interface NewsListItem {
   coverImageUrl: string | null;
   coverImageAlt: string | null;
   isFeatured: boolean;
+  municipality: Municipality | null;
   title: string;
   excerpt: string;
 }
@@ -52,7 +54,8 @@ async function searchArticleIds(query: string, locale: AppLocale): Promise<strin
      )
     WHERE a."status" = 'PUBLISHED'
       AND a."publishedAt" <= NOW()
-      AND f_unaccent(lower(t."title" || ' ' || t."excerpt" || ' ' || t."body")) LIKE f_unaccent(${pattern}) ESCAPE '\\'`;
+      -- Bodies are HTML: match the text, not tag names or attributes.
+      AND f_unaccent(lower(t."title" || ' ' || t."excerpt" || ' ' || regexp_replace(t."body", '<[^>]*>', ' ', 'g'))) LIKE f_unaccent(${pattern}) ESCAPE '\\'`;
   return rows.map((r) => r.id);
 }
 
@@ -63,6 +66,7 @@ function toListItem(
     publishedAt: Date | null;
     coverImageUrl: string | null;
     isFeatured: boolean;
+    municipality: Municipality | null;
     translations: Array<{ locale: Locale; title: string; excerpt: string; coverImageAlt: string | null }>;
   },
   locale: AppLocale,
@@ -76,6 +80,7 @@ function toListItem(
     coverImageUrl: article.coverImageUrl,
     coverImageAlt: tr.coverImageAlt,
     isFeatured: article.isFeatured,
+    municipality: article.municipality,
     title: tr.title,
     excerpt: tr.excerpt,
   };
@@ -88,6 +93,7 @@ const listSelect = (locale: AppLocale) =>
     publishedAt: true,
     coverImageUrl: true,
     isFeatured: true,
+    municipality: true,
     translations: {
       where: { locale: { in: translationLocales(locale) } },
       select: { locale: true, title: true, excerpt: true, coverImageAlt: true },
@@ -98,6 +104,8 @@ export async function listPublishedNews(params: {
   locale: AppLocale;
   query?: string;
   category?: NewsCategory;
+  municipality?: Municipality;
+  tag?: string;
   page?: number;
   pageSize?: number;
 }): Promise<{ items: NewsListItem[]; total: number; page: number; pageCount: number }> {
@@ -109,6 +117,8 @@ export async function listPublishedNews(params: {
   const where: Prisma.NewsArticleWhereInput = {
     ...publishedWhere(now),
     ...(params.category ? { category: params.category } : {}),
+    ...(params.municipality ? { municipality: params.municipality } : {}),
+    ...(params.tag ? { tags: { has: params.tag } } : {}),
     ...(ids ? { id: { in: ids } } : {}),
   };
 
@@ -148,6 +158,9 @@ export async function getPublishedArticle(slug: string, locale: AppLocale) {
     select: {
       ...listSelect(locale),
       updatedAt: true,
+      byline: true,
+      tags: true,
+      documentId: true,
       translations: {
         where: { locale: { in: translationLocales(locale) } },
         select: { locale: true, title: true, excerpt: true, body: true, coverImageAlt: true },
@@ -175,10 +188,29 @@ export async function getPublishedArticle(slug: string, locale: AppLocale) {
     excerpt: tr.excerpt,
     body: tr.body,
     coverImageAlt: tr.coverImageAlt,
+    municipality: article.municipality,
+    byline: article.byline,
+    tags: article.tags,
+    documentId: article.documentId,
     /** Locale actually served (differs from the request when falling back to Tetun). */
     servedLocale: tr.locale,
     related: related.map((r) => toListItem(r, locale)).filter((x): x is NewsListItem => x !== null),
   };
+}
+
+export function isMunicipality(value: unknown): value is Municipality {
+  return typeof value === "string" && (MUNICIPALITY_VALUES as readonly string[]).includes(value);
+}
+
+/** Tags in use on published articles (most used first), for the public filter. */
+export async function popularNewsTags(take = 12): Promise<string[]> {
+  const rows = await db.$queryRaw<Array<{ tag: string }>>`
+    SELECT tag FROM (
+      SELECT unnest(a."tags") AS tag FROM "news_articles" a
+      WHERE a."status" = 'PUBLISHED' AND a."publishedAt" <= NOW()
+    ) t
+    GROUP BY tag ORDER BY count(*) DESC, tag ASC LIMIT ${take}`;
+  return rows.map((r) => r.tag);
 }
 
 export function isNewsCategory(value: unknown): value is NewsCategory {

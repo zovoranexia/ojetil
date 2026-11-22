@@ -145,7 +145,18 @@
     "empty": "No articles match your search.",
     "publishedOn": "Published {date}",
     "back": "Back to news",
-    "more": "More news"
+    "more": "More news",
+    "byline": "By {name}",
+    "attachment": "Attachment",
+    "downloadPdf": "Download PDF",
+    "pdfSize": "PDF · {size}",
+    "municipalityLabel": "Municipality",
+    "allMunicipalities": "All municipalities",
+    "national": "National",
+    "tagsLabel": "Tags",
+    "tagFilter": "Tag: {tag}",
+    "watchVideo": "Watch the video",
+    "applyFilter": "Apply"
   },
   "events": {
     "metaTitle": "Youth events",
