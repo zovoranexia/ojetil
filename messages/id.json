@@ -528,7 +528,8 @@
       "imageUrl": "Gunakan path situs yang diawali / atau URL https://.",
       "email": "Masukkan alamat email yang valid.",
       "url": "Masukkan URL https:// yang valid.",
-      "date": "Masukkan tanggal yang valid."
+      "date": "Masukkan tanggal yang valid.",
+      "requiredAnyLanguage": "Isi judul dan konten dalam minimal satu bahasa."
     },
     "auth": {
       "metaTitle": "Masuk staf",
@@ -945,7 +946,7 @@
           "error": "ada kesalahan",
           "empty": "kosong"
         },
-        "primaryHint": "Tetun adalah bahasa utama. Bahasa lain opsional — yang kosong akan menampilkan versi Tetun.",
+        "primaryHint": "Tulis dalam minimal satu bahasa — Tetun disarankan. Pembaca melihat bahasa mereka sendiri, jika tidak ada Tetun, jika tidak ada versi lain yang tersedia.",
         "coverReplace": "Ganti",
         "coverRemove": "Hapus",
         "coverUploading": "Mengunggah…",

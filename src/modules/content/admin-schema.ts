@@ -23,12 +23,15 @@ export interface TranslationFieldSpec {
 export type TranslationValues = Record<ContentLocale, Record<string, string>>;
 
 /**
- * Validation rules:
- *  • Tetun (default locale) must be complete;
- *  • other locales are optional, but once any field is filled, every required
- *    field in that locale must be filled (no half-translated pages).
+ * Which languages must be present:
+ *  • "tetun" (default): Tetun must be complete; other locales are optional;
+ *  • "any": at least one locale must be complete — any of the four (news).
+ * In both modes a started locale must have every required field filled
+ * (no half-translated pages).
  */
-export function translationsSchema(fields: readonly TranslationFieldSpec[]) {
+export type TranslationRequirement = "tetun" | "any";
+
+export function translationsSchema(fields: readonly TranslationFieldSpec[], requirement: TranslationRequirement = "tetun") {
   const localeShape = Object.fromEntries(
     fields.map((f) => [f.name, z.string().trim().max(f.max, msg("admin.validation.maxChars", { max: f.max }))]),
   ) as Record<string, z.ZodString>;
@@ -36,16 +39,22 @@ export function translationsSchema(fields: readonly TranslationFieldSpec[]) {
   return z
     .object(Object.fromEntries(CONTENT_LOCALES.map((l) => [l, z.object(localeShape)])) as Record<ContentLocale, z.ZodObject<Record<string, z.ZodString>>>)
     .superRefine((value, ctx) => {
+      const isStarted = (locale: ContentLocale) => fields.some((f) => ((value[locale] as Record<string, string>)[f.name] ?? "").trim() !== "");
+      if (requirement === "any" && !CONTENT_LOCALES.some(isStarted)) {
+        const first = fields.find((f) => f.required) ?? fields[0]!;
+        ctx.addIssue({ code: "custom", path: ["TET", first.name], message: msg("admin.validation.requiredAnyLanguage") });
+        return;
+      }
       for (const locale of CONTENT_LOCALES) {
         const v = value[locale] as Record<string, string>;
-        const started = fields.some((f) => (v[f.name] ?? "").trim() !== "");
-        if (locale !== "TET" && !started) continue;
+        const started = isStarted(locale);
+        if ((requirement === "any" || locale !== "TET") && !started) continue;
         for (const f of fields) {
           if (f.required && (v[f.name] ?? "").trim() === "") {
             ctx.addIssue({
               code: "custom",
               path: [locale, f.name],
-              message: locale === "TET" ? msg("admin.validation.requiredTetun") : msg("admin.validation.requiredOnceStarted"),
+              message: locale === "TET" && requirement === "tetun" ? msg("admin.validation.requiredTetun") : msg("admin.validation.requiredOnceStarted"),
             });
           }
         }
@@ -53,12 +62,13 @@ export function translationsSchema(fields: readonly TranslationFieldSpec[]) {
     });
 }
 
-/** Form values → Prisma translation rows (skipping untouched optional locales). */
+/** Form values → Prisma translation rows (skipping untouched optional locales; Tetun too in "any" mode). */
 export function toTranslationRows<K extends string>(
   values: Record<ContentLocale, Record<string, string>>,
   fields: readonly TranslationFieldSpec[],
+  requirement: TranslationRequirement = "tetun",
 ): Array<{ locale: ContentLocale } & Record<K, string | null>> {
-  return CONTENT_LOCALES.filter((l) => l === "TET" || fields.some((f) => (values[l][f.name] ?? "").trim() !== "")).map((locale) => {
+  return CONTENT_LOCALES.filter((l) => (l === "TET" && requirement === "tetun") || fields.some((f) => (values[l][f.name] ?? "").trim() !== "")).map((locale) => {
     const row: Record<string, string | null> = {};
     for (const f of fields) {
       const v = (values[locale][f.name] ?? "").trim();

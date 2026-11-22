@@ -3,7 +3,7 @@ import type { Locale, Municipality, NewsCategory, Prisma } from "@prisma/client"
 import { toDbLocale, type AppLocale } from "@/config/locales";
 import { MUNICIPALITY_VALUES } from "@/config/municipalities";
 import { db } from "@/lib/db";
-import { pickTranslation, translationLocales } from "@/modules/content/translation";
+import { pickTranslation } from "@/modules/content/translation";
 
 export const NEWS_CATEGORIES = [
   "ORGANIZATION",
@@ -43,15 +43,20 @@ async function searchArticleIds(query: string, locale: AppLocale): Promise<strin
   const rows = await db.$queryRaw<Array<{ id: string }>>`
     SELECT a."id"
     FROM "news_articles" a
-    JOIN "news_article_translations" t
-      ON t."articleId" = a."id"
-     -- Search the translation the reader actually sees: their language, or the Tetun fallback.
-     AND (
-       t."locale" = ${dbLocale}::"Locale"
-       OR (t."locale" = 'tet' AND NOT EXISTS (
-             SELECT 1 FROM "news_article_translations" x
-             WHERE x."articleId" = a."id" AND x."locale" = ${dbLocale}::"Locale"))
-     )
+    -- Search the translation the reader actually sees: their language, else
+    -- Tetun, else Portuguese, Indonesian, English (same order as pickTranslation).
+    JOIN LATERAL (
+      SELECT x."title", x."excerpt", x."body"
+      FROM "news_article_translations" x
+      WHERE x."articleId" = a."id"
+      ORDER BY CASE
+        WHEN x."locale" = ${dbLocale}::"Locale" THEN 0
+        WHEN x."locale" = 'tet' THEN 1
+        WHEN x."locale" = 'pt' THEN 2
+        WHEN x."locale" = 'id' THEN 3
+        ELSE 4 END
+      LIMIT 1
+    ) t ON TRUE
     WHERE a."status" = 'PUBLISHED'
       AND a."publishedAt" <= NOW()
       -- Bodies are HTML: match the text, not tag names or attributes.
@@ -86,7 +91,8 @@ function toListItem(
   };
 }
 
-const listSelect = (locale: AppLocale) =>
+/** All translations are loaded: an article may exist only in, say, Portuguese (pickTranslation chooses). */
+const listSelect = () =>
   ({
     slug: true,
     category: true,
@@ -95,7 +101,6 @@ const listSelect = (locale: AppLocale) =>
     isFeatured: true,
     municipality: true,
     translations: {
-      where: { locale: { in: translationLocales(locale) } },
       select: { locale: true, title: true, excerpt: true, coverImageAlt: true },
     },
   }) satisfies Prisma.NewsArticleSelect;
@@ -131,7 +136,7 @@ export async function listPublishedNews(params: {
     orderBy: [{ publishedAt: "desc" }, { id: "asc" }],
     skip: (page - 1) * pageSize,
     take: pageSize,
-    select: listSelect(params.locale),
+    select: listSelect(),
   });
 
   return {
@@ -147,7 +152,7 @@ export async function latestNews(locale: AppLocale, take = 3): Promise<NewsListI
     where: publishedWhere(new Date()),
     orderBy: [{ isFeatured: "desc" }, { publishedAt: "desc" }],
     take,
-    select: listSelect(locale),
+    select: listSelect(),
   });
   return rows.map((r) => toListItem(r, locale)).filter((x): x is NewsListItem => x !== null);
 }
@@ -156,14 +161,13 @@ export async function getPublishedArticle(slug: string, locale: AppLocale) {
   const article = await db.newsArticle.findFirst({
     where: { slug, ...publishedWhere(new Date()) },
     select: {
-      ...listSelect(locale),
+      ...listSelect(),
       updatedAt: true,
       byline: true,
       tags: true,
       documentId: true,
       translations: {
-        where: { locale: { in: translationLocales(locale) } },
-        select: { locale: true, title: true, excerpt: true, body: true, coverImageAlt: true },
+          select: { locale: true, title: true, excerpt: true, body: true, coverImageAlt: true },
       },
     },
   });
@@ -175,7 +179,7 @@ export async function getPublishedArticle(slug: string, locale: AppLocale) {
     where: { ...publishedWhere(new Date()), category: article.category, slug: { not: slug } },
     orderBy: { publishedAt: "desc" },
     take: 3,
-    select: listSelect(locale),
+    select: listSelect(),
   });
 
   return {
