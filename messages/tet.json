@@ -1695,13 +1695,11 @@
     "lead": "Hatudu kartaun ne'e iha eventu no atividade OJETIL nian. Kódigu QR hatudu katak ita membru verifika.",
     "cardLabel": "Kartaun membru OJETIL — {name}",
     "photoAlt": "Foto {name}",
-    "name": "Naran",
     "category": "Kategoria",
     "municipality": "Munisípiu",
     "since": "Membru dezde",
     "number": "Nú. membru",
     "qrAlt": "Kódigu QR atu verifika kartaun",
-    "scan": "Scan atu verifika",
     "print": "Imprime ka rai hanesan PDF",
     "tipVerify": "Ema ne'ebé scan kódigu QR sei haree katak ita-nia membru válidu — se status muda, kartaun la válidu ona.",
     "tipSave": "Iha telemóvel: hili \"Imprime\" depois \"Rai hanesan PDF\", ka foti screenshot.",
@@ -1709,7 +1707,8 @@
     "expiredTitle": "Link la válidu ka liu ona",
     "expiredBody": "Atu seguransa, link kartaun válidu minutu 30 de'it. Haree status fali atu loke kartaun.",
     "checkAgain": "Haree status",
-    "cardTitle": "Kartaun membru"
+    "values": "JUVENTUDE • SOLIDARIEDADE • DEZENVOLVIMENTU",
+    "backLabel": "Kotuk kartaun membru OJETIL"
   },
   "memberVerify": {
     "metaTitle": "Verifikasaun membru",

@@ -1695,13 +1695,11 @@
     "lead": "Mostre este cartão nos eventos e atividades da OJETIL. O código QR comprova que é membro verificado.",
     "cardLabel": "Cartão de membro OJETIL — {name}",
     "photoAlt": "Fotografia de {name}",
-    "name": "Nome",
     "category": "Categoria",
     "municipality": "Município",
     "since": "Membro desde",
     "number": "N.º de membro",
     "qrAlt": "Código QR para verificar o cartão",
-    "scan": "Leia para verificar",
     "print": "Imprimir ou guardar em PDF",
     "tipVerify": "Quem ler o código QR vê se o seu registo é válido — se o estado mudar, o cartão deixa de ser válido.",
     "tipSave": "No telemóvel: escolha \"Imprimir\" e depois \"Guardar como PDF\", ou faça uma captura de ecrã.",
@@ -1709,7 +1707,8 @@
     "expiredTitle": "Ligação inválida ou expirada",
     "expiredBody": "Por segurança, a ligação do cartão é válida por 30 minutos. Consulte o estado de novo para abrir o cartão.",
     "checkAgain": "Consultar estado",
-    "cardTitle": "Cartão de membro"
+    "values": "JUVENTUDE • SOLIDARIEDADE • DESENVOLVIMENTO",
+    "backLabel": "Verso do cartão de membro OJETIL"
   },
   "memberVerify": {
     "metaTitle": "Verificação de membro",

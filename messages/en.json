@@ -1695,13 +1695,11 @@
     "lead": "Show this card at OJETIL events and activities. The QR code proves you are a verified member.",
     "cardLabel": "OJETIL member card — {name}",
     "photoAlt": "Photo of {name}",
-    "name": "Name",
     "category": "Category",
     "municipality": "Municipality",
     "since": "Member since",
     "number": "Member no.",
     "qrAlt": "QR code to verify this card",
-    "scan": "Scan to verify",
     "print": "Print or save as PDF",
     "tipVerify": "Anyone who scans the QR code sees that your membership is valid — if your status changes, the card stops verifying.",
     "tipSave": "On a phone: choose \"Print\" then \"Save as PDF\", or take a screenshot.",
@@ -1709,7 +1707,8 @@
     "expiredTitle": "Link invalid or expired",
     "expiredBody": "For security, card links work for 30 minutes. Check your status again to open your card.",
     "checkAgain": "Check status",
-    "cardTitle": "Member card"
+    "values": "YOUTH • SOLIDARITY • DEVELOPMENT",
+    "backLabel": "Back of the OJETIL member card"
   },
   "memberVerify": {
     "metaTitle": "Member verification",

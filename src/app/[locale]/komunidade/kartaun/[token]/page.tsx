@@ -51,7 +51,7 @@ export default async function MemberCardPage({ params }: { params: Promise<{ loc
       <PageHeader eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} className="print:hidden" />
       <div className="mx-auto max-w-3xl px-4 py-10 md:px-8 md:py-14">
         <MemberCard card={card} photoSrc={card.hasPhoto ? `/api/members/card-photo/${token}` : null} locale={locale} />
-        <div className="mx-auto mt-8 max-w-[34rem] space-y-4 print:hidden">
+        <div className="mx-auto mt-8 max-w-[46rem] space-y-4 print:hidden">
           <PrintCardButton label={t("print")} />
           <ul className="space-y-2 text-sm text-ink-secondary">
             <li className="flex gap-2">

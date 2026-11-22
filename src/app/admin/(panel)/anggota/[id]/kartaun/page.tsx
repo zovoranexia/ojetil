@@ -35,7 +35,7 @@ export default async function AdminMemberCardPage({ params }: { params: Promise<
       <div className="print:hidden">
         <AdminPageHeading back={{ href: `/admin/anggota/${id}`, label: card.fullName }} title={t("detail.memberCard")} description={t("detail.memberCardHint")} />
       </div>
-      <div className="max-w-xl">
+      <div className="max-w-3xl">
         <MemberCard card={card} photoSrc={card.hasPhoto && canSeePhoto ? `/api/admin/members/${id}/photo` : null} locale={locale} />
         <div className="mt-6 print:hidden">
           <PrintCardButton label={t("detail.printCard")} />

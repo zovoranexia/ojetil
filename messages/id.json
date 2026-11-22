@@ -1695,13 +1695,11 @@
     "lead": "Tunjukkan kartu ini di acara dan kegiatan OJETIL. Kode QR membuktikan Anda anggota terverifikasi.",
     "cardLabel": "Kartu anggota OJETIL — {name}",
     "photoAlt": "Foto {name}",
-    "name": "Nama",
     "category": "Kategori",
     "municipality": "Munisipalitas",
     "since": "Anggota sejak",
     "number": "No. anggota",
     "qrAlt": "Kode QR untuk memverifikasi kartu",
-    "scan": "Pindai untuk verifikasi",
     "print": "Cetak atau simpan sebagai PDF",
     "tipVerify": "Siapa pun yang memindai kode QR akan melihat keanggotaan Anda masih berlaku — jika status berubah, kartu tidak berlaku lagi.",
     "tipSave": "Di ponsel: pilih \"Cetak\" lalu \"Simpan sebagai PDF\", atau ambil tangkapan layar.",
@@ -1709,7 +1707,8 @@
     "expiredTitle": "Tautan tidak valid atau kedaluwarsa",
     "expiredBody": "Demi keamanan, tautan kartu hanya berlaku 30 menit. Cek status lagi untuk membuka kartu.",
     "checkAgain": "Cek status",
-    "cardTitle": "Kartu anggota"
+    "values": "PEMUDA • SOLIDARITAS • PEMBANGUNAN",
+    "backLabel": "Sisi belakang kartu anggota OJETIL"
   },
   "memberVerify": {
     "metaTitle": "Verifikasi anggota",

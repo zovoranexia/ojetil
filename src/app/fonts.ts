@@ -16,7 +16,8 @@ export const sourceSerif = Source_Serif_4({
 
 export const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600"],
+  // 800 only for the member card wordmark/names; fetched only where it is used.
+  weight: ["400", "500", "600", "800"],
   display: "swap",
   preload: false,
   variable: "--font-plus-jakarta",
