@@ -25,7 +25,7 @@ function baseOptions(): sanitizeHtml.IOptions {
     allowedTags: ["p", "br", "h2", "h3", "strong", "em", "u", "s", "ul", "ol", "li", "blockquote", "hr", "a", "img", "iframe", "div"],
     allowedAttributes: {
       a: ["href", "target", "rel"],
-      img: ["src", "alt", "width", "height", "loading", "decoding"],
+      img: ["src", "alt", "width", "height", "loading", "decoding", { name: "data-align", multiple: false, values: ["left", "center", "right"] }],
       iframe: ["src", "title", "allow", "allowfullscreen", "loading", "referrerpolicy"],
       div: ["data-video-embed"],
       p: ["style"],

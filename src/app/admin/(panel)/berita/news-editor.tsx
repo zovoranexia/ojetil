@@ -226,7 +226,7 @@ export function NewsEditor({
       <FormFeedback ref={feedbackRef} feedback={feedback} />
       <fieldset disabled={readOnly || isSubmitting} className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
         {/* ── Content (per language) ─────────────────────────────── */}
-        <section aria-label={t("editor.contentSection")} className="min-w-0 space-y-5 rounded-card border border-border-subtle bg-surface-card p-5 md:p-7">
+        <section aria-label={t("editor.contentSection")} className="flex min-w-0 flex-col gap-5 rounded-card border border-border-subtle bg-surface-card p-5 md:p-7">
           <div>
             <div role="tablist" aria-label={t("editor.contentLanguage")} className="inline-flex max-w-full gap-1 overflow-x-auto rounded-card bg-surface-muted p-1">
               {CONTENT_LOCALES.map((l) => {
@@ -266,7 +266,8 @@ export function NewsEditor({
             <p className="mt-2 text-sm text-ink-secondary">{t("editor.primaryHint")}</p>
           </div>
 
-          <div role="tabpanel" id="lang-panel" aria-labelledby={`lang-tab-${locale}`} className="space-y-5">
+          {/* Flex column down to the editor: on wide screens the editor stretches to the sidebar's height. */}
+          <div role="tabpanel" id="lang-panel" aria-labelledby={`lang-tab-${locale}`} className="flex flex-1 flex-col gap-5">
             {CONTENT_LOCALES.map((l) => {
               const id = (f: string) => `translations-${l}-${f}`;
               const err = (f: string) => tErrors[l]?.[f]?.message;
@@ -292,11 +293,11 @@ export function NewsEditor({
               const id = (f: string) => `translations-${l}-${f}`;
               const err = (f: string) => tErrors[l]?.[f]?.message;
               return (
-                <div key={l} hidden={locale !== l} lang={l.toLowerCase()} className="space-y-5">
+                <div key={l} hidden={locale !== l} lang={l.toLowerCase()} className={cn("flex-1 flex-col gap-5", locale === l ? "flex" : "hidden")}>
                   <Field id={id("excerpt")} label={t("fields.excerpt")} hint={t("fields.excerptHint")} error={err("excerpt")}>
                     <textarea rows={3} disabled={readOnly} className={textareaClassName} {...fieldAria(id("excerpt"), { hint: true, error: err("excerpt") })} {...register(`translations.${l}.excerpt`)} />
                   </Field>
-                  <div className="space-y-1.5">
+                  <div className="flex flex-1 flex-col gap-1.5">
                     <span id={`${id("body")}-label`} className="text-sm font-medium text-ink">
                       {t("fields.body")}
                       {l === "TET" ? <span aria-hidden="true" className="ml-0.5 text-ojetil-red">*</span> : null}
@@ -315,6 +316,7 @@ export function NewsEditor({
                           describedBy={err("body") ? `${id("body")}-error` : undefined}
                           maxImageBytes={maxImageBytes}
                           lang={l.toLowerCase()}
+                          fill
                         />
                       )}
                     />
