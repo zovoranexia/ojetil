@@ -1,0 +1,400 @@
+{
+  "meta": {
+    "siteTitle": "OJETIL — Organização da Juventude e dos Estudantes de Timor-Leste",
+    "siteDescription": "Centro nacional de educação cívica, debate público e participação juvenil. Das redes clandestinas dos anos 80 aos jovens cidadãos de hoje."
+  },
+  "common": {
+    "skipToContent": "Saltar para o conteúdo principal",
+    "readMore": "Ler mais",
+    "viewAll": "Ver tudo",
+    "loading": "A carregar…",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "copyFailed": "Não foi possível copiar — selecione o código e copie-o manualmente.",
+    "required": "obrigatório",
+    "optional": "opcional",
+    "previous": "Anterior",
+    "next": "Seguinte",
+    "pageOf": "Página {page} de {count}",
+    "pagination": "Paginação",
+    "imagePlaceholder": "Imagem oculta no Modo de Poucos Dados",
+    "tryAgain": "Tentar novamente",
+    "backHome": "Voltar ao início"
+  },
+  "nav": {
+    "primary": "Navegação principal",
+    "home": "Início",
+    "about": "Sobre",
+    "history": "História",
+    "news": "Notícias",
+    "events": "Eventos",
+    "register": "Registo",
+    "checkStatus": "Ver estado",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "language": "Língua",
+    "homeLink": "OJETIL — página inicial"
+  },
+  "lowData": {
+    "label": "Modo de Poucos Dados",
+    "short": "Poucos dados",
+    "on": "Ligado",
+    "off": "Desligado",
+    "description": "Oculta fotografias e usa as fontes do sistema para poupar dados móveis."
+  },
+  "footer": {
+    "tagline": "Centro nacional de educação cívica, debate público e participação juvenil.",
+    "explore": "Explorar",
+    "community": "Comunidade",
+    "contact": "Contacto",
+    "headquarters": "Sede",
+    "rights": "© {year} OJETIL. Todos os direitos reservados.",
+    "staff": "Acesso da equipa",
+    "timezone": "Todas as horas são de Timor-Leste ({zone})."
+  },
+  "home": {
+    "metaTitle": "Início",
+    "hero": {
+      "eyebrow": "Desde as redes clandestinas dos anos 80",
+      "title": "Saber para servir a Pátria e o Povo",
+      "lead": "A OJETIL reúne veteranos da resistência e uma nova geração para a educação cívica, o debate aberto e o serviço em todos os municípios.",
+      "ctaRegister": "Tornar-me membro",
+      "ctaHistory": "Conhecer a nossa história"
+    },
+    "impact": {
+      "title": "A OJETIL em números",
+      "verifiedMembers": "Membros e veteranos verificados",
+      "eventsHeld": "Eventos de educação cívica",
+      "participants": "Participantes em eventos",
+      "municipalities": "Municípios alcançados"
+    },
+    "timeline": {
+      "title": "Uma história escrita pelos jovens",
+      "lead": "Das células estudantis secretas à Consulta Popular de 1999.",
+      "cta": "Explorar a cronologia completa"
+    },
+    "events": {
+      "title": "Próximos eventos juvenis",
+      "lead": "Seminários, debates públicos e workshops — abertos a todos os jovens timorenses.",
+      "empty": "Não há eventos agendados de momento. Volte em breve.",
+      "cta": "Todos os eventos"
+    },
+    "news": {
+      "title": "Últimas notícias",
+      "empty": "Ainda não há notícias.",
+      "cta": "Todas as notícias"
+    },
+    "cta": {
+      "title": "Fez parte da frente clandestina? Está pronto para servir?",
+      "body": "Registe-se como veterano da clandestinidade ou como membro jovem e voluntário. Os seus dados são cifrados e analisados apenas pelo Secretariado da OJETIL.",
+      "button": "Iniciar o registo",
+      "checkStatus": "Já se registou? Veja o estado"
+    }
+  },
+  "about": {
+    "metaTitle": "Sobre a OJETIL",
+    "eyebrow": "Quem somos",
+    "leadership": {
+      "title": "Liderança",
+      "lead": "A Direção Nacional e os coordenadores municipais do mandato em curso.",
+      "national": "Direção Nacional",
+      "municipal": "Coordenadores municipais",
+      "term": "Mandato {start}–{end}",
+      "termOngoing": "Desde {start}",
+      "empty": "O diretório da liderança está a ser atualizado."
+    },
+    "contact": {
+      "title": "Contacto",
+      "lead": "Visite-nos na nossa sede em Díli ou entre em contacto.",
+      "address": "Morada",
+      "email": "Email",
+      "phone": "Telefone",
+      "map": "Abrir no mapa",
+      "hours": "Segunda a sexta, 08:30–17:00"
+    }
+  },
+  "history": {
+    "metaTitle": "História",
+    "eyebrow": "História 1980–2002",
+    "filterLabel": "Ir para um período",
+    "showMore": "Ler a história completa",
+    "showLess": "Mostrar menos",
+    "empty": "A cronologia está a ser preparada.",
+    "note": "Uma história narrativa. Testemunhos e documentos serão publicados no Arquivo Digital da OJETIL."
+  },
+  "news": {
+    "metaTitle": "Notícias e comunicados",
+    "eyebrow": "Notícias",
+    "title": "Notícias e comunicados",
+    "lead": "Anúncios, novidades dos programas e comunicados de imprensa da OJETIL.",
+    "searchLabel": "Pesquisar notícias",
+    "searchPlaceholder": "Pesquisar por palavra-chave…",
+    "searchButton": "Pesquisar",
+    "clear": "Limpar",
+    "categoryLabel": "Categoria",
+    "allCategories": "Todas",
+    "categories": {
+      "ORGANIZATION": "Organização",
+      "CIVIC_EDUCATION": "Educação cívica",
+      "YOUTH": "Juventude",
+      "COMMEMORATION": "Comemoração",
+      "PRESS_RELEASE": "Comunicado de imprensa"
+    },
+    "results": "{count, plural, =0 {Nenhum artigo} one {# artigo} other {# artigos}}",
+    "resultsFor": "para “{query}”",
+    "empty": "Nenhum artigo corresponde à sua pesquisa.",
+    "publishedOn": "Publicado a {date}",
+    "back": "Voltar às notícias",
+    "more": "Mais notícias"
+  },
+  "events": {
+    "metaTitle": "Eventos juvenis",
+    "eyebrow": "Educação cívica",
+    "title": "Eventos juvenis",
+    "lead": "Seminários, debates públicos e workshops. A inscrição é gratuita e recebe o código do bilhete de imediato.",
+    "upcoming": "Próximos",
+    "past": "Eventos anteriores",
+    "typeLabel": "Tipo de evento",
+    "allTypes": "Todos",
+    "types": {
+      "SEMINAR": "Seminário",
+      "DEBATE": "Debate público",
+      "WORKSHOP": "Workshop"
+    },
+    "online": "Online",
+    "emptyUpcoming": "Não há próximos eventos deste tipo.",
+    "emptyPast": "Ainda não há eventos anteriores.",
+    "when": "Quando",
+    "where": "Onde",
+    "capacityLabel": "Lugares",
+    "registered": "{count} de {capacity} inscritos",
+    "seatsLeft": "{count, plural, one {# lugar disponível} other {# lugares disponíveis}}",
+    "almostFull": "Quase esgotado",
+    "full": "Esgotado",
+    "cancelled": "Cancelado",
+    "ended": "Terminado",
+    "registrationClosed": "As inscrições para este evento estão encerradas.",
+    "registrationClosedShort": "Inscrições encerradas",
+    "deadline": "Inscreva-se até {date}",
+    "about": "Sobre este evento",
+    "back": "Voltar aos eventos",
+    "details": "Detalhes e inscrição"
+  },
+  "eventRegistration": {
+    "title": "Inscrever-se neste evento",
+    "lead": "Demora um minuto. O código do bilhete aparece de imediato.",
+    "fullName": "Nome completo",
+    "email": "Email",
+    "emailHint": "Enviamos aqui as novidades do evento.",
+    "phone": "Telefone / WhatsApp",
+    "institution": "Escola, universidade ou profissão",
+    "municipality": "Município",
+    "municipalityNone": "Selecionar…",
+    "consent": "Concordo que a OJETIL guarde estes dados para organizar este evento, conforme descrito na nota de privacidade.",
+    "submit": "Inscrever-me",
+    "submitting": "A inscrever…",
+    "success": {
+      "title": "Inscrição confirmada!",
+      "body": "Apresente este código do bilhete à entrada. Guarde-o — vai precisar dele para o registo de presença.",
+      "ticket": "O seu código do bilhete",
+      "onlineNote": "A ligação online será enviada para o seu email antes do evento."
+    },
+    "errors": {
+      "nameMin": "Indique o nome completo (pelo menos 3 caracteres).",
+      "nameMax": "O nome é demasiado longo.",
+      "email": "Indique um endereço de email válido.",
+      "phone": "Indique um número de telefone válido, por exemplo +670 7723 4512.",
+      "textMax": "Este texto é demasiado longo.",
+      "consent": "Tem de concordar antes de se inscrever.",
+      "full": "Lamentamos — este evento está esgotado.",
+      "closed": "As inscrições para este evento estão encerradas.",
+      "duplicate": "Este email já está inscrito neste evento.",
+      "notFound": "Este evento já não está disponível.",
+      "generic": "Ocorreu um erro. Tente novamente.",
+      "form": "Corrija os campos assinalados.",
+      "rateLimited": "Demasiadas inscrições a partir da sua ligação. Aguarde alguns minutos e tente novamente."
+    }
+  },
+  "dates": {
+    "decade": "Anos {year}",
+    "timezone": "Hora de Díli"
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "body": "A página que procura não existe ou foi movida."
+  },
+  "error": {
+    "title": "Ocorreu um erro",
+    "body": "Não foi possível carregar esta página. Verifique a ligação e tente novamente."
+  },
+  "memberRegistration": {
+    "metaTitle": "Registo de membros e veteranos",
+    "eyebrow": "Comunidade",
+    "title": "Junte-se à OJETIL",
+    "lead": "Registe-se como veterano da frente clandestina ou como membro jovem e voluntário. Demora cerca de cinco minutos.",
+    "privacyNote": "O número do Bilhete de Identidade, o telefone e a morada são cifrados assim que chegam ao nosso servidor. Só a equipa de verificação da OJETIL os pode ler.",
+    "progress": "Passo {current} de {total}",
+    "steps": {
+      "one": "Categoria e identidade",
+      "two": "Residência e contacto",
+      "three": "Percurso e consentimento"
+    },
+    "track": {
+      "legend": "Registo-me como",
+      "veteran": {
+        "title": "Veterano da clandestinidade",
+        "description": "Participou nas redes clandestinas de jovens ou estudantes entre 1975 e 1999."
+      },
+      "youth": {
+        "title": "Membro jovem / voluntário",
+        "description": "Quer participar hoje na educação cívica, nos debates e no serviço à comunidade."
+      }
+    },
+    "fields": {
+      "fullName": "Nome completo",
+      "clandestineAlias": "Nome clandestino (Naran Klandestin)",
+      "clandestineAliasHint": "O nome de código que usava na resistência, se tiver.",
+      "dateOfBirth": "Data de nascimento",
+      "gender": "Género",
+      "genders": {
+        "MALE": "Masculino",
+        "FEMALE": "Feminino",
+        "PREFER_NOT_TO_SAY": "Prefiro não dizer"
+      },
+      "photo": "Fotografia de perfil",
+      "photoHint": "JPG, PNG ou WebP. Fotografias grandes são reduzidas automaticamente para menos de 1 MB.",
+      "photoChoose": "Escolher fotografia",
+      "photoChange": "Mudar fotografia",
+      "photoRemove": "Remover",
+      "photoProcessing": "A preparar a fotografia…",
+      "photoPreview": "Fotografia de perfil selecionada",
+      "municipality": "Município",
+      "municipalityPlaceholder": "Selecione o seu município…",
+      "administrativePost": "Posto Administrativo",
+      "administrativePostHint": "Na Diáspora, indique a cidade e o país.",
+      "address": "Morada",
+      "phone": "Telefone / WhatsApp",
+      "email": "Email",
+      "nationalId": "Número do Bilhete de Identidade (BI)",
+      "nationalIdHint": "Usado apenas para verificar a sua identidade e evitar registos duplicados.",
+      "encrypted": "Cifrado",
+      "yearJoined": "Ano em que entrou no movimento clandestino",
+      "clandestineCell": "Célula ou rede clandestina",
+      "clandestineCellHint": "Por exemplo: a célula estudantil da sua escola ou o nome da sua rede.",
+      "clandestineRegion": "Região onde atuava",
+      "witnessReference": "Camarada que pode confirmar a sua participação",
+      "witnessReferenceHint": "Um nome ajuda o Secretariado a verificar o seu registo mais depressa.",
+      "institution": "Escola, universidade ou profissão",
+      "interests": "Áreas em que quer contribuir",
+      "interestAreas": {
+        "EDUCATION": "Educação",
+        "ADVOCACY": "Advocacia",
+        "MEDIA": "Comunicação social",
+        "COMMUNITY_SERVICE": "Serviço comunitário"
+      },
+      "motivation": "Porque quer juntar-se à OJETIL?",
+      "motivationCount": "{count} / 1000",
+      "consent": "Confirmo que a informação é verdadeira e concordo que a OJETIL trate os meus dados pessoais para verificar e gerir a minha adesão, conforme a nota de privacidade. Os dados sensíveis são cifrados e nunca partilhados sem a minha autorização.",
+      "optional": "opcional"
+    },
+    "actions": {
+      "back": "Voltar",
+      "next": "Continuar",
+      "submit": "Enviar registo",
+      "submitting": "A enviar em segurança…"
+    },
+    "success": {
+      "title": "Registo recebido",
+      "body": "Obrigado. O Secretariado da OJETIL vai analisar a sua candidatura.",
+      "codeLabel": "O seu código de acompanhamento",
+      "save": "Guarde este código — precisa dele, juntamente com a data de nascimento, para ver o estado.",
+      "statusLabel": "Estado atual",
+      "nextTitle": "Próximos passos",
+      "next1": "O Secretariado verifica os seus dados. Os veteranos podem ser contactados para confirmar o seu percurso.",
+      "next2": "Veja o estado a qualquer momento com o código e a data de nascimento.",
+      "next3": "Se for preciso corrigir algo, a página de estado indica o que fazer.",
+      "checkStatus": "Ver estado"
+    },
+    "errors": {
+      "category": "Escolha como se está a registar.",
+      "nameMin": "Indique o nome completo (pelo menos 3 caracteres).",
+      "nameMax": "O nome é demasiado longo.",
+      "aliasMax": "O nome clandestino é demasiado longo.",
+      "dobInvalid": "Indique uma data de nascimento válida.",
+      "dobRange": "Verifique a data de nascimento — é preciso ter pelo menos 13 anos.",
+      "gender": "Selecione uma opção.",
+      "municipality": "Selecione o seu município.",
+      "postRequired": "Indique o posto administrativo.",
+      "addressMin": "Indique a sua morada.",
+      "textMax": "Este texto é demasiado longo.",
+      "phone": "Indique um número de telefone válido, por exemplo +670 7723 4512.",
+      "email": "Indique um email válido ou deixe em branco.",
+      "nationalId": "Indique um número de BI válido (5–30 letras, números ou hífenes).",
+      "yearJoined": "Indique um ano entre 1975 e 1999.",
+      "yearJoinedAge": "Esse ano é anterior aos seus 8 anos — verifique, por favor.",
+      "cellRequired": "Indique o nome da sua célula ou rede.",
+      "institutionRequired": "Indique a escola, universidade ou profissão.",
+      "interests": "Escolha pelo menos uma área.",
+      "motivationMin": "Conte-nos um pouco mais (pelo menos 20 caracteres).",
+      "consent": "Tem de concordar antes de enviar.",
+      "photoSize": "A fotografia tem de ter menos de 1 MB.",
+      "photoType": "Use uma imagem JPG, PNG ou WebP.",
+      "rateLimited": "Demasiadas tentativas. Aguarde alguns minutos e tente novamente.",
+      "generic": "Ocorreu um erro. Os seus dados não foram guardados — tente novamente.",
+      "form": "Corrija os campos assinalados.",
+      "network": "Problema de ligação. Verifique a internet e tente novamente — as suas respostas continuam aqui."
+    }
+  },
+  "statusLookup": {
+    "metaTitle": "Ver estado do registo",
+    "eyebrow": "Comunidade",
+    "title": "Ver o estado do seu registo",
+    "lead": "Indique o código de acompanhamento e a data de nascimento.",
+    "privacyNote": "Para proteger a sua privacidade, nunca mostramos aqui o seu nome nem dados pessoais.",
+    "code": "Código de acompanhamento",
+    "codeHint": "Exemplo: OJT-2026-0042",
+    "dateOfBirth": "Data de nascimento",
+    "submit": "Ver estado",
+    "submitting": "A verificar…",
+    "categories": {
+      "VETERAN_KLANDESTIN": "Veterano da clandestinidade",
+      "ANGGOTA_PEMUDA": "Membro jovem / voluntário"
+    },
+    "result": {
+      "category": "Categoria",
+      "submitted": "Enviado",
+      "updated": "Última atualização",
+      "verifiedOn": "Verificado a",
+      "message": "Mensagem do Secretariado",
+      "contact": "Dúvidas? Contacte o Secretariado através de {email}.",
+      "another": "Ver outro código"
+    },
+    "statuses": {
+      "PENDING_VERIFICATION": {
+        "label": "A aguardar verificação",
+        "body": "A sua candidatura está na fila de verificação. Não precisa de fazer nada."
+      },
+      "NEEDS_REVISION": {
+        "label": "Precisa de revisão",
+        "body": "O Secretariado precisa de mais informação. Leia a mensagem abaixo e contacte-nos."
+      },
+      "VERIFIED": {
+        "label": "Verificado",
+        "body": "Bem-vindo à OJETIL! A sua adesão foi verificada."
+      },
+      "REJECTED": {
+        "label": "Não aprovado",
+        "body": "Não foi possível aprovar a sua candidatura. Veja o motivo na mensagem abaixo."
+      }
+    },
+    "errors": {
+      "code": "Indique um código como OJT-2026-0042.",
+      "dobInvalid": "Indique uma data de nascimento válida.",
+      "notFound": "Não encontrámos nenhuma candidatura com este código e data de nascimento. Verifique ambos e tente novamente.",
+      "rateLimited": "Demasiadas tentativas. Aguarde alguns minutos e tente novamente.",
+      "generic": "Ocorreu um erro. Tente novamente.",
+      "form": "Corrija os campos assinalados.",
+      "network": "Problema de ligação. Verifique a internet e tente novamente."
+    }
+  }
+}

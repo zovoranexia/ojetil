@@ -1,0 +1,27 @@
+# Local development database for OJETIL.
+#   npm run setup:env   # creates .env with generated secrets (incl. POSTGRES_PASSWORD)
+#   npm run db:up       # starts PostgreSQL on 127.0.0.1:${POSTGRES_PORT:-54329}
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: ojetil-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ojetil}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run `npm run setup:env` to create .env first}
+      POSTGRES_DB: ${POSTGRES_DB:-ojetil}
+      TZ: UTC
+      PGTZ: UTC
+    ports:
+      # Bound to loopback only; 54329 avoids clashing with a locally installed PostgreSQL.
+      - "127.0.0.1:${POSTGRES_PORT:-54329}:5432"
+    volumes:
+      - ojetil-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  ojetil-pgdata:
