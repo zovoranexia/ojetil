@@ -22,6 +22,13 @@
     "tryAgain": "Coba lagi",
     "backHome": "Kembali ke beranda"
   },
+  "share": {
+    "label": "Bagikan:",
+    "on": "Bagikan ke {network}",
+    "copyLink": "Salin tautan",
+    "copied": "Tautan disalin",
+    "more": "Lainnya…"
+  },
   "nav": {
     "primary": "Navigasi utama",
     "home": "Beranda",
