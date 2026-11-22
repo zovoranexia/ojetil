@@ -67,43 +67,61 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <PageHeader eyebrow={t("eyebrow")} title={profile?.title ?? t("metaTitle")} />
 
       <div className="mx-auto max-w-6xl px-4 py-12 md:px-8 md:py-16">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
+        {/* Reading order: Profile → Vision → Mission → Values / motto (same on every screen size). */}
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
           {profile ? <RichContent body={profile.body} className="text-lg md:text-xl" /> : null}
 
-          {/* Vision, mission, values */}
-          <div className="space-y-6">
-            {sections.VISION ? (
-              <section aria-labelledby="vision" className="rounded-card bg-ink p-6 text-paper">
-                <h2 id="vision" className="text-2xl text-gold-accent">
-                  {sections.VISION.title}
-                </h2>
-                <p className="mt-3 font-serif text-xl leading-snug">{articlePlainText(sections.VISION.body)}</p>
-              </section>
-            ) : null}
-            {sections.VALUES ? (
-              <section aria-labelledby="values" className="rounded-card border border-border-subtle bg-surface-card p-6">
-                <h2 id="values" className="text-xl">
-                  {sections.VALUES.title}
-                </h2>
-                <RichContent body={sections.VALUES.body} className="mt-3 text-base md:text-base" />
-              </section>
-            ) : null}
-          </div>
+          {sections.VISION ? (
+            <section aria-labelledby="vision" className="self-start rounded-card bg-ink p-6 text-paper md:p-8 lg:sticky lg:top-6">
+              <h2 id="vision" className="text-2xl text-gold-accent">
+                {sections.VISION.title}
+              </h2>
+              <p className="mt-4 font-serif text-xl leading-snug">{articlePlainText(sections.VISION.body)}</p>
+            </section>
+          ) : null}
         </div>
 
         {sections.MISSION ? (
-          <section aria-labelledby="mission" className="mt-14 border-t border-border-subtle pt-10">
+          <section aria-labelledby="mission" className="mt-16 border-t border-border-subtle pt-12">
             <h2 id="mission" className="text-3xl">
               {sections.MISSION.title}
             </h2>
-            <ol className="mt-6 grid gap-4 md:grid-cols-2">
-              {richListItems(sections.MISSION.body).map((item, i) => (
-                  <li key={i} className="flex gap-4 rounded-card border border-border-subtle bg-surface-card p-5">
+            <ol className="mt-8 grid gap-4 md:grid-cols-2">
+              {richListItems(sections.MISSION.body).map((item, i) => {
+                // "Title: explanation" → bold title, like the editors write them.
+                const colon = item.indexOf(":");
+                const hasTitle = colon > 0 && colon <= 80;
+                return (
+                  <li key={i} className="flex gap-4 rounded-card border border-border-subtle bg-surface-card p-5 md:p-6">
                     <span className="font-serif text-3xl font-bold tabular-nums text-ojetil-red">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="pt-1">{item}</span>
+                    <p className="pt-1 leading-relaxed">
+                      {hasTitle ? (
+                        <>
+                          <strong className="block font-semibold text-ink">{item.slice(0, colon)}</strong>
+                          <span className="text-ink-secondary">{item.slice(colon + 1).trim()}</span>
+                        </>
+                      ) : (
+                        item
+                      )}
+                    </p>
                   </li>
-                ))}
+                );
+              })}
             </ol>
+          </section>
+        ) : null}
+
+        {sections.VALUES ? (
+          <section aria-labelledby="values" className="mt-16 grid gap-6 border-t border-border-subtle pt-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-12">
+            <div>
+              <span aria-hidden="true" className="block h-1 w-12 rounded-full bg-gold-accent" />
+              <h2 id="values" className="mt-4 text-3xl">
+                {sections.VALUES.title}
+              </h2>
+            </div>
+            <div className="rounded-card border border-border-subtle bg-surface-card p-6 md:p-8">
+              <RichContent body={sections.VALUES.body} />
+            </div>
           </section>
         ) : null}
       </div>

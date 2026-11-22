@@ -150,7 +150,6 @@
       "PRESS_RELEASE": "Siaran pers"
     },
     "results": "{count, plural, =0 {Tidak ada artikel} other {# artikel}}",
-    "resultsFor": "untuk “{query}”",
     "empty": "Tidak ada artikel yang cocok dengan pencarian Anda.",
     "publishedOn": "Diterbitkan {date}",
     "back": "Kembali ke berita",
@@ -163,9 +162,8 @@
     "allMunicipalities": "Semua munisipalitas",
     "national": "Nasional",
     "tagsLabel": "Tag",
-    "tagFilter": "Tag: {tag}",
     "watchVideo": "Tonton video",
-    "applyFilter": "Terapkan"
+    "removeFilter": "Hapus filter: {label}"
   },
   "events": {
     "metaTitle": "Acara pemuda",

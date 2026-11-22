@@ -150,7 +150,6 @@
       "PRESS_RELEASE": "Komunikadu imprensa"
     },
     "results": "{count, plural, =0 {La iha artigu} other {Artigu #}}",
-    "resultsFor": "ba “{query}”",
     "empty": "La iha artigu ne'ebé tuir ita-nia buka.",
     "publishedOn": "Publika iha {date}",
     "back": "Fila ba notísia",
@@ -163,9 +162,8 @@
     "allMunicipalities": "Munisípiu hotu",
     "national": "Nasionál",
     "tagsLabel": "Etiketa",
-    "tagFilter": "Etiketa: {tag}",
     "watchVideo": "Haree vídeo",
-    "applyFilter": "Filtra"
+    "removeFilter": "Hasai filtru: {label}"
   },
   "events": {
     "metaTitle": "Eventu juventude",
