@@ -11,7 +11,6 @@ CREATE TYPE "RegistrationChannel" AS ENUM ('ONLINE', 'OFFICE');
 
 ALTER TYPE "AuditAction" ADD VALUE 'MEMBER_REGISTERED_OFFICE';
 ALTER TYPE "AuditAction" ADD VALUE 'MEMBER_CARD_PRINTED';
-ALTER TYPE "AuditAction" ADD VALUE 'MEMBER_DECISION_BLOCKED';
 
 -- AlterTable
 ALTER TABLE "member_registrations" ADD COLUMN     "channel" "RegistrationChannel" NOT NULL DEFAULT 'ONLINE',

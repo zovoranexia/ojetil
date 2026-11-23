@@ -9,6 +9,7 @@ import { msg } from "@/lib/i18n-message";
 import { recordAudit } from "@/modules/audit/service";
 import { sendMemberDecision } from "@/modules/notifications/emails";
 import { decisionSchema, memberIdSchema } from "./admin-schema";
+import { applyMemberDecision } from "./decision-service";
 import { decryptMemberPii } from "./pii";
 
 /**
@@ -59,62 +60,12 @@ export const logMemberCardPrint = authorizedAction(
 );
 
 /**
- * Approve / request revision / reject. Status, history and audit entry are
- * written in one transaction; a stale `expectedStatus` aborts with CONFLICT.
+ * Approve / request revision / reject. Office registrations may be decided by
+ * the staff member who entered them; that is marked in the audit entry
+ * (see applyMemberDecision).
  */
 export const decideMemberRegistration = authorizedAction("members:verify", decisionSchema, async (input, user) => {
-  /*
-   * Four-eyes rule: whoever entered an application at the office may not verify,
-   * send back or reject it — for every role, Super Admin included. The refused
-   * attempt is audited (outside the decision transaction, so it is kept).
-   */
-  const entered = await db.memberRegistration.findUnique({ where: { id: input.id }, select: { registeredById: true, trackingCode: true } });
-  if (entered?.registeredById && entered.registeredById === user.id) {
-    await recordAudit({
-      action: "MEMBER_DECISION_BLOCKED",
-      actor: user,
-      target: { type: "MemberRegistration", id: input.id },
-      metadata: { trackingCode: entered.trackingCode, attempted: input.decision, reason: "FOUR_EYES_SAME_OFFICER" },
-    });
-    throw new ActionError("FORBIDDEN", msg("admin.members.errors.fourEyes"));
-  }
-
-  const result = await db.$transaction(async (tx) => {
-    const current = await tx.memberRegistration.findUnique({ where: { id: input.id }, select: { status: true, trackingCode: true } });
-    if (!current) throw new ActionError("NOT_FOUND", msg("admin.members.errors.notFound"));
-    if (current.status !== input.expectedStatus) {
-      throw new ActionError("CONFLICT", msg("admin.members.errors.conflict"));
-    }
-    if (current.status === input.decision) {
-      throw new ActionError("CONFLICT", msg("admin.members.errors.alreadyStatus"));
-    }
-
-    const now = new Date();
-    const updated = await tx.memberRegistration.updateMany({
-      where: { id: input.id, status: input.expectedStatus },
-      data: {
-        status: input.decision,
-        verificationNotes: input.note,
-        verifiedById: user.id,
-        verifiedAt: input.decision === "VERIFIED" ? now : null,
-      },
-    });
-    if (updated.count !== 1) throw new ActionError("CONFLICT", msg("admin.members.errors.conflict"));
-
-    await tx.memberStatusChange.create({
-      data: { registrationId: input.id, fromStatus: current.status, toStatus: input.decision, note: input.note, actorId: user.id },
-    });
-    await recordAudit(
-      {
-        action: "MEMBER_STATUS_CHANGED",
-        actor: user,
-        target: { type: "MemberRegistration", id: input.id },
-        metadata: { trackingCode: current.trackingCode, from: current.status, to: input.decision },
-      },
-      tx,
-    );
-    return { trackingCode: current.trackingCode, status: input.decision };
-  });
+  const result = await db.$transaction((tx) => applyMemberDecision(tx, input, user));
 
   revalidatePath("/admin/anggota");
   revalidatePath(`/admin/anggota/${input.id}`);

@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import type { SessionUser } from "@/lib/security/guards";
 import { recordAudit } from "@/modules/audit/service";
 import { issueCardAccessToken } from "./card";
+import { applyMemberDecision } from "./decision-service";
 import { encryptMemberPii } from "./pii";
 import { deleteProfilePhoto, storeProfilePhoto } from "./photo-storage";
 import { CONSENT_VERSION, parseIsoDate, type MemberSubmission } from "./registration-schema";
@@ -18,15 +19,15 @@ import { CONSENT_VERSION, parseIsoDate, type MemberSubmission } from "./registra
  * is a member or veteran. Verifiers see possible duplicates via the blind index.
  *
  * `registeredBy`: staff entering the application at the office (channel
- * OFFICE). The record keeps who entered it, so that person can never also
- * verify it (four-eyes rule, see decideMemberRegistration), and the entry is
- * audited in the same transaction.
+ * OFFICE). The record keeps who entered it and the entry is audited in the
+ * same transaction. `verifyNow`: the same staff member verifies it on the spot
+ * (audited as self-verified); otherwise it waits in the verification queue.
  */
 export async function submitMemberRegistration(
   data: MemberSubmission,
   photo: Buffer | null,
   locale: AppLocale,
-  options: { registeredBy?: SessionUser } = {},
+  options: { registeredBy?: SessionUser; verifyNow?: { note: string } } = {},
 ): Promise<{ id: string; trackingCode: string; status: RegistrationStatus }> {
   const photoKey = photo ? await storeProfilePhoto(photo) : null;
   const now = new Date();
@@ -81,7 +82,15 @@ export async function submitMemberRegistration(
             tx,
           );
         }
-        return { id: created.id, trackingCode, status: "PENDING_VERIFICATION" as const };
+        if (office && options.verifyNow) {
+          const decided = await applyMemberDecision(
+            tx,
+            { id: created.id, decision: "VERIFIED", expectedStatus: "PENDING_VERIFICATION", note: options.verifyNow.note },
+            office,
+          );
+          return { id: created.id, trackingCode, status: decided.status as RegistrationStatus };
+        }
+        return { id: created.id, trackingCode, status: "PENDING_VERIFICATION" as RegistrationStatus };
       },
       { maxWait: 10_000, timeout: 15_000 },
     );

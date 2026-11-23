@@ -63,7 +63,7 @@ export async function readMemberSubmission(
   request: Request,
   t: Translate,
   options: MemberSchemaOptions & { honeypot: boolean },
-): Promise<{ ok: true; data: MemberSubmission; photo: Buffer | null } | { ok: false; response: Response }> {
+): Promise<{ ok: true; data: MemberSubmission; photo: Buffer | null; form: FormData } | { ok: false; response: Response }> {
   const fail = (response: Response) => ({ ok: false as const, response });
 
   // Browsers always send Content-Length for FormData; refusing chunked bodies stops unbounded uploads.
@@ -106,5 +106,5 @@ export async function readMemberSubmission(
       throw error;
     }
   }
-  return { ok: true, data: parsed.data, photo };
+  return { ok: true, data: parsed.data, photo, form };
 }
