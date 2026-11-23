@@ -348,6 +348,14 @@ html.dark .rich-content a {
   .rich-content > * + * {
     margin-top: 1rem;
   }
+  .rich-content p[style*="justify"] {
+    hyphens: auto;
+  }
+  @media (max-width: 639px) {
+    .rich-content p[style*="justify"] {
+      text-align: start !important; /* overrides the editor's inline style */
+    }
+  }
   .rich-content h2 {
     font-family: var(--ojetil-font-serif);
     font-size: 1.5rem;

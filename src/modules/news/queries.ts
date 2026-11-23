@@ -148,10 +148,11 @@ export async function listPublishedNews(params: {
   };
 }
 
-export async function latestNews(locale: AppLocale, take = 3): Promise<NewsListItem[]> {
+export async function latestNews(locale: AppLocale, take = 3, opts: { featuredFirst?: boolean; excludeSlug?: string } = {}): Promise<NewsListItem[]> {
+  const { featuredFirst = true, excludeSlug } = opts;
   const rows = await db.newsArticle.findMany({
-    where: publishedWhere(new Date()),
-    orderBy: [{ isFeatured: "desc" }, { publishedAt: "desc" }],
+    where: { ...publishedWhere(new Date()), ...(excludeSlug ? { slug: { not: excludeSlug } } : {}) },
+    orderBy: featuredFirst ? [{ isFeatured: "desc" }, { publishedAt: "desc" }] : [{ publishedAt: "desc" }],
     take,
     select: listSelect(),
   });

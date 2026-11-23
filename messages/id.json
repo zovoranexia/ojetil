@@ -172,7 +172,12 @@
     "national": "Nasional",
     "tagsLabel": "Tag",
     "watchVideo": "Tonton video",
-    "removeFilter": "Hapus filter: {label}"
+    "removeFilter": "Hapus filter: {label}",
+    "readingTime": "{minutes} menit baca",
+    "latest": "Berita terbaru",
+    "shareArticle": "Bagikan berita ini",
+    "joinTitle": "Bergabung dengan OJETIL",
+    "joinBody": "Daftar sebagai veteran front klandestin atau sebagai anggota muda dan relawan."
   },
   "events": {
     "metaTitle": "Acara pemuda",

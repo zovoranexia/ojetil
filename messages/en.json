@@ -172,7 +172,12 @@
     "national": "National",
     "tagsLabel": "Tags",
     "watchVideo": "Watch the video",
-    "removeFilter": "Remove filter: {label}"
+    "removeFilter": "Remove filter: {label}",
+    "readingTime": "{minutes} min read",
+    "latest": "Latest news",
+    "shareArticle": "Share this article",
+    "joinTitle": "Join OJETIL",
+    "joinBody": "Register as a clandestine-front veteran or as a youth member and volunteer."
   },
   "events": {
     "metaTitle": "Youth events",

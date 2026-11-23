@@ -172,7 +172,12 @@
     "national": "Nasionál",
     "tagsLabel": "Etiketa",
     "watchVideo": "Haree vídeo",
-    "removeFilter": "Hasai filtru: {label}"
+    "removeFilter": "Hasai filtru: {label}",
+    "readingTime": "{minutes} min lee",
+    "latest": "Notísia foun",
+    "shareArticle": "Fahe notísia ne'e",
+    "joinTitle": "Sai parte husi OJETIL",
+    "joinBody": "Rejista an hanesan veteranu frente klandestina ka membru joven no voluntáriu."
   },
   "events": {
     "metaTitle": "Eventu juventude",
