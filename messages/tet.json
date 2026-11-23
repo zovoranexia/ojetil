@@ -321,7 +321,10 @@
       "motivation": "Tanba sá mak ita hakarak tama OJETIL?",
       "motivationCount": "{count} / 1000",
       "consent": "Hau konfirma katak informasaun hotu loos no hau konkorda katak OJETIL prosesa hau-nia dadus pesoál atu verifika no jere hau-nia membru, tuir nota privasidade. Dadus sensível enkriptadu no sei la fahe sein hau-nia autorizasaun.",
-      "optional": "opsionál"
+      "optional": "opsionál",
+      "photoCamera": "Foti foto ho kámara",
+      "photoCapture": "Foti",
+      "photoCameraCancel": "Kansela"
     },
     "actions": {
       "back": "Fila",
@@ -368,7 +371,13 @@
       "rateLimited": "Koko barak liu. Favór hein minutu balun no koko fali.",
       "generic": "Iha problema ruma. Ita-nia dadus seidauk rai — favór koko fali.",
       "form": "Favór hadia kampu sira ne'ebé marka.",
-      "network": "Problema ligasaun. Haree ita-nia internet no koko fali — ita-nia resposta sei iha ne'e."
+      "network": "Problema ligasaun. Haree ita-nia internet no koko fali — ita-nia resposta sei iha ne'e.",
+      "photoCameraUnavailable": "Kámara la disponível ka la fó permisaun. Uza \"Hili foto\" hodi upload fixeiru."
+    },
+    "office": {
+      "consent": "Ha'u konfirma katak membru ne'e lee/rona nota privasidade no konkorda (lisan ka hakerek) atu OJETIL prosesa nia dadus.",
+      "submit": "Rai no haruka ba verifikasaun",
+      "phoneHint": "Hamoos se membru la iha telefone."
     }
   },
   "statusLookup": {
@@ -771,7 +780,10 @@
         "MEDIA_UPDATED": "Edita média",
         "MEDIA_DELETED": "Hamoos média",
         "MESSAGE_STATUS_CHANGED": "Status mensajen muda",
-        "MESSAGE_DELETED": "Mensajen hamoos"
+        "MESSAGE_DELETED": "Mensajen hamoos",
+        "MEMBER_REGISTERED_OFFICE": "Membru rejista iha eskritóriu",
+        "MEMBER_CARD_PRINTED": "Kartaun membru imprime",
+        "MEMBER_DECISION_BLOCKED": "Desizaun bloke (matan haat)"
       }
     },
     "designSystem": {
@@ -850,7 +862,11 @@
         "consentGiven": "Fó iha {date} (nota {version})",
         "memberCard": "Kartaun membru",
         "memberCardHint": "Imprime kartaun atu entrega ba membru. Kódigu QR verifika status ativu.",
-        "printCard": "Imprime kartaun"
+        "registeredBanner": "Rejistu {code} rai ona no tama ba lista verifikasaun. Husu kolega seluk atu verifika; depois kartaun bele imprime.",
+        "printCr80": "PDF ukuran kartaun (CR80)",
+        "printA4": "Imprime iha papél A4",
+        "printHint": "CR80: pájina rua 54 × 85,6 mm (oin no kotuk) — hili \"Rai hanesan PDF\" ka imprimadór kartaun. A4: oin no kotuk iha folla ida atu tesoura.",
+        "printFailed": "La konsege prepara impresaun. Koko fali."
       },
       "fields": {
         "fullName": "Naran kompletu",
@@ -868,7 +884,8 @@
         "institution": "Eskola / universidade / servisu",
         "interests": "Área interese",
         "motivation": "Motivasaun",
-        "consent": "Konsentimentu"
+        "consent": "Konsentimentu",
+        "channel": "Kanál rejistu"
       },
       "genders": {
         "MALE": "Mane",
@@ -902,7 +919,8 @@
         "noteHint": "Obrigatóriu ba desizaun hotu. Ba “Husu revizaun” no “Rejeita”, nota ne'e sei mosu ba kandidatu iha pájina status públiku — hakerek ba sira.",
         "confirmDescription": "Nota: “{note}”. Ne'e rejista iha istória verifikasaun no rejistu auditoria.",
         "tooShort": "Hakerek nota ida (karakter 5 ka liu) atu ativa butaun desizaun.",
-        "success": "Status ba {code} atualiza ona."
+        "success": "Status ba {code} atualiza ona.",
+        "fourEyesBlocked": "Ita mak rejista membru ne'e iha eskritóriu, entaun ita labele desidi. Husu ema seluk ho papél Verifikadór ka Super Admin atu verifika."
       },
       "validation": {
         "noteMin": "Hakerek razaun badak ida (karakter 5 ka liu)."
@@ -910,7 +928,22 @@
       "errors": {
         "notFound": "La hetan rejistu.",
         "conflict": "Ema seluk atualiza ona kandidatura ne'e. Karrega fali pájina atu haree status foun.",
-        "alreadyStatus": "Kandidatura ne'e iha ona status ne'e."
+        "alreadyStatus": "Kandidatura ne'e iha ona status ne'e.",
+        "fourEyes": "Regra matan haat: ema ne'ebé rejista iha eskritóriu labele desidi. Tentativa ne'e rejistu iha auditoria.",
+        "cardNotVerified": "Kartaun disponível de'it ba membru verifikadu."
+      },
+      "office": {
+        "metaTitle": "Rejista membru iha eskritóriu",
+        "back": "Fila ba lista",
+        "title": "Rejista membru iha eskritóriu",
+        "description": "Ba membru ne'ebé la iha asesu internet. Formuláriu, validasaun no enkriptasaun hanesan iha website.",
+        "fourEyesNote": "Regra matan haat: pendaftaran ne'e tama ba lista hein verifikasaun. Ema seluk (la'ós ita) mak sei verifika, haruka hadia ka rejeita — Super Admin mós hanesan.",
+        "button": "Rejista iha eskritóriu"
+      },
+      "channel": {
+        "online": "Website (online)",
+        "office": "Eskritóriu",
+        "officeBy": "Eskritóriu — rejista husi {name}"
       }
     },
     "news": {
@@ -1796,7 +1829,6 @@
     "since": "Membru dezde",
     "number": "Nú. membru",
     "qrAlt": "Kódigu QR atu verifika kartaun",
-    "print": "Imprime ka rai hanesan PDF",
     "tipVerify": "Ema ne'ebé scan kódigu QR sei haree katak ita-nia membru válidu — se status muda, kartaun la válidu ona.",
     "tipSave": "Iha telemóvel: hili \"Imprime\" depois \"Rai hanesan PDF\", ka foti screenshot.",
     "tipExpiry": "Link ba pájina ne'e válidu minutu 30 de'it. Atu loke fali, haree status ho ita-nia kódigu no data moris.",
@@ -1804,7 +1836,11 @@
     "expiredBody": "Atu seguransa, link kartaun válidu minutu 30 de'it. Haree status fali atu loke kartaun.",
     "checkAgain": "Haree status",
     "values": "JUVENTUDE • SOLIDARIEDADE • DEZENVOLVIMENTU",
-    "backLabel": "Kotuk kartaun membru OJETIL"
+    "backLabel": "Kotuk kartaun membru OJETIL",
+    "printCr80": "PDF ukuran kartaun (CR80)",
+    "printA4": "Imprime iha papél A4",
+    "printHint": "CR80: pájina rua 54 × 85,6 mm (oin no kotuk) — hili \"Rai hanesan PDF\" ka imprimadór kartaun. A4: oin no kotuk iha folla ida atu tesoura.",
+    "printFailed": "La konsege prepara impresaun. Koko fali."
   },
   "memberVerify": {
     "metaTitle": "Verifikasaun membru",

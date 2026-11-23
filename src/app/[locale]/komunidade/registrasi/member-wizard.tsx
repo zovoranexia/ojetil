@@ -28,7 +28,7 @@ import {
 
 type Step = 1 | 2 | 3;
 type ApiResult =
-  | { ok: true; data: { trackingCode: string; status: string } }
+  | { ok: true; data: { id?: string; trackingCode: string; status: string } }
   | { ok: false; error: { code: string; message: string; fieldErrors?: Record<string, string[]> } };
 
 const DEFAULTS: MemberFormValues = {
@@ -60,7 +60,20 @@ function stepOfField(field: string): Step {
   return 3;
 }
 
-export function MemberWizard() {
+/**
+ * `public`: self-service form on the website.
+ * `office`: the same form used by Secretariat staff in the backoffice for a member
+ * at the desk — posts to the staff endpoint, phone optional, consent confirmed by
+ * staff, webcam photo, and hands the created record to `onOfficeCreated`.
+ */
+export function MemberWizard({
+  mode = "public",
+  onOfficeCreated,
+}: {
+  mode?: "public" | "office";
+  onOfficeCreated?: (created: { id: string; trackingCode: string }) => void;
+} = {}) {
+  const office = mode === "office";
   const t = useTranslations("memberRegistration");
   const tf = useTranslations("memberRegistration.fields");
   const te = useTranslations("memberRegistration.errors");
@@ -77,7 +90,7 @@ export function MemberWizard() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const alertRef = useRef<HTMLDivElement>(null);
 
-  const schemas = useMemo(() => memberStepSchemas((k) => te(k)), [te]);
+  const schemas = useMemo(() => memberStepSchemas((k) => te(k), new Date(), { phoneOptional: office }), [te, office]);
 
   /** Validates only the current step; `raw` keeps every step's values for the final submit. */
   const resolver: Resolver<MemberFormValues> = useMemo(
@@ -128,11 +141,11 @@ export function MemberWizard() {
 
   // Warn before leaving with unsaved answers (no PII is kept in browser storage).
   useEffect(() => {
-    if (!isDirty || result) return;
+    if (!isDirty || result || submitting) return;
     const onBeforeUnload = (e: BeforeUnloadEvent) => e.preventDefault();
     window.addEventListener("beforeunload", onBeforeUnload);
     return () => window.removeEventListener("beforeunload", onBeforeUnload);
-  }, [isDirty, result]);
+  }, [isDirty, result, submitting]);
 
   function goTo(next: Step) {
     attempted.current = false;
@@ -163,7 +176,8 @@ export function MemberWizard() {
 
     let json: ApiResult;
     try {
-      const response = await fetch(`/api/members?locale=${encodeURIComponent(locale)}`, { method: "POST", body });
+      const endpoint = office ? "/api/admin/members/office" : "/api/members";
+      const response = await fetch(`${endpoint}?locale=${encodeURIComponent(locale)}`, { method: "POST", body });
       json = (await response.json()) as ApiResult;
     } catch {
       setSubmitting(false);
@@ -174,6 +188,10 @@ export function MemberWizard() {
     setSubmitting(false);
 
     if (json.ok) {
+      if (office && json.data.id) {
+        onOfficeCreated?.({ id: json.data.id, trackingCode: json.data.trackingCode });
+        return;
+      }
       setResult({ trackingCode: json.data.trackingCode });
       requestAnimationFrame(() => {
         headingRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -396,6 +414,11 @@ export function MemberWizard() {
             }}
             error={photoError}
             onError={setPhotoError}
+            camera={
+              office
+                ? { open: tf("photoCamera"), capture: tf("photoCapture"), cancel: tf("photoCameraCancel"), unavailable: te("photoCameraUnavailable") }
+                : undefined
+            }
             labels={{
               label: tf("photo"),
               hint: tf("photoHint"),
@@ -450,7 +473,15 @@ export function MemberWizard() {
           </Field>
 
           <div className="grid gap-6 sm:grid-cols-2">
-            <Field id="phone" label={tf("phone")} required encryptedLabel={tf("encrypted")} error={err("phone")}>
+            <Field
+              id="phone"
+              label={tf("phone")}
+              required={!office}
+              optionalLabel={office ? tf("optional") : undefined}
+              hint={office ? t("office.phoneHint") : undefined}
+              encryptedLabel={tf("encrypted")}
+              error={err("phone")}
+            >
               <Input type="tel" inputMode="tel" autoComplete="tel" placeholder="+670" {...fieldAria("phone", { error: err("phone") })} {...register("phone")} />
             </Field>
             <Field id="email" label={tf("email")} optionalLabel={tf("optional")} error={err("email")}>
@@ -571,7 +602,7 @@ export function MemberWizard() {
                 {...register("consent")}
               />
               <label htmlFor="consent" className="text-sm text-ink">
-                {tf("consent")}
+                {office ? t("office.consent") : tf("consent")}
                 <span aria-hidden="true" className="ml-0.5 text-ojetil-red">
                   *
                 </span>
@@ -603,7 +634,7 @@ export function MemberWizard() {
         ) : (
           <Button type="submit" disabled={submitting} aria-busy={submitting}>
             {submitting ? <Loader2 aria-hidden="true" className="animate-spin" /> : <Lock aria-hidden="true" />}
-            {submitting ? t("actions.submitting") : t("actions.submit")}
+            {submitting ? t("actions.submitting") : office ? t("office.submit") : t("actions.submit")}
           </Button>
         )}
       </div>

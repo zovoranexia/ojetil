@@ -1,6 +1,6 @@
 "use client";
 
-import { Camera, Loader2, Trash2 } from "lucide-react";
+import { Camera, Loader2, Trash2, Video, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { MAX_PHOTO_BYTES, PHOTO_MIME_TYPES } from "@/modules/members/registration-schema";
 
@@ -49,6 +49,14 @@ export interface PhotoFieldLabels {
   errorType: string;
 }
 
+/** Webcam capture (office desk). Omit to offer file upload only. */
+export interface PhotoCameraLabels {
+  open: string;
+  capture: string;
+  cancel: string;
+  unavailable: string;
+}
+
 export function PhotoField({
   value,
   onChange,
@@ -56,6 +64,7 @@ export function PhotoField({
   onError,
   labels,
   disabled,
+  camera,
 }: {
   value: File | null;
   onChange: (file: File | null) => void;
@@ -63,11 +72,58 @@ export function PhotoField({
   onError: (message: string | undefined) => void;
   labels: PhotoFieldLabels;
   disabled?: boolean;
+  camera?: PhotoCameraLabels;
 }) {
   const id = useId();
   const inputRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const [processing, setProcessing] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [cameraOn, setCameraOn] = useState(false);
+
+  const stopCamera = () => {
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+    setCameraOn(false);
+  };
+  useEffect(() => () => streamRef.current?.getTracks().forEach((t) => t.stop()), []);
+
+  async function startCamera() {
+    if (!camera) return;
+    onError(undefined);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 960 } }, audio: false });
+      streamRef.current = stream;
+      setCameraOn(true);
+      requestAnimationFrame(() => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          void videoRef.current.play();
+        }
+      });
+    } catch {
+      onError(camera.unavailable);
+    }
+  }
+
+  /** Grabs a portrait (3:4) frame from the webcam and feeds it through the normal file path. */
+  async function capture() {
+    const video = videoRef.current;
+    if (!video || !video.videoWidth) return;
+    const targetRatio = 3 / 4;
+    let sw = video.videoWidth;
+    let sh = video.videoHeight;
+    if (sw / sh > targetRatio) sw = Math.round(sh * targetRatio);
+    else sh = Math.round(sw / targetRatio);
+    const canvas = document.createElement("canvas");
+    canvas.width = sw;
+    canvas.height = sh;
+    canvas.getContext("2d")?.drawImage(video, (video.videoWidth - sw) / 2, (video.videoHeight - sh) / 2, sw, sh, 0, 0, sw, sh);
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.9));
+    stopCamera();
+    if (blob) await handleFile(new File([blob], "camera.jpg", { type: "image/jpeg" }));
+  }
 
   useEffect(() => {
     if (!value) {
@@ -134,6 +190,17 @@ export function PhotoField({
               onChange={(e) => handleFile(e.target.files?.[0])}
             />
           </label>
+          {camera && !cameraOn ? (
+            <button
+              type="button"
+              onClick={() => void startCamera()}
+              disabled={disabled || processing}
+              className="inline-flex min-h-tap items-center gap-2 rounded-control border border-border-subtle bg-surface-card px-4 text-sm font-semibold text-ink hover:border-border-strong md:min-h-10"
+            >
+              <Video aria-hidden="true" className="size-4" />
+              {camera.open}
+            </button>
+          ) : null}
           {value && !processing ? (
             <button
               type="button"
@@ -147,6 +214,20 @@ export function PhotoField({
           ) : null}
         </div>
       </div>
+      {camera && cameraOn ? (
+        <div className="space-y-2 rounded-card border border-border-subtle bg-ink p-2">
+          {/* Mirrored like a mirror for the person in front of it; the captured photo is not mirrored. */}
+          <video ref={videoRef} playsInline muted aria-label={camera.open} className="mx-auto aspect-[3/4] max-h-80 rounded-control bg-black object-cover [transform:scaleX(-1)]" />
+          <div className="flex justify-center gap-2">
+            <button type="button" onClick={() => void capture()} className="inline-flex min-h-tap items-center gap-2 rounded-control bg-ojetil-red px-4 text-sm font-semibold text-white hover:bg-ojetil-red-hover md:min-h-10">
+              <Camera aria-hidden="true" className="size-4" /> {camera.capture}
+            </button>
+            <button type="button" onClick={stopCamera} className="inline-flex min-h-tap items-center gap-2 rounded-control px-4 text-sm font-semibold text-paper hover:bg-paper/10 md:min-h-10">
+              <X aria-hidden="true" className="size-4" /> {camera.cancel}
+            </button>
+          </div>
+        </div>
+      ) : null}
       <p id={`${id}-hint`} className="text-xs text-ink-secondary">
         {labels.hint}
       </p>

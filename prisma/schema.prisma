@@ -95,6 +95,7 @@ model User {
   galleryAlbums       GalleryAlbum[]       @relation("GalleryCreatedBy")
   events              Event[]              @relation("EventCreatedBy")
   verifiedMembers     MemberRegistration[] @relation("MemberVerifiedBy")
+  registeredMembers   MemberRegistration[] @relation("MemberRegisteredBy")
   memberStatusChanges MemberStatusChange[]
   auditLogs           AuditLog[]
 
@@ -127,6 +128,14 @@ enum InterestArea {
   ADVOCACY
   MEDIA
   COMMUNITY_SERVICE
+}
+
+/// How an application reached OJETIL.
+enum RegistrationChannel {
+  /// Self-service form on the website.
+  ONLINE
+  /// Entered by Secretariat staff at the office (member without internet access).
+  OFFICE
 }
 
 model MemberRegistration {
@@ -180,6 +189,11 @@ model MemberRegistration {
   consentAt      DateTime @db.Timestamptz(3)
 
   submittedLocale Locale @default(TET)
+
+  // Channel: ONLINE (website) or OFFICE (entered by staff, who is recorded).
+  channel        RegistrationChannel @default(ONLINE)
+  registeredById String?
+  registeredBy   User?               @relation("MemberRegisteredBy", fields: [registeredById], references: [id], onDelete: SetNull)
 
   // Verification
   verifiedById      String?
@@ -619,6 +633,9 @@ enum AuditAction {
   MEMBER_PII_VIEWED
   MEMBER_STATUS_CHANGED
   MEMBER_EXPORTED
+  MEMBER_REGISTERED_OFFICE
+  MEMBER_CARD_PRINTED
+  MEMBER_DECISION_BLOCKED
   // CONTENT
   CONTENT_CREATED
   CONTENT_UPDATED

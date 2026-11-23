@@ -4,11 +4,11 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { AdminPageHeading } from "@/components/admin/ui";
 import { CardPrintStyles } from "@/components/members/card-print-styles";
 import { MemberCard } from "@/components/members/member-card";
-import { PrintCardButton } from "@/components/members/print-card-button";
 import { isAppLocale } from "@/config/locales";
 import { satisfies } from "@/config/rbac";
 import { requirePageAccess } from "@/lib/security/guards";
 import { getMemberCard } from "@/modules/members/card";
+import { AdminCardPrint } from "./admin-card-print";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("admin.members");
@@ -37,8 +37,8 @@ export default async function AdminMemberCardPage({ params }: { params: Promise<
       </div>
       <div className="max-w-3xl">
         <MemberCard card={card} photoSrc={card.hasPhoto && canSeePhoto ? `/api/admin/members/${id}/photo` : null} locale={locale} />
-        <div className="mt-6 print:hidden">
-          <PrintCardButton label={t("detail.printCard")} />
+        <div className="mt-6">
+          <AdminCardPrint id={id} />
         </div>
       </div>
     </>

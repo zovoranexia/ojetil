@@ -26,8 +26,9 @@ function Item({ label, children }: { label: string; children: React.ReactNode })
   );
 }
 
-export default async function MemberDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function MemberDetailPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ registered?: string }> }) {
   const { id } = await params;
+  const { registered } = await searchParams;
   const user = await requirePageAccess("members:read", `/admin/anggota/${id}`);
   const m = await getMemberDetail(id);
   if (!m) notFound();
@@ -57,6 +58,12 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
           </div>
         }
       />
+
+      {registered && m.channel === "OFFICE" ? (
+        <p role="status" className="mb-6 rounded-card border border-status-verified/30 bg-status-verified-bg p-4 text-sm text-status-verified">
+          {t("detail.registeredBanner", { code: m.trackingCode })}
+        </p>
+      ) : null}
 
       {m.duplicates.length ? (
         <div role="note" className="mb-6 flex gap-3 rounded-card border border-status-pending/30 bg-status-pending-bg p-4 text-sm text-status-pending">
@@ -89,6 +96,9 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
               <Item label={t("fields.administrativePost")}>{m.administrativePost}</Item>
               <Item label={t("fields.email")}>{m.email}</Item>
               <Item label={t("fields.submittedIn")}>{LOCALE_META[fromDbLocale(m.submittedLocale)].nativeName}</Item>
+              <Item label={t("fields.channel")}>
+                {m.channel === "OFFICE" ? t("channel.officeBy", { name: m.registeredBy?.name ?? "—" }) : t("channel.online")}
+              </Item>
             </dl>
           </Panel>
 
@@ -130,7 +140,7 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
         <div className="space-y-6">
           {satisfies(user.role, "members:verify") ? (
             <Panel title={t("detail.decision")} description={t("detail.currentStatus", { status: tStatus(`member.${m.status}`) })}>
-              <DecisionPanel id={m.id} status={m.status} />
+              <DecisionPanel id={m.id} status={m.status} blockedReason={m.registeredById === user.id ? t("decision.fourEyesBlocked") : undefined} />
             </Panel>
           ) : null}
 

@@ -321,7 +321,10 @@
       "motivation": "Why do you want to join OJETIL?",
       "motivationCount": "{count} / 1000",
       "consent": "I confirm the information is true and I agree that OJETIL processes my personal data to verify and manage my membership, as described in the privacy notice. Sensitive data is encrypted and never shared without my permission.",
-      "optional": "optional"
+      "optional": "optional",
+      "photoCamera": "Take photo with camera",
+      "photoCapture": "Capture",
+      "photoCameraCancel": "Cancel"
     },
     "actions": {
       "back": "Back",
@@ -368,7 +371,13 @@
       "rateLimited": "Too many attempts. Please wait a few minutes and try again.",
       "generic": "Something went wrong. Your data was not saved — please try again.",
       "form": "Please correct the highlighted fields.",
-      "network": "Connection problem. Check your internet and try again — your answers are still here."
+      "network": "Connection problem. Check your internet and try again — your answers are still here.",
+      "photoCameraUnavailable": "Camera unavailable or permission denied. Use \"Choose photo\" to upload a file."
+    },
+    "office": {
+      "consent": "I confirm the member has read/heard the privacy notice and agreed (orally or in writing) to OJETIL processing their data.",
+      "submit": "Save and send for verification",
+      "phoneHint": "Leave empty if the member has no phone."
     }
   },
   "statusLookup": {
@@ -771,7 +780,10 @@
         "MEDIA_UPDATED": "Edited media",
         "MEDIA_DELETED": "Deleted media",
         "MESSAGE_STATUS_CHANGED": "Message status changed",
-        "MESSAGE_DELETED": "Message deleted"
+        "MESSAGE_DELETED": "Message deleted",
+        "MEMBER_REGISTERED_OFFICE": "Member registered at the office",
+        "MEMBER_CARD_PRINTED": "Member card printed",
+        "MEMBER_DECISION_BLOCKED": "Decision blocked (four-eyes)"
       }
     },
     "designSystem": {
@@ -850,7 +862,11 @@
         "consentGiven": "Given {date} (notice {version})",
         "memberCard": "Member card",
         "memberCardHint": "Print the card to hand to the member. The QR code verifies active status.",
-        "printCard": "Print card"
+        "registeredBanner": "Application {code} saved and in the verification queue. Ask a colleague to verify it; the card can then be printed.",
+        "printCr80": "Card-size PDF (CR80)",
+        "printA4": "Print on A4 paper",
+        "printHint": "CR80: two 54 × 85.6 mm pages (front and back) — choose \"Save as PDF\" or the card printer. A4: both sides on one sheet to cut out.",
+        "printFailed": "Could not prepare printing. Please try again."
       },
       "fields": {
         "fullName": "Full name",
@@ -868,7 +884,8 @@
         "institution": "School / university / occupation",
         "interests": "Interests",
         "motivation": "Motivation",
-        "consent": "Consent"
+        "consent": "Consent",
+        "channel": "Registration channel"
       },
       "genders": {
         "MALE": "Male",
@@ -902,7 +919,8 @@
         "noteHint": "Required for every decision. For “Request revision” and “Reject” this note is shown to the applicant on the public status page — write it for them.",
         "confirmDescription": "Note: “{note}”. This is recorded in the verification history and audit log.",
         "tooShort": "Write a note (5+ characters) to enable the decision buttons.",
-        "success": "Status updated for {code}."
+        "success": "Status updated for {code}.",
+        "fourEyesBlocked": "You entered this application at the office, so you cannot decide on it. Ask another Verifier or Super Admin."
       },
       "validation": {
         "noteMin": "Write a short reason (at least 5 characters)."
@@ -910,7 +928,22 @@
       "errors": {
         "notFound": "Registration not found.",
         "conflict": "This application was updated by someone else. Reload the page to see the latest status.",
-        "alreadyStatus": "The application already has this status."
+        "alreadyStatus": "The application already has this status.",
+        "fourEyes": "Four-eyes rule: whoever entered it at the office cannot decide. This attempt was recorded in the audit log.",
+        "cardNotVerified": "The card is only available for verified members."
+      },
+      "office": {
+        "metaTitle": "Register a member at the office",
+        "back": "Back to the list",
+        "title": "Register a member at the office",
+        "description": "For members without internet access. Same form, validation and encryption as the website.",
+        "fourEyesNote": "Four-eyes rule: this application goes into the verification queue. Someone else (not you) verifies, returns or rejects it — Super Admin included.",
+        "button": "Register at office"
+      },
+      "channel": {
+        "online": "Website (online)",
+        "office": "Office",
+        "officeBy": "Office — entered by {name}"
       }
     },
     "news": {
@@ -1796,7 +1829,6 @@
     "since": "Member since",
     "number": "Member no.",
     "qrAlt": "QR code to verify this card",
-    "print": "Print or save as PDF",
     "tipVerify": "Anyone who scans the QR code sees that your membership is valid — if your status changes, the card stops verifying.",
     "tipSave": "On a phone: choose \"Print\" then \"Save as PDF\", or take a screenshot.",
     "tipExpiry": "This link works for 30 minutes. To open it again, check your status with your code and date of birth.",
@@ -1804,7 +1836,11 @@
     "expiredBody": "For security, card links work for 30 minutes. Check your status again to open your card.",
     "checkAgain": "Check status",
     "values": "YOUTH • SOLIDARITY • DEVELOPMENT",
-    "backLabel": "Back of the OJETIL member card"
+    "backLabel": "Back of the OJETIL member card",
+    "printCr80": "Card-size PDF (CR80)",
+    "printA4": "Print on A4 paper",
+    "printHint": "CR80: two 54 × 85.6 mm pages (front and back) — choose \"Save as PDF\" or the card printer. A4: both sides on one sheet to cut out.",
+    "printFailed": "Could not prepare printing. Please try again."
   },
   "memberVerify": {
     "metaTitle": "Member verification",

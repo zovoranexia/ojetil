@@ -321,7 +321,10 @@
       "motivation": "Porque quer juntar-se à OJETIL?",
       "motivationCount": "{count} / 1000",
       "consent": "Confirmo que a informação é verdadeira e concordo que a OJETIL trate os meus dados pessoais para verificar e gerir a minha adesão, conforme a nota de privacidade. Os dados sensíveis são cifrados e nunca partilhados sem a minha autorização.",
-      "optional": "opcional"
+      "optional": "opcional",
+      "photoCamera": "Tirar foto com a câmara",
+      "photoCapture": "Capturar",
+      "photoCameraCancel": "Cancelar"
     },
     "actions": {
       "back": "Voltar",
@@ -368,7 +371,13 @@
       "rateLimited": "Demasiadas tentativas. Aguarde alguns minutos e tente novamente.",
       "generic": "Ocorreu um erro. Os seus dados não foram guardados — tente novamente.",
       "form": "Corrija os campos assinalados.",
-      "network": "Problema de ligação. Verifique a internet e tente novamente — as suas respostas continuam aqui."
+      "network": "Problema de ligação. Verifique a internet e tente novamente — as suas respostas continuam aqui.",
+      "photoCameraUnavailable": "Câmara indisponível ou sem permissão. Use \"Escolher foto\" para carregar um ficheiro."
+    },
+    "office": {
+      "consent": "Confirmo que o membro leu/ouviu o aviso de privacidade e concordou (oralmente ou por escrito) com o tratamento dos seus dados pela OJETIL.",
+      "submit": "Guardar e enviar para verificação",
+      "phoneHint": "Deixe em branco se o membro não tiver telefone."
     }
   },
   "statusLookup": {
@@ -771,7 +780,10 @@
         "MEDIA_UPDATED": "Média editada",
         "MEDIA_DELETED": "Média eliminada",
         "MESSAGE_STATUS_CHANGED": "Estado da mensagem alterado",
-        "MESSAGE_DELETED": "Mensagem eliminada"
+        "MESSAGE_DELETED": "Mensagem eliminada",
+        "MEMBER_REGISTERED_OFFICE": "Membro registado no escritório",
+        "MEMBER_CARD_PRINTED": "Cartão de membro impresso",
+        "MEMBER_DECISION_BLOCKED": "Decisão bloqueada (quatro olhos)"
       }
     },
     "designSystem": {
@@ -850,7 +862,11 @@
         "consentGiven": "Dado em {date} (nota {version})",
         "memberCard": "Cartão de membro",
         "memberCardHint": "Imprima o cartão para entregar ao membro. O código QR verifica o estado ativo.",
-        "printCard": "Imprimir cartão"
+        "registeredBanner": "Registo {code} guardado e na fila de verificação. Peça a um colega que o verifique; depois o cartão pode ser impresso.",
+        "printCr80": "PDF tamanho cartão (CR80)",
+        "printA4": "Imprimir em papel A4",
+        "printHint": "CR80: duas páginas de 54 × 85,6 mm (frente e verso) — escolha \"Guardar como PDF\" ou a impressora de cartões. A4: frente e verso numa folha para recortar.",
+        "printFailed": "Não foi possível preparar a impressão. Tente novamente."
       },
       "fields": {
         "fullName": "Nome completo",
@@ -868,7 +884,8 @@
         "institution": "Escola / universidade / profissão",
         "interests": "Áreas de interesse",
         "motivation": "Motivação",
-        "consent": "Consentimento"
+        "consent": "Consentimento",
+        "channel": "Canal de registo"
       },
       "genders": {
         "MALE": "Masculino",
@@ -902,7 +919,8 @@
         "noteHint": "Obrigatória em todas as decisões. Em “Pedir revisão” e “Rejeitar”, esta nota é mostrada ao candidato na página pública de estado — escreva-a para ele.",
         "confirmDescription": "Nota: “{note}”. Fica registada no histórico de verificação e no registo de auditoria.",
         "tooShort": "Escreva uma nota (5 ou mais caracteres) para ativar os botões de decisão.",
-        "success": "Estado atualizado para {code}."
+        "success": "Estado atualizado para {code}.",
+        "fourEyesBlocked": "Foi você que registou este membro no escritório, por isso não pode decidir. Peça a outra pessoa com papel de Verificador ou Super Admin."
       },
       "validation": {
         "noteMin": "Escreva um motivo curto (pelo menos 5 caracteres)."
@@ -910,7 +928,22 @@
       "errors": {
         "notFound": "Registo não encontrado.",
         "conflict": "Esta candidatura foi atualizada por outra pessoa. Recarregue a página para ver o estado mais recente.",
-        "alreadyStatus": "A candidatura já tem este estado."
+        "alreadyStatus": "A candidatura já tem este estado.",
+        "fourEyes": "Regra dos quatro olhos: quem registou no escritório não pode decidir. Esta tentativa ficou registada na auditoria.",
+        "cardNotVerified": "O cartão só está disponível para membros verificados."
+      },
+      "office": {
+        "metaTitle": "Registar membro no escritório",
+        "back": "Voltar à lista",
+        "title": "Registar membro no escritório",
+        "description": "Para membros sem acesso à internet. Mesmo formulário, validação e encriptação do site.",
+        "fourEyesNote": "Regra dos quatro olhos: este registo entra na fila de verificação. Outra pessoa (não você) é que o verifica, devolve para correção ou rejeita — também para o Super Admin.",
+        "button": "Registar no escritório"
+      },
+      "channel": {
+        "online": "Site (online)",
+        "office": "Escritório",
+        "officeBy": "Escritório — registado por {name}"
       }
     },
     "news": {
@@ -1796,7 +1829,6 @@
     "since": "Membro desde",
     "number": "N.º de membro",
     "qrAlt": "Código QR para verificar o cartão",
-    "print": "Imprimir ou guardar em PDF",
     "tipVerify": "Quem ler o código QR vê se o seu registo é válido — se o estado mudar, o cartão deixa de ser válido.",
     "tipSave": "No telemóvel: escolha \"Imprimir\" e depois \"Guardar como PDF\", ou faça uma captura de ecrã.",
     "tipExpiry": "Esta ligação é válida por 30 minutos. Para voltar a abrir, consulte o estado com o seu código e data de nascimento.",
@@ -1804,7 +1836,11 @@
     "expiredBody": "Por segurança, a ligação do cartão é válida por 30 minutos. Consulte o estado de novo para abrir o cartão.",
     "checkAgain": "Consultar estado",
     "values": "JUVENTUDE • SOLIDARIEDADE • DESENVOLVIMENTO",
-    "backLabel": "Verso do cartão de membro OJETIL"
+    "backLabel": "Verso do cartão de membro OJETIL",
+    "printCr80": "PDF tamanho cartão (CR80)",
+    "printA4": "Imprimir em papel A4",
+    "printHint": "CR80: duas páginas de 54 × 85,6 mm (frente e verso) — escolha \"Guardar como PDF\" ou a impressora de cartões. A4: frente e verso numa folha para recortar.",
+    "printFailed": "Não foi possível preparar a impressão. Tente novamente."
   },
   "memberVerify": {
     "metaTitle": "Verificação de membro",

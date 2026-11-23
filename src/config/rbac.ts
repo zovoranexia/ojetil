@@ -11,6 +11,7 @@ import type { Role } from "@prisma/client";
  * | Events & attendees               | CRUD+Export | Read     | CRUD+E | Read   |
  * | Member records                   | PII         | PII      | 403    | Aggreg.|
  * | Approve / reject / revision      | ✔           | ✔        | ✗      | ✗      |
+ * | Register members at the office   | ✔           | ✔        | ✗      | ✗      |
  * | Admin users & roles              | CRUD        | ✗        | ✗      | ✗      |
  * | Contact inbox (/admin/pesan)     | ✔           | ✔        | ✗      | ✗      |
  * | Audit logs                       | All         | Verif.   | ✗      | All    |
@@ -35,6 +36,8 @@ export const PERMISSIONS = [
   "members:pii",
   "members:verify",
   "members:export",
+  /** Enter an application on a member's behalf at the office (four-eyes: someone else verifies it). */
+  "members:register",
 
   /** Contact-form inbox: read messages (names, emails, phones) and change their status. */
   "messages:read",
@@ -61,6 +64,7 @@ const ROLE_PERMISSIONS: Record<Role, ReadonlySet<Permission>> = {
     "members:pii",
     "members:verify",
     "members:export",
+    "members:register",
     "messages:read",
     "messages:manage",
     "audit:read:verification",
@@ -107,6 +111,7 @@ export const ROLE_LABELS: Record<Role, { label: string; description: string }> =
 export const PUBLIC_ADMIN_PATHS = ["/admin/login", "/admin/forbidden"] as const;
 
 const ROUTE_RULES: ReadonlyArray<{ prefix: string; requirement: PermissionRequirement }> = [
+  { prefix: "/admin/anggota/baru", requirement: "members:register" },
   { prefix: "/admin/anggota/", requirement: "members:read" }, // record detail pages
   { prefix: "/admin/anggota", requirement: "members:aggregate" },
   { prefix: "/admin/berita", requirement: "content:read" },
@@ -122,6 +127,7 @@ const ROUTE_RULES: ReadonlyArray<{ prefix: string; requirement: PermissionRequir
   { prefix: "/admin/audit-logs", requirement: { anyOf: ["audit:read:all", "audit:read:verification"] } },
   { prefix: "/api/admin/exports/members", requirement: "members:export" },
   { prefix: "/api/admin/exports/events", requirement: "events:export" },
+  { prefix: "/api/admin/members/office", requirement: "members:register" },
   { prefix: "/api/admin/members", requirement: "members:read" },
   { prefix: "/api/admin/documents", requirement: "content:read" }, // writes re-checked by withApiAuth("content:write")
   { prefix: "/api/admin/uploads", requirement: "content:write" },

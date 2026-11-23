@@ -41,6 +41,9 @@ const nextConfig: NextConfig = {
       // Backoffice and admin APIs must never be indexed or cached by intermediaries.
       { source: "/admin/:path*", headers: privateHeaders },
       { source: "/api/admin/:path*", headers: privateHeaders },
+      // Staff may photograph a member with the desk webcam (office registration). Allowed for the whole
+      // backoffice, not one page: client-side navigation keeps the policy of the first page loaded.
+      { source: "/admin/:path*", headers: [{ key: "Permissions-Policy", value: "camera=(self), microphone=(), geolocation=(), interest-cohort=()" }] },
     ];
   },
 };
