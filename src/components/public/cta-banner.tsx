@@ -33,7 +33,7 @@ export async function CtaBanner() {
               aria-hidden="true"
               loading="lazy"
               decoding="async"
-              className="decorative-media absolute inset-y-0 right-0 -z-20 h-full w-full object-cover object-right brightness-125 contrast-125 grayscale md:w-[72%]"
+              className="decorative-media absolute inset-y-0 right-0 -z-20 h-full w-full object-cover object-right contrast-110 grayscale md:w-[72%]"
             />
             <div aria-hidden="true" className="absolute inset-0 -z-10 bg-ojetil-red/75 mix-blend-multiply" />
           </>
@@ -60,7 +60,7 @@ export async function CtaBanner() {
             </Button>
             <Link
               href={CHECK_STATUS_PATH}
-              className="inline-flex min-h-tap items-center text-sm font-semibold text-gold-accent underline underline-offset-4 hover:text-white"
+              className="inline-flex min-h-tap items-center text-sm font-semibold text-gold-accent underline underline-offset-4 [text-shadow:0_1px_6px_rgb(0_0_0/0.7)] hover:text-white"
             >
               {t("cta.checkStatus")}
             </Link>
