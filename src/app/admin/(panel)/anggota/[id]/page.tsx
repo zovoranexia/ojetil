@@ -98,6 +98,9 @@ export default async function MemberDetailPage({ params, searchParams }: { param
               <Item label={t("fields.submittedIn")}>{LOCALE_META[fromDbLocale(m.submittedLocale)].nativeName}</Item>
               <Item label={t("fields.channel")}>
                 {m.channel === "OFFICE" ? t("channel.officeBy", { name: m.registeredBy?.name ?? "—" }) : t("channel.online")}
+                {m.channel === "OFFICE" && m.status === "VERIFIED" && m.registeredById && m.registeredById === m.verifiedById ? (
+                  <span className="mt-1 block text-xs font-semibold text-status-pending">{t("channel.selfVerified")}</span>
+                ) : null}
               </Item>
             </dl>
           </Panel>
@@ -140,7 +143,7 @@ export default async function MemberDetailPage({ params, searchParams }: { param
         <div className="space-y-6">
           {satisfies(user.role, "members:verify") ? (
             <Panel title={t("detail.decision")} description={t("detail.currentStatus", { status: tStatus(`member.${m.status}`) })}>
-              <DecisionPanel id={m.id} status={m.status} blockedReason={m.registeredById === user.id ? t("decision.fourEyesBlocked") : undefined} />
+              <DecisionPanel id={m.id} status={m.status} />
             </Panel>
           ) : null}
 
