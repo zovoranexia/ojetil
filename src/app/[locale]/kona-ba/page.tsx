@@ -70,21 +70,30 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       <div className="mx-auto max-w-6xl px-4 py-12 md:px-8 md:py-16">
         {/* Reading order: Profile → Vision → Mission → Values / motto (same on every screen size). */}
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
-          {profile ? <RichContent body={profile.body} className="text-lg md:text-xl" /> : null}
+        {profile ? (
+          // Full width; two balanced newspaper columns on large screens keep lines at a readable length.
+          <RichContent body={profile.body} className="text-lg md:text-xl lg:columns-2 lg:gap-14 [&_p]:break-inside-avoid-column [&_p]:hyphens-auto" />
+        ) : null}
 
-          {sections.VISION ? (
-            <section aria-labelledby="vision" className="self-start rounded-card bg-ink p-6 text-paper md:p-8 lg:sticky lg:top-6">
-              <h2 id="vision" className="text-2xl text-gold-accent">
+        {sections.VISION ? (
+          <section aria-labelledby="vision" className="mt-14 border-t border-border-subtle pt-12">
+            <div className="relative overflow-hidden rounded-card border border-border-subtle bg-surface-card px-6 py-8 md:px-12 md:py-12">
+              <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gold-accent" />
+              <h2 id="vision" className="flex items-center gap-3 text-3xl">
+                <span aria-hidden="true" className="h-px w-8 bg-ojetil-red" />
                 {sections.VISION.title}
               </h2>
-              <p className="mt-4 font-serif text-xl leading-snug">{articlePlainText(sections.VISION.body)}</p>
-            </section>
-          ) : null}
-        </div>
+              <p className="mt-6 max-w-4xl font-serif text-2xl leading-snug text-ink md:text-3xl md:leading-snug">
+                <span aria-hidden="true" className="mr-1 text-gold-text">“</span>
+                {articlePlainText(sections.VISION.body)}
+                <span aria-hidden="true" className="ml-1 text-gold-text">”</span>
+              </p>
+            </div>
+          </section>
+        ) : null}
 
         {sections.MISSION ? (
-          <section aria-labelledby="mission" className="mt-16 border-t border-border-subtle pt-12">
+          <section aria-labelledby="mission" className="mt-14 border-t border-border-subtle pt-12">
             <h2 id="mission" className="text-3xl">
               {sections.MISSION.title}
             </h2>
@@ -114,7 +123,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         ) : null}
 
         {sections.VALUES ? (
-          <section aria-labelledby="values" className="mt-16 grid gap-6 border-t border-border-subtle pt-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-12">
+          <section aria-labelledby="values" className="mt-14 grid gap-6 border-t border-border-subtle pt-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-12">
             <div>
               <span aria-hidden="true" className="block h-1 w-12 rounded-full bg-gold-accent" />
               <h2 id="values" className="mt-4 text-3xl">
