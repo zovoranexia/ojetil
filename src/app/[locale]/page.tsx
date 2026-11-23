@@ -4,11 +4,12 @@ import { ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
 import { EventCard } from "@/components/public/event-card";
+import { CtaBanner } from "@/components/public/cta-banner";
 import { HeroEmblem } from "@/components/public/hero-emblem";
 import { NewsCard } from "@/components/public/news-card";
 import { Eyebrow, SectionHeading } from "@/components/public/page-header";
 import { Button } from "@/components/ui/button";
-import { CHECK_STATUS_PATH, REGISTER_PATH } from "@/config/navigation";
+import { REGISTER_PATH } from "@/config/navigation";
 import { Link } from "@/i18n/navigation";
 import { formatNumber } from "@/lib/format";
 import { localizedAlternates } from "@/lib/seo";
@@ -180,32 +181,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </section>
 
       {/* ── Registration CTA ──────────────────────────────────────────── */}
-      <section aria-labelledby="cta-title" className="px-4 pb-16 md:px-8">
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-card bg-ojetil-red text-white">
-          <div aria-hidden="true" className="tais-ribbon absolute inset-x-0 top-0" />
-          <div className="grid gap-8 px-6 py-10 md:grid-cols-[1.5fr_1fr] md:items-center md:px-12 md:py-14">
-            <div>
-              <h2 id="cta-title" className="text-3xl text-white md:text-4xl">
-                {t("cta.title")}
-              </h2>
-              <p className="mt-4 max-w-2xl text-white/90">{t("cta.body")}</p>
-            </div>
-            <div className="flex flex-col gap-3 md:items-end">
-              <Button asChild size="lg" variant="editorial" className="w-full md:w-auto">
-                <Link href={REGISTER_PATH}>
-                  {t("cta.button")} <ArrowRight aria-hidden="true" />
-                </Link>
-              </Button>
-              <Link
-                href={CHECK_STATUS_PATH}
-                className="inline-flex min-h-tap items-center text-sm font-semibold text-white underline underline-offset-4 hover:no-underline"
-              >
-                {t("cta.checkStatus")}
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CtaBanner />
     </>
   );
 }
