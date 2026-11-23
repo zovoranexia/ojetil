@@ -71,24 +71,17 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <div className="mx-auto max-w-6xl px-4 py-12 md:px-8 md:py-16">
         {/* Reading order: Profile → Vision → Mission → Values / motto (same on every screen size). */}
         {profile ? (
-          // Full width; two balanced newspaper columns on large screens keep lines at a readable length.
-          <RichContent body={profile.body} className="text-lg md:text-xl lg:columns-2 lg:gap-14 [&_p]:break-inside-avoid-column [&_p]:hyphens-auto" />
+          // One full-width column (hyphenation keeps justified text even).
+          <RichContent body={profile.body} className="text-lg md:text-xl [&_p]:hyphens-auto" />
         ) : null}
 
         {sections.VISION ? (
           <section aria-labelledby="vision" className="mt-14 border-t border-border-subtle pt-12">
-            <div className="relative overflow-hidden rounded-card border border-border-subtle bg-surface-card px-6 py-8 md:px-12 md:py-12">
-              <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gold-accent" />
-              <h2 id="vision" className="flex items-center gap-3 text-3xl">
-                <span aria-hidden="true" className="h-px w-8 bg-ojetil-red" />
-                {sections.VISION.title}
-              </h2>
-              <p className="mt-6 max-w-4xl font-serif text-2xl leading-snug text-ink md:text-3xl md:leading-snug">
-                <span aria-hidden="true" className="mr-1 text-gold-text">“</span>
-                {articlePlainText(sections.VISION.body)}
-                <span aria-hidden="true" className="ml-1 text-gold-text">”</span>
-              </p>
-            </div>
+            {/* Same heading style as Mission below. */}
+            <h2 id="vision" className="text-3xl">
+              {sections.VISION.title}
+            </h2>
+            <p className="mt-6 max-w-4xl font-serif text-2xl leading-snug text-ink md:text-3xl md:leading-snug">{articlePlainText(sections.VISION.body)}</p>
           </section>
         ) : null}
 
