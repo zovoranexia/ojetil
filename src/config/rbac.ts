@@ -112,6 +112,7 @@ const ROUTE_RULES: ReadonlyArray<{ prefix: string; requirement: PermissionRequir
   { prefix: "/admin/berita", requirement: "content:read" },
   { prefix: "/admin/dokumen", requirement: "content:read" },
   { prefix: "/admin/media", requirement: "content:read" },
+  { prefix: "/admin/galeria", requirement: "content:read" },
   { prefix: "/admin/profil", requirement: "content:read" },
   { prefix: "/admin/linimasa", requirement: "content:read" },
   { prefix: "/admin/pengurus", requirement: "content:read" },

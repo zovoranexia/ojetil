@@ -43,7 +43,8 @@
     "language": "Language",
     "homeLink": "OJETIL — home page",
     "documents": "Documents",
-    "contact": "Contact"
+    "contact": "Contact",
+    "gallery": "Gallery"
   },
   "lowData": {
     "label": "Low-Data Mode",
@@ -202,7 +203,8 @@
     "deadline": "Register by {date}",
     "about": "About this event",
     "back": "Back to events",
-    "details": "Details & registration"
+    "details": "Details & registration",
+    "photos": "Photos from this event"
   },
   "eventRegistration": {
     "title": "Register for this event",
@@ -446,7 +448,8 @@
       "profilePages": "Profile pages",
       "users": "Users & roles",
       "audit": "Audit log",
-      "inbox": "Inbox"
+      "inbox": "Inbox",
+      "gallery": "Gallery"
     },
     "topbar": {
       "scope": "Access",
@@ -1538,6 +1541,86 @@
         "READ": "Read",
         "ARCHIVED": "Archived"
       }
+    },
+    "gallery": {
+      "metaTitle": "Gallery",
+      "metaTitleOne": "Album",
+      "title": "Photo & video gallery",
+      "description": "One album per activity. Photos live in the Media library, so they can be reused.",
+      "new": "New album",
+      "search": "Search albums",
+      "searchPlaceholder": "Title or slug…",
+      "statusLabel": "Status",
+      "allStatuses": "All statuses",
+      "filter": "Filter",
+      "empty": "No albums yet.",
+      "table": {
+        "caption": "Gallery albums",
+        "album": "Album",
+        "items": "Items",
+        "date": "Activity date",
+        "languages": "Languages",
+        "updated": "Updated",
+        "status": "Status"
+      },
+      "allAlbums": "All albums",
+      "newTitle": "New album",
+      "createdDraft": "Album saved as a draft. Add photos and publish when ready.",
+      "editDescription": "Title in one or more languages, photos and activity details.",
+      "readOnly": "You can view this album only.",
+      "fields": {
+        "title": "Album title",
+        "description": "Description"
+      },
+      "validation": {
+        "date": "Invalid date (DD/MM/YYYY).",
+        "tooMany": "At most {max} items per album.",
+        "duplicate": "An item appears twice.",
+        "notFound": "Album not found.",
+        "titleOne": "Enter a title in at least one language.",
+        "event": "Event not found.",
+        "publishEmpty": "Add at least one photo before publishing.",
+        "publishedEmpty": "A published album needs at least one item. Unpublish it first."
+      },
+      "editor": {
+        "itemsTitle": "Photos & videos",
+        "itemsHint": "Photos (max {imageMb} MB) are compressed to WebP; MP4 videos (max {fileMb} MB) or YouTube/Vimeo links from the library. The first item is the cover.",
+        "upload": "Upload photos/videos",
+        "fromLibrary": "Choose from library",
+        "uploading": "Uploading {done}/{total}…",
+        "uploadFailed": "{count, plural, one {# file could not be uploaded (format or size).} other {# files could not be uploaded (format or size).}}",
+        "cover": "Cover",
+        "caption": "Caption for item {n}",
+        "captionPlaceholder": "Caption (optional)",
+        "moveUp": "Move earlier",
+        "moveDown": "Move later",
+        "makeCover": "Make cover",
+        "remove": "Remove from album",
+        "empty": "No photos yet. Upload or choose from the library.",
+        "publishing": "Publishing",
+        "slug": "Slug (URL)",
+        "slugHint": "/galeria/album-name — lowercase letters, numbers and \"-\".",
+        "generateSlug": "Generate slug from title",
+        "create": "Create album",
+        "publish": "Publish",
+        "unpublish": "Unpublish",
+        "publishedToast": "Album published.",
+        "unpublishedToast": "Album unpublished.",
+        "publishHint": "Save your changes first, then publish.",
+        "viewPublic": "View on site",
+        "saved": "Saved.",
+        "checkFields": "Check the highlighted fields (including the language tabs).",
+        "details": "Details",
+        "takenOn": "Activity date",
+        "takenOnHint": "Albums are ordered by this date.",
+        "municipality": "Municipality",
+        "noMunicipality": "— None —",
+        "event": "Event",
+        "eventHint": "The album appears on this event's page.",
+        "noEvent": "— None —",
+        "deleteTitle": "Delete this album?",
+        "deleteBody": "The album is deleted. Its photos stay in the Media library."
+      }
     }
   },
   "documents": {
@@ -1725,5 +1808,24 @@
     "invalidBody": "This code is not recognised. The card may be fake or damaged.",
     "revokedBody": "This is an OJETIL card, but this membership is no longer active.",
     "contact": "Questions? Contact the Secretariat: {email}"
+  },
+  "gallery": {
+    "metaTitle": "Photo & video gallery",
+    "eyebrow": "Gallery",
+    "title": "OJETIL activities in pictures",
+    "lead": "Photos and videos from seminars, debates, commemorations and activities across the municipalities.",
+    "empty": "No albums yet.",
+    "itemCount": "{count, plural, one {# item} other {# items}}",
+    "back": "Back to gallery",
+    "fromEvent": "Event: {title} →",
+    "lowDataNote": "Low-data mode: photos are not loaded automatically. Choose one to open it.",
+    "photo": "Photo",
+    "video": "Video",
+    "openItem": "Open",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "counter": "{n} of {total}",
+    "credit": "Photo: {name}"
   }
 }

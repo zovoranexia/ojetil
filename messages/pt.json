@@ -43,7 +43,8 @@
     "language": "Língua",
     "homeLink": "OJETIL — página inicial",
     "documents": "Documentos",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "gallery": "Galeria"
   },
   "lowData": {
     "label": "Modo de Poucos Dados",
@@ -202,7 +203,8 @@
     "deadline": "Inscreva-se até {date}",
     "about": "Sobre este evento",
     "back": "Voltar aos eventos",
-    "details": "Detalhes e inscrição"
+    "details": "Detalhes e inscrição",
+    "photos": "Fotografias deste evento"
   },
   "eventRegistration": {
     "title": "Inscrever-se neste evento",
@@ -446,7 +448,8 @@
       "profilePages": "Páginas de perfil",
       "users": "Utilizadores e funções",
       "audit": "Registo de auditoria",
-      "inbox": "Mensagens"
+      "inbox": "Mensagens",
+      "gallery": "Galeria"
     },
     "topbar": {
       "scope": "Acesso",
@@ -1538,6 +1541,86 @@
         "READ": "Lida",
         "ARCHIVED": "Arquivada"
       }
+    },
+    "gallery": {
+      "metaTitle": "Galeria",
+      "metaTitleOne": "Álbum",
+      "title": "Galeria de fotos e vídeos",
+      "description": "Um álbum por atividade. As fotos ficam na Biblioteca de média e podem ser reutilizadas.",
+      "new": "Novo álbum",
+      "search": "Pesquisar álbuns",
+      "searchPlaceholder": "Título ou slug…",
+      "statusLabel": "Estado",
+      "allStatuses": "Todos os estados",
+      "filter": "Filtrar",
+      "empty": "Ainda não há álbuns.",
+      "table": {
+        "caption": "Álbuns da galeria",
+        "album": "Álbum",
+        "items": "Itens",
+        "date": "Data da atividade",
+        "languages": "Línguas",
+        "updated": "Atualizado",
+        "status": "Estado"
+      },
+      "allAlbums": "Todos os álbuns",
+      "newTitle": "Novo álbum",
+      "createdDraft": "Álbum guardado como rascunho. Adicione fotos e publique quando estiver pronto.",
+      "editDescription": "Título numa ou mais línguas, fotografias e detalhes da atividade.",
+      "readOnly": "Só pode ver este álbum.",
+      "fields": {
+        "title": "Título do álbum",
+        "description": "Descrição"
+      },
+      "validation": {
+        "date": "Data inválida (DD/MM/AAAA).",
+        "tooMany": "Máximo de {max} itens por álbum.",
+        "duplicate": "Um item aparece duas vezes.",
+        "notFound": "Álbum não encontrado.",
+        "titleOne": "Escreva o título em pelo menos uma língua.",
+        "event": "Evento não encontrado.",
+        "publishEmpty": "Adicione pelo menos uma fotografia antes de publicar.",
+        "publishedEmpty": "Um álbum publicado precisa de pelo menos um item. Despublique primeiro."
+      },
+      "editor": {
+        "itemsTitle": "Fotografias e vídeos",
+        "itemsHint": "Fotos (máx. {imageMb} MB) comprimidas para WebP; vídeos MP4 (máx. {fileMb} MB) ou ligações YouTube/Vimeo da biblioteca. O primeiro item é a capa.",
+        "upload": "Carregar fotos/vídeos",
+        "fromLibrary": "Escolher da biblioteca",
+        "uploading": "A carregar {done}/{total}…",
+        "uploadFailed": "{count, plural, one {# ficheiro não foi carregado (formato ou tamanho).} other {# ficheiros não foram carregados (formato ou tamanho).}}",
+        "cover": "Capa",
+        "caption": "Legenda da foto {n}",
+        "captionPlaceholder": "Legenda (opcional)",
+        "moveUp": "Mover para trás",
+        "moveDown": "Mover para a frente",
+        "makeCover": "Usar como capa",
+        "remove": "Remover do álbum",
+        "empty": "Ainda sem fotografias. Carregue ou escolha da biblioteca.",
+        "publishing": "Publicação",
+        "slug": "Slug (URL)",
+        "slugHint": "/galeria/nome-do-album — minúsculas, números e \"-\".",
+        "generateSlug": "Gerar slug a partir do título",
+        "create": "Criar álbum",
+        "publish": "Publicar",
+        "unpublish": "Despublicar",
+        "publishedToast": "Álbum publicado.",
+        "unpublishedToast": "Álbum despublicado.",
+        "publishHint": "Guarde as alterações antes de publicar.",
+        "viewPublic": "Ver no site",
+        "saved": "Guardado.",
+        "checkFields": "Verifique os campos assinalados (incluindo os separadores de língua).",
+        "details": "Detalhes",
+        "takenOn": "Data da atividade",
+        "takenOnHint": "Os álbuns são ordenados por esta data.",
+        "municipality": "Município",
+        "noMunicipality": "— Nenhum —",
+        "event": "Evento",
+        "eventHint": "O álbum aparece na página deste evento.",
+        "noEvent": "— Nenhum —",
+        "deleteTitle": "Eliminar este álbum?",
+        "deleteBody": "O álbum é eliminado. As fotografias ficam na Biblioteca de média."
+      }
     }
   },
   "documents": {
@@ -1725,5 +1808,24 @@
     "invalidBody": "Este código não é reconhecido. O cartão pode ser falso ou estar danificado.",
     "revokedBody": "Este cartão é da OJETIL, mas este registo já não está ativo.",
     "contact": "Dúvidas? Contacte o Secretariado: {email}"
+  },
+  "gallery": {
+    "metaTitle": "Galeria de fotos e vídeos",
+    "eyebrow": "Galeria",
+    "title": "As atividades da OJETIL em imagens",
+    "lead": "Fotografias e vídeos de seminários, debates, comemorações e atividades nos municípios.",
+    "empty": "Ainda não há álbuns.",
+    "itemCount": "{count, plural, one {# item} other {# itens}}",
+    "back": "Voltar à galeria",
+    "fromEvent": "Evento: {title} →",
+    "lowDataNote": "Modo de poucos dados: as fotografias não são carregadas automaticamente. Escolha uma para abrir.",
+    "photo": "Fotografia",
+    "video": "Vídeo",
+    "openItem": "Abrir",
+    "close": "Fechar",
+    "previous": "Anterior",
+    "next": "Seguinte",
+    "counter": "{n} de {total}",
+    "credit": "Foto: {name}"
   }
 }

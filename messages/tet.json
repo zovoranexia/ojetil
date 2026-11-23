@@ -43,7 +43,8 @@
     "language": "Lian",
     "homeLink": "OJETIL — pájina inísiu",
     "documents": "Dokumentu",
-    "contact": "Kontaktu"
+    "contact": "Kontaktu",
+    "gallery": "Galeria"
   },
   "lowData": {
     "label": "Modu Dadus Ki'ik",
@@ -202,7 +203,8 @@
     "deadline": "Rejista molok {date}",
     "about": "Kona-ba eventu ida-ne'e",
     "back": "Fila ba eventu",
-    "details": "Detalle no rejistu"
+    "details": "Detalle no rejistu",
+    "photos": "Foto husi eventu ne'e"
   },
   "eventRegistration": {
     "title": "Rejista ba eventu ida-ne'e",
@@ -446,7 +448,8 @@
       "profilePages": "Pájina perfil",
       "users": "Utilizadór no papél",
       "audit": "Rejistu auditoria",
-      "inbox": "Mensajen"
+      "inbox": "Mensajen",
+      "gallery": "Galeria"
     },
     "topbar": {
       "scope": "Asesu",
@@ -1538,6 +1541,86 @@
         "READ": "Lee ona",
         "ARCHIVED": "Arkivu"
       }
+    },
+    "gallery": {
+      "metaTitle": "Galeria",
+      "metaTitleOne": "Albun",
+      "title": "Galeria foto no vídeu",
+      "description": "Albun ida ba atividade ida. Foto rai iha Biblioteka média, entaun bele uza fali.",
+      "new": "Albun foun",
+      "search": "Buka albun",
+      "searchPlaceholder": "Títulu ka slug…",
+      "statusLabel": "Status",
+      "allStatuses": "Status hotu",
+      "filter": "Filtra",
+      "empty": "Seidauk iha albun.",
+      "table": {
+        "caption": "Albun galeria",
+        "album": "Albun",
+        "items": "Item",
+        "date": "Data atividade",
+        "languages": "Lian",
+        "updated": "Atualiza",
+        "status": "Status"
+      },
+      "allAlbums": "Albun hotu",
+      "newTitle": "Albun foun",
+      "createdDraft": "Albun rai ona hanesan rascunho. Aumenta foto no publika bainhira prontu.",
+      "editDescription": "Títulu iha lian ida ka liu, foto, no detalle atividade.",
+      "readOnly": "Ita bele haree de'it albun ne'e.",
+      "fields": {
+        "title": "Títulu albun",
+        "description": "Deskrisaun"
+      },
+      "validation": {
+        "date": "Data la loos (DD/MM/AAAA).",
+        "tooMany": "Máximu item {max} iha albun ida.",
+        "duplicate": "Item ida aparese dala rua.",
+        "notFound": "Albun la eziste.",
+        "titleOne": "Hakerek títulu iha lian ida pelumenus.",
+        "event": "Eventu la eziste.",
+        "publishEmpty": "Aumenta foto ida pelumenus molok publika.",
+        "publishedEmpty": "Albun publikadu presiza item ida pelumenus. Hasai publikasaun uluk."
+      },
+      "editor": {
+        "itemsTitle": "Foto no vídeu",
+        "itemsHint": "Foto (máx. {imageMb} MB) kompresa ba WebP; vídeu MP4 (máx. {fileMb} MB) ka link YouTube/Vimeo husi biblioteka. Item primeiru mak kapa.",
+        "upload": "Upload foto/vídeu",
+        "fromLibrary": "Hili husi biblioteka",
+        "uploading": "Upload hela {done}/{total}…",
+        "uploadFailed": "{count, plural, other {Fixeiru # la konsege upload (formatu ka tamañu).}}",
+        "cover": "Kapa",
+        "caption": "Legenda foto {n}",
+        "captionPlaceholder": "Legenda (opsionál)",
+        "moveUp": "Muda ba oin",
+        "moveDown": "Muda ba kotuk",
+        "makeCover": "Halo kapa",
+        "remove": "Hasai husi albun",
+        "empty": "Seidauk iha foto. Upload ka hili husi biblioteka.",
+        "publishing": "Publikasaun",
+        "slug": "Slug (URL)",
+        "slugHint": "/galeria/naran-albun — letra ki'ik, númeru no \"-\".",
+        "generateSlug": "Halo slug husi títulu",
+        "create": "Kria albun",
+        "publish": "Publika",
+        "unpublish": "Hasai publikasaun",
+        "publishedToast": "Albun publika ona.",
+        "unpublishedToast": "Albun la publika ona.",
+        "publishHint": "Rai mudansa uluk, depois publika.",
+        "viewPublic": "Haree iha website",
+        "saved": "Rai ona.",
+        "checkFields": "Haree kampu ne'ebé marka (inklui tab lian).",
+        "details": "Detalle",
+        "takenOn": "Data atividade",
+        "takenOnHint": "Albun hatudu tuir data ne'e.",
+        "municipality": "Munisípiu",
+        "noMunicipality": "— La iha —",
+        "event": "Eventu",
+        "eventHint": "Albun sei mosu iha pájina eventu ne'e.",
+        "noEvent": "— La iha —",
+        "deleteTitle": "Hamoos albun ne'e?",
+        "deleteBody": "Albun sei lakon. Foto sira hela iha Biblioteka média."
+      }
     }
   },
   "documents": {
@@ -1725,5 +1808,24 @@
     "invalidBody": "Kódigu ne'e la rekoñese. Kartaun bele falsu ka la kompletu.",
     "revokedBody": "Kartaun ne'e OJETIL nian, maibé membru ne'e la ativu ona.",
     "contact": "Pergunta? Kontaktu Sekretariadu: {email}"
+  },
+  "gallery": {
+    "metaTitle": "Galeria foto no vídeo",
+    "eyebrow": "Galeria",
+    "title": "Atividade OJETIL nian iha foto",
+    "lead": "Foto no vídeu husi seminário, debate, komemorasaun no atividade iha munisípiu sira.",
+    "empty": "Seidauk iha albun.",
+    "itemCount": "{count, plural, other {# foto/vídeu}}",
+    "back": "Fila ba galeria",
+    "fromEvent": "Eventu: {title} →",
+    "lowDataNote": "Modu dadus ki'ik: foto la karrega automátiku. Hili ida atu loke.",
+    "photo": "Foto",
+    "video": "Vídeu",
+    "openItem": "Loke",
+    "close": "Taka",
+    "previous": "Molok",
+    "next": "Tuir mai",
+    "counter": "{n} husi {total}",
+    "credit": "Foto: {name}"
   }
 }

@@ -10,6 +10,7 @@ export const ADMIN_NAV = [
   { href: "/admin/berita", label: "news", icon: "news", requires: "content:read" },
   { href: "/admin/dokumen", label: "documents", icon: "documents", requires: "content:read" },
   { href: "/admin/media", label: "media", icon: "media", requires: "content:read" },
+  { href: "/admin/galeria", label: "gallery", icon: "gallery", requires: "content:read" },
   { href: "/admin/acara", label: "events", icon: "events", requires: "events:read" },
   { href: "/admin/pesan", label: "inbox", icon: "inbox", requires: "messages:read" },
   { href: "/admin/linimasa", label: "timeline", icon: "timeline", requires: "content:read" },

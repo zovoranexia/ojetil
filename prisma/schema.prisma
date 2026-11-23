@@ -92,6 +92,7 @@ model User {
   newsArticles        NewsArticle[]        @relation("NewsAuthor")
   documents           Document[]           @relation("DocumentCreatedBy")
   mediaAssets         MediaAsset[]         @relation("MediaCreatedBy")
+  galleryAlbums       GalleryAlbum[]       @relation("GalleryCreatedBy")
   events              Event[]              @relation("EventCreatedBy")
   verifiedMembers     MemberRegistration[] @relation("MemberVerifiedBy")
   memberStatusChanges MemberStatusChange[]
@@ -372,6 +373,8 @@ model MediaAsset {
   createdAt   DateTime  @default(now()) @db.Timestamptz(3)
   updatedAt   DateTime  @updatedAt @db.Timestamptz(3)
 
+  galleryItems GalleryItem[]
+
   @@index([kind, createdAt(sort: Desc)])
   @@index([createdAt(sort: Desc)])
   @@map("media_assets")
@@ -425,6 +428,7 @@ model Event {
 
   translations  EventTranslation[]
   registrations EventRegistration[]
+  galleryAlbums GalleryAlbum[]
 
   @@index([status, startAt])
   @@map("events")
@@ -697,4 +701,60 @@ model ContactMessage {
 
   @@index([status, createdAt(sort: Desc)])
   @@map("contact_messages")
+}
+
+// ─── Photo & video gallery ─────────────────────────────────────────────────
+
+/// An album of photos/videos from one activity. Items reference the Media
+/// library, so files are stored (and re-encoded) once.
+model GalleryAlbum {
+  id           String        @id @default(cuid())
+  slug         String        @unique
+  status       ContentStatus @default(DRAFT)
+  /// Day of the activity (Díli calendar date).
+  takenOn      DateTime?     @db.Date
+  municipality Municipality?
+  /// Optional link to the event the photos come from.
+  eventId      String?
+  event        Event?        @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  publishedAt  DateTime?     @db.Timestamptz(3)
+  createdById  String?
+  createdBy    User?         @relation("GalleryCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt    DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime      @updatedAt @db.Timestamptz(3)
+
+  translations GalleryAlbumTranslation[]
+  items        GalleryItem[]
+
+  @@index([status, takenOn(sort: Desc)])
+  @@index([eventId])
+  @@map("gallery_albums")
+}
+
+model GalleryAlbumTranslation {
+  id          String       @id @default(cuid())
+  albumId     String
+  album       GalleryAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  locale      Locale
+  title       String
+  description String?
+
+  @@unique([albumId, locale])
+  @@map("gallery_album_translations")
+}
+
+model GalleryItem {
+  id       String       @id @default(cuid())
+  albumId  String
+  album    GalleryAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  /// Restrict: a media file used in an album cannot be deleted from the library.
+  assetId  String
+  asset    MediaAsset   @relation(fields: [assetId], references: [id], onDelete: Restrict)
+  position Int
+  /// Short caption (proper nouns, places) — shown under the photo in every language.
+  caption  String?
+
+  @@unique([albumId, assetId])
+  @@index([albumId, position])
+  @@map("gallery_items")
 }
