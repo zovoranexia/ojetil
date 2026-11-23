@@ -81,7 +81,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <h2 id="vision" className="text-3xl">
               {sections.VISION.title}
             </h2>
-            <p className="mt-6 max-w-4xl font-serif text-2xl leading-snug text-ink md:text-3xl md:leading-snug">{articlePlainText(sections.VISION.body)}</p>
+            {/* Same card and text style as the Mission items. */}
+            <p className="mt-8 rounded-card border border-border-subtle bg-surface-card p-5 leading-relaxed md:p-6">{articlePlainText(sections.VISION.body)}</p>
           </section>
         ) : null}
 
