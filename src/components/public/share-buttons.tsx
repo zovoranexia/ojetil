@@ -20,7 +20,11 @@ const NETWORKS = [
 
 const pill = "inline-flex min-h-tap items-center gap-1.5 rounded-control px-3 text-sm font-semibold transition-opacity hover:opacity-90 md:min-h-9";
 
-export function ShareButtons({ url, title, className }: { url: string; title: string; className?: string }) {
+/**
+ * tone "brand" uses each network's colour; "neutral" is a quiet outline style
+ * that sits better inside an editorial page.
+ */
+export function ShareButtons({ url, title, className, tone = "brand" }: { url: string; title: string; className?: string; tone?: "brand" | "neutral" }) {
   const t = useTranslations("share");
   const [copied, setCopied] = useState(false);
   const [canNativeShare, setCanNativeShare] = useState(false);
@@ -62,7 +66,7 @@ export function ShareButtons({ url, title, className }: { url: string; title: st
       <ul className="flex flex-wrap gap-2">
         {NETWORKS.map((n) => (
           <li key={n.key}>
-            <a href={n.href(url, title)} target="_blank" rel="noopener noreferrer nofollow" className={cn(pill, n.color)} aria-label={t("on", { network: n.name })}>
+            <a href={n.href(url, title)} target="_blank" rel="noopener noreferrer nofollow" className={cn(pill, tone === "brand" ? n.color : "border border-border-subtle bg-surface-card text-ink hover:border-border-strong hover:opacity-100")} aria-label={t("on", { network: n.name })}>
               {n.name}
             </a>
           </li>

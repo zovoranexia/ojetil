@@ -172,7 +172,12 @@
     "national": "Nacional",
     "tagsLabel": "Etiquetas",
     "watchVideo": "Ver o vídeo",
-    "removeFilter": "Remover filtro: {label}"
+    "removeFilter": "Remover filtro: {label}",
+    "readingTime": "{minutes} min de leitura",
+    "latest": "Notícias recentes",
+    "shareArticle": "Partilhar esta notícia",
+    "joinTitle": "Faça parte da OJETIL",
+    "joinBody": "Registe-se como veterano da frente clandestina ou como membro jovem e voluntário."
   },
   "events": {
     "metaTitle": "Eventos juvenis",
