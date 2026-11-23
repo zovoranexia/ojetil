@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye, EyeOff, Loader2, Lock } from "lucide-react";
+import { Eye, EyeOff, Loader2, Lock, ShieldAlert } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useRef, useState, useTransition } from "react";
@@ -58,7 +58,7 @@ export function RevealPii({ id, hasPhoto }: { id: string; hasPhoto: boolean }) {
         <dl className="grid flex-1 gap-3 text-sm sm:grid-cols-2">
           <div>
             <dt className="text-ink-secondary">{t("phone")}</dt>
-            <dd className="font-medium tabular-nums">{pii.phone}</dd>
+            <dd className="font-medium tabular-nums">{pii.phone || "—"}</dd>
           </div>
           <div>
             <dt className="text-ink-secondary">{t("nationalId")}</dt>
@@ -84,7 +84,16 @@ const DECISION_COPY = {
   REJECTED: { label: "reject", confirm: "rejectConfirm", tone: "destructive", variant: "destructive" },
 } as const satisfies Record<Decision, { label: string; confirm: string; tone: "primary" | "destructive"; variant: "primary" | "outline" | "destructive" }>;
 
-export function DecisionPanel({ id, status }: { id: string; status: "PENDING_VERIFICATION" | "NEEDS_REVISION" | "VERIFIED" | "REJECTED" }) {
+export function DecisionPanel({
+  id,
+  status,
+  blockedReason,
+}: {
+  id: string;
+  status: "PENDING_VERIFICATION" | "NEEDS_REVISION" | "VERIFIED" | "REJECTED";
+  /** Four-eyes rule: set when the current user entered this application at the office. */
+  blockedReason?: string;
+}) {
   const router = useRouter();
   const [note, setNote] = useState("");
   const [noteError, setNoteError] = useState<string | null>(null);
@@ -117,6 +126,12 @@ export function DecisionPanel({ id, status }: { id: string; status: "PENDING_VER
   return (
     <div className="space-y-4">
       <FormFeedback ref={feedbackRef} feedback={feedback} />
+      {blockedReason ? (
+        <p role="note" className="flex gap-2 rounded-control border border-status-info/25 bg-status-info-bg p-3 text-sm text-status-info">
+          <ShieldAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
+          {blockedReason}
+        </p>
+      ) : null}
       <div className="space-y-1.5">
         <Label htmlFor="decision-note" required>
           {t("noteLabel")}
@@ -148,7 +163,7 @@ export function DecisionPanel({ id, status }: { id: string; status: "PENDING_VER
               tone={DECISION_COPY[d].tone}
               onConfirm={() => decide(d)}
               trigger={
-                <Button variant={DECISION_COPY[d].variant} size="sm" disabled={pending || tooShort}>
+                <Button variant={DECISION_COPY[d].variant} size="sm" disabled={pending || tooShort || Boolean(blockedReason)}>
                   {pending ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
                   {t(DECISION_COPY[d].label)}
                 </Button>

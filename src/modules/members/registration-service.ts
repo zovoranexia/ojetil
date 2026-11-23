@@ -3,6 +3,8 @@ import type { MemberCategory, RegistrationStatus } from "@prisma/client";
 import { toDbLocale, type AppLocale } from "@/config/locales";
 import { issueTrackingCode, normalizeTrackingCode } from "@/lib/codes";
 import { db } from "@/lib/db";
+import type { SessionUser } from "@/lib/security/guards";
+import { recordAudit } from "@/modules/audit/service";
 import { issueCardAccessToken } from "./card";
 import { encryptMemberPii } from "./pii";
 import { deleteProfilePhoto, storeProfilePhoto } from "./photo-storage";
@@ -14,12 +16,18 @@ import { CONSENT_VERSION, parseIsoDate, type MemberSubmission } from "./registra
  * never burns a number. Duplicate national IDs are deliberately NOT rejected
  * here: answering "this BI is already registered" would let anyone probe who
  * is a member or veteran. Verifiers see possible duplicates via the blind index.
+ *
+ * `registeredBy`: staff entering the application at the office (channel
+ * OFFICE). The record keeps who entered it, so that person can never also
+ * verify it (four-eyes rule, see decideMemberRegistration), and the entry is
+ * audited in the same transaction.
  */
 export async function submitMemberRegistration(
   data: MemberSubmission,
   photo: Buffer | null,
   locale: AppLocale,
-): Promise<{ trackingCode: string; status: RegistrationStatus }> {
+  options: { registeredBy?: SessionUser } = {},
+): Promise<{ id: string; trackingCode: string; status: RegistrationStatus }> {
   const photoKey = photo ? await storeProfilePhoto(photo) : null;
   const now = new Date();
 
@@ -29,8 +37,12 @@ export async function submitMemberRegistration(
         const trackingCode = await issueTrackingCode(tx, now);
         const isVeteran = data.category === "VETERAN_KLANDESTIN";
 
-        await tx.memberRegistration.create({
+        const office = options.registeredBy;
+        const created = await tx.memberRegistration.create({
+          select: { id: true },
           data: {
+            channel: office ? "OFFICE" : "ONLINE",
+            registeredById: office?.id ?? null,
             trackingCode,
             category: data.category,
             status: "PENDING_VERIFICATION",
@@ -42,7 +54,8 @@ export async function submitMemberRegistration(
             municipality: data.municipality,
             administrativePost: data.administrativePost,
             email: data.email || null,
-            ...encryptMemberPii({ address: data.address, phone: data.phone, nationalId: data.nationalId }),
+            // An office registration may have no phone: stored as an encrypted empty string.
+            ...encryptMemberPii({ address: data.address, phone: data.phone ?? "", nationalId: data.nationalId }),
             yearJoined: isVeteran ? data.yearJoined : null,
             clandestineCell: isVeteran ? data.clandestineCell : null,
             clandestineRegion: isVeteran ? (data.clandestineRegion ?? null) : null,
@@ -54,10 +67,21 @@ export async function submitMemberRegistration(
             consentVersion: CONSENT_VERSION,
             consentAt: now,
             submittedLocale: toDbLocale(locale),
-            statusChanges: { create: { fromStatus: null, toStatus: "PENDING_VERIFICATION" } },
+            statusChanges: { create: { fromStatus: null, toStatus: "PENDING_VERIFICATION", actorId: office?.id ?? null } },
           },
         });
-        return { trackingCode, status: "PENDING_VERIFICATION" as const };
+        if (office) {
+          await recordAudit(
+            {
+              action: "MEMBER_REGISTERED_OFFICE",
+              actor: office,
+              target: { type: "MemberRegistration", id: created.id },
+              metadata: { trackingCode, category: data.category, municipality: data.municipality, withPhoto: Boolean(photoKey) },
+            },
+            tx,
+          );
+        }
+        return { id: created.id, trackingCode, status: "PENDING_VERIFICATION" as const };
       },
       { maxWait: 10_000, timeout: 15_000 },
     );

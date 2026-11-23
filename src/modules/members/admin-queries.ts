@@ -71,6 +71,7 @@ export async function listMembers(f: MemberFilters) {
       createdAt: true,
       verifiedAt: true,
       nationalIdHash: true,
+      channel: true,
     },
   });
 
@@ -135,6 +136,9 @@ export async function getMemberDetail(id: string) {
       verifiedAt: true,
       verificationNotes: true,
       verifiedBy: { select: { name: true, email: true } },
+      channel: true,
+      registeredById: true,
+      registeredBy: { select: { name: true, email: true } },
       createdAt: true,
       updatedAt: true,
       statusChanges: {

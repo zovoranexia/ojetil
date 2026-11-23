@@ -75,7 +75,12 @@ const optionalText = (max: number, msg: Msg) =>
     .transform((v) => (v === "" ? undefined : v))
     .optional();
 
-export function memberStepSchemas(msg: Msg, today: Date = new Date()) {
+export interface MemberSchemaOptions {
+  /** Office registration: the member may have no phone. */
+  phoneOptional?: boolean;
+}
+
+export function memberStepSchemas(msg: Msg, today: Date = new Date(), options: MemberSchemaOptions = {}) {
   const step1 = z.object({
     category: z.enum(MEMBER_CATEGORIES, { error: msg("category") }),
     fullName: z.string().trim().min(3, msg("nameMin")).max(120, msg("nameMax")),
@@ -96,7 +101,12 @@ export function memberStepSchemas(msg: Msg, today: Date = new Date()) {
     municipality: z.enum(MUNICIPALITY_VALUES, { error: msg("municipality") }),
     administrativePost: z.string().trim().min(2, msg("postRequired")).max(80, msg("textMax")),
     address: z.string().trim().min(5, msg("addressMin")).max(300, msg("textMax")),
-    phone: z.string().trim().regex(PHONE_PATTERN, msg("phone")),
+    phone: options.phoneOptional
+      ? z
+          .string()
+          .trim()
+          .refine((v) => v === "" || PHONE_PATTERN.test(v), msg("phone"))
+      : z.string().trim().regex(PHONE_PATTERN, msg("phone")),
     email: z
       .string()
       .trim()
@@ -137,8 +147,8 @@ export function memberStepSchemas(msg: Msg, today: Date = new Date()) {
 }
 
 /** Authoritative server schema: all three steps, discriminated by track. */
-export function memberSubmissionSchema(msg: Msg, birthYear: number | null, today: Date = new Date()) {
-  const s = memberStepSchemas(msg, today);
+export function memberSubmissionSchema(msg: Msg, birthYear: number | null, today: Date = new Date(), options: MemberSchemaOptions = {}) {
+  const s = memberStepSchemas(msg, today, options);
   const common = s.step1.omit({ category: true }).extend(s.step2.shape);
   return z.discriminatedUnion(
     "category",
@@ -153,9 +163,9 @@ export function memberSubmissionSchema(msg: Msg, birthYear: number | null, today
 export type MemberSubmission = z.output<ReturnType<typeof memberSubmissionSchema>>;
 
 /** Validates a complete submission (all steps) from untrusted input. */
-export function parseMemberSubmission(input: Record<string, unknown>, msg: Msg, today: Date = new Date()) {
+export function parseMemberSubmission(input: Record<string, unknown>, msg: Msg, today: Date = new Date(), options: MemberSchemaOptions = {}) {
   const birthYear = birthYearOf(typeof input.dateOfBirth === "string" ? input.dateOfBirth : undefined);
-  return memberSubmissionSchema(msg, birthYear, today).safeParse(input);
+  return memberSubmissionSchema(msg, birthYear, today, options).safeParse(input);
 }
 
 /** Wizard form values (strings as typed into inputs). */

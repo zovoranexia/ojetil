@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 import { after } from "next/server";
 import { ActionError, authorizedAction } from "@/lib/actions";
 import { db } from "@/lib/db";
@@ -44,11 +45,40 @@ export const revealMemberPii = authorizedAction("members:pii", memberIdSchema, a
   return pii;
 });
 
+/** Audit trail for printing / saving a member card from the backoffice (CR80 PDF or A4 sheet). */
+export const logMemberCardPrint = authorizedAction(
+  "members:read",
+  memberIdSchema.extend({ format: z.enum(["CR80", "A4"]) }),
+  async ({ id, format }, user) => {
+    const m = await db.memberRegistration.findUnique({ where: { id }, select: { trackingCode: true, status: true } });
+    if (!m) throw new ActionError("NOT_FOUND", msg("admin.members.errors.notFound"));
+    if (m.status !== "VERIFIED") throw new ActionError("CONFLICT", msg("admin.members.errors.cardNotVerified"));
+    await recordAudit({ action: "MEMBER_CARD_PRINTED", actor: user, target: { type: "MemberRegistration", id }, metadata: { trackingCode: m.trackingCode, format } });
+    return { id };
+  },
+);
+
 /**
  * Approve / request revision / reject. Status, history and audit entry are
  * written in one transaction; a stale `expectedStatus` aborts with CONFLICT.
  */
 export const decideMemberRegistration = authorizedAction("members:verify", decisionSchema, async (input, user) => {
+  /*
+   * Four-eyes rule: whoever entered an application at the office may not verify,
+   * send back or reject it — for every role, Super Admin included. The refused
+   * attempt is audited (outside the decision transaction, so it is kept).
+   */
+  const entered = await db.memberRegistration.findUnique({ where: { id: input.id }, select: { registeredById: true, trackingCode: true } });
+  if (entered?.registeredById && entered.registeredById === user.id) {
+    await recordAudit({
+      action: "MEMBER_DECISION_BLOCKED",
+      actor: user,
+      target: { type: "MemberRegistration", id: input.id },
+      metadata: { trackingCode: entered.trackingCode, attempted: input.decision, reason: "FOUR_EYES_SAME_OFFICER" },
+    });
+    throw new ActionError("FORBIDDEN", msg("admin.members.errors.fourEyes"));
+  }
+
   const result = await db.$transaction(async (tx) => {
     const current = await tx.memberRegistration.findUnique({ where: { id: input.id }, select: { status: true, trackingCode: true } });
     if (!current) throw new ActionError("NOT_FOUND", msg("admin.members.errors.notFound"));

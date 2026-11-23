@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AlertTriangle, Download, Search } from "lucide-react";
+import { AlertTriangle, Download, Search, UserPlus } from "lucide-react";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import {
@@ -99,6 +99,7 @@ export default async function MembersPage({ searchParams }: { searchParams: Sear
   const filters = parseMemberFilters(await searchParams);
   const result = await listMembers(filters);
   const canExport = satisfies(user.role, "members:export");
+  const canRegister = satisfies(user.role, "members:register");
   const [t, tStatus, locale] = await Promise.all([getTranslations("admin.members"), getTranslations("admin.status"), getLocale()]);
   const params = { q: filters.q, status: filters.status, category: filters.category, municipality: filters.municipality };
 
@@ -108,13 +109,22 @@ export default async function MembersPage({ searchParams }: { searchParams: Sear
         title={t("queue.title")}
         description={t("queue.description")}
         actions={
-          canExport ? (
-            <Button asChild variant="outline">
-              <a href="/api/admin/exports/members" download>
-                <Download aria-hidden="true" /> {t("queue.export")}
-              </a>
-            </Button>
-          ) : null
+          <>
+            {canRegister ? (
+              <Button asChild>
+                <Link href="/admin/anggota/baru">
+                  <UserPlus aria-hidden="true" /> {t("office.button")}
+                </Link>
+              </Button>
+            ) : null}
+            {canExport ? (
+              <Button asChild variant="outline">
+                <a href="/api/admin/exports/members" download>
+                  <Download aria-hidden="true" /> {t("queue.export")}
+                </a>
+              </Button>
+            ) : null}
+          </>
         }
       />
 
@@ -180,6 +190,7 @@ export default async function MembersPage({ searchParams }: { searchParams: Sear
                   <Link href={`/admin/anggota/${m.id}`} className="tracking-code font-semibold text-ojetil-red hover:underline">
                     {m.trackingCode}
                   </Link>
+                  {m.channel === "OFFICE" ? <span className="mt-0.5 block text-xs text-ink-secondary">{t("channel.office")}</span> : null}
                 </Td>
                 <Td>
                   <span className="font-medium">{m.fullName}</span>

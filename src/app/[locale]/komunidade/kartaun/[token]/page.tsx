@@ -3,7 +3,7 @@ import { AlertCircle, ShieldCheck } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { CardPrintStyles } from "@/components/members/card-print-styles";
 import { MemberCard } from "@/components/members/member-card";
-import { PrintCardButton } from "@/components/members/print-card-button";
+import { CardPrintActions } from "@/components/members/card-print-actions";
 import { PageHeader } from "@/components/public/page-header";
 import { CHECK_STATUS_PATH } from "@/config/navigation";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
@@ -52,7 +52,7 @@ export default async function MemberCardPage({ params }: { params: Promise<{ loc
       <div className="mx-auto max-w-3xl px-4 py-10 md:px-8 md:py-14">
         <MemberCard card={card} photoSrc={card.hasPhoto ? `/api/members/card-photo/${token}` : null} locale={locale} />
         <div className="mx-auto mt-8 max-w-[46rem] space-y-4 print:hidden">
-          <PrintCardButton label={t("print")} />
+          <CardPrintActions labels={{ cr80: t("printCr80"), a4: t("printA4"), hint: t("printHint"), failed: t("printFailed") }} />
           <ul className="space-y-2 text-sm text-ink-secondary">
             <li className="flex gap-2">
               <ShieldCheck aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-status-verified" />
