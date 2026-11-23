@@ -82,7 +82,7 @@ export function AdminSidebar({ footer, variant }: { footer: React.ReactNode; var
 
   if (variant === "desktop") {
     return (
-      <aside className="flex w-60 shrink-0 flex-col bg-ink px-3 py-5">
+      <aside className="flex w-60 shrink-0 flex-col bg-brand-deep px-3 py-5">
         <nav aria-label={t("navLabel")} className="flex-1">
           <NavList />
         </nav>
@@ -103,7 +103,7 @@ export function AdminSidebar({ footer, variant }: { footer: React.ReactNode; var
           {open ? <X aria-hidden="true" className="size-5" /> : <Menu aria-hidden="true" className="size-5" />}
           <span className="sr-only">{open ? t("closeMenu") : t("openMenu")}</span>
         </button>
-        <div id="admin-mobile-nav" hidden={!open} className="ink-chrome absolute inset-x-0 top-full z-40 bg-ink px-3 pb-4 pt-2 shadow-lg">
+        <div id="admin-mobile-nav" hidden={!open} className="ink-chrome absolute inset-x-0 top-full z-40 bg-brand-deep px-3 pb-4 pt-2 shadow-lg">
           <nav aria-label={t("navLabel")}>
             <NavList onNavigate={() => setOpen(false)} />
           </nav>

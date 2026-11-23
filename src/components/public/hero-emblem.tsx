@@ -17,7 +17,7 @@ export function HeroEmblem({ milestones, className }: { milestones: HeroMileston
   return (
     <figure
       className={cn(
-        "ink-chrome relative isolate flex flex-col items-center overflow-hidden rounded-card bg-ink px-6 pb-7 pt-9 text-center text-paper md:max-lg:px-5 shadow-[0_24px_48px_-24px_rgb(24_24_27/0.55)] md:px-8 md:pb-8 md:pt-12",
+        "ink-chrome relative isolate flex flex-col items-center overflow-hidden rounded-card bg-brand-deep px-6 pb-7 pt-9 text-center text-paper md:max-lg:px-5 shadow-[0_24px_48px_-24px_rgb(24_24_27/0.55)] md:px-8 md:pb-8 md:pt-12",
         className,
       )}
     >

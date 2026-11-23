@@ -21,11 +21,12 @@ export interface EmailContent {
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
-const RED = "#a61c1c";
-const INK = "#18181b";
+const RED = "#b42318";
+const INK = "#16181b";
 const MUTED = "#52525b";
 const PAPER = "#f8f5ef";
-const GOLD = "#c98a12";
+const GOLD = "#e2b13c";
+const GREEN = "#17402b";
 
 export function renderEmail(c: EmailContent): { html: string; text: string } {
   const details = c.details?.length
@@ -49,7 +50,7 @@ export function renderEmail(c: EmailContent): { html: string; text: string } {
 <span style="display:none;max-height:0;overflow:hidden;opacity:0">${esc(c.preheader)}</span>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${PAPER}"><tr><td align="center" style="padding:24px 12px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #e4e1da">
-<tr><td style="background:${INK};padding:18px 24px;border-bottom:4px solid ${RED}">
+<tr><td style="background:${GREEN};padding:18px 24px;border-bottom:4px solid ${RED}">
 <span style="font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:700;color:#ffffff">${esc(siteConfig.shortName)}</span>
 <span style="display:block;font-size:12px;color:${GOLD};margin-top:2px">${esc(siteConfig.motto)}</span>
 </td></tr>

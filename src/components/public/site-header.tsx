@@ -20,7 +20,7 @@ export async function SiteHeader({ bandwidth }: { bandwidth: BandwidthMode }) {
   return (
     <header className="relative z-30">
       <TaisRibbon />
-      <div className="bg-ink">
+      <div className="bg-brand-deep">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-2 sm:px-4 md:px-8">
           <LowDataToggle initialMode={bandwidth} />
           <LanguageSwitcher />

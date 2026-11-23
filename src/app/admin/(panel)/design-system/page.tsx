@@ -17,15 +17,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const swatches = [
-  { token: "--ojetil-red-primary", hex: "#A61C1C", use: "redPrimary", dark: true },
-  { token: "--ojetil-red-hover", hex: "#7F1313", use: "redHover", dark: true },
-  { token: "--ojetil-ink-primary", hex: "#18181B", use: "inkPrimary", dark: true },
-  { token: "--ojetil-ink-secondary", hex: "#52525B", use: "inkSecondary", dark: true },
-  { token: "--ojetil-gold-accent", hex: "#C98A12", use: "goldAccent", dark: false },
-  { token: "--ojetil-gold-text", hex: "#855806", use: "goldText", dark: true },
-  { token: "--ojetil-surface-paper", hex: "#F8F5EF", use: "surfacePaper", dark: false },
+  { token: "--ojetil-red-primary", hex: "#B42318", use: "redPrimary", dark: true },
+  { token: "--ojetil-red-hover", hex: "#8E1B12", use: "redHover", dark: true },
+  { token: "--ojetil-green-deep", hex: "#17402B", use: "greenDeep", dark: true },
+  { token: "--ojetil-blue", hex: "#245EA3", use: "blue", dark: true },
+  { token: "--ojetil-ink-primary", hex: "#16181B", use: "inkPrimary", dark: true },
+  { token: "--ojetil-ink-secondary", hex: "#4D535C", use: "inkSecondary", dark: true },
+  { token: "--ojetil-gold-accent", hex: "#E2B13C", use: "goldAccent", dark: false },
+  { token: "--ojetil-gold-text", hex: "#7D5800", use: "goldText", dark: true },
+  { token: "--ojetil-surface-paper", hex: "#F7F6F2", use: "surfacePaper", dark: false },
   { token: "--ojetil-surface-card", hex: "#FFFFFF", use: "surfaceCard", dark: false },
-  { token: "--ojetil-border-subtle", hex: "#E4DDD2", use: "borderSubtle", dark: false },
+  { token: "--ojetil-border-subtle", hex: "#E2DFD7", use: "borderSubtle", dark: false },
 ] as const;
 
 export default async function DesignSystemPage() {

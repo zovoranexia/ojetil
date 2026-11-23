@@ -808,7 +808,9 @@
         "goldText": "Texto e etiquetas ocre em superfícies claras",
         "surfacePaper": "Fundo das páginas públicas",
         "surfaceCard": "Cartões, modais, área de trabalho de administração",
-        "borderSubtle": "Contornos, divisores, campos"
+        "borderSubtle": "Contornos, divisores, campos",
+        "greenDeep": "Verde profundo: rodapé, menu do backoffice, painéis da marca",
+        "blue": "Azul: informação e destaques secundários"
       },
       "status": "Semântica de estado",
       "inkSurface": "Em superfícies ink, o destaque dourado é permitido:",

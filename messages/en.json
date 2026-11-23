@@ -808,7 +808,9 @@
         "goldText": "Ochre text & badges on light surfaces",
         "surfacePaper": "Public page canvas",
         "surfaceCard": "Cards, modals, admin workspace",
-        "borderSubtle": "Borders, dividers, inputs"
+        "borderSubtle": "Borders, dividers, inputs",
+        "greenDeep": "Deep green: footer, backoffice sidebar, brand panels",
+        "blue": "Blue: information and secondary highlights"
       },
       "status": "Status semantics",
       "inkSurface": "On ink surfaces the gold accent is permitted:",

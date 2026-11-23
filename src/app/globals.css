@@ -1,41 +1,54 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   OJETIL Design System — "Dignified Archive, Next-Generation Energy"
+   OJETIL Design System — colours of the OJETIL flag, toned for an editorial look
+   (black ink · deepened red · deep green chrome · softened yellow · flag blue).
    All foreground/background pairings below are WCAG 2.1 AA compliant:
-     ink-primary   on paper  ≈ 16.9:1   ink-secondary on paper ≈ 7.1:1
-     white         on red    ≈  7.5:1   gold-text     on paper ≈ 5.7:1
-     gold-accent   on ink    ≈  6.0:1   (gold-accent is NEVER used on light surfaces)
+     ink-primary   on paper  ≈ 16.5:1   ink-secondary on paper ≈ 7.2:1
+     white         on red    ≈  6.6:1   gold-text     on paper ≈ 5.9:1
+     paper         on green  ≈ 10.8:1   gold-accent   on green ≈ 5.9:1
+     (gold-accent is NEVER used on light surfaces)
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* `low-bw:` variant → styles that apply when Low-Bandwidth Mode is on. */
 @custom-variant low-bw (&:where([data-bandwidth="low"], [data-bandwidth="low"] *));
 
 :root {
-  /* ── Brand ─────────────────────────────────────────────────────────────── */
-  --ojetil-red-primary: #a61c1c;
-  --ojetil-red-hover: #7f1313;
-  --ojetil-ink-primary: #18181b;
-  --ojetil-ink-secondary: #52525b;
-  --ojetil-gold-accent: #c98a12; /* dark surfaces only */
-  --ojetil-gold-text: #855806; /* light surfaces */
+  /* ── Brand: the OJETIL flag (black · yellow · red | blue · white · green),
+     toned down for an institutional, editorial look. ─────────────────────── */
+  --ojetil-red-primary: #b42318; /* flag red, deepened: actions, links, accents */
+  --ojetil-red-hover: #8e1b12;
+  --ojetil-ink-primary: #16181b; /* flag black: text */
+  --ojetil-ink-secondary: #4d535c;
+  --ojetil-green-deep: #17402b; /* flag green, deep: footer, backoffice sidebar, brand panels */
+  --ojetil-green-deep-hover: #1f5237;
+  --ojetil-blue: #245ea3; /* flag blue: information, secondary highlights */
+  --ojetil-gold-accent: #e2b13c; /* flag yellow, softened — on dark/green surfaces only */
+  --ojetil-gold-text: #7d5800; /* flag yellow as text on light surfaces */
+
+  /* Flag band (thin rule under the header and above the footer). */
+  --ojetil-flag-black: #16181b;
+  --ojetil-flag-yellow: #e9bd3a;
+  --ojetil-flag-red: #c4261d;
+  --ojetil-flag-green: #1e6a3c;
+  --ojetil-flag-blue: #2d74bf;
 
   /* ── Surfaces ──────────────────────────────────────────────────────────── */
-  --ojetil-surface-paper: #f8f5ef;
+  --ojetil-surface-paper: #f7f6f2; /* the flag's white, warmed slightly */
   --ojetil-surface-card: #ffffff;
-  --ojetil-surface-muted: #efe9df; /* derived: zebra rows, skeletons, placeholders */
-  --ojetil-border-subtle: #e4ddd2;
-  --ojetil-border-strong: #b9ae9c; /* derived: input hover, 3:1 non-text contrast on paper */
+  --ojetil-surface-muted: #eeece6; /* derived: zebra rows, skeletons, placeholders */
+  --ojetil-border-subtle: #e2dfd7;
+  --ojetil-border-strong: #8a8577; /* derived: input hover, ≥3:1 non-text contrast on paper (3.4:1) */
 
   /* ── Semantic status (text on background) ──────────────────────────────── */
-  --ojetil-status-verified-fg: #166534;
-  --ojetil-status-verified-bg: #dcfce7;
+  --ojetil-status-verified-fg: #1a5a33; /* flag green */
+  --ojetil-status-verified-bg: #e2f1e6;
   --ojetil-status-pending-fg: #9a3412;
   --ojetil-status-pending-bg: #ffedd5;
   --ojetil-status-rejected-fg: #991b1b;
   --ojetil-status-rejected-bg: #fee2e2;
-  --ojetil-status-info-fg: #1e40af;
-  --ojetil-status-info-bg: #dbeafe;
+  --ojetil-status-info-fg: #1f528f; /* flag blue */
+  --ojetil-status-info-bg: #e2ecf8;
 
   /* ── Shape ─────────────────────────────────────────────────────────────── */
   --ojetil-radius-control: 4px; /* buttons, inputs, badges */
@@ -46,11 +59,11 @@
   --ojetil-font-sans: "Plus Jakarta Sans Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --ojetil-font-mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
 
-  /* ── Tais ribbon: 24×4 px rhythmic geometric tile (red · ink · gold) ───── */
-  --ojetil-tais-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='4' viewBox='0 0 24 4' shape-rendering='crispEdges'%3E%3Crect width='9' height='4' fill='%23A61C1C'/%3E%3Crect x='9' width='15' height='4' fill='%2318181B'/%3E%3Cpath d='M11 4 13 0 15 4Z' fill='%23C98A12'/%3E%3Cpath d='M17 0 19 4 21 0Z' fill='%23C98A12'/%3E%3C/svg%3E");
+  /* ── Flag band: the five flag colours in equal segments (4 px rule) ─────── */
+  --ojetil-tais-pattern: linear-gradient(90deg, var(--ojetil-flag-black) 0 20%, var(--ojetil-flag-yellow) 20% 40%, var(--ojetil-flag-red) 40% 60%, var(--ojetil-flag-green) 60% 80%, var(--ojetil-flag-blue) 80% 100%);
 
   /* ── Tais weave: 40×40 px diamond lattice for large dark panels (gold · red) ─ */
-  --ojetil-tais-weave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M20 2 38 20 20 38 2 20Z' fill='none' stroke='%23C98A12' stroke-width='1.5'/%3E%3Cpath d='M20 12 28 20 20 28 12 20Z' fill='%23A61C1C'/%3E%3Cpath d='M20 17 23 20 20 23 17 20Z' fill='%23C98A12'/%3E%3Cpath d='M0 0 4 0 0 4ZM40 0 36 0 40 4ZM0 40 4 40 0 36ZM40 40 36 40 40 36Z' fill='%23C98A12'/%3E%3C/svg%3E");
+  --ojetil-tais-weave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M20 2 38 20 20 38 2 20Z' fill='none' stroke='%23E2B13C' stroke-width='1.5'/%3E%3Cpath d='M20 12 28 20 20 28 12 20Z' fill='%23B42318'/%3E%3Cpath d='M20 17 23 20 20 23 17 20Z' fill='%23E2B13C'/%3E%3Cpath d='M0 0 4 0 0 4ZM40 0 36 0 40 4ZM0 40 4 40 0 36ZM40 40 36 40 40 36Z' fill='%23E2B13C'/%3E%3C/svg%3E");
 
   /* ── shadcn/ui semantic aliases mapped onto OJETIL tokens ──────────────── */
   --background: var(--ojetil-surface-paper);
@@ -87,20 +100,21 @@
 html.dark {
   color-scheme: dark;
 
-  --ojetil-red-primary: #d32f2f;
-  --ojetil-red-hover: #b71c1c;
-  --ojetil-red-text: #f07a7a; /* red used as text on dark surfaces (links, hover states) */
-  --ojetil-ink-primary: #f4f4f5;
-  --ojetil-ink-secondary: #b4b4bc;
-  --ojetil-gold-text: #e0a93a;
+  --ojetil-red-primary: #d1352a;
+  --ojetil-red-hover: #b42318;
+  --ojetil-red-text: #f3857c; /* red used as text on dark surfaces (links, hover states) */
+  --ojetil-ink-primary: #f3f4f2;
+  --ojetil-ink-secondary: #b3b8b3;
+  --ojetil-gold-text: #e6b84a;
 
-  --ojetil-surface-paper: #121214;
-  --ojetil-surface-card: #1b1b1f;
-  --ojetil-surface-muted: #26262b;
-  --ojetil-border-subtle: #303036;
-  --ojetil-border-strong: #6b6b75;
+  /* Dark surfaces carry a hint of the flag green, so the backoffice stays on-brand. */
+  --ojetil-surface-paper: #101412;
+  --ojetil-surface-card: #181d1a;
+  --ojetil-surface-muted: #222924;
+  --ojetil-border-subtle: #2d3530;
+  --ojetil-border-strong: #66706a;
 
-  --ojetil-status-verified-fg: #86efac;
+  --ojetil-status-verified-fg: #8fdcaa;
   --ojetil-status-verified-bg: #0f2e1c;
   --ojetil-status-pending-fg: #fdba74;
   --ojetil-status-pending-bg: #3a1f0b;
@@ -124,10 +138,10 @@ html.dark .rich-content a {
    light-theme ink/paper pair so `bg-ink text-paper` keeps meaning
    "dark surface, light text" in both themes. No-op in light mode. */
 .ink-chrome {
-  --ojetil-ink-primary: #18181b;
-  --ojetil-ink-secondary: #52525b;
-  --ojetil-surface-paper: #f8f5ef;
-  --ojetil-red-primary: #a61c1c;
+  --ojetil-ink-primary: #16181b;
+  --ojetil-ink-secondary: #4d535c;
+  --ojetil-surface-paper: #f7f6f2;
+  --ojetil-red-primary: #b42318;
 }
 
 /* Low-Bandwidth Mode: drop web fonts entirely. The self-hosted @font-face rules
@@ -143,6 +157,9 @@ html.dark .rich-content a {
   --color-ojetil-red-hover: var(--ojetil-red-hover);
   --color-ink: var(--ojetil-ink-primary);
   --color-ink-secondary: var(--ojetil-ink-secondary);
+  --color-brand-deep: var(--ojetil-green-deep);
+  --color-brand-deep-hover: var(--ojetil-green-deep-hover);
+  --color-ojetil-blue: var(--ojetil-blue);
   --color-gold-accent: var(--ojetil-gold-accent);
   --color-gold-text: var(--ojetil-gold-text);
   --color-paper: var(--ojetil-surface-paper);
@@ -276,9 +293,8 @@ html.dark .rich-content a {
   height: 4px;
   width: 100%;
   background-image: var(--ojetil-tais-pattern);
-  background-repeat: repeat-x;
-  background-size: 24px 4px;
-  image-rendering: pixelated;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 @utility tracking-code {

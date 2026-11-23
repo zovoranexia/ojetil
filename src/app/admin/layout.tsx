@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   icons: { icon: "/brand/ojetil-emblem.jpg" },
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#18181B" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#17402B" };
 
 /*
  * Runs before first paint. With an explicit choice the server already rendered
