@@ -808,7 +808,9 @@
         "goldText": "Testu no badge okre iha superfísie naroman",
         "surfacePaper": "Fundu pájina públiku",
         "surfaceCard": "Kartaun, modál, espasu servisu admin",
-        "borderSubtle": "Limite, separadór, kampu"
+        "borderSubtle": "Limite, separadór, kampu",
+        "greenDeep": "Verde nasionál fundu: rodapé, menu backoffice, painél marka",
+        "blue": "Azúl: informasaun no destake sekundáriu"
       },
       "status": "Signifikadu estatutu",
       "inkSurface": "Iha superfísie ink, aksentu osan-mean bele uza:",

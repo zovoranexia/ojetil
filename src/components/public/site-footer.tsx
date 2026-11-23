@@ -17,7 +17,7 @@ export async function SiteFooter() {
   return (
     <footer className="mt-auto">
       <TaisRibbon />
-      <div className="bg-ink text-paper">
+      <div className="bg-brand-deep text-paper">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[1.4fr_1fr_1fr_1.2fr] md:px-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">

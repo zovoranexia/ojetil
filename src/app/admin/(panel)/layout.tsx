@@ -44,7 +44,7 @@ export default async function AdminPanelLayout({ children }: { children: React.R
         <TaisRibbon />
         <div className="flex flex-1">
           <div className="ink-chrome hidden lg:flex lg:flex-col">
-            <Link href="/admin" className="flex items-center gap-3 bg-ink px-6 pb-2 pt-5 text-paper">
+            <Link href="/admin" className="flex items-center gap-3 bg-brand-deep px-6 pb-2 pt-5 text-paper">
               <Emblem size={36} />
               <span>
                 <span className="block font-serif text-lg font-bold leading-none">OJETIL</span>

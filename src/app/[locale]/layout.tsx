@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#18181B",
+  themeColor: "#17402B",
 };
 
 /** Client components only receive the namespaces they use, keeping the RSC payload small. */

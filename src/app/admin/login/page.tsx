@@ -31,7 +31,7 @@ export default async function AdminLoginPage({
     <div className="flex min-h-dvh flex-col bg-paper text-ink">
       <TaisRibbon />
       <div className="grid flex-1 grid-rows-[auto_1fr] md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:grid-rows-1">
-        <aside className="ink-chrome flex flex-col justify-between gap-8 bg-ink px-6 py-8 text-paper md:px-12 md:py-14">
+        <aside className="ink-chrome flex flex-col justify-between gap-8 bg-brand-deep px-6 py-8 text-paper md:px-12 md:py-14">
           <div className="flex items-center gap-4">
             <Emblem size={56} priority />
             <div>

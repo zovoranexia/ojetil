@@ -808,7 +808,9 @@
         "goldText": "Teks & lencana oker pada permukaan terang",
         "surfacePaper": "Kanvas halaman publik",
         "surfaceCard": "Kartu, modal, ruang kerja admin",
-        "borderSubtle": "Garis tepi, pemisah, input"
+        "borderSubtle": "Garis tepi, pemisah, input",
+        "greenDeep": "Hijau tua: footer, menu backoffice, panel brand",
+        "blue": "Biru: informasi dan sorotan sekunder"
       },
       "status": "Semantik status",
       "inkSurface": "Pada permukaan ink, aksen emas diperbolehkan:",

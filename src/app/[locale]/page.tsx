@@ -182,7 +182,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── Registration CTA ──────────────────────────────────────────── */}
       <section aria-labelledby="cta-title" className="px-4 pb-16 md:px-8">
         <div className="relative mx-auto max-w-6xl overflow-hidden rounded-card bg-ojetil-red text-white">
-          <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1 [background-image:var(--ojetil-tais-pattern)] [background-size:24px_4px]" />
+          <div aria-hidden="true" className="tais-ribbon absolute inset-x-0 top-0" />
           <div className="grid gap-8 px-6 py-10 md:grid-cols-[1.5fr_1fr] md:items-center md:px-12 md:py-14">
             <div>
               <h2 id="cta-title" className="text-3xl text-white md:text-4xl">
