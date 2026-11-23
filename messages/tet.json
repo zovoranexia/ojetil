@@ -134,7 +134,10 @@
     "showMore": "Lee istória kompletu",
     "showLess": "Hatudu menus",
     "empty": "Kronolojia iha preparasaun hela.",
-    "note": "Istória narrativa ida. Testemuña no dokumentu sira sei publika iha Arkivu Dijitál OJETIL."
+    "note": "Istória narrativa ida. Testemuña no dokumentu sira sei publika iha Arkivu Dijitál OJETIL.",
+    "contents": "Iha pájina ne'e",
+    "keyDates": "Data importante",
+    "fullTimeline": "Kronolojia kompletu"
   },
   "news": {
     "metaTitle": "Notísia no komunikadu",
