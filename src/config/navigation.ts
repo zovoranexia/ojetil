@@ -5,6 +5,7 @@ export const PRIMARY_NAV = [
   { href: "/istoria", key: "history" },
   { href: "/notisia", key: "news" },
   { href: "/edukasaun/acara", key: "events" },
+  { href: "/galeria", key: "gallery" },
   { href: "/dokumentu", key: "documents" },
   { href: "/kontaktu", key: "contact" },
 ] as const;

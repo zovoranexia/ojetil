@@ -69,5 +69,10 @@ export async function mediaUsage(url: string): Promise<Array<{ id: string; slug:
   const where: Prisma.NewsArticleWhereInput = {
     OR: [{ coverImageUrl: url }, { translations: { some: { body: { contains: url } } } }],
   };
-  return db.newsArticle.findMany({ where, select: { id: true, slug: true }, take: 20 });
+  const [articles, albums] = await Promise.all([
+    db.newsArticle.findMany({ where, select: { id: true, slug: true }, take: 20 }),
+    // Gallery albums hold media by reference (FK Restrict): list them so the editor sees why.
+    db.galleryAlbum.findMany({ where: { items: { some: { asset: { url } } } }, select: { id: true, slug: true }, take: 20 }),
+  ]);
+  return [...articles, ...albums.map((a) => ({ id: a.id, slug: `galeria/${a.slug}` }))];
 }

@@ -43,7 +43,8 @@
     "language": "Bahasa",
     "homeLink": "OJETIL — beranda",
     "documents": "Dokumen",
-    "contact": "Kontak"
+    "contact": "Kontak",
+    "gallery": "Galeri"
   },
   "lowData": {
     "label": "Mode Hemat Data",
@@ -202,7 +203,8 @@
     "deadline": "Daftar paling lambat {date}",
     "about": "Tentang acara ini",
     "back": "Kembali ke acara",
-    "details": "Detail & pendaftaran"
+    "details": "Detail & pendaftaran",
+    "photos": "Foto dari acara ini"
   },
   "eventRegistration": {
     "title": "Daftar acara ini",
@@ -391,7 +393,10 @@
       "verifiedOn": "Diverifikasi pada",
       "message": "Pesan dari Sekretariat",
       "contact": "Ada pertanyaan? Hubungi Sekretariat di {email}.",
-      "another": "Cek kode lain"
+      "another": "Cek kode lain",
+      "cardTitle": "Kartu anggota digital",
+      "cardBody": "Lihat, simpan, atau cetak kartu Anda dengan kode QR verifikasi.",
+      "cardOpen": "Buka kartu"
     },
     "statuses": {
       "PENDING_VERIFICATION": {
@@ -443,7 +448,8 @@
       "profilePages": "Halaman profil",
       "users": "Pengguna & peran",
       "audit": "Log audit",
-      "inbox": "Pesan masuk"
+      "inbox": "Pesan masuk",
+      "gallery": "Galeri"
     },
     "topbar": {
       "scope": "Akses",
@@ -828,7 +834,10 @@
         "currentStatus": "Status saat ini: {status}",
         "byActor": "oleh {name}",
         "submittedByApplicant": "Dikirim oleh pendaftar",
-        "consentGiven": "Diberikan {date} (pemberitahuan {version})"
+        "consentGiven": "Diberikan {date} (pemberitahuan {version})",
+        "memberCard": "Kartu anggota",
+        "memberCardHint": "Cetak kartu untuk diserahkan kepada anggota. Kode QR memverifikasi status aktif.",
+        "printCard": "Cetak kartu"
       },
       "fields": {
         "fullName": "Nama lengkap",
@@ -1532,6 +1541,86 @@
         "READ": "Sudah dibaca",
         "ARCHIVED": "Diarsipkan"
       }
+    },
+    "gallery": {
+      "metaTitle": "Galeri",
+      "metaTitleOne": "Album",
+      "title": "Galeri foto & video",
+      "description": "Satu album per kegiatan. Foto disimpan di Pustaka media sehingga bisa dipakai ulang.",
+      "new": "Album baru",
+      "search": "Cari album",
+      "searchPlaceholder": "Judul atau slug…",
+      "statusLabel": "Status",
+      "allStatuses": "Semua status",
+      "filter": "Saring",
+      "empty": "Belum ada album.",
+      "table": {
+        "caption": "Album galeri",
+        "album": "Album",
+        "items": "Item",
+        "date": "Tanggal kegiatan",
+        "languages": "Bahasa",
+        "updated": "Diperbarui",
+        "status": "Status"
+      },
+      "allAlbums": "Semua album",
+      "newTitle": "Album baru",
+      "createdDraft": "Album disimpan sebagai draf. Tambahkan foto lalu publikasikan bila siap.",
+      "editDescription": "Judul dalam satu bahasa atau lebih, foto, dan detail kegiatan.",
+      "readOnly": "Anda hanya dapat melihat album ini.",
+      "fields": {
+        "title": "Judul album",
+        "description": "Deskripsi"
+      },
+      "validation": {
+        "date": "Tanggal tidak valid (DD/MM/YYYY).",
+        "tooMany": "Maksimal {max} item per album.",
+        "duplicate": "Ada item yang muncul dua kali.",
+        "notFound": "Album tidak ditemukan.",
+        "titleOne": "Tulis judul setidaknya dalam satu bahasa.",
+        "event": "Acara tidak ditemukan.",
+        "publishEmpty": "Tambahkan minimal satu foto sebelum publikasi.",
+        "publishedEmpty": "Album yang terbit perlu minimal satu item. Batalkan publikasi dulu."
+      },
+      "editor": {
+        "itemsTitle": "Foto & video",
+        "itemsHint": "Foto (maks. {imageMb} MB) dikompres ke WebP; video MP4 (maks. {fileMb} MB) atau tautan YouTube/Vimeo dari pustaka. Item pertama menjadi sampul.",
+        "upload": "Unggah foto/video",
+        "fromLibrary": "Pilih dari pustaka",
+        "uploading": "Mengunggah {done}/{total}…",
+        "uploadFailed": "{count, plural, other {# file gagal diunggah (format atau ukuran).}}",
+        "cover": "Sampul",
+        "caption": "Keterangan foto {n}",
+        "captionPlaceholder": "Keterangan (opsional)",
+        "moveUp": "Pindah ke depan",
+        "moveDown": "Pindah ke belakang",
+        "makeCover": "Jadikan sampul",
+        "remove": "Hapus dari album",
+        "empty": "Belum ada foto. Unggah atau pilih dari pustaka.",
+        "publishing": "Publikasi",
+        "slug": "Slug (URL)",
+        "slugHint": "/galeria/nama-album — huruf kecil, angka, dan \"-\".",
+        "generateSlug": "Buat slug dari judul",
+        "create": "Buat album",
+        "publish": "Publikasikan",
+        "unpublish": "Batalkan publikasi",
+        "publishedToast": "Album dipublikasikan.",
+        "unpublishedToast": "Publikasi album dibatalkan.",
+        "publishHint": "Simpan perubahan dulu, lalu publikasikan.",
+        "viewPublic": "Lihat di situs",
+        "saved": "Tersimpan.",
+        "checkFields": "Periksa kolom yang ditandai (termasuk tab bahasa).",
+        "details": "Detail",
+        "takenOn": "Tanggal kegiatan",
+        "takenOnHint": "Album diurutkan menurut tanggal ini.",
+        "municipality": "Munisipalitas",
+        "noMunicipality": "— Tidak ada —",
+        "event": "Acara",
+        "eventHint": "Album akan tampil di halaman acara ini.",
+        "noEvent": "— Tidak ada —",
+        "deleteTitle": "Hapus album ini?",
+        "deleteBody": "Album akan dihapus. Foto tetap ada di Pustaka media."
+      }
     }
   },
   "documents": {
@@ -1622,7 +1711,7 @@
       "VERIFIED": {
         "subject": "Selamat! Pendaftaran Anda telah diverifikasi ({code})",
         "heading": "Selamat bergabung di OJETIL",
-        "body": "Sekretariat telah memverifikasi pendaftaran Anda. Kini Anda resmi menjadi anggota OJETIL."
+        "body": "Sekretariat telah memverifikasi pendaftaran Anda. Kini Anda resmi menjadi anggota OJETIL. Cek status dengan kode Anda untuk membuka kartu anggota digital."
       },
       "NEEDS_REVISION": {
         "subject": "Pendaftaran Anda perlu diperbaiki ({code})",
@@ -1681,5 +1770,62 @@
       "body": "Mohon maaf, acara \"{title}\" dibatalkan. Anda tidak perlu melakukan apa pun. Lihat acara lain di situs.",
       "button": "Lihat acara lain"
     }
+  },
+  "memberCard": {
+    "metaTitle": "Kartu anggota",
+    "eyebrow": "Komunitas",
+    "title": "Kartu anggota Anda",
+    "lead": "Tunjukkan kartu ini di acara dan kegiatan OJETIL. Kode QR membuktikan Anda anggota terverifikasi.",
+    "cardLabel": "Kartu anggota OJETIL — {name}",
+    "photoAlt": "Foto {name}",
+    "category": "Kategori",
+    "municipality": "Munisipalitas",
+    "since": "Anggota sejak",
+    "number": "No. anggota",
+    "qrAlt": "Kode QR untuk memverifikasi kartu",
+    "print": "Cetak atau simpan sebagai PDF",
+    "tipVerify": "Siapa pun yang memindai kode QR akan melihat keanggotaan Anda masih berlaku — jika status berubah, kartu tidak berlaku lagi.",
+    "tipSave": "Di ponsel: pilih \"Cetak\" lalu \"Simpan sebagai PDF\", atau ambil tangkapan layar.",
+    "tipExpiry": "Tautan halaman ini berlaku 30 menit. Untuk membuka lagi, cek status dengan kode dan tanggal lahir Anda.",
+    "expiredTitle": "Tautan tidak valid atau kedaluwarsa",
+    "expiredBody": "Demi keamanan, tautan kartu hanya berlaku 30 menit. Cek status lagi untuk membuka kartu.",
+    "checkAgain": "Cek status",
+    "values": "PEMUDA • SOLIDARITAS • PEMBANGUNAN",
+    "backLabel": "Sisi belakang kartu anggota OJETIL"
+  },
+  "memberVerify": {
+    "metaTitle": "Verifikasi anggota",
+    "eyebrow": "Verifikasi kartu anggota",
+    "validTitle": "Anggota terverifikasi",
+    "validBody": "Orang ini adalah anggota resmi {org}.",
+    "name": "Nama",
+    "number": "No. anggota",
+    "category": "Kategori",
+    "municipality": "Munisipalitas",
+    "since": "Anggota sejak",
+    "checkedAt": "Diverifikasi pada {date} — cocokkan nama dengan kartu identitas.",
+    "invalidTitle": "Kartu tidak valid",
+    "invalidBody": "Kode ini tidak dikenali. Kartu mungkin palsu atau rusak.",
+    "revokedBody": "Kartu ini milik OJETIL, tetapi keanggotaan ini tidak aktif lagi.",
+    "contact": "Ada pertanyaan? Hubungi Sekretariat: {email}"
+  },
+  "gallery": {
+    "metaTitle": "Galeri foto & video",
+    "eyebrow": "Galeri",
+    "title": "Kegiatan OJETIL dalam gambar",
+    "lead": "Foto dan video dari seminar, debat, peringatan, dan kegiatan di munisipalitas.",
+    "empty": "Belum ada album.",
+    "itemCount": "{count, plural, other {# foto/video}}",
+    "back": "Kembali ke galeri",
+    "fromEvent": "Acara: {title} →",
+    "lowDataNote": "Mode hemat data: foto tidak dimuat otomatis. Pilih salah satu untuk membuka.",
+    "photo": "Foto",
+    "video": "Video",
+    "openItem": "Buka",
+    "close": "Tutup",
+    "previous": "Sebelumnya",
+    "next": "Berikutnya",
+    "counter": "{n} dari {total}",
+    "credit": "Foto: {name}"
   }
 }

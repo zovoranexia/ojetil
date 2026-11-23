@@ -25,6 +25,7 @@ export function TranslationTabs<T extends FieldValues>({
   disabled,
   control,
   mediaLimits,
+  requirement = "tetun",
 }: {
   fields: readonly TranslationFieldSpec[];
   register: UseFormRegister<T>;
@@ -35,7 +36,10 @@ export function TranslationTabs<T extends FieldValues>({
   control?: Control<T>;
   /** Upload limits shown in the rich editor's media picker (bytes). */
   mediaLimits?: { imageBytes: number; mediaBytes: number };
+  /** "any": one complete language is enough (no tab is marked required). */
+  requirement?: "tetun" | "any";
 }) {
+  const tetRequired = requirement === "tetun";
   const t = useTranslations("admin.translationTabs");
   const text = useMessageText();
   const values = ((watch("translations" as never) as unknown) ?? {}) as Record<string, Record<string, string>>;
@@ -63,7 +67,7 @@ export function TranslationTabs<T extends FieldValues>({
               ) : complete ? (
                 <Check aria-label={t("complete")} className="size-4 text-status-verified" />
               ) : (
-                <span className="text-xs font-normal">{locale === "TET" ? t("required") : t("optional")}</span>
+                <span className="text-xs font-normal">{locale === "TET" && tetRequired ? t("required") : t("optional")}</span>
               )}
             </Tabs.Trigger>
           );
@@ -84,7 +88,7 @@ export function TranslationTabs<T extends FieldValues>({
                 <div key={f.name} className="space-y-1.5">
                   <span id={`${id}-label`} className="text-sm font-medium text-ink">
                     {text(f.label)}
-                    {f.required && locale === "TET" ? <span aria-hidden="true" className="ml-0.5 text-ojetil-red">*</span> : null}
+                    {f.required && locale === "TET" && tetRequired ? <span aria-hidden="true" className="ml-0.5 text-ojetil-red">*</span> : null}
                   </span>
                   <Controller
                     control={control}
@@ -113,7 +117,7 @@ export function TranslationTabs<T extends FieldValues>({
               );
             }
             return (
-              <Field key={f.name} id={id} label={text(f.label)} required={f.required && locale === "TET"} hint={hint} error={error}>
+              <Field key={f.name} id={id} label={text(f.label)} required={f.required && locale === "TET" && tetRequired} hint={hint} error={error}>
                 {f.multiline ? (
                   <textarea
                     rows={f.rows ?? 6}

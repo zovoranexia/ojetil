@@ -12,12 +12,14 @@ import { cn } from "@/lib/utils";
  *
  * While the user is typing an incomplete or impossible value, `onChange`
  * receives the raw text, which the server rejects with a field error.
+ *
+ * `dateOnly`: no time field; the value is "YYYY-MM-DD" (or "").
  */
 const pad = (n: number) => String(n).padStart(2, "0");
 
 function split(value: string): { date: string; time: string } {
-  const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/.exec(value);
-  return m ? { date: `${m[3]}/${m[2]}/${m[1]}`, time: `${m[4]}:${m[5]}` } : { date: "", time: "" };
+  const m = /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?$/.exec(value);
+  return m ? { date: `${m[3]}/${m[2]}/${m[1]}`, time: m[4] ? `${m[4]}:${m[5]}` : "" } : { date: "", time: "" };
 }
 
 /** "16/06/2026" + "22:00" → "2026-06-16T22:00", or null if either part is invalid. */
@@ -51,6 +53,7 @@ export function DateTime24Input({
   dateLabel,
   timeLabel,
   calendarLabel,
+  dateOnly = false,
 }: {
   id: string;
   value: string;
@@ -62,6 +65,7 @@ export function DateTime24Input({
   dateLabel: string;
   timeLabel: string;
   calendarLabel: string;
+  dateOnly?: boolean;
 }) {
   const [parts, setParts] = useState(() => split(value));
   const lastEmitted = useRef(value);
@@ -77,7 +81,13 @@ export function DateTime24Input({
 
   function update(next: { date: string; time: string }) {
     setParts(next);
-    const out = !next.date && !next.time ? "" : (join(next.date, next.time) ?? `${next.date} ${next.time}`.trim());
+    const out = dateOnly
+      ? !next.date
+        ? ""
+        : (join(next.date, "00:00")?.slice(0, 10) ?? next.date)
+      : !next.date && !next.time
+        ? ""
+        : (join(next.date, next.time) ?? `${next.date} ${next.time}`.trim());
     lastEmitted.current = out;
     onChange(out);
   }
@@ -138,6 +148,7 @@ export function DateTime24Input({
           }}
         />
       </div>
+      {dateOnly ? null : (
       <input
         type="text"
         inputMode="numeric"
@@ -151,6 +162,7 @@ export function DateTime24Input({
         onChange={(e) => update({ ...parts, time: maskTime(e.target.value) })}
         className={cn(box, "w-[5rem]")}
       />
+      )}
     </div>
   );
 }

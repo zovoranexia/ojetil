@@ -43,7 +43,8 @@
     "language": "Language",
     "homeLink": "OJETIL — home page",
     "documents": "Documents",
-    "contact": "Contact"
+    "contact": "Contact",
+    "gallery": "Gallery"
   },
   "lowData": {
     "label": "Low-Data Mode",
@@ -202,7 +203,8 @@
     "deadline": "Register by {date}",
     "about": "About this event",
     "back": "Back to events",
-    "details": "Details & registration"
+    "details": "Details & registration",
+    "photos": "Photos from this event"
   },
   "eventRegistration": {
     "title": "Register for this event",
@@ -391,7 +393,10 @@
       "verifiedOn": "Verified on",
       "message": "Message from the Secretariat",
       "contact": "Questions? Contact the Secretariat at {email}.",
-      "another": "Check another code"
+      "another": "Check another code",
+      "cardTitle": "Digital member card",
+      "cardBody": "View, save or print your card with a verification QR code.",
+      "cardOpen": "Open card"
     },
     "statuses": {
       "PENDING_VERIFICATION": {
@@ -443,7 +448,8 @@
       "profilePages": "Profile pages",
       "users": "Users & roles",
       "audit": "Audit log",
-      "inbox": "Inbox"
+      "inbox": "Inbox",
+      "gallery": "Gallery"
     },
     "topbar": {
       "scope": "Access",
@@ -828,7 +834,10 @@
         "currentStatus": "Current status: {status}",
         "byActor": "by {name}",
         "submittedByApplicant": "Submitted by applicant",
-        "consentGiven": "Given {date} (notice {version})"
+        "consentGiven": "Given {date} (notice {version})",
+        "memberCard": "Member card",
+        "memberCardHint": "Print the card to hand to the member. The QR code verifies active status.",
+        "printCard": "Print card"
       },
       "fields": {
         "fullName": "Full name",
@@ -1532,6 +1541,86 @@
         "READ": "Read",
         "ARCHIVED": "Archived"
       }
+    },
+    "gallery": {
+      "metaTitle": "Gallery",
+      "metaTitleOne": "Album",
+      "title": "Photo & video gallery",
+      "description": "One album per activity. Photos live in the Media library, so they can be reused.",
+      "new": "New album",
+      "search": "Search albums",
+      "searchPlaceholder": "Title or slug…",
+      "statusLabel": "Status",
+      "allStatuses": "All statuses",
+      "filter": "Filter",
+      "empty": "No albums yet.",
+      "table": {
+        "caption": "Gallery albums",
+        "album": "Album",
+        "items": "Items",
+        "date": "Activity date",
+        "languages": "Languages",
+        "updated": "Updated",
+        "status": "Status"
+      },
+      "allAlbums": "All albums",
+      "newTitle": "New album",
+      "createdDraft": "Album saved as a draft. Add photos and publish when ready.",
+      "editDescription": "Title in one or more languages, photos and activity details.",
+      "readOnly": "You can view this album only.",
+      "fields": {
+        "title": "Album title",
+        "description": "Description"
+      },
+      "validation": {
+        "date": "Invalid date (DD/MM/YYYY).",
+        "tooMany": "At most {max} items per album.",
+        "duplicate": "An item appears twice.",
+        "notFound": "Album not found.",
+        "titleOne": "Enter a title in at least one language.",
+        "event": "Event not found.",
+        "publishEmpty": "Add at least one photo before publishing.",
+        "publishedEmpty": "A published album needs at least one item. Unpublish it first."
+      },
+      "editor": {
+        "itemsTitle": "Photos & videos",
+        "itemsHint": "Photos (max {imageMb} MB) are compressed to WebP; MP4 videos (max {fileMb} MB) or YouTube/Vimeo links from the library. The first item is the cover.",
+        "upload": "Upload photos/videos",
+        "fromLibrary": "Choose from library",
+        "uploading": "Uploading {done}/{total}…",
+        "uploadFailed": "{count, plural, one {# file could not be uploaded (format or size).} other {# files could not be uploaded (format or size).}}",
+        "cover": "Cover",
+        "caption": "Caption for item {n}",
+        "captionPlaceholder": "Caption (optional)",
+        "moveUp": "Move earlier",
+        "moveDown": "Move later",
+        "makeCover": "Make cover",
+        "remove": "Remove from album",
+        "empty": "No photos yet. Upload or choose from the library.",
+        "publishing": "Publishing",
+        "slug": "Slug (URL)",
+        "slugHint": "/galeria/album-name — lowercase letters, numbers and \"-\".",
+        "generateSlug": "Generate slug from title",
+        "create": "Create album",
+        "publish": "Publish",
+        "unpublish": "Unpublish",
+        "publishedToast": "Album published.",
+        "unpublishedToast": "Album unpublished.",
+        "publishHint": "Save your changes first, then publish.",
+        "viewPublic": "View on site",
+        "saved": "Saved.",
+        "checkFields": "Check the highlighted fields (including the language tabs).",
+        "details": "Details",
+        "takenOn": "Activity date",
+        "takenOnHint": "Albums are ordered by this date.",
+        "municipality": "Municipality",
+        "noMunicipality": "— None —",
+        "event": "Event",
+        "eventHint": "The album appears on this event's page.",
+        "noEvent": "— None —",
+        "deleteTitle": "Delete this album?",
+        "deleteBody": "The album is deleted. Its photos stay in the Media library."
+      }
     }
   },
   "documents": {
@@ -1622,7 +1711,7 @@
       "VERIFIED": {
         "subject": "Congratulations! Your registration is verified ({code})",
         "heading": "Welcome to OJETIL",
-        "body": "The Secretariat has verified your registration. You are now an official member of OJETIL."
+        "body": "The Secretariat has verified your registration. You are now an official member of OJETIL. Check your status with your code to open your digital member card."
       },
       "NEEDS_REVISION": {
         "subject": "Your registration needs a correction ({code})",
@@ -1681,5 +1770,62 @@
       "body": "We are sorry — \"{title}\" has been cancelled. You do not need to do anything. See other events on the website.",
       "button": "See other events"
     }
+  },
+  "memberCard": {
+    "metaTitle": "Member card",
+    "eyebrow": "Community",
+    "title": "Your member card",
+    "lead": "Show this card at OJETIL events and activities. The QR code proves you are a verified member.",
+    "cardLabel": "OJETIL member card — {name}",
+    "photoAlt": "Photo of {name}",
+    "category": "Category",
+    "municipality": "Municipality",
+    "since": "Member since",
+    "number": "Member no.",
+    "qrAlt": "QR code to verify this card",
+    "print": "Print or save as PDF",
+    "tipVerify": "Anyone who scans the QR code sees that your membership is valid — if your status changes, the card stops verifying.",
+    "tipSave": "On a phone: choose \"Print\" then \"Save as PDF\", or take a screenshot.",
+    "tipExpiry": "This link works for 30 minutes. To open it again, check your status with your code and date of birth.",
+    "expiredTitle": "Link invalid or expired",
+    "expiredBody": "For security, card links work for 30 minutes. Check your status again to open your card.",
+    "checkAgain": "Check status",
+    "values": "YOUTH • SOLIDARITY • DEVELOPMENT",
+    "backLabel": "Back of the OJETIL member card"
+  },
+  "memberVerify": {
+    "metaTitle": "Member verification",
+    "eyebrow": "Member card verification",
+    "validTitle": "Verified member",
+    "validBody": "This person is an official member of {org}.",
+    "name": "Name",
+    "number": "Member no.",
+    "category": "Category",
+    "municipality": "Municipality",
+    "since": "Member since",
+    "checkedAt": "Checked on {date} — compare the name with an identity document.",
+    "invalidTitle": "Card not valid",
+    "invalidBody": "This code is not recognised. The card may be fake or damaged.",
+    "revokedBody": "This is an OJETIL card, but this membership is no longer active.",
+    "contact": "Questions? Contact the Secretariat: {email}"
+  },
+  "gallery": {
+    "metaTitle": "Photo & video gallery",
+    "eyebrow": "Gallery",
+    "title": "OJETIL activities in pictures",
+    "lead": "Photos and videos from seminars, debates, commemorations and activities across the municipalities.",
+    "empty": "No albums yet.",
+    "itemCount": "{count, plural, one {# item} other {# items}}",
+    "back": "Back to gallery",
+    "fromEvent": "Event: {title} →",
+    "lowDataNote": "Low-data mode: photos are not loaded automatically. Choose one to open it.",
+    "photo": "Photo",
+    "video": "Video",
+    "openItem": "Open",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "counter": "{n} of {total}",
+    "credit": "Photo: {name}"
   }
 }

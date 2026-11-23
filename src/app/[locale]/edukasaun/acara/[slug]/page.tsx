@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
 import { RichContent } from "@/components/content/rich-content";
+import { AlbumCard } from "@/components/public/album-card";
 import { JsonLd, organizationLd } from "@/components/seo/json-ld";
 import { CapacityMeter } from "@/components/public/capacity-meter";
 import { ContentImage } from "@/components/public/content-image";
@@ -14,6 +15,7 @@ import { Link } from "@/i18n/navigation";
 import { formatDate, formatDateTimeRange, formatTime, isoDate } from "@/lib/format";
 import { absoluteUrl, localizedAlternates } from "@/lib/seo";
 import { getPublicEvent } from "@/modules/events/queries";
+import { albumsForEvent } from "@/modules/gallery/queries";
 import { EventRegistrationForm } from "./registration-form";
 
 type Params = Promise<{ locale: string; slug: string }>;
@@ -31,7 +33,7 @@ export default async function EventDetailPage({ params }: { params: Params }) {
   const locale = await getPageLocale(params);
   const { slug } = await params;
 
-  const [t, tr, event] = await Promise.all([getTranslations("events"), getTranslations("eventRegistration"), getPublicEvent(slug, locale)]);
+  const [t, tr, event, albums] = await Promise.all([getTranslations("events"), getTranslations("eventRegistration"), getPublicEvent(slug, locale), albumsForEvent(slug, locale)]);
   if (!event) notFound();
   const { availability } = event;
   const pageUrl = absoluteUrl(`${locale === "tet" ? "" : `/${locale}`}/edukasaun/acara/${event.slug}`);
@@ -119,6 +121,21 @@ export default async function EventDetailPage({ params }: { params: Params }) {
             </h2>
             <RichContent body={event.description} className="mt-4" />
           </section>
+
+          {albums.length ? (
+            <section aria-labelledby="event-photos">
+              <h2 id="event-photos" className="text-2xl">
+                {t("photos")}
+              </h2>
+              <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+                {albums.map((a) => (
+                  <li key={a.slug}>
+                    <AlbumCard album={a} locale={locale} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
         </div>
 
         <aside aria-labelledby="register-title" className="lg:sticky lg:top-6 lg:self-start">

@@ -43,7 +43,8 @@
     "language": "Língua",
     "homeLink": "OJETIL — página inicial",
     "documents": "Documentos",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "gallery": "Galeria"
   },
   "lowData": {
     "label": "Modo de Poucos Dados",
@@ -202,7 +203,8 @@
     "deadline": "Inscreva-se até {date}",
     "about": "Sobre este evento",
     "back": "Voltar aos eventos",
-    "details": "Detalhes e inscrição"
+    "details": "Detalhes e inscrição",
+    "photos": "Fotografias deste evento"
   },
   "eventRegistration": {
     "title": "Inscrever-se neste evento",
@@ -391,7 +393,10 @@
       "verifiedOn": "Verificado a",
       "message": "Mensagem do Secretariado",
       "contact": "Dúvidas? Contacte o Secretariado através de {email}.",
-      "another": "Ver outro código"
+      "another": "Ver outro código",
+      "cardTitle": "Cartão de membro digital",
+      "cardBody": "Veja, guarde ou imprima o seu cartão com código QR de verificação.",
+      "cardOpen": "Abrir cartão"
     },
     "statuses": {
       "PENDING_VERIFICATION": {
@@ -443,7 +448,8 @@
       "profilePages": "Páginas de perfil",
       "users": "Utilizadores e funções",
       "audit": "Registo de auditoria",
-      "inbox": "Mensagens"
+      "inbox": "Mensagens",
+      "gallery": "Galeria"
     },
     "topbar": {
       "scope": "Acesso",
@@ -828,7 +834,10 @@
         "currentStatus": "Estado atual: {status}",
         "byActor": "por {name}",
         "submittedByApplicant": "Submetida pelo candidato",
-        "consentGiven": "Dado em {date} (nota {version})"
+        "consentGiven": "Dado em {date} (nota {version})",
+        "memberCard": "Cartão de membro",
+        "memberCardHint": "Imprima o cartão para entregar ao membro. O código QR verifica o estado ativo.",
+        "printCard": "Imprimir cartão"
       },
       "fields": {
         "fullName": "Nome completo",
@@ -1532,6 +1541,86 @@
         "READ": "Lida",
         "ARCHIVED": "Arquivada"
       }
+    },
+    "gallery": {
+      "metaTitle": "Galeria",
+      "metaTitleOne": "Álbum",
+      "title": "Galeria de fotos e vídeos",
+      "description": "Um álbum por atividade. As fotos ficam na Biblioteca de média e podem ser reutilizadas.",
+      "new": "Novo álbum",
+      "search": "Pesquisar álbuns",
+      "searchPlaceholder": "Título ou slug…",
+      "statusLabel": "Estado",
+      "allStatuses": "Todos os estados",
+      "filter": "Filtrar",
+      "empty": "Ainda não há álbuns.",
+      "table": {
+        "caption": "Álbuns da galeria",
+        "album": "Álbum",
+        "items": "Itens",
+        "date": "Data da atividade",
+        "languages": "Línguas",
+        "updated": "Atualizado",
+        "status": "Estado"
+      },
+      "allAlbums": "Todos os álbuns",
+      "newTitle": "Novo álbum",
+      "createdDraft": "Álbum guardado como rascunho. Adicione fotos e publique quando estiver pronto.",
+      "editDescription": "Título numa ou mais línguas, fotografias e detalhes da atividade.",
+      "readOnly": "Só pode ver este álbum.",
+      "fields": {
+        "title": "Título do álbum",
+        "description": "Descrição"
+      },
+      "validation": {
+        "date": "Data inválida (DD/MM/AAAA).",
+        "tooMany": "Máximo de {max} itens por álbum.",
+        "duplicate": "Um item aparece duas vezes.",
+        "notFound": "Álbum não encontrado.",
+        "titleOne": "Escreva o título em pelo menos uma língua.",
+        "event": "Evento não encontrado.",
+        "publishEmpty": "Adicione pelo menos uma fotografia antes de publicar.",
+        "publishedEmpty": "Um álbum publicado precisa de pelo menos um item. Despublique primeiro."
+      },
+      "editor": {
+        "itemsTitle": "Fotografias e vídeos",
+        "itemsHint": "Fotos (máx. {imageMb} MB) comprimidas para WebP; vídeos MP4 (máx. {fileMb} MB) ou ligações YouTube/Vimeo da biblioteca. O primeiro item é a capa.",
+        "upload": "Carregar fotos/vídeos",
+        "fromLibrary": "Escolher da biblioteca",
+        "uploading": "A carregar {done}/{total}…",
+        "uploadFailed": "{count, plural, one {# ficheiro não foi carregado (formato ou tamanho).} other {# ficheiros não foram carregados (formato ou tamanho).}}",
+        "cover": "Capa",
+        "caption": "Legenda da foto {n}",
+        "captionPlaceholder": "Legenda (opcional)",
+        "moveUp": "Mover para trás",
+        "moveDown": "Mover para a frente",
+        "makeCover": "Usar como capa",
+        "remove": "Remover do álbum",
+        "empty": "Ainda sem fotografias. Carregue ou escolha da biblioteca.",
+        "publishing": "Publicação",
+        "slug": "Slug (URL)",
+        "slugHint": "/galeria/nome-do-album — minúsculas, números e \"-\".",
+        "generateSlug": "Gerar slug a partir do título",
+        "create": "Criar álbum",
+        "publish": "Publicar",
+        "unpublish": "Despublicar",
+        "publishedToast": "Álbum publicado.",
+        "unpublishedToast": "Álbum despublicado.",
+        "publishHint": "Guarde as alterações antes de publicar.",
+        "viewPublic": "Ver no site",
+        "saved": "Guardado.",
+        "checkFields": "Verifique os campos assinalados (incluindo os separadores de língua).",
+        "details": "Detalhes",
+        "takenOn": "Data da atividade",
+        "takenOnHint": "Os álbuns são ordenados por esta data.",
+        "municipality": "Município",
+        "noMunicipality": "— Nenhum —",
+        "event": "Evento",
+        "eventHint": "O álbum aparece na página deste evento.",
+        "noEvent": "— Nenhum —",
+        "deleteTitle": "Eliminar este álbum?",
+        "deleteBody": "O álbum é eliminado. As fotografias ficam na Biblioteca de média."
+      }
     }
   },
   "documents": {
@@ -1622,7 +1711,7 @@
       "VERIFIED": {
         "subject": "Parabéns! O seu registo foi verificado ({code})",
         "heading": "Bem-vindo(a) à OJETIL",
-        "body": "O Secretariado verificou o seu registo. Agora é membro oficial da OJETIL."
+        "body": "O Secretariado verificou o seu registo. Agora é membro oficial da OJETIL. Consulte o estado com o seu código para abrir o cartão de membro digital."
       },
       "NEEDS_REVISION": {
         "subject": "O seu registo precisa de correção ({code})",
@@ -1681,5 +1770,62 @@
       "body": "Lamentamos, o evento \"{title}\" foi cancelado. Não precisa de fazer nada. Veja outros eventos no site.",
       "button": "Ver outros eventos"
     }
+  },
+  "memberCard": {
+    "metaTitle": "Cartão de membro",
+    "eyebrow": "Comunidade",
+    "title": "O seu cartão de membro",
+    "lead": "Mostre este cartão nos eventos e atividades da OJETIL. O código QR comprova que é membro verificado.",
+    "cardLabel": "Cartão de membro OJETIL — {name}",
+    "photoAlt": "Fotografia de {name}",
+    "category": "Categoria",
+    "municipality": "Município",
+    "since": "Membro desde",
+    "number": "N.º de membro",
+    "qrAlt": "Código QR para verificar o cartão",
+    "print": "Imprimir ou guardar em PDF",
+    "tipVerify": "Quem ler o código QR vê se o seu registo é válido — se o estado mudar, o cartão deixa de ser válido.",
+    "tipSave": "No telemóvel: escolha \"Imprimir\" e depois \"Guardar como PDF\", ou faça uma captura de ecrã.",
+    "tipExpiry": "Esta ligação é válida por 30 minutos. Para voltar a abrir, consulte o estado com o seu código e data de nascimento.",
+    "expiredTitle": "Ligação inválida ou expirada",
+    "expiredBody": "Por segurança, a ligação do cartão é válida por 30 minutos. Consulte o estado de novo para abrir o cartão.",
+    "checkAgain": "Consultar estado",
+    "values": "JUVENTUDE • SOLIDARIEDADE • DESENVOLVIMENTO",
+    "backLabel": "Verso do cartão de membro OJETIL"
+  },
+  "memberVerify": {
+    "metaTitle": "Verificação de membro",
+    "eyebrow": "Verificação do cartão de membro",
+    "validTitle": "Membro verificado",
+    "validBody": "Esta pessoa é membro oficial da {org}.",
+    "name": "Nome",
+    "number": "N.º de membro",
+    "category": "Categoria",
+    "municipality": "Município",
+    "since": "Membro desde",
+    "checkedAt": "Verificado em {date} — compare o nome com um documento de identidade.",
+    "invalidTitle": "Cartão inválido",
+    "invalidBody": "Este código não é reconhecido. O cartão pode ser falso ou estar danificado.",
+    "revokedBody": "Este cartão é da OJETIL, mas este registo já não está ativo.",
+    "contact": "Dúvidas? Contacte o Secretariado: {email}"
+  },
+  "gallery": {
+    "metaTitle": "Galeria de fotos e vídeos",
+    "eyebrow": "Galeria",
+    "title": "As atividades da OJETIL em imagens",
+    "lead": "Fotografias e vídeos de seminários, debates, comemorações e atividades nos municípios.",
+    "empty": "Ainda não há álbuns.",
+    "itemCount": "{count, plural, one {# item} other {# itens}}",
+    "back": "Voltar à galeria",
+    "fromEvent": "Evento: {title} →",
+    "lowDataNote": "Modo de poucos dados: as fotografias não são carregadas automaticamente. Escolha uma para abrir.",
+    "photo": "Fotografia",
+    "video": "Vídeo",
+    "openItem": "Abrir",
+    "close": "Fechar",
+    "previous": "Anterior",
+    "next": "Seguinte",
+    "counter": "{n} de {total}",
+    "credit": "Foto: {name}"
   }
 }
