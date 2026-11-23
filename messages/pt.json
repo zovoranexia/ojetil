@@ -788,7 +788,8 @@
         "MESSAGE_STATUS_CHANGED": "Estado da mensagem alterado",
         "MESSAGE_DELETED": "Mensagem eliminada",
         "MEMBER_REGISTERED_OFFICE": "Membro registado no escritório",
-        "MEMBER_CARD_PRINTED": "Cartão de membro impresso"
+        "MEMBER_CARD_PRINTED": "Cartão de membro impresso",
+        "MEMBER_DECISION_BLOCKED": "Decisão bloqueada (regra anterior)"
       }
     },
     "designSystem": {

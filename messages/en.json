@@ -788,7 +788,8 @@
         "MESSAGE_STATUS_CHANGED": "Message status changed",
         "MESSAGE_DELETED": "Message deleted",
         "MEMBER_REGISTERED_OFFICE": "Member registered at the office",
-        "MEMBER_CARD_PRINTED": "Member card printed"
+        "MEMBER_CARD_PRINTED": "Member card printed",
+        "MEMBER_DECISION_BLOCKED": "Decision blocked (former rule)"
       }
     },
     "designSystem": {

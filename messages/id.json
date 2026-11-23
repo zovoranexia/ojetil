@@ -788,7 +788,8 @@
         "MESSAGE_STATUS_CHANGED": "Status pesan diubah",
         "MESSAGE_DELETED": "Pesan dihapus",
         "MEMBER_REGISTERED_OFFICE": "Anggota didaftarkan di kantor",
-        "MEMBER_CARD_PRINTED": "Kartu anggota dicetak"
+        "MEMBER_CARD_PRINTED": "Kartu anggota dicetak",
+        "MEMBER_DECISION_BLOCKED": "Keputusan diblokir (aturan lama)"
       }
     },
     "designSystem": {

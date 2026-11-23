@@ -788,7 +788,8 @@
         "MESSAGE_STATUS_CHANGED": "Status mensajen muda",
         "MESSAGE_DELETED": "Mensajen hamoos",
         "MEMBER_REGISTERED_OFFICE": "Membru rejista iha eskritóriu",
-        "MEMBER_CARD_PRINTED": "Kartaun membru imprime"
+        "MEMBER_CARD_PRINTED": "Kartaun membru imprime",
+        "MEMBER_DECISION_BLOCKED": "Desizaun bloke (regra antiga)"
       }
     },
     "designSystem": {
