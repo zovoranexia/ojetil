@@ -4,9 +4,10 @@ import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { AdminPageHeading, Panel } from "@/components/admin/ui";
 import { satisfies } from "@/config/rbac";
-import { adminDateTime } from "@/lib/admin-format";
+import { adminDate, adminDateTime } from "@/lib/admin-format";
 import { requirePageAccess } from "@/lib/security/guards";
-import { getDashboardKpis, getMunicipalityDistribution, getRecentActivity } from "@/modules/dashboard/queries";
+import { getDashboardKpis, getEventAttendance, getMunicipalityDistribution, getRecentActivity } from "@/modules/dashboard/queries";
+import { mostReadArticles } from "@/modules/news/views";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("admin.dashboard");
@@ -15,16 +16,21 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AdminDashboardPage() {
   const user = await requirePageAccess("dashboard:view", "/admin");
-  const [kpis, distribution, activity, t, tAdmin, locale] = await Promise.all([
+  const [kpis, distribution, activity, reads, attendance, t, tAdmin, locale] = await Promise.all([
     getDashboardKpis(),
     getMunicipalityDistribution(),
     getRecentActivity(user.role),
+    mostReadArticles(30, 5),
+    getEventAttendance(5),
     getTranslations("admin.dashboard"),
     getTranslations("admin"),
     getLocale(),
   ]);
   const canOpenQueue = satisfies(user.role, "members:read");
   const max = Math.max(1, ...distribution.map((d) => d.total));
+  const maxReads = Math.max(1, ...reads.items.map((r) => r.views));
+  const canEditNews = satisfies(user.role, "content:read");
+  const pct = (n: number) => `${Math.round(n * 100)}%`;
 
   const cards = [
     { key: "verified", label: t("kpis.verified"), value: kpis.verified, icon: UserCheck, accent: "text-status-verified", href: canOpenQueue ? "/admin/anggota?status=VERIFIED" : null },
@@ -152,6 +158,66 @@ export default async function AdminDashboardPage() {
             </ol>
           ) : (
             <p className="text-sm text-ink-secondary">{t("activity.empty")}</p>
+          )}
+        </Panel>
+      </div>
+
+      <div className="mt-6 grid gap-6 xl:grid-cols-2">
+        <Panel title={t("reads.title")} description={t("reads.description", { total: reads.total })}>
+          {reads.items.length ? (
+            <ol className="space-y-3">
+              {reads.items.map((r, i) => (
+                <li key={r.id} className="text-sm">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <span className="min-w-0 truncate">
+                      <span className="mr-2 font-serif font-bold tabular-nums text-ojetil-red">{i + 1}</span>
+                      {canEditNews ? (
+                        <Link href={`/admin/berita?q=${encodeURIComponent(r.slug)}`} className="hover:text-ojetil-red hover:underline">
+                          {r.title}
+                        </Link>
+                      ) : (
+                        r.title
+                      )}
+                    </span>
+                    <span className="shrink-0 tabular-nums text-ink-secondary">{t("reads.count", { count: r.views })}</span>
+                  </div>
+                  <span aria-hidden="true" className="mt-1 block h-1.5 overflow-hidden rounded-sm bg-surface-muted">
+                    <span className="block h-full bg-ojetil-red" style={{ width: `${(r.views / maxReads) * 100}%` }} />
+                  </span>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className="text-sm text-ink-secondary">{t("reads.empty")}</p>
+          )}
+          <p className="mt-4 text-xs text-ink-secondary">{t("reads.privacy")}</p>
+        </Panel>
+
+        <Panel
+          title={t("attendance.title")}
+          description={attendance.rate === null ? t("attendance.none") : t("attendance.description", { rate: pct(attendance.rate), attended: attendance.attended, registered: attendance.registered })}
+        >
+          {attendance.items.length ? (
+            <ul className="space-y-3">
+              {attendance.items.map((e) => (
+                <li key={e.id} className="text-sm">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <Link href={`/admin/acara/${e.id}/peserta`} className="min-w-0 truncate hover:text-ojetil-red hover:underline">
+                      {e.title}
+                    </Link>
+                    <span className="shrink-0 tabular-nums text-ink-secondary">
+                      {e.attended}/{e.registered} · {pct(e.attended / e.registered)}
+                    </span>
+                  </div>
+                  <span aria-hidden="true" className="mt-1 block h-1.5 overflow-hidden rounded-sm bg-surface-muted">
+                    <span className="block h-full bg-status-verified" style={{ width: `${(e.attended / e.registered) * 100}%` }} />
+                  </span>
+                  <span className="text-xs tabular-nums text-ink-secondary">{adminDate(e.endAt, locale as never)}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-ink-secondary">{t("attendance.empty")}</p>
           )}
         </Panel>
       </div>

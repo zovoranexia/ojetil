@@ -689,6 +689,19 @@
         "systemActor": "System / public",
         "news": "News",
         "event": "Event"
+      },
+      "reads": {
+        "title": "Most-read news",
+        "description": "Last 30 days · {total} reads in total",
+        "count": "{count, plural, one {# read} other {# reads}}",
+        "empty": "No reads recorded in the last 30 days yet.",
+        "privacy": "A simple counter: no IP address, cookie or visitor identifier is stored. One read per article per session."
+      },
+      "attendance": {
+        "title": "Event attendance",
+        "description": "{rate} turnout ({attended} of {registered} registered) at recent events",
+        "none": "No finished events with registrations yet.",
+        "empty": "Mark attendance on the attendee list to see statistics."
       }
     },
     "audit": {

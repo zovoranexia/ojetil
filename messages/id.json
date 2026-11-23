@@ -689,6 +689,19 @@
         "systemActor": "Sistem / publik",
         "news": "Berita",
         "event": "Acara"
+      },
+      "reads": {
+        "title": "Berita paling banyak dibaca",
+        "description": "30 hari terakhir · total {total} kali dibaca",
+        "count": "{count, plural, other {# kali dibaca}}",
+        "empty": "Belum ada data baca dalam 30 hari terakhir.",
+        "privacy": "Penghitung sederhana: tanpa IP, cookie, atau pengenal pengunjung. Satu kali baca per artikel per sesi."
+      },
+      "attendance": {
+        "title": "Kehadiran acara",
+        "description": "Kehadiran {rate} ({attended} dari {registered} pendaftar) di acara terakhir",
+        "none": "Belum ada acara selesai yang memiliki pendaftar.",
+        "empty": "Tandai kehadiran di daftar peserta untuk melihat statistik."
       }
     },
     "audit": {

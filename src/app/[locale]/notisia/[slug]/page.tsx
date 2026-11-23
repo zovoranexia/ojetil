@@ -7,6 +7,7 @@ import { RichContent } from "@/components/content/rich-content";
 import { JsonLd, organizationLd } from "@/components/seo/json-ld";
 import { NewsCard } from "@/components/public/news-card";
 import { ShareButtons } from "@/components/public/share-buttons";
+import { ViewBeacon } from "@/components/public/view-beacon";
 import { Badge } from "@/components/ui/badge";
 import { fromDbLocale } from "@/config/locales";
 import { municipalityLabel } from "@/config/municipalities";
@@ -98,6 +99,7 @@ export default async function NewsArticlePage({ params }: { params: Params }) {
           </p>
           {article.byline ? <p className="mt-5 text-sm font-semibold text-ink">{t("byline", { name: article.byline })}</p> : null}
           <ShareButtons className="mt-6" url={shareUrl} title={article.title} />
+          <ViewBeacon slug={article.slug} />
         </div>
       </header>
 
