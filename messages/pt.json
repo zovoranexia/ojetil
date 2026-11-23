@@ -125,6 +125,15 @@
       "hours": "Segunda a sexta, 08:30–17:00",
       "form": "Formulário de contacto",
       "formCta": "Enviar mensagem ao Secretariado"
+    },
+    "facts": {
+      "label": "Factos principais",
+      "founded": "Fundação",
+      "foundedValue": "Década de 1980",
+      "motto": "Lema",
+      "hq": "Sede nacional",
+      "network": "Rede",
+      "networkValue": "Todos os municípios e a diáspora"
     }
   },
   "history": {

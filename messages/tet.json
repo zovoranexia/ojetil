@@ -125,6 +125,15 @@
       "hours": "Segunda to'o Sesta, 08:30–17:00",
       "form": "Formuláriu kontaktu",
       "formCta": "Haruka mensajen ba Sekretariadu"
+    },
+    "facts": {
+      "label": "Faktu prinsipál",
+      "founded": "Harii",
+      "foundedValue": "Dékada 1980",
+      "motto": "Lema",
+      "hq": "Sede nasionál",
+      "network": "Rede",
+      "networkValue": "Munisípiu hotu-hotu no diáspora"
     }
   },
   "history": {

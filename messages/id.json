@@ -125,6 +125,15 @@
       "hours": "Senin–Jumat, 08.30–17.00",
       "form": "Formulir kontak",
       "formCta": "Kirim pesan ke Sekretariat"
+    },
+    "facts": {
+      "label": "Fakta utama",
+      "founded": "Berdiri",
+      "foundedValue": "Dekade 1980-an",
+      "motto": "Moto",
+      "hq": "Kantor pusat",
+      "network": "Jaringan",
+      "networkValue": "Seluruh munisipalitas dan diaspora"
     }
   },
   "history": {
