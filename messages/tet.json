@@ -689,6 +689,19 @@
         "systemActor": "Sistema / públiku",
         "news": "Notísia",
         "event": "Eventu"
+      },
+      "reads": {
+        "title": "Notísia ne'ebé ema lee liu",
+        "description": "Loron 30 ikus · lee {total} hotu",
+        "count": "{count, plural, other {lee #}}",
+        "empty": "Seidauk iha dadus lee iha loron 30 ikus.",
+        "privacy": "Kontadór simples: la rai IP, cookie ka identifikadór vizitante. Lee ida kada artigu kada sesaun."
+      },
+      "attendance": {
+        "title": "Partisipasaun iha eventu",
+        "description": "{rate} mosu ({attended} husi {registered} rejistadu) iha eventu sira ikus",
+        "none": "Seidauk iha eventu ne'ebé remata ho inskrisaun.",
+        "empty": "Marka prezensa iha lista partisipante atu haree estatístika."
       }
     },
     "audit": {

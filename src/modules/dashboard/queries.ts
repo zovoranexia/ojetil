@@ -41,6 +41,35 @@ export async function getMunicipalityDistribution(): Promise<MunicipalityRow[]> 
   });
 }
 
+/**
+ * Attendance at recently ended events: registered (not cancelled) vs checked in.
+ * Aggregates only. Events with no registrations are left out.
+ */
+export async function getEventAttendance(take = 5) {
+  const now = new Date();
+  const events = await db.event.findMany({
+    where: { status: "PUBLISHED", endAt: { lte: now, gte: new Date(now.getTime() - 365 * 86_400_000) } },
+    orderBy: { endAt: "desc" },
+    take: 20,
+    select: { id: true, slug: true, endAt: true, translations: { select: { locale: true, title: true } } },
+  });
+  const groups = events.length
+    ? await db.eventRegistration.groupBy({ by: ["eventId", "status"], where: { eventId: { in: events.map((e) => e.id) }, status: { not: "CANCELLED" } }, _count: { _all: true } })
+    : [];
+  const rows = events
+    .map((e) => {
+      const mine = groups.filter((g) => g.eventId === e.id);
+      const registered = mine.reduce((s, g) => s + g._count._all, 0);
+      const attended = mine.filter((g) => g.status === "ATTENDED").reduce((s, g) => s + g._count._all, 0);
+      const title = (e.translations.find((t) => t.locale === "TET") ?? e.translations[0])?.title ?? e.slug;
+      return { id: e.id, title, endAt: e.endAt, registered, attended };
+    })
+    .filter((r) => r.registered > 0);
+  const registered = rows.reduce((s, r) => s + r.registered, 0);
+  const attended = rows.reduce((s, r) => s + r.attended, 0);
+  return { rate: registered ? attended / registered : null, registered, attended, items: rows.slice(0, take) };
+}
+
 export async function getCategoryBreakdown() {
   const groups = await db.memberRegistration.groupBy({ by: ["category", "status"], _count: { _all: true } });
   return groups.map((g) => ({ category: g.category, status: g.status, count: g._count._all }));

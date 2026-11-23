@@ -689,6 +689,19 @@
         "systemActor": "Sistema / público",
         "news": "Notícia",
         "event": "Evento"
+      },
+      "reads": {
+        "title": "Notícias mais lidas",
+        "description": "Últimos 30 dias · {total} leituras no total",
+        "count": "{count, plural, one {# leitura} other {# leituras}}",
+        "empty": "Ainda não há leituras nos últimos 30 dias.",
+        "privacy": "Contador simples: sem IP, cookies ou identificadores de visitantes. Uma leitura por artigo por sessão."
+      },
+      "attendance": {
+        "title": "Presença nos eventos",
+        "description": "{rate} de presença ({attended} de {registered} inscritos) nos últimos eventos",
+        "none": "Ainda não há eventos terminados com inscrições.",
+        "empty": "Marque as presenças na lista de participantes para ver estatísticas."
       }
     },
     "audit": {

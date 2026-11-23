@@ -260,6 +260,7 @@ model NewsArticle {
   updatedAt     DateTime      @updatedAt @db.Timestamptz(3)
 
   translations NewsArticleTranslation[]
+  dailyViews   NewsViewDay[]
 
   @@index([status, publishedAt(sort: Desc)])
   @@index([category, status])
@@ -757,4 +758,19 @@ model GalleryItem {
   @@unique([albumId, assetId])
   @@index([albumId, position])
   @@map("gallery_items")
+}
+
+// ─── Privacy-friendly reading statistics ───────────────────────────────────
+
+/// Reads per article per day (Díli calendar date). Only a counter: no IP,
+/// cookie, user agent or visitor identifier is ever stored.
+model NewsViewDay {
+  articleId String
+  article   NewsArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  day       DateTime    @db.Date
+  views     Int         @default(0)
+
+  @@id([articleId, day])
+  @@index([day])
+  @@map("news_view_days")
 }
