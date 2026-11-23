@@ -41,9 +41,9 @@
   --ojetil-radius-control: 4px; /* buttons, inputs, badges */
   --ojetil-radius-card: 8px; /* cards, modals, panels */
 
-  /* ── Typography stacks (next/font variables are injected on <html>) ────── */
-  --ojetil-font-serif: var(--font-source-serif), Georgia, "Times New Roman", serif;
-  --ojetil-font-sans: var(--font-plus-jakarta), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* ── Typography stacks (self-hosted Fontsource variable fonts, see src/app/fonts.ts) ── */
+  --ojetil-font-serif: "Source Serif 4 Variable", Georgia, "Times New Roman", serif;
+  --ojetil-font-sans: "Plus Jakarta Sans Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --ojetil-font-mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
 
   /* ── Tais ribbon: 24×4 px rhythmic geometric tile (red · ink · gold) ───── */
@@ -130,8 +130,8 @@ html.dark .rich-content a {
   --ojetil-red-primary: #a61c1c;
 }
 
-/* Low-Bandwidth Mode: drop web fonts entirely. Because next/font is configured
-   with `preload: false`, unused @font-face files are never downloaded. */
+/* Low-Bandwidth Mode: drop web fonts entirely. The self-hosted @font-face rules
+   are not preloaded, so files that no text uses are never downloaded. */
 [data-bandwidth="low"] {
   --ojetil-font-serif: Georgia, "Times New Roman", serif;
   --ojetil-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
