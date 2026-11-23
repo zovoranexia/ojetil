@@ -292,8 +292,8 @@ echo "Rilis aktif: $(readlink /srv/ojetil/current)"
 BASH
 ```
 
-Jika `npm run build` gagal dengan error `next/font` atau *Failed to fetch … from Google Fonts*,
-itu biasanya gangguan jaringan sesaat: jalankan ulang perintah build.
+Font (Plus Jakarta Sans, Source Serif 4) di-host sendiri dari paket npm `@fontsource-variable/*`:
+build **tidak** mengunduh apa pun dari Google Fonts, jadi tidak butuh akses keluar ke Google.
 
 ---
 
@@ -723,6 +723,6 @@ Akun staf tidak pernah dihapus, hanya dinonaktifkan.
 | Log: `[mail] SMTP not configured` | `SMTP_HOST` kosong | Isi pengaturan SMTP di `.env` (langkah 7) |
 | Email masuk folder spam | SPF/DKIM/DMARC domain belum diatur | Atur sesuai petunjuk penyedia SMTP; `MAIL_FROM` harus memakai domain itu |
 | Semua pengunjung terkena rate limit bersamaan | IP klien terbaca sebagai IP proxy | Periksa `TRUSTED_PROXY_HOPS` sesuai jumlah proxy di depan aplikasi |
-| Build gagal di `next/font` | Gangguan unduhan Google Fonts | Ulangi `npm run build`; pastikan akses keluar ke `fonts.googleapis.com` |
+| Build gagal di `next/font` (`Cannot read properties of null (reading '1')`) | Versi lama memakai `next/font/google`; Google mengirim URL font tanpa ekstensi | Perbarui ke versi dengan font self-hosted (`src/app/fonts.ts` memakai `@fontsource-variable`) lalu deploy ulang |
 | Foto anggota tidak tampil di backoffice (404) | File hilang dari `uploads` atau kunci PII berubah | Pulihkan folder uploads dari backup; gunakan `.env` asli |
 | Build berhenti karena kehabisan memori (`Killed`) | RAM kurang | Aktifkan swap (langkah 2.4) |

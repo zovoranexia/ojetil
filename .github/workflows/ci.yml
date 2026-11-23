@@ -63,7 +63,6 @@ jobs:
           restore-keys: |
             nextjs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
 
-      # next/font downloads Google Fonts at build time and that fetch is occasionally
-      # flaky. One retry absorbs a transient network error; a real build error fails twice.
+      # Fonts are self-hosted (src/app/fonts.ts): the build fetches nothing from Google.
       - name: Build
-        run: npm run build || { echo "::warning::Build failed once (often a transient Google Fonts fetch); retrying"; npm run build; }
+        run: npm run build

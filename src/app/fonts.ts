@@ -1,26 +1,20 @@
-import { Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
-
 /*
- * Fonts are self-hosted by next/font and deliberately NOT preloaded: the browser
- * fetches a font file only when text actually uses it. In Low-Bandwidth Mode the
- * font stacks switch to Georgia/system-ui, so these files are never downloaded.
- * `latin-ext` covers Portuguese/Tetun diacritics (á ã ç é í ó õ ú ñ).
+ * Self-hosted fonts (Fontsource variable builds, served from our own domain).
+ *
+ * Previously next/font/google downloaded the files from Google at BUILD time.
+ * That made every deploy depend on Google answering the build server in the
+ * expected format — and it did not always (production build failed with
+ * "An error occurred in `next/font`" when Google returned font URLs without a
+ * file extension). Now nothing is fetched at build time.
+ *
+ * The CSS below declares @font-face rules split by unicode-range (latin,
+ * latin-ext, …) with font-display: swap, so a browser downloads only the
+ * subsets the page actually uses. In Low-Bandwidth Mode the font stacks switch
+ * to Georgia/system-ui (globals.css), so these files are never downloaded.
+ * The variable axes cover every weight in use (400–800).
  */
-export const sourceSerif = Source_Serif_4({
-  subsets: ["latin", "latin-ext"],
-  weight: ["600", "700"],
-  display: "swap",
-  preload: false,
-  variable: "--font-source-serif",
-});
+import "@fontsource-variable/plus-jakarta-sans";
+import "@fontsource-variable/source-serif-4";
 
-export const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin", "latin-ext"],
-  // 800 only for the member card wordmark/names; fetched only where it is used.
-  weight: ["400", "500", "600", "800"],
-  display: "swap",
-  preload: false,
-  variable: "--font-plus-jakarta",
-});
-
-export const fontVariables = `${sourceSerif.variable} ${plusJakarta.variable}`;
+/** Kept for the root layouts' <html className>; the families are set in globals.css. */
+export const fontVariables = "";
