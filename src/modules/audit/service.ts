@@ -21,6 +21,7 @@ export const AUDIT_ACTION_CATEGORY: Record<AuditAction, AuditCategory> = {
   MEMBER_EXPORTED: "VERIFICATION",
   MEMBER_REGISTERED_OFFICE: "VERIFICATION",
   MEMBER_CARD_PRINTED: "VERIFICATION",
+  /** Historical only: refused decisions under the former four-eyes rule (no longer written). */
   MEMBER_DECISION_BLOCKED: "VERIFICATION",
   CONTENT_CREATED: "CONTENT",
   CONTENT_UPDATED: "CONTENT",

@@ -372,12 +372,18 @@
       "generic": "Something went wrong. Your data was not saved — please try again.",
       "form": "Please correct the highlighted fields.",
       "network": "Connection problem. Check your internet and try again — your answers are still here.",
-      "photoCameraUnavailable": "Camera unavailable or permission denied. Use \"Choose photo\" to upload a file."
+      "photoCameraUnavailable": "Camera unavailable or permission denied. Use \"Choose photo\" to upload a file.",
+      "verifyNote": "Write a verification note (at least 5 characters)."
     },
     "office": {
       "consent": "I confirm the member has read/heard the privacy notice and agreed (orally or in writing) to OJETIL processing their data.",
-      "submit": "Save and send for verification",
-      "phoneHint": "Leave empty if the member has no phone."
+      "submit": "Save to the verification queue",
+      "phoneHint": "Leave empty if the member has no phone.",
+      "submitVerify": "Save and verify now",
+      "verifyNow": "Verify now (I have checked the original documents)",
+      "verifyNowHint": "The card can be printed right away. This is recorded in the audit log as \"verified by the person who entered it\". If unticked, the application goes to the verification queue.",
+      "verifyNote": "Verification note",
+      "verifyNoteHint": "E.g. \"ID card and birth certificate checked at the office.\""
     }
   },
   "statusLookup": {
@@ -783,7 +789,7 @@
         "MESSAGE_DELETED": "Message deleted",
         "MEMBER_REGISTERED_OFFICE": "Member registered at the office",
         "MEMBER_CARD_PRINTED": "Member card printed",
-        "MEMBER_DECISION_BLOCKED": "Decision blocked (four-eyes)"
+        "MEMBER_DECISION_BLOCKED": "Decision blocked (former rule)"
       }
     },
     "designSystem": {
@@ -835,7 +841,8 @@
         "filter": "Filter",
         "tableCaption": "Member applications",
         "possibleDuplicate": "Possible duplicate",
-        "empty": "No applications match these filters."
+        "empty": "No applications match these filters.",
+        "allChannels": "All channels"
       },
       "columns": {
         "trackingCode": "Tracking code",
@@ -862,11 +869,12 @@
         "consentGiven": "Given {date} (notice {version})",
         "memberCard": "Member card",
         "memberCardHint": "Print the card to hand to the member. The QR code verifies active status.",
-        "registeredBanner": "Application {code} saved and in the verification queue. Ask a colleague to verify it; the card can then be printed.",
+        "registeredBanner": "Application {code} saved and awaiting verification. You or a colleague can verify it in the Decision panel; the card can then be printed.",
         "printCr80": "Card-size PDF (CR80)",
         "printA4": "Print on A4 paper",
         "printHint": "CR80: two 54 × 85.6 mm pages (front and back) — choose \"Save as PDF\" or the card printer. A4: both sides on one sheet to cut out.",
-        "printFailed": "Could not prepare printing. Please try again."
+        "printFailed": "Could not prepare printing. Please try again.",
+        "verifiedNowBanner": "{code} registered and verified (recorded in the audit log). Print the card and hand it to the member."
       },
       "fields": {
         "fullName": "Full name",
@@ -919,8 +927,7 @@
         "noteHint": "Required for every decision. For “Request revision” and “Reject” this note is shown to the applicant on the public status page — write it for them.",
         "confirmDescription": "Note: “{note}”. This is recorded in the verification history and audit log.",
         "tooShort": "Write a note (5+ characters) to enable the decision buttons.",
-        "success": "Status updated for {code}.",
-        "fourEyesBlocked": "You entered this application at the office, so you cannot decide on it. Ask another Verifier or Super Admin."
+        "success": "Status updated for {code}."
       },
       "validation": {
         "noteMin": "Write a short reason (at least 5 characters)."
@@ -929,7 +936,6 @@
         "notFound": "Registration not found.",
         "conflict": "This application was updated by someone else. Reload the page to see the latest status.",
         "alreadyStatus": "The application already has this status.",
-        "fourEyes": "Four-eyes rule: whoever entered it at the office cannot decide. This attempt was recorded in the audit log.",
         "cardNotVerified": "The card is only available for verified members."
       },
       "office": {
@@ -937,13 +943,16 @@
         "back": "Back to the list",
         "title": "Register a member at the office",
         "description": "For members without internet access. Same form, validation and encryption as the website.",
-        "fourEyesNote": "Four-eyes rule: this application goes into the verification queue. Someone else (not you) verifies, returns or rejects it — Super Admin included.",
-        "button": "Register at office"
+        "button": "Register at office",
+        "accountabilityNote": "You may verify this application right away (the card is printed on the spot) or leave it in the queue for a colleague. The Office channel, your name, the verification and card printing are all in the audit log; verification by the person who entered it is flagged and can be filtered in the members list."
       },
       "channel": {
         "online": "Website (online)",
         "office": "Office",
-        "officeBy": "Office — entered by {name}"
+        "officeBy": "Office — entered by {name}",
+        "selfVerified": "Verified by the person who entered it",
+        "selfVerifiedShort": "self-verified",
+        "selfVerifiedFilter": "Office — verified by the person who entered it"
       }
     },
     "news": {

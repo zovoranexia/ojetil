@@ -372,12 +372,18 @@
       "generic": "Terjadi kesalahan. Data Anda belum tersimpan — silakan coba lagi.",
       "form": "Perbaiki kolom yang ditandai.",
       "network": "Masalah koneksi. Periksa internet lalu coba lagi — jawaban Anda masih tersimpan di sini.",
-      "photoCameraUnavailable": "Kamera tidak tersedia atau izin ditolak. Gunakan \"Pilih foto\" untuk mengunggah file."
+      "photoCameraUnavailable": "Kamera tidak tersedia atau izin ditolak. Gunakan \"Pilih foto\" untuk mengunggah file.",
+      "verifyNote": "Tulis catatan verifikasi (minimal 5 karakter)."
     },
     "office": {
       "consent": "Saya menegaskan anggota telah membaca/mendengar pemberitahuan privasi dan menyetujui (lisan atau tertulis) pemrosesan datanya oleh OJETIL.",
-      "submit": "Simpan dan kirim ke verifikasi",
-      "phoneHint": "Kosongkan jika anggota tidak punya telepon."
+      "submit": "Simpan ke antrean verifikasi",
+      "phoneHint": "Kosongkan jika anggota tidak punya telepon.",
+      "submitVerify": "Simpan & verifikasi sekarang",
+      "verifyNow": "Verifikasi sekarang (saya sudah memeriksa dokumen asli)",
+      "verifyNowHint": "Kartu bisa langsung dicetak. Verifikasi ini tercatat di log audit sebagai \"diverifikasi oleh pencatat\". Jika tidak dicentang, pendaftaran masuk antrean verifikasi.",
+      "verifyNote": "Catatan verifikasi",
+      "verifyNoteHint": "Contoh: \"BI dan akta kelahiran sudah diperiksa di kantor.\""
     }
   },
   "statusLookup": {
@@ -783,7 +789,7 @@
         "MESSAGE_DELETED": "Pesan dihapus",
         "MEMBER_REGISTERED_OFFICE": "Anggota didaftarkan di kantor",
         "MEMBER_CARD_PRINTED": "Kartu anggota dicetak",
-        "MEMBER_DECISION_BLOCKED": "Keputusan diblokir (empat mata)"
+        "MEMBER_DECISION_BLOCKED": "Keputusan diblokir (aturan lama)"
       }
     },
     "designSystem": {
@@ -835,7 +841,8 @@
         "filter": "Saring",
         "tableCaption": "Pendaftaran anggota",
         "possibleDuplicate": "Kemungkinan duplikat",
-        "empty": "Tidak ada pendaftaran yang cocok dengan filter ini."
+        "empty": "Tidak ada pendaftaran yang cocok dengan filter ini.",
+        "allChannels": "Semua saluran"
       },
       "columns": {
         "trackingCode": "Kode pelacakan",
@@ -862,11 +869,12 @@
         "consentGiven": "Diberikan {date} (pemberitahuan {version})",
         "memberCard": "Kartu anggota",
         "memberCardHint": "Cetak kartu untuk diserahkan kepada anggota. Kode QR memverifikasi status aktif.",
-        "registeredBanner": "Pendaftaran {code} tersimpan dan masuk antrean verifikasi. Minta rekan lain memverifikasi; setelah itu kartu bisa dicetak.",
+        "registeredBanner": "Pendaftaran {code} tersimpan dan menunggu verifikasi. Anda atau petugas lain bisa memverifikasi di panel Keputusan; setelah itu kartu bisa dicetak.",
         "printCr80": "PDF ukuran kartu (CR80)",
         "printA4": "Cetak di kertas A4",
         "printHint": "CR80: dua halaman 54 × 85,6 mm (depan dan belakang) — pilih \"Simpan sebagai PDF\" atau printer kartu. A4: depan dan belakang dalam satu lembar untuk digunting.",
-        "printFailed": "Gagal menyiapkan cetak. Coba lagi."
+        "printFailed": "Gagal menyiapkan cetak. Coba lagi.",
+        "verifiedNowBanner": "{code} terdaftar dan terverifikasi (tercatat di log audit). Cetak kartu dan serahkan kepada anggota."
       },
       "fields": {
         "fullName": "Nama lengkap",
@@ -919,8 +927,7 @@
         "noteHint": "Wajib untuk setiap keputusan. Untuk “Minta revisi” dan “Tolak”, catatan ini ditampilkan kepada pendaftar di halaman status publik — tulislah untuk mereka.",
         "confirmDescription": "Catatan: “{note}”. Ini dicatat di riwayat verifikasi dan log audit.",
         "tooShort": "Tulis catatan (minimal 5 karakter) untuk mengaktifkan tombol keputusan.",
-        "success": "Status {code} diperbarui.",
-        "fourEyesBlocked": "Anda yang mendaftarkan anggota ini di kantor, jadi Anda tidak dapat memutuskan. Minta petugas lain dengan peran Verifikator atau Super Admin."
+        "success": "Status {code} diperbarui."
       },
       "validation": {
         "noteMin": "Tulis alasan singkat (minimal 5 karakter)."
@@ -929,7 +936,6 @@
         "notFound": "Pendaftaran tidak ditemukan.",
         "conflict": "Pendaftaran ini telah diperbarui oleh orang lain. Muat ulang halaman untuk melihat status terbaru.",
         "alreadyStatus": "Pendaftaran ini sudah memiliki status tersebut.",
-        "fourEyes": "Aturan empat mata: petugas yang mendaftarkan di kantor tidak boleh memutuskan. Percobaan ini dicatat di log audit.",
         "cardNotVerified": "Kartu hanya tersedia untuk anggota terverifikasi."
       },
       "office": {
@@ -937,13 +943,16 @@
         "back": "Kembali ke daftar",
         "title": "Daftarkan anggota di kantor",
         "description": "Untuk anggota yang tidak punya akses internet. Formulir, validasi, dan enkripsi sama seperti di situs.",
-        "fourEyesNote": "Aturan empat mata: pendaftaran ini masuk antrean verifikasi. Petugas lain (bukan Anda) yang memverifikasi, meminta perbaikan, atau menolak — berlaku juga untuk Super Admin.",
-        "button": "Daftarkan di kantor"
+        "button": "Daftarkan di kantor",
+        "accountabilityNote": "Anda boleh langsung memverifikasi pendaftaran ini (kartu bisa dicetak di tempat) atau membiarkannya di antrean untuk petugas lain. Saluran Kantor, nama Anda, verifikasi, dan cetak kartu semuanya tercatat di Log audit; verifikasi oleh pencatat diberi tanda khusus dan bisa difilter di daftar anggota."
       },
       "channel": {
         "online": "Situs (online)",
         "office": "Kantor",
-        "officeBy": "Kantor — didaftarkan oleh {name}"
+        "officeBy": "Kantor — didaftarkan oleh {name}",
+        "selfVerified": "Diverifikasi oleh pencatat",
+        "selfVerifiedShort": "diverifikasi pencatat",
+        "selfVerifiedFilter": "Kantor — diverifikasi oleh pencatat"
       }
     },
     "news": {

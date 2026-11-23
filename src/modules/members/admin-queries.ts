@@ -20,11 +20,14 @@ export function parseMemberFilters(sp: Record<string, string | string[] | undefi
   const status = one("status");
   const category = one("category");
   const municipality = one("municipality");
+  /** "OFFICE" | "ONLINE" | "SELF" (office entries verified by the person who entered them). */
+  const channel = one("channel");
   return {
     q: one("q")?.slice(0, 80),
     status: (MEMBER_STATUSES as readonly string[]).includes(status ?? "") ? (status as RegistrationStatus) : undefined,
     category: (MEMBER_CATEGORIES as readonly string[]).includes(category ?? "") ? (category as MemberCategory) : undefined,
     municipality: (MUNICIPALITY_VALUES as readonly string[]).includes(municipality ?? "") ? (municipality as Municipality) : undefined,
+    channel: channel === "OFFICE" || channel === "ONLINE" || channel === "SELF" ? channel : undefined,
     page: Math.max(Number.parseInt(one("page") ?? "1", 10) || 1, 1),
   };
 }
@@ -36,6 +39,10 @@ function whereFor(f: MemberFilters): Prisma.MemberRegistrationWhereInput {
   if (f.status) and.push({ status: f.status });
   if (f.category) and.push({ category: f.category });
   if (f.municipality) and.push({ municipality: f.municipality });
+  if (f.channel === "ONLINE") and.push({ channel: "ONLINE" });
+  if (f.channel === "OFFICE") and.push({ channel: "OFFICE" });
+  // Monitoring: office entries verified by the same staff member who entered them.
+  if (f.channel === "SELF") and.push({ channel: "OFFICE", status: "VERIFIED", registeredById: { not: null }, verifiedById: { equals: db.memberRegistration.fields.registeredById } });
   if (f.q) {
     const or: Prisma.MemberRegistrationWhereInput[] = [
       { fullName: { contains: f.q, mode: "insensitive" } },
@@ -72,6 +79,8 @@ export async function listMembers(f: MemberFilters) {
       verifiedAt: true,
       nationalIdHash: true,
       channel: true,
+      registeredById: true,
+      verifiedById: true,
     },
   });
 
@@ -135,6 +144,7 @@ export async function getMemberDetail(id: string) {
       submittedLocale: true,
       verifiedAt: true,
       verificationNotes: true,
+      verifiedById: true,
       verifiedBy: { select: { name: true, email: true } },
       channel: true,
       registeredById: true,

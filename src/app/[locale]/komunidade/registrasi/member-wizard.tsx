@@ -69,9 +69,12 @@ function stepOfField(field: string): Step {
 export function MemberWizard({
   mode = "public",
   onOfficeCreated,
+  canVerify = false,
 }: {
   mode?: "public" | "office";
-  onOfficeCreated?: (created: { id: string; trackingCode: string }) => void;
+  onOfficeCreated?: (created: { id: string; trackingCode: string; status: string }) => void;
+  /** Office mode: staff with members:verify may verify on the spot (audited as self-verified). */
+  canVerify?: boolean;
 } = {}) {
   const office = mode === "office";
   const t = useTranslations("memberRegistration");
@@ -87,6 +90,10 @@ export function MemberWizard({
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [result, setResult] = useState<{ trackingCode: string } | null>(null);
+  // Office only: verify immediately after saving (default off: the queue is the safe default).
+  const [verifyNow, setVerifyNow] = useState(false);
+  const [verifyNote, setVerifyNote] = useState("");
+  const [verifyNoteError, setVerifyNoteError] = useState<string | undefined>();
   const headingRef = useRef<HTMLHeadingElement>(null);
   const alertRef = useRef<HTMLDivElement>(null);
 
@@ -173,6 +180,10 @@ export function MemberWizard({
       else body.append(key, String(value));
     }
     if (photo) body.append("photo", photo);
+    if (office && canVerify && verifyNow) {
+      body.append("verifyNow", "true");
+      body.append("verifyNote", verifyNote);
+    }
 
     let json: ApiResult;
     try {
@@ -189,7 +200,7 @@ export function MemberWizard({
 
     if (json.ok) {
       if (office && json.data.id) {
-        onOfficeCreated?.({ id: json.data.id, trackingCode: json.data.trackingCode });
+        onOfficeCreated?.({ id: json.data.id, trackingCode: json.data.trackingCode, status: json.data.status });
         return;
       }
       setResult({ trackingCode: json.data.trackingCode });
@@ -207,6 +218,11 @@ export function MemberWizard({
       if (field === "photo") {
         setPhotoError(messages[0]);
         earliest = 1;
+        continue;
+      }
+      if (field === "verifyNote") {
+        setVerifyNoteError(messages[0]);
+        earliest = earliest ?? 3;
         continue;
       }
       const s = stepOfField(field);
@@ -614,6 +630,33 @@ export function MemberWizard({
               </p>
             ) : null}
           </div>
+
+          {office && canVerify ? (
+            <div className="space-y-3 rounded-card border border-border-subtle p-4">
+              <label className="flex gap-3 text-sm">
+                <input type="checkbox" className="mt-0.5 size-6 shrink-0 accent-ojetil-red" checked={verifyNow} onChange={(e) => setVerifyNow(e.target.checked)} />
+                <span>
+                  <span className="block font-semibold text-ink">{t("office.verifyNow")}</span>
+                  <span className="text-ink-secondary">{t("office.verifyNowHint")}</span>
+                </span>
+              </label>
+              {verifyNow ? (
+                <Field id="verifyNote" label={t("office.verifyNote")} required hint={t("office.verifyNoteHint")} error={verifyNoteError}>
+                  <textarea
+                    rows={2}
+                    maxLength={1000}
+                    className={textareaClassName}
+                    value={verifyNote}
+                    onChange={(e) => {
+                      setVerifyNote(e.target.value);
+                      setVerifyNoteError(undefined);
+                    }}
+                    {...fieldAria("verifyNote", { hint: true, error: verifyNoteError })}
+                  />
+                </Field>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       </div>
 
@@ -634,7 +677,7 @@ export function MemberWizard({
         ) : (
           <Button type="submit" disabled={submitting} aria-busy={submitting}>
             {submitting ? <Loader2 aria-hidden="true" className="animate-spin" /> : <Lock aria-hidden="true" />}
-            {submitting ? t("actions.submitting") : office ? t("office.submit") : t("actions.submit")}
+            {submitting ? t("actions.submitting") : office ? (canVerify && verifyNow ? t("office.submitVerify") : t("office.submit")) : t("actions.submit")}
           </Button>
         )}
       </div>

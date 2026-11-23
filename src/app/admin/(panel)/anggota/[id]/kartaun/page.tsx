@@ -20,8 +20,9 @@ export async function generateMetadata(): Promise<Metadata> {
  * The photo loads through the audited admin photo route, so it appears only
  * for roles allowed to see member PII.
  */
-export default async function AdminMemberCardPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function AdminMemberCardPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ verified?: string }> }) {
   const { id } = await params;
+  const { verified } = await searchParams;
   const user = await requirePageAccess("members:read", `/admin/anggota/${id}/kartaun`);
   const card = await getMemberCard(id);
   if (!card) notFound();
@@ -35,6 +36,11 @@ export default async function AdminMemberCardPage({ params }: { params: Promise<
       <div className="print:hidden">
         <AdminPageHeading back={{ href: `/admin/anggota/${id}`, label: card.fullName }} title={t("detail.memberCard")} description={t("detail.memberCardHint")} />
       </div>
+      {verified ? (
+        <p role="status" className="mb-6 max-w-3xl rounded-card border border-status-verified/30 bg-status-verified-bg p-4 text-sm text-status-verified print:hidden">
+          {t("detail.verifiedNowBanner", { code: card.trackingCode })}
+        </p>
+      ) : null}
       <div className="max-w-3xl">
         <MemberCard card={card} photoSrc={card.hasPhoto && canSeePhoto ? `/api/admin/members/${id}/photo` : null} locale={locale} />
         <div className="mt-6">

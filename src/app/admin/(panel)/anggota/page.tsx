@@ -101,7 +101,7 @@ export default async function MembersPage({ searchParams }: { searchParams: Sear
   const canExport = satisfies(user.role, "members:export");
   const canRegister = satisfies(user.role, "members:register");
   const [t, tStatus, locale] = await Promise.all([getTranslations("admin.members"), getTranslations("admin.status"), getLocale()]);
-  const params = { q: filters.q, status: filters.status, category: filters.category, municipality: filters.municipality };
+  const params = { q: filters.q, status: filters.status, category: filters.category, municipality: filters.municipality, channel: filters.channel };
 
   return (
     <>
@@ -128,7 +128,7 @@ export default async function MembersPage({ searchParams }: { searchParams: Sear
         }
       />
 
-      <form method="get" role="search" className="mb-4 grid gap-2 rounded-card border border-border-subtle bg-surface-card p-3 md:grid-cols-[1fr_auto_auto_auto_auto]">
+      <form method="get" role="search" className="mb-4 grid gap-2 rounded-card border border-border-subtle bg-surface-card p-3 md:grid-cols-[1fr_auto_auto_auto_auto_auto]">
         <label className="sr-only" htmlFor="q">
           {t("queue.search")}
         </label>
@@ -166,6 +166,15 @@ export default async function MembersPage({ searchParams }: { searchParams: Sear
             </option>
           ))}
         </select>
+        <label className="sr-only" htmlFor="channel">
+          {t("fields.channel")}
+        </label>
+        <select id="channel" name="channel" defaultValue={filters.channel ?? ""} className={filterControlClass}>
+          <option value="">{t("queue.allChannels")}</option>
+          <option value="ONLINE">{t("channel.online")}</option>
+          <option value="OFFICE">{t("channel.office")}</option>
+          <option value="SELF">{t("channel.selfVerifiedFilter")}</option>
+        </select>
         <Button type="submit" variant="editorial" size="sm">
           {t("queue.filter")}
         </Button>
@@ -190,7 +199,12 @@ export default async function MembersPage({ searchParams }: { searchParams: Sear
                   <Link href={`/admin/anggota/${m.id}`} className="tracking-code font-semibold text-ojetil-red hover:underline">
                     {m.trackingCode}
                   </Link>
-                  {m.channel === "OFFICE" ? <span className="mt-0.5 block text-xs text-ink-secondary">{t("channel.office")}</span> : null}
+                  {m.channel === "OFFICE" ? (
+                    <span className="mt-0.5 block text-xs text-ink-secondary">
+                      {t("channel.office")}
+                      {m.status === "VERIFIED" && m.registeredById && m.registeredById === m.verifiedById ? ` · ${t("channel.selfVerifiedShort")}` : ""}
+                    </span>
+                  ) : null}
                 </Td>
                 <Td>
                   <span className="font-medium">{m.fullName}</span>
