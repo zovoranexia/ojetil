@@ -134,7 +134,10 @@
     "showMore": "Ler a história completa",
     "showLess": "Mostrar menos",
     "empty": "A cronologia está a ser preparada.",
-    "note": "Uma história narrativa. Testemunhos e documentos serão publicados no Arquivo Digital da OJETIL."
+    "note": "Uma história narrativa. Testemunhos e documentos serão publicados no Arquivo Digital da OJETIL.",
+    "contents": "Nesta página",
+    "keyDates": "Datas importantes",
+    "fullTimeline": "Cronologia completa"
   },
   "news": {
     "metaTitle": "Notícias e comunicados",

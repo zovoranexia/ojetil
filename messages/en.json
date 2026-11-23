@@ -134,7 +134,10 @@
     "showMore": "Read the full story",
     "showLess": "Show less",
     "empty": "The timeline is being prepared.",
-    "note": "A narrative history. Testimonies and documents will be published in the OJETIL Digital Archive."
+    "note": "A narrative history. Testimonies and documents will be published in the OJETIL Digital Archive.",
+    "contents": "On this page",
+    "keyDates": "Key dates",
+    "fullTimeline": "Full timeline"
   },
   "news": {
     "metaTitle": "News & press releases",

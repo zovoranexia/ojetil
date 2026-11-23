@@ -134,7 +134,10 @@
     "showMore": "Baca kisah lengkapnya",
     "showLess": "Tampilkan lebih sedikit",
     "empty": "Linimasa sedang disiapkan.",
-    "note": "Sejarah naratif. Kesaksian dan dokumen akan diterbitkan di Arsip Digital OJETIL."
+    "note": "Sejarah naratif. Kesaksian dan dokumen akan diterbitkan di Arsip Digital OJETIL.",
+    "contents": "Di halaman ini",
+    "keyDates": "Tanggal penting",
+    "fullTimeline": "Kronologi lengkap"
   },
   "news": {
     "metaTitle": "Berita & siaran pers",
