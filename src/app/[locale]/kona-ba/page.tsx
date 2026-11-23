@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Clock, ExternalLink, Mail, MapPin, MessageSquare, Phone } from "lucide-react";
+import { CalendarDays, Clock, ExternalLink, Landmark, Mail, MapPin, MessageSquare, Network, Phone, Quote } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getMetadataLocale, getPageLocale } from "@/i18n/page-locale";
 import { RichContent } from "@/components/content/rich-content";
@@ -62,6 +62,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   const profile = sections.PROFILE;
   const { headquarters: hq, contact } = siteConfig;
+  const facts = [
+    { icon: CalendarDays, label: t("facts.founded"), value: t("facts.foundedValue") },
+    { icon: Quote, label: t("facts.motto"), value: `${siteConfig.motto} — ${siteConfig.mottoSubline}` },
+    { icon: Landmark, label: t("facts.hq"), value: `${hq.street}, ${hq.city}` },
+    { icon: Network, label: t("facts.network"), value: t("facts.networkValue") },
+  ];
   const mapUrl = `https://www.openstreetmap.org/?mlat=${hq.geo.lat}&mlon=${hq.geo.lng}#map=17/${hq.geo.lat}/${hq.geo.lng}`;
 
   return (
@@ -75,6 +81,23 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <RichContent body={profile.body} className="text-lg md:text-xl [&_p]:hyphens-auto" />
         ) : null}
 
+        <section aria-labelledby="facts" className="mt-12">
+          <h2 id="facts" className="sr-only">
+            {t("facts.label")}
+          </h2>
+          <dl className="grid overflow-hidden rounded-card border border-border-subtle bg-surface-card sm:grid-cols-2 lg:grid-cols-4">
+            {facts.map((f) => (
+              <div key={f.label} className="flex gap-3 border-border-subtle p-5 max-lg:[&:nth-child(n+3)]:border-t max-sm:[&:nth-child(n+2)]:border-t sm:[&:nth-child(even)]:border-l lg:[&:not(:first-child)]:border-l">
+                <f.icon aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-ojetil-red" />
+                <div className="min-w-0">
+                  <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-gold-text">{f.label}</dt>
+                  <dd className="mt-1 font-serif text-lg font-semibold leading-snug text-ink">{f.value}</dd>
+                </div>
+              </div>
+            ))}
+          </dl>
+        </section>
+
         {sections.VISION ? (
           <section aria-labelledby="vision" className="mt-14 border-t border-border-subtle pt-12">
             {/* Same heading style as Mission below. */}
@@ -82,7 +105,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               {sections.VISION.title}
             </h2>
             {/* Same card and text style as the Mission items. */}
-            <p className="mt-8 rounded-card border border-border-subtle bg-surface-card p-5 leading-relaxed md:p-6">{articlePlainText(sections.VISION.body)}</p>
+            <p className="mt-8 rounded-card border border-border-subtle border-l-4 border-l-gold-accent bg-surface-card p-5 font-serif text-lg leading-relaxed text-ink md:p-7 md:text-xl">
+              {articlePlainText(sections.VISION.body)}
+            </p>
           </section>
         ) : null}
 
@@ -97,7 +122,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 const colon = item.indexOf(":");
                 const hasTitle = colon > 0 && colon <= 80;
                 return (
-                  <li key={i} className="flex gap-4 rounded-card border border-border-subtle bg-surface-card p-5 md:p-6">
+                  <li key={i} className="flex gap-4 rounded-card border border-border-subtle bg-surface-card p-5 md:p-6 md:[&:last-child:nth-child(odd)]:col-span-2">
                     <span className="font-serif text-3xl font-bold tabular-nums text-ojetil-red">{String(i + 1).padStart(2, "0")}</span>
                     <p className="pt-1 leading-relaxed">
                       {hasTitle ? (
@@ -123,6 +148,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <h2 id="values" className="mt-4 text-3xl">
                 {sections.VALUES.title}
               </h2>
+              <figure className="mt-8 hidden lg:sticky lg:top-6 lg:block">
+                {/* eslint-disable-next-line @next/next/no-img-element -- static brand emblem */}
+                <img src="/brand/ojetil-emblem-transparent.webp" alt={siteConfig.emblemAlt} width={260} height={260} loading="lazy" decoding="async" className="h-auto w-full max-w-[16rem]" />
+              </figure>
             </div>
             <div className="rounded-card border border-border-subtle bg-surface-card p-6 md:p-8">
               <RichContent body={sections.VALUES.body} />

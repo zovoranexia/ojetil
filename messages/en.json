@@ -125,6 +125,15 @@
       "hours": "Monday to Friday, 08:30–17:00",
       "form": "Contact form",
       "formCta": "Message the Secretariat"
+    },
+    "facts": {
+      "label": "Key facts",
+      "founded": "Founded",
+      "foundedValue": "1980s",
+      "motto": "Motto",
+      "hq": "National headquarters",
+      "network": "Network",
+      "networkValue": "All municipalities and the diaspora"
     }
   },
   "history": {
